@@ -1,0 +1,1010 @@
+{
+  "year": 2020,
+  "month": 10,
+  "day": 21,
+  "regions": {
+    "sg": {
+      "prevalje": {
+        "activeCases": 79,
+        "confirmedToDate": 123,
+        "deceasedToDate": 0
+      },
+      "muta": { "activeCases": 10, "confirmedToDate": 18, "deceasedToDate": 0 },
+      "slovenj_gradec": {
+        "activeCases": 130,
+        "confirmedToDate": 200,
+        "deceasedToDate": 0
+      },
+      "dravograd": {
+        "activeCases": 40,
+        "confirmedToDate": 102,
+        "deceasedToDate": 1
+      },
+      "mežica": {
+        "activeCases": 49,
+        "confirmedToDate": 79,
+        "deceasedToDate": 0
+      },
+      "podvelka": {
+        "activeCases": 5,
+        "confirmedToDate": 11,
+        "deceasedToDate": 0
+      },
+      "ribnica_na_pohorju": {
+        "activeCases": 2,
+        "confirmedToDate": 5,
+        "deceasedToDate": 1
+      },
+      "radlje_ob_dravi": {
+        "activeCases": 16,
+        "confirmedToDate": 22,
+        "deceasedToDate": 0
+      },
+      "ravne_na_koroškem": {
+        "activeCases": 63,
+        "confirmedToDate": 121,
+        "deceasedToDate": 0
+      },
+      "vuzenica": {
+        "activeCases": 7,
+        "confirmedToDate": 21,
+        "deceasedToDate": 0
+      },
+      "črna_na_koroškem": {
+        "activeCases": 20,
+        "confirmedToDate": 86,
+        "deceasedToDate": 0
+      },
+      "mislinja": {
+        "activeCases": 29,
+        "confirmedToDate": 34,
+        "deceasedToDate": 0
+      }
+    },
+    "kk": {
+      "radeče": {
+        "activeCases": 22,
+        "confirmedToDate": 25,
+        "deceasedToDate": 0
+      },
+      "kostanjevica_na_krki": {
+        "activeCases": 16,
+        "confirmedToDate": 22,
+        "deceasedToDate": 0
+      },
+      "brežice": {
+        "activeCases": 94,
+        "confirmedToDate": 117,
+        "deceasedToDate": 1
+      },
+      "bistrica_ob_sotli": {
+        "activeCases": 4,
+        "confirmedToDate": 10,
+        "deceasedToDate": 0
+      },
+      "sevnica": {
+        "activeCases": 156,
+        "confirmedToDate": 202,
+        "deceasedToDate": 8
+      },
+      "krško": {
+        "activeCases": 105,
+        "confirmedToDate": 157,
+        "deceasedToDate": 1
+      }
+    },
+    "za": {
+      "trbovlje": {
+        "activeCases": 57,
+        "confirmedToDate": 115,
+        "deceasedToDate": 0
+      },
+      "litija": {
+        "activeCases": 83,
+        "confirmedToDate": 153,
+        "deceasedToDate": 1
+      },
+      "zagorje_ob_savi": {
+        "activeCases": 60,
+        "confirmedToDate": 106,
+        "deceasedToDate": 0
+      },
+      "hrastnik": {
+        "activeCases": 37,
+        "confirmedToDate": 150,
+        "deceasedToDate": 12
+      }
+    },
+    "mb": {
+      "slovenska_bistrica": {
+        "activeCases": 94,
+        "confirmedToDate": 198,
+        "deceasedToDate": 0
+      },
+      "maribor": {
+        "activeCases": 273,
+        "confirmedToDate": 623,
+        "deceasedToDate": 5
+      },
+      "majšperk": {
+        "activeCases": 22,
+        "confirmedToDate": 33,
+        "deceasedToDate": 0
+      },
+      "selnica_ob_dravi": {
+        "activeCases": 19,
+        "confirmedToDate": 34,
+        "deceasedToDate": 0
+      },
+      "benedikt": {
+        "activeCases": null,
+        "confirmedToDate": 5,
+        "deceasedToDate": 0
+      },
+      "sveti_tomaž": {
+        "activeCases": 7,
+        "confirmedToDate": 10,
+        "deceasedToDate": 0
+      },
+      "sveti_andraž_v_slovenskih_goricah": {
+        "activeCases": 4,
+        "confirmedToDate": 5,
+        "deceasedToDate": 0
+      },
+      "ruše": { "activeCases": 18, "confirmedToDate": 37, "deceasedToDate": 0 },
+      "središče_ob_dravi": {
+        "activeCases": 8,
+        "confirmedToDate": 9,
+        "deceasedToDate": 0
+      },
+      "žetale": { "activeCases": 4, "confirmedToDate": 7, "deceasedToDate": 0 },
+      "cerkvenjak": {
+        "activeCases": 2,
+        "confirmedToDate": 7,
+        "deceasedToDate": 0
+      },
+      "oplotnica": {
+        "activeCases": 25,
+        "confirmedToDate": 43,
+        "deceasedToDate": 1
+      },
+      "lenart": {
+        "activeCases": 24,
+        "confirmedToDate": 54,
+        "deceasedToDate": 1
+      },
+      "poljčane": {
+        "activeCases": 24,
+        "confirmedToDate": 39,
+        "deceasedToDate": 0
+      },
+      "rače-fram": {
+        "activeCases": 22,
+        "confirmedToDate": 39,
+        "deceasedToDate": 0
+      },
+      "kidričevo": {
+        "activeCases": 31,
+        "confirmedToDate": 39,
+        "deceasedToDate": 0
+      },
+      "cirkulane": {
+        "activeCases": 4,
+        "confirmedToDate": 9,
+        "deceasedToDate": 0
+      },
+      "starše": {
+        "activeCases": 27,
+        "confirmedToDate": 48,
+        "deceasedToDate": 0
+      },
+      "duplek": {
+        "activeCases": 21,
+        "confirmedToDate": 37,
+        "deceasedToDate": 0
+      },
+      "zavrč": { "activeCases": 5, "confirmedToDate": 7, "deceasedToDate": 0 },
+      "markovci": {
+        "activeCases": 15,
+        "confirmedToDate": 32,
+        "deceasedToDate": 0
+      },
+      "lovrenc_na_pohorju": {
+        "activeCases": 26,
+        "confirmedToDate": 44,
+        "deceasedToDate": 0
+      },
+      "dornava": {
+        "activeCases": 11,
+        "confirmedToDate": 19,
+        "deceasedToDate": 0
+      },
+      "podlehnik": {
+        "activeCases": 7,
+        "confirmedToDate": 11,
+        "deceasedToDate": 0
+      },
+      "trnovska_vas": {
+        "activeCases": 3,
+        "confirmedToDate": 5,
+        "deceasedToDate": 0
+      },
+      "hajdina": {
+        "activeCases": 28,
+        "confirmedToDate": 49,
+        "deceasedToDate": 0
+      },
+      "gorišnica": {
+        "activeCases": 13,
+        "confirmedToDate": 24,
+        "deceasedToDate": 0
+      },
+      "hoče-slivnica": {
+        "activeCases": 52,
+        "confirmedToDate": 94,
+        "deceasedToDate": 0
+      },
+      "šentilj": {
+        "activeCases": 22,
+        "confirmedToDate": 41,
+        "deceasedToDate": 3
+      },
+      "pesnica": {
+        "activeCases": 14,
+        "confirmedToDate": 31,
+        "deceasedToDate": 0
+      },
+      "juršinci": {
+        "activeCases": 4,
+        "confirmedToDate": 4,
+        "deceasedToDate": 0
+      },
+      "sveta_trojica_v_slovenskih_goricah": {
+        "activeCases": 1,
+        "confirmedToDate": 6,
+        "deceasedToDate": 0
+      },
+      "destrnik": {
+        "activeCases": 10,
+        "confirmedToDate": 16,
+        "deceasedToDate": 0
+      },
+      "kungota": {
+        "activeCases": 9,
+        "confirmedToDate": 24,
+        "deceasedToDate": 0
+      },
+      "videm": {
+        "activeCases": 18,
+        "confirmedToDate": 31,
+        "deceasedToDate": 0
+      },
+      "miklavž_na_dravskem_polju": {
+        "activeCases": 22,
+        "confirmedToDate": 39,
+        "deceasedToDate": 0
+      },
+      "ormož": {
+        "activeCases": 23,
+        "confirmedToDate": 40,
+        "deceasedToDate": 0
+      },
+      "sveta_ana": {
+        "activeCases": 3,
+        "confirmedToDate": 17,
+        "deceasedToDate": 0
+      },
+      "ptuj": {
+        "activeCases": 96,
+        "confirmedToDate": 140,
+        "deceasedToDate": 0
+      },
+      "makole": { "activeCases": 4, "confirmedToDate": 12, "deceasedToDate": 0 }
+    },
+    "ce": {
+      "tabor": { "activeCases": 4, "confirmedToDate": 18, "deceasedToDate": 0 },
+      "dobrna": {
+        "activeCases": 15,
+        "confirmedToDate": 21,
+        "deceasedToDate": 0
+      },
+      "vitanje": {
+        "activeCases": 12,
+        "confirmedToDate": 27,
+        "deceasedToDate": 0
+      },
+      "štore": {
+        "activeCases": 14,
+        "confirmedToDate": 22,
+        "deceasedToDate": 0
+      },
+      "braslovče": {
+        "activeCases": 16,
+        "confirmedToDate": 60,
+        "deceasedToDate": 0
+      },
+      "velenje": {
+        "activeCases": 170,
+        "confirmedToDate": 265,
+        "deceasedToDate": 0
+      },
+      "podčetrtek": {
+        "activeCases": 10,
+        "confirmedToDate": 19,
+        "deceasedToDate": 1
+      },
+      "rečica_ob_savinji": {
+        "activeCases": 7,
+        "confirmedToDate": 22,
+        "deceasedToDate": 1
+      },
+      "polzela": {
+        "activeCases": 20,
+        "confirmedToDate": 32,
+        "deceasedToDate": 0
+      },
+      "celje": {
+        "activeCases": 183,
+        "confirmedToDate": 354,
+        "deceasedToDate": 0
+      },
+      "gornji_grad": {
+        "activeCases": 9,
+        "confirmedToDate": 9,
+        "deceasedToDate": 0
+      },
+      "nazarje": {
+        "activeCases": 6,
+        "confirmedToDate": 15,
+        "deceasedToDate": 0
+      },
+      "vransko": {
+        "activeCases": 17,
+        "confirmedToDate": 27,
+        "deceasedToDate": 0
+      },
+      "slovenske_konjice": {
+        "activeCases": 60,
+        "confirmedToDate": 130,
+        "deceasedToDate": 1
+      },
+      "vojnik": {
+        "activeCases": 51,
+        "confirmedToDate": 81,
+        "deceasedToDate": 0
+      },
+      "vojnki": { "activeCases": 0, "confirmedToDate": 0, "deceasedToDate": 1 },
+      "luče": { "activeCases": 10, "confirmedToDate": 12, "deceasedToDate": 0 },
+      "rogaška_slatina": {
+        "activeCases": 37,
+        "confirmedToDate": 159,
+        "deceasedToDate": 4
+      },
+      "prebold": {
+        "activeCases": 12,
+        "confirmedToDate": 36,
+        "deceasedToDate": 0
+      },
+      "žalec": {
+        "activeCases": 85,
+        "confirmedToDate": 140,
+        "deceasedToDate": 0
+      },
+      "laško": {
+        "activeCases": 65,
+        "confirmedToDate": 87,
+        "deceasedToDate": 1
+      },
+      "šmartno_ob_paki": {
+        "activeCases": 9,
+        "confirmedToDate": 15,
+        "deceasedToDate": 0
+      },
+      "solčava": {
+        "activeCases": 5,
+        "confirmedToDate": 5,
+        "deceasedToDate": 0
+      },
+      "šentjur": {
+        "activeCases": 119,
+        "confirmedToDate": 215,
+        "deceasedToDate": 1
+      },
+      "ljubno": {
+        "activeCases": 14,
+        "confirmedToDate": 25,
+        "deceasedToDate": 0
+      },
+      "rogatec": {
+        "activeCases": 11,
+        "confirmedToDate": 37,
+        "deceasedToDate": 0
+      },
+      "šoštanj": {
+        "activeCases": 41,
+        "confirmedToDate": 64,
+        "deceasedToDate": 0
+      },
+      "kozje": { "activeCases": 7, "confirmedToDate": 12, "deceasedToDate": 0 },
+      "dobje": { "activeCases": 3, "confirmedToDate": 4, "deceasedToDate": 0 },
+      "šmarje_pri_jelšah": {
+        "activeCases": 22,
+        "confirmedToDate": 228,
+        "deceasedToDate": 39
+      },
+      "mozirje": {
+        "activeCases": 19,
+        "confirmedToDate": 38,
+        "deceasedToDate": 0
+      },
+      "zreče": { "activeCases": 40, "confirmedToDate": 88, "deceasedToDate": 0 }
+    },
+    "kr": {
+      "železniki": {
+        "activeCases": 88,
+        "confirmedToDate": 101,
+        "deceasedToDate": 0
+      },
+      "žiri": { "activeCases": 33, "confirmedToDate": 39, "deceasedToDate": 0 },
+      "škofja_loka": {
+        "activeCases": 287,
+        "confirmedToDate": 374,
+        "deceasedToDate": 3
+      },
+      "jesenice": {
+        "activeCases": 214,
+        "confirmedToDate": 301,
+        "deceasedToDate": 2
+      },
+      "kranj": {
+        "activeCases": 496,
+        "confirmedToDate": 706,
+        "deceasedToDate": 3
+      },
+      "radovljica": {
+        "activeCases": 180,
+        "confirmedToDate": 234,
+        "deceasedToDate": 0
+      },
+      "šenčur": {
+        "activeCases": 66,
+        "confirmedToDate": 100,
+        "deceasedToDate": 1
+      },
+      "gorje": {
+        "activeCases": 12,
+        "confirmedToDate": 24,
+        "deceasedToDate": 0
+      },
+      "tržič": {
+        "activeCases": 77,
+        "confirmedToDate": 128,
+        "deceasedToDate": 0
+      },
+      "cerklje_na_gorenjskem": {
+        "activeCases": 69,
+        "confirmedToDate": 89,
+        "deceasedToDate": 0
+      },
+      "naklo": {
+        "activeCases": 26,
+        "confirmedToDate": 49,
+        "deceasedToDate": 1
+      },
+      "bohinj": {
+        "activeCases": 40,
+        "confirmedToDate": 52,
+        "deceasedToDate": 0
+      },
+      "preddvor": {
+        "activeCases": 29,
+        "confirmedToDate": 44,
+        "deceasedToDate": 0
+      },
+      "žirovnica": {
+        "activeCases": 31,
+        "confirmedToDate": 48,
+        "deceasedToDate": 1
+      },
+      "jezersko": {
+        "activeCases": 3,
+        "confirmedToDate": 3,
+        "deceasedToDate": 0
+      },
+      "gorenja_vas-poljane": {
+        "activeCases": 56,
+        "confirmedToDate": 76,
+        "deceasedToDate": 0
+      },
+      "kranjska_gora": {
+        "activeCases": 36,
+        "confirmedToDate": 49,
+        "deceasedToDate": 0
+      },
+      "bled": { "activeCases": 48, "confirmedToDate": 67, "deceasedToDate": 0 }
+    },
+    "po": {
+      "pivka": {
+        "activeCases": 22,
+        "confirmedToDate": 87,
+        "deceasedToDate": 0
+      },
+      "cerknica": {
+        "activeCases": 14,
+        "confirmedToDate": 41,
+        "deceasedToDate": 0
+      },
+      "bloke": { "activeCases": 1, "confirmedToDate": 6, "deceasedToDate": 0 },
+      "postojna": {
+        "activeCases": 58,
+        "confirmedToDate": 115,
+        "deceasedToDate": 0
+      },
+      "loška_dolina": {
+        "activeCases": 13,
+        "confirmedToDate": 21,
+        "deceasedToDate": 0
+      },
+      "ilirska_bistrica": {
+        "activeCases": 38,
+        "confirmedToDate": 110,
+        "deceasedToDate": 0
+      }
+    },
+    "nm": {
+      "loški_potok": {
+        "activeCases": 4,
+        "confirmedToDate": 4,
+        "deceasedToDate": 0
+      },
+      "dolenjske_toplice": {
+        "activeCases": 14,
+        "confirmedToDate": 24,
+        "deceasedToDate": 0
+      },
+      "novo_mesto": {
+        "activeCases": 206,
+        "confirmedToDate": 310,
+        "deceasedToDate": 0
+      },
+      "kočevje": {
+        "activeCases": 22,
+        "confirmedToDate": 47,
+        "deceasedToDate": 0
+      },
+      "osilnica": {
+        "activeCases": 1,
+        "confirmedToDate": 1,
+        "deceasedToDate": 0
+      },
+      "mirna": { "activeCases": 8, "confirmedToDate": 12, "deceasedToDate": 0 },
+      "semič": {
+        "activeCases": 20,
+        "confirmedToDate": 33,
+        "deceasedToDate": 0
+      },
+      "škocjan": {
+        "activeCases": 22,
+        "confirmedToDate": 30,
+        "deceasedToDate": 0
+      },
+      "trebnje": {
+        "activeCases": 81,
+        "confirmedToDate": 127,
+        "deceasedToDate": 1
+      },
+      "šmarješke_toplice": {
+        "activeCases": 19,
+        "confirmedToDate": 31,
+        "deceasedToDate": 0
+      },
+      "žužemberk": {
+        "activeCases": 22,
+        "confirmedToDate": 32,
+        "deceasedToDate": 0
+      },
+      "kostel": { "activeCases": 3, "confirmedToDate": 4, "deceasedToDate": 0 },
+      "mirna_peč": {
+        "activeCases": 28,
+        "confirmedToDate": 35,
+        "deceasedToDate": 0
+      },
+      "straža": {
+        "activeCases": 18,
+        "confirmedToDate": 21,
+        "deceasedToDate": 0
+      },
+      "šentjernej": {
+        "activeCases": 62,
+        "confirmedToDate": 104,
+        "deceasedToDate": 1
+      },
+      "šentrupert": {
+        "activeCases": 11,
+        "confirmedToDate": 21,
+        "deceasedToDate": 0
+      },
+      "mokronog-trebelno": {
+        "activeCases": 28,
+        "confirmedToDate": 34,
+        "deceasedToDate": 0
+      },
+      "črnomelj": {
+        "activeCases": 47,
+        "confirmedToDate": 72,
+        "deceasedToDate": 0
+      },
+      "sodražica": {
+        "activeCases": 38,
+        "confirmedToDate": 47,
+        "deceasedToDate": 0
+      },
+      "ribnica": {
+        "activeCases": 71,
+        "confirmedToDate": 99,
+        "deceasedToDate": 0
+      },
+      "metlika": {
+        "activeCases": 30,
+        "confirmedToDate": 117,
+        "deceasedToDate": 17
+      }
+    },
+    "ms": {
+      "gornji_petrovci": {
+        "activeCases": 6,
+        "confirmedToDate": 7,
+        "deceasedToDate": 0
+      },
+      "hodoš": { "activeCases": 3, "confirmedToDate": 3, "deceasedToDate": 0 },
+      "turnišče": {
+        "activeCases": 12,
+        "confirmedToDate": 25,
+        "deceasedToDate": 0
+      },
+      "črenšovci": {
+        "activeCases": 19,
+        "confirmedToDate": 36,
+        "deceasedToDate": 0
+      },
+      "puconci": {
+        "activeCases": 42,
+        "confirmedToDate": 59,
+        "deceasedToDate": 0
+      },
+      "moravske_toplice": {
+        "activeCases": 20,
+        "confirmedToDate": 30,
+        "deceasedToDate": 0
+      },
+      "velika_polana": {
+        "activeCases": 7,
+        "confirmedToDate": 11,
+        "deceasedToDate": 0
+      },
+      "beltinci": {
+        "activeCases": 44,
+        "confirmedToDate": 67,
+        "deceasedToDate": 0
+      },
+      "sveti_jurij_ob_ščavnici": {
+        "activeCases": 7,
+        "confirmedToDate": 16,
+        "deceasedToDate": 0
+      },
+      "radenci": {
+        "activeCases": 9,
+        "confirmedToDate": 15,
+        "deceasedToDate": 0
+      },
+      "lendava": {
+        "activeCases": 20,
+        "confirmedToDate": 68,
+        "deceasedToDate": 0
+      },
+      "dobrovnik": {
+        "activeCases": 1,
+        "confirmedToDate": 5,
+        "deceasedToDate": 0
+      },
+      "tišina": {
+        "activeCases": 26,
+        "confirmedToDate": 41,
+        "deceasedToDate": 0
+      },
+      "cankova": {
+        "activeCases": 3,
+        "confirmedToDate": 7,
+        "deceasedToDate": 0
+      },
+      "ljutomer": {
+        "activeCases": 32,
+        "confirmedToDate": 181,
+        "deceasedToDate": 22
+      },
+      "križevci": {
+        "activeCases": 4,
+        "confirmedToDate": 9,
+        "deceasedToDate": 0
+      },
+      "grad": { "activeCases": 11, "confirmedToDate": 14, "deceasedToDate": 0 },
+      "apače": { "activeCases": 4, "confirmedToDate": 8, "deceasedToDate": 0 },
+      "kobilje": {
+        "activeCases": 1,
+        "confirmedToDate": 4,
+        "deceasedToDate": 0
+      },
+      "gornja_radgona": {
+        "activeCases": 11,
+        "confirmedToDate": 29,
+        "deceasedToDate": 0
+      },
+      "šalovci": {
+        "activeCases": 12,
+        "confirmedToDate": 13,
+        "deceasedToDate": 0
+      },
+      "rogašovci": {
+        "activeCases": 7,
+        "confirmedToDate": 11,
+        "deceasedToDate": 0
+      },
+      "kuzma": {
+        "activeCases": 25,
+        "confirmedToDate": 28,
+        "deceasedToDate": 0
+      },
+      "razkrižje": {
+        "activeCases": 4,
+        "confirmedToDate": 6,
+        "deceasedToDate": 0
+      },
+      "veržej": {
+        "activeCases": 6,
+        "confirmedToDate": 13,
+        "deceasedToDate": 0
+      },
+      "odranci": {
+        "activeCases": 44,
+        "confirmedToDate": 49,
+        "deceasedToDate": 0
+      },
+      "murska_sobota": {
+        "activeCases": 90,
+        "confirmedToDate": 151,
+        "deceasedToDate": 2
+      }
+    },
+    "lj": {
+      "trzin": {
+        "activeCases": 20,
+        "confirmedToDate": 39,
+        "deceasedToDate": 0
+      },
+      "kamnik": {
+        "activeCases": 189,
+        "confirmedToDate": 312,
+        "deceasedToDate": 0
+      },
+      "medvode": {
+        "activeCases": 87,
+        "confirmedToDate": 135,
+        "deceasedToDate": 0
+      },
+      "ivančna_gorica": {
+        "activeCases": 90,
+        "confirmedToDate": 126,
+        "deceasedToDate": 0
+      },
+      "borovnica": {
+        "activeCases": 30,
+        "confirmedToDate": 44,
+        "deceasedToDate": 0
+      },
+      "dobrepolje": {
+        "activeCases": 18,
+        "confirmedToDate": 24,
+        "deceasedToDate": 0
+      },
+      "velike_lašče": {
+        "activeCases": 20,
+        "confirmedToDate": 54,
+        "deceasedToDate": 0
+      },
+      "vrhnika": {
+        "activeCases": 116,
+        "confirmedToDate": 169,
+        "deceasedToDate": 0
+      },
+      "brezovica": {
+        "activeCases": 64,
+        "confirmedToDate": 111,
+        "deceasedToDate": 3
+      },
+      "dobrova-polhov_gradec": {
+        "activeCases": 25,
+        "confirmedToDate": 46,
+        "deceasedToDate": 0
+      },
+      "horjul": {
+        "activeCases": 21,
+        "confirmedToDate": 53,
+        "deceasedToDate": 6
+      },
+      "log-dragomer": {
+        "activeCases": 17,
+        "confirmedToDate": 51,
+        "deceasedToDate": 0
+      },
+      "grosuplje": {
+        "activeCases": 139,
+        "confirmedToDate": 209,
+        "deceasedToDate": 1
+      },
+      "ljubljana": {
+        "activeCases": 1480,
+        "confirmedToDate": 2848,
+        "deceasedToDate": 15
+      },
+      "domžale": {
+        "activeCases": 367,
+        "confirmedToDate": 508,
+        "deceasedToDate": 2
+      },
+      "ig": { "activeCases": 22, "confirmedToDate": 63, "deceasedToDate": 0 },
+      "moravče": {
+        "activeCases": 67,
+        "confirmedToDate": 84,
+        "deceasedToDate": 0
+      },
+      "škofljica": {
+        "activeCases": 88,
+        "confirmedToDate": 156,
+        "deceasedToDate": 1
+      },
+      "komenda": {
+        "activeCases": 50,
+        "confirmedToDate": 71,
+        "deceasedToDate": 0
+      },
+      "dol_pri_ljubljani": {
+        "activeCases": 32,
+        "confirmedToDate": 43,
+        "deceasedToDate": 0
+      },
+      "vodice": {
+        "activeCases": 27,
+        "confirmedToDate": 54,
+        "deceasedToDate": 0
+      },
+      "lukovica": {
+        "activeCases": 55,
+        "confirmedToDate": 86,
+        "deceasedToDate": 0
+      },
+      "mengeš": {
+        "activeCases": 76,
+        "confirmedToDate": 100,
+        "deceasedToDate": 0
+      },
+      "šmartno_pri_litiji": {
+        "activeCases": 31,
+        "confirmedToDate": 52,
+        "deceasedToDate": 0
+      },
+      "logatec": {
+        "activeCases": 56,
+        "confirmedToDate": 79,
+        "deceasedToDate": 0
+      }
+    },
+    "ng": {
+      "ajdovščina": {
+        "activeCases": 80,
+        "confirmedToDate": 123,
+        "deceasedToDate": 0
+      },
+      "brda": { "activeCases": 5, "confirmedToDate": 7, "deceasedToDate": 0 },
+      "bovec": {
+        "activeCases": 14,
+        "confirmedToDate": 19,
+        "deceasedToDate": 0
+      },
+      "idrija": {
+        "activeCases": 47,
+        "confirmedToDate": 65,
+        "deceasedToDate": 0
+      },
+      "kobarid": {
+        "activeCases": 5,
+        "confirmedToDate": 6,
+        "deceasedToDate": 0
+      },
+      "cerkno": {
+        "activeCases": 13,
+        "confirmedToDate": 18,
+        "deceasedToDate": 0
+      },
+      "renče-vogrsko": {
+        "activeCases": 10,
+        "confirmedToDate": 16,
+        "deceasedToDate": 0
+      },
+      "vipava": {
+        "activeCases": 16,
+        "confirmedToDate": 46,
+        "deceasedToDate": 5
+      },
+      "tolmin": {
+        "activeCases": 34,
+        "confirmedToDate": 64,
+        "deceasedToDate": 1
+      },
+      "kanal": { "activeCases": 4, "confirmedToDate": 6, "deceasedToDate": 0 },
+      "miren-kostanjevica": {
+        "activeCases": 11,
+        "confirmedToDate": 14,
+        "deceasedToDate": 0
+      },
+      "nova_gorica": {
+        "activeCases": 65,
+        "confirmedToDate": 111,
+        "deceasedToDate": 0
+      },
+      "šempeter-vrtojba": {
+        "activeCases": 17,
+        "confirmedToDate": 24,
+        "deceasedToDate": 0
+      }
+    },
+    "t": {
+      "tujina": {
+        "activeCases": 85,
+        "confirmedToDate": 172,
+        "deceasedToDate": 0
+      }
+    },
+    "kp": {
+      "komen": {
+        "activeCases": 19,
+        "confirmedToDate": 28,
+        "deceasedToDate": 0
+      },
+      "hrpelje-kozina": {
+        "activeCases": 4,
+        "confirmedToDate": 14,
+        "deceasedToDate": 0
+      },
+      "ankaran": {
+        "activeCases": 4,
+        "confirmedToDate": 9,
+        "deceasedToDate": 0
+      },
+      "koper": {
+        "activeCases": 77,
+        "confirmedToDate": 138,
+        "deceasedToDate": 0
+      },
+      "izola": {
+        "activeCases": 18,
+        "confirmedToDate": 33,
+        "deceasedToDate": 0
+      },
+      "piran": {
+        "activeCases": 33,
+        "confirmedToDate": 62,
+        "deceasedToDate": 1
+      },
+      "sežana": {
+        "activeCases": 22,
+        "confirmedToDate": 41,
+        "deceasedToDate": 0
+      },
+      "divača": {
+        "activeCases": 20,
+        "confirmedToDate": 35,
+        "deceasedToDate": 1
+      }
+    }
+  }
+}

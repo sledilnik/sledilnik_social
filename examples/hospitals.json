@@ -1,0 +1,199 @@
+{
+  "year": 2020,
+  "month": 10,
+  "day": 22,
+  "overall": {
+    "beds": {
+      "total": 346,
+      "max": 484,
+      "occupied": 294,
+      "free": 52,
+      "maxFree": 190
+    },
+    "icu": { "total": 68, "max": 88, "occupied": 62, "free": 6 },
+    "vents": { "total": 68, "max": 92, "occupied": 46, "free": 22 },
+    "care": { "total": 45, "max": 45, "occupied": 29, "free": 16 }
+  },
+  "perHospital": {
+    "ukg": {
+      "beds": {
+        "total": 20,
+        "max": 25,
+        "occupied": 21,
+        "free": -1,
+        "maxFree": 4
+      },
+      "icu": { "total": 6, "max": 6, "occupied": 5, "free": 1 },
+      "vents": { "total": 6, "max": 6, "occupied": 2, "free": 4 },
+      "care": { "total": null, "max": null, "occupied": null, "free": null }
+    },
+    "sbsg": {
+      "beds": {
+        "total": 28,
+        "max": 30,
+        "occupied": 26,
+        "free": 2,
+        "maxFree": 4
+      },
+      "icu": { "total": 0, "max": 5, "occupied": 0, "free": 0 },
+      "vents": { "total": 0, "max": 5, "occupied": 0, "free": 0 },
+      "care": { "total": null, "max": null, "occupied": null, "free": null }
+    },
+    "sbiz": {
+      "beds": {
+        "total": 9,
+        "max": 28,
+        "occupied": null,
+        "free": 9,
+        "maxFree": 28
+      },
+      "icu": { "total": null, "max": null, "occupied": null, "free": null },
+      "vents": { "total": null, "max": null, "occupied": null, "free": null },
+      "care": { "total": null, "max": null, "occupied": null, "free": null }
+    },
+    "sbje": {
+      "beds": {
+        "total": 16,
+        "max": 16,
+        "occupied": 16,
+        "free": 0,
+        "maxFree": 0
+      },
+      "icu": { "total": null, "max": null, "occupied": null, "free": null },
+      "vents": { "total": null, "max": null, "occupied": null, "free": null },
+      "care": { "total": null, "max": null, "occupied": null, "free": null }
+    },
+    "sbms": {
+      "beds": {
+        "total": 28,
+        "max": 28,
+        "occupied": 28,
+        "free": 0,
+        "maxFree": 0
+      },
+      "icu": { "total": 5, "max": 5, "occupied": 6, "free": -1 },
+      "vents": { "total": 5, "max": 5, "occupied": 4, "free": 1 },
+      "care": { "total": null, "max": null, "occupied": null, "free": null }
+    },
+    "ukcmb": {
+      "beds": {
+        "total": 42,
+        "max": 64,
+        "occupied": 40,
+        "free": 2,
+        "maxFree": 24
+      },
+      "icu": { "total": 14, "max": 16, "occupied": 13, "free": 1 },
+      "vents": { "total": 14, "max": 16, "occupied": 9, "free": 5 },
+      "care": { "total": null, "max": null, "occupied": null, "free": 0 }
+    },
+    "sbce": {
+      "beds": {
+        "total": 25,
+        "max": 75,
+        "occupied": 22,
+        "free": 3,
+        "maxFree": 53
+      },
+      "icu": { "total": 9, "max": 22, "occupied": 9, "free": 0 },
+      "vents": { "total": 9, "max": 22, "occupied": 6, "free": 3 },
+      "care": { "total": null, "max": null, "occupied": null, "free": null }
+    },
+    "ukclj": {
+      "beds": {
+        "total": 85,
+        "max": 89,
+        "occupied": 84,
+        "free": 1,
+        "maxFree": 5
+      },
+      "icu": { "total": 26, "max": 26, "occupied": 22, "free": 4 },
+      "vents": { "total": 26, "max": 30, "occupied": 19, "free": 7 },
+      "care": { "total": 0, "max": 0, "occupied": 0, "free": 0 }
+    },
+    "sbpt": {
+      "beds": {
+        "total": 20,
+        "max": 28,
+        "occupied": 20,
+        "free": 0,
+        "maxFree": 8
+      },
+      "icu": { "total": null, "max": null, "occupied": null, "free": null },
+      "vents": { "total": null, "max": null, "occupied": null, "free": null },
+      "care": { "total": null, "max": null, "occupied": null, "free": null }
+    },
+    "sbnm": {
+      "beds": {
+        "total": 40,
+        "max": 53,
+        "occupied": 17,
+        "free": 23,
+        "maxFree": 36
+      },
+      "icu": { "total": 4, "max": 4, "occupied": 3, "free": 1 },
+      "vents": { "total": 4, "max": 4, "occupied": 3, "free": 1 },
+      "care": { "total": null, "max": null, "occupied": null, "free": 0 }
+    },
+    "sbng": {
+      "beds": {
+        "total": 20,
+        "max": 35,
+        "occupied": 9,
+        "free": 11,
+        "maxFree": 26
+      },
+      "icu": { "total": null, "max": null, "occupied": null, "free": null },
+      "vents": { "total": null, "max": null, "occupied": null, "free": null },
+      "care": { "total": 0, "max": 0, "occupied": null, "free": 0 }
+    },
+    "bto": {
+      "beds": {
+        "total": 0,
+        "max": 0,
+        "occupied": 3,
+        "free": -3,
+        "maxFree": -3
+      },
+      "icu": { "total": null, "max": null, "occupied": null, "free": null },
+      "vents": { "total": null, "max": null, "occupied": null, "free": null },
+      "care": { "total": 30, "max": 30, "occupied": 25, "free": 5 }
+    },
+    "sbtr": {
+      "beds": {
+        "total": 13,
+        "max": 13,
+        "occupied": 8,
+        "free": 5,
+        "maxFree": 5
+      },
+      "icu": { "total": 4, "max": 4, "occupied": 4, "free": 0 },
+      "vents": { "total": 4, "max": 4, "occupied": 3, "free": 1 },
+      "care": { "total": null, "max": null, "occupied": null, "free": null }
+    },
+    "sbbr": {
+      "beds": {
+        "total": null,
+        "max": null,
+        "occupied": null,
+        "free": 0,
+        "maxFree": 0
+      },
+      "icu": { "total": null, "max": null, "occupied": null, "free": null },
+      "vents": { "total": null, "max": null, "occupied": null, "free": null },
+      "care": { "total": 15, "max": 15, "occupied": 4, "free": 11 }
+    },
+    "bse": {
+      "beds": {
+        "total": 0,
+        "max": 0,
+        "occupied": null,
+        "free": 0,
+        "maxFree": 0
+      },
+      "icu": { "total": null, "max": null, "occupied": null, "free": null },
+      "vents": { "total": null, "max": null, "occupied": null, "free": null },
+      "care": { "total": null, "max": null, "occupied": null, "free": null }
+    }
+  }
+}

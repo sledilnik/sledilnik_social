@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Amiri&display=swap");
+:root {
+  --basic-color: #23cc71;
+}
+.App {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Amiri", serif;
+  overflow: hidden;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+}
+.container h1 {
+  font-size: 60px;
+  text-align: center;
+  color: var(--basic-color);
+}
+
+.text {
+  font-weight: 600;
+}
+.bold {
+  font-weight: 600;
+  font-style: bold;
+  color: var(--basic-color);
+}
+.list-head {
+  text-align: center;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.footer {
+  font-size: 15px;
+  font-weight: 600;
+}
+.list {
+  list-style: circle;
+}
+
+.top {
+  height: 8vh;
+  width: 100%;
+  background-color: #ffd922;
+}

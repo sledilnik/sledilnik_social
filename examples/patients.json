@@ -1,0 +1,134 @@
+{
+  "dayFromStart": 233,
+  "year": 2020,
+  "month": 10,
+  "day": 22,
+  "total": {
+    "outOfHospital": { "toDate": 832 },
+    "inHospital": { "in": 60, "out": 32, "today": 356, "toDate": 1322 },
+    "icu": { "in": 11, "out": 3, "today": 62, "toDate": 220 },
+    "critical": { "in": 7, "out": 1, "today": 46, "toDate": 135 },
+    "deceased": {
+      "hospital": {
+        "icu": { "today": 1, "toDate": 34 },
+        "today": 5,
+        "toDate": 131
+      },
+      "home": { "today": 4, "toDate": 80 },
+      "today": 9,
+      "toDate": 211
+    }
+  },
+  "facilities": {
+    "ukg": {
+      "inHospital": { "in": 6, "out": 2, "today": 26, "toDate": 134 },
+      "icu": { "in": 2, "out": 0, "today": 5, "toDate": 21 },
+      "critical": { "in": 1, "out": null, "today": 2, "toDate": 9 },
+      "deceased": {
+        "icu": { "today": null, "toDate": 2 },
+        "today": null,
+        "toDate": 17
+      }
+    },
+    "sbsg": {
+      "inHospital": { "in": 7, "out": 1, "today": 26, "toDate": 54 },
+      "icu": { "in": 1, "out": 1, "today": 0, "toDate": 4 },
+      "critical": { "in": null, "out": null, "today": 0, "toDate": 0 },
+      "deceased": {
+        "icu": { "today": null, "toDate": 0 },
+        "today": null,
+        "toDate": 4
+      }
+    },
+    "sbje": {
+      "inHospital": { "in": 3, "out": 0, "today": 16, "toDate": 33 },
+      "icu": { "in": null, "out": null, "today": null, "toDate": null },
+      "critical": { "in": null, "out": null, "today": null, "toDate": null },
+      "deceased": {
+        "icu": { "today": null, "toDate": null },
+        "today": null,
+        "toDate": 2
+      }
+    },
+    "sbms": {
+      "inHospital": { "in": 1, "out": 0, "today": 34, "toDate": 45 },
+      "icu": { "in": 1, "out": 1, "today": 6, "toDate": 9 },
+      "critical": { "in": 1, "out": null, "today": 4, "toDate": 5 },
+      "deceased": {
+        "icu": { "today": null, "toDate": 1 },
+        "today": 1,
+        "toDate": 4
+      }
+    },
+    "ukcmb": {
+      "inHospital": { "in": 9, "out": 5, "today": 53, "toDate": 273 },
+      "icu": { "in": 4, "out": -1, "today": 13, "toDate": 56 },
+      "critical": { "in": 4, "out": null, "today": 9, "toDate": 37 },
+      "deceased": {
+        "icu": { "today": 1, "toDate": 10 },
+        "today": 1,
+        "toDate": 24
+      }
+    },
+    "sbce": {
+      "inHospital": { "in": 5, "out": 4, "today": 31, "toDate": 153 },
+      "icu": { "in": 0, "out": 0, "today": 9, "toDate": 23 },
+      "critical": { "in": null, "out": 1, "today": 6, "toDate": 16 },
+      "deceased": {
+        "icu": { "today": null, "toDate": 1 },
+        "today": 1,
+        "toDate": 23
+      }
+    },
+    "ukclj": {
+      "inHospital": { "in": 19, "out": 9, "today": 106, "toDate": 503 },
+      "icu": { "in": 3, "out": 2, "today": 22, "toDate": 96 },
+      "critical": { "in": null, "out": null, "today": 19, "toDate": 59 },
+      "deceased": {
+        "icu": { "today": null, "toDate": 18 },
+        "today": 2,
+        "toDate": 45
+      }
+    },
+    "sbpt": {
+      "inHospital": { "in": 1, "out": 1, "today": 20, "toDate": 31 },
+      "icu": { "in": null, "out": null, "today": null, "toDate": null },
+      "critical": { "in": null, "out": null, "today": null, "toDate": null },
+      "deceased": {
+        "icu": { "today": null, "toDate": null },
+        "today": null,
+        "toDate": 0
+      }
+    },
+    "sbnm": {
+      "inHospital": { "in": 5, "out": 4, "today": 20, "toDate": 55 },
+      "icu": { "in": 0, "out": 0, "today": 3, "toDate": 4 },
+      "critical": { "in": 1, "out": null, "today": 3, "toDate": 5 },
+      "deceased": {
+        "icu": { "today": null, "toDate": 1 },
+        "today": null,
+        "toDate": 10
+      }
+    },
+    "sbng": {
+      "inHospital": { "in": 2, "out": 4, "today": 9, "toDate": 15 },
+      "icu": { "in": null, "out": null, "today": null, "toDate": null },
+      "critical": { "in": null, "out": null, "today": null, "toDate": null },
+      "deceased": {
+        "icu": { "today": null, "toDate": null },
+        "today": null,
+        "toDate": 1
+      }
+    },
+    "sbtr": {
+      "inHospital": { "in": 2, "out": 2, "today": 12, "toDate": 23 },
+      "icu": { "in": 0, "out": 0, "today": 4, "toDate": 7 },
+      "critical": { "in": null, "out": null, "today": 3, "toDate": 4 },
+      "deceased": {
+        "icu": { "today": null, "toDate": 1 },
+        "today": null,
+        "toDate": 1
+      }
+    }
+  }
+}

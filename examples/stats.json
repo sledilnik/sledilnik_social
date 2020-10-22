@@ -1,0 +1,206 @@
+{
+  "dayFromStart": 232,
+  "year": 2020,
+  "month": 10,
+  "day": 21,
+  "phase": "F7",
+  "performedTestsToDate": 307243,
+  "performedTests": 6215,
+  "positiveTestsToDate": 17636,
+  "positiveTests": 1663,
+  "tests": {
+    "performed": { "toDate": 307243, "today": 6215 },
+    "positive": { "toDate": 17636, "today": 1663 },
+    "regular": {
+      "performed": { "toDate": 305875, "today": 6215 },
+      "positive": { "toDate": 17635, "today": 1663 }
+    },
+    "nsApr20": {
+      "performed": { "toDate": null, "today": null },
+      "positive": { "toDate": null, "today": null }
+    }
+  },
+  "femaleToDate": 9318,
+  "maleToDate": 8333,
+  "cases": {
+    "confirmedToday": 1663,
+    "confirmedToDate": 17651,
+    "recoveredToDate": 7299,
+    "closedToDate": 7510,
+    "activeToDate": null,
+    "active": 10141,
+    "hs": { "employeeConfirmedToDate": null },
+    "rh": { "employeeConfirmedToDate": null, "occupantConfirmedToDate": null },
+    "unclassified": { "confirmedToDate": null }
+  },
+  "statePerTreatment": {
+    "inHospital": 333,
+    "inHospitalToDate": 1262,
+    "inICU": 55,
+    "critical": 41,
+    "deceasedToDate": 202,
+    "deceased": 10,
+    "outOfHospitalToDate": 800,
+    "outOfHospital": 32,
+    "recoveredToDate": 38
+  },
+  "statePerRegion": {
+    "sg": 822,
+    "kk": 533,
+    "za": 524,
+    "foreign": 172,
+    "mb": 1962,
+    "ce": 2267,
+    "kr": 2484,
+    "po": 380,
+    "nm": 1205,
+    "ms": 906,
+    "lj": 5517,
+    "ng": 519,
+    "kp": 360
+  },
+  "statePerAgeToDate": [
+    {
+      "ageFrom": 0,
+      "ageTo": 4,
+      "allToDate": 118,
+      "femaleToDate": 63,
+      "maleToDate": 55
+    },
+    {
+      "ageFrom": 5,
+      "ageTo": 14,
+      "allToDate": 807,
+      "femaleToDate": 393,
+      "maleToDate": 414
+    },
+    {
+      "ageFrom": 15,
+      "ageTo": 24,
+      "allToDate": 2351,
+      "femaleToDate": 1139,
+      "maleToDate": 1212
+    },
+    {
+      "ageFrom": 25,
+      "ageTo": 34,
+      "allToDate": 2905,
+      "femaleToDate": 1448,
+      "maleToDate": 1457
+    },
+    {
+      "ageFrom": 35,
+      "ageTo": 44,
+      "allToDate": 3462,
+      "femaleToDate": 1884,
+      "maleToDate": 1578
+    },
+    {
+      "ageFrom": 45,
+      "ageTo": 54,
+      "allToDate": 3394,
+      "femaleToDate": 1863,
+      "maleToDate": 1531
+    },
+    {
+      "ageFrom": 55,
+      "ageTo": 64,
+      "allToDate": 2151,
+      "femaleToDate": 1109,
+      "maleToDate": 1042
+    },
+    {
+      "ageFrom": 65,
+      "ageTo": 74,
+      "allToDate": 1015,
+      "femaleToDate": 470,
+      "maleToDate": 545
+    },
+    {
+      "ageFrom": 75,
+      "ageTo": 84,
+      "allToDate": 794,
+      "femaleToDate": 453,
+      "maleToDate": 341
+    },
+    {
+      "ageFrom": 85,
+      "ageTo": null,
+      "allToDate": 654,
+      "femaleToDate": 496,
+      "maleToDate": 158
+    }
+  ],
+  "deceasedPerAgeToDate": [
+    {
+      "ageFrom": 0,
+      "ageTo": 4,
+      "allToDate": null,
+      "femaleToDate": null,
+      "maleToDate": null
+    },
+    {
+      "ageFrom": 5,
+      "ageTo": 14,
+      "allToDate": null,
+      "femaleToDate": null,
+      "maleToDate": null
+    },
+    {
+      "ageFrom": 15,
+      "ageTo": 24,
+      "allToDate": null,
+      "femaleToDate": null,
+      "maleToDate": null
+    },
+    {
+      "ageFrom": 25,
+      "ageTo": 34,
+      "allToDate": null,
+      "femaleToDate": null,
+      "maleToDate": null
+    },
+    {
+      "ageFrom": 35,
+      "ageTo": 44,
+      "allToDate": null,
+      "femaleToDate": null,
+      "maleToDate": null
+    },
+    {
+      "ageFrom": 45,
+      "ageTo": 54,
+      "allToDate": 3,
+      "femaleToDate": 1,
+      "maleToDate": 2
+    },
+    {
+      "ageFrom": 55,
+      "ageTo": 64,
+      "allToDate": 6,
+      "femaleToDate": 1,
+      "maleToDate": 5
+    },
+    {
+      "ageFrom": 65,
+      "ageTo": 74,
+      "allToDate": 20,
+      "femaleToDate": 6,
+      "maleToDate": 14
+    },
+    {
+      "ageFrom": 75,
+      "ageTo": 84,
+      "allToDate": 50,
+      "femaleToDate": 24,
+      "maleToDate": 26
+    },
+    {
+      "ageFrom": 85,
+      "ageTo": null,
+      "allToDate": 95,
+      "femaleToDate": 70,
+      "maleToDate": 25
+    }
+  ]
+}
