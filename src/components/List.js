@@ -5,7 +5,7 @@ const List = (props) => {
 
   const { stats } = props;
 
-  if (!stats || stats.length === 0) return <p>No repos, sorry!!!</p>;
+  if (!stats || stats.length === 0) return <p>No data available, sorry!!!</p>;
 
   return (
     <div>
