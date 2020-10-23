@@ -27,8 +27,11 @@ const RandomGenerator = (props) => {
         "Priložnost za druženje in protestiranje in podobne dejavnosti bo še več. A ne danes. ",
     ]
 
+    
+
+
     return (
-    <span>{start[Math.floor(Math.random() * Math.floor(10))]}</span>
+    <span>{(props.mode === "start")? start[Math.floor(Math.random() * Math.floor(10))]:end[Math.floor(Math.random() * Math.floor(10))]}</span>
     );
 };
 export default RandomGenerator;
