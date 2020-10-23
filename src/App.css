@@ -45,3 +45,14 @@
   width: 100%;
   background-color: #ffd922;
 }
+
+@media only screen and (max-width: 900px) {
+  .container {
+    margin: auto;
+    width: 90%;
+  }
+
+  .container h1 {
+    font-size: 16px;
+  }
+}
