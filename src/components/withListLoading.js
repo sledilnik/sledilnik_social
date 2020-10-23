@@ -5,7 +5,7 @@ function WithListLoading(Component) {
     if (!isLoading) return <Component {...props} />;
     return (
       <p style={{ textAlign: 'center', fontSize: '30px' }}>
-        Hold on, fetching data may take some time :)
+        Social generator se zaganja. Moralec v pripravi. :)
       </p>
     );
   };
