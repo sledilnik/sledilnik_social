@@ -16,7 +16,7 @@ const calc_regions = (regions) => {
         MunicipalitiesLookup[town].translation
       ) {
         town_box[MunicipalitiesLookup[town].translation] =
-          regions[region][town].activeCases;
+          regions[region][town].confirmedToDate;
       }
       return town_box;
     }, {});
@@ -69,6 +69,6 @@ const Municipalities = (props) => {
     );
   }).reverse();
 
-  return display_values
+  return display_values;
 };
 export default Municipalities;
