@@ -44,9 +44,9 @@ const Municipalities = (props) => {
   const difference_as_array = _.toPairs(difference_since_yesterday) // { ljubljana: 10, maribor: 8 } becomes [['ljubljana', 10], ['maribor', 8]]
     .sort((a, b) => b[1] - a[1])
     .reverse()
-    .reduce((acc, [town, count]) => {
-      if (count < 0) {
-        return acc;
+    .reduce( (acc, [town, count]) => {
+      if(count < 1) {
+        return acc
       }
       if (acc[count]) {
         acc[count].push(town);
