@@ -16,7 +16,7 @@ const calc_regions = (regions) => {
         MunicipalitiesLookup[town].translation
       ) {
         town_box[MunicipalitiesLookup[town].translation] =
-          regions[region][town].activeCases;
+          regions[region][town].confirmedToDate;
       }
       return town_box;
     }, {});
@@ -41,7 +41,6 @@ const Municipalities = (props) => {
     (today, yesterday) => today - yesterday
   );
 
-  
   const difference_as_array = _.toPairs(difference_since_yesterday) // { ljubljana: 10, maribor: 8 } becomes [['ljubljana', 10], ['maribor', 8]]
     .sort((a, b) => b[1] - a[1])
     .reverse()
@@ -49,21 +48,27 @@ const Municipalities = (props) => {
       if(count < 1) {
         return acc
       }
-      if(acc[count]){
-        acc[count].push(town)
+      if (acc[count]) {
+        acc[count].push(town);
       } else {
-        acc[count] = [town]
+        acc[count] = [town];
       }
-      return acc
-    }, {})
-
+      return acc;
+    }, {});
 
   const display_values = _.map(difference_as_array, (towns, count) => {
-    return <span key={count}>{ towns.join(', ')} <strong>+{count} <br></br></strong></span>
-  }).reverse()
+    return (
+      <div key={count}>
+        <span>
+          {towns.sort().join(", ")}
+          <strong>
+            &nbsp;+{count} <br></br>
+          </strong>
+        </span>
+      </div>
+    );
+  }).reverse();
 
-  return <span>
-    {display_values}
-  </span>;
+  return display_values;
 };
 export default Municipalities;
