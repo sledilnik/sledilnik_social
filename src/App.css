@@ -46,7 +46,7 @@
   background-color: #ffd922;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1200px) {
   .container {
     margin: auto;
     width: 90%;
