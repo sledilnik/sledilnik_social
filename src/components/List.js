@@ -56,7 +56,7 @@ const List = (props) => {
       <ul><p className="text">
         Po krajih: 
       </p></ul>
-      <ul><p className="municipalities"><Municipalities data={municipalities}></Municipalities></p></ul>
+      <ul className="municipalities"><Municipalities data={municipalities}></Municipalities></ul>
       <ul><p><RandomGenerator mode={"end"}></RandomGenerator></p></ul>
       <ul><p className="text">#OstaniZdrav <span role="img" aria-label='s'>📲 + 👐🧼🚿,😷 ,🙎↔️↔️🙎‍♂️🙎↔️↔️🙎 & 🤞</span></p></ul>
     </div>
