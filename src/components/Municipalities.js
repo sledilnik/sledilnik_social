@@ -35,28 +35,35 @@ const Municipalities = (props) => {
   const all_numbers_today = calc_regions(mun_today);
   const all_numbers_yesterday = calc_regions(mun_yesterday);
 
-  // DESC order arrays
-  console.log("all_numbers_today", all_numbers_today);
-  console.log("all_numbers_today", all_numbers_yesterday);
-
   const difference_since_yesterday = _.assignWith(
     all_numbers_today,
     all_numbers_yesterday,
     (today, yesterday) => today - yesterday
   );
 
-  console.log("difference_since_yesterday", difference_since_yesterday);
-
+  
   const difference_as_array = _.toPairs(difference_since_yesterday) // { ljubljana: 10, maribor: 8 } becomes [['ljubljana', 10], ['maribor', 8]]
-    .sort((a, b) => a[1] - b[1])
-    .reverse();
+    .sort((a, b) => b[1] - a[1])
+    .reverse()
+    .reduce( (acc, [town, count]) => {
+      if(count < 0) {
+        return acc
+      }
+      if(acc[count]){
+        acc[count].push(town)
+      } else {
+        acc[count] = [town]
+      }
+      return acc
+    }, {})
 
-  const display_values = difference_as_array.map(([town, count]) =>
-    count > 1 ? `${town} +${count}` : `${town}`
-  );
 
-  const display_final = display_values.join(", ");
+  const display_values = _.map(difference_as_array, (towns, count) => {
+    return <span key={count}>{ towns.join(', ')} <strong>+{count} <br></br></strong></span>
+  }).reverse()
 
-  return <span>{display_final}</span>;
+  return <span>
+    {display_values}
+  </span>;
 };
 export default Municipalities;
