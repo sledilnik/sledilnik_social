@@ -46,7 +46,7 @@ const Municipalities = (props) => {
     .sort((a, b) => b[1] - a[1])
     .reverse()
     .reduce( (acc, [town, count]) => {
-      if(count < 0) {
+      if(count < 1) {
         return acc
       }
       if(acc[count]){
