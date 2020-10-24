@@ -24,23 +24,23 @@ const List = (props) => {
       </p></ul>      
       <ul><p className="text">
         Št. vseh aktivnih primerov: <span className="bold">{stats[stats.length -2].cases.active}</span>  
-        {' '}(+<Delta today={stats[stats.length -2].cases.active} yesterday={stats[stats.length -3].cases.active}></Delta>, 
+        {' '}(+<span className="bold">{stats[stats.length -2].positiveTests}</span>, 
         -<Delta today={stats[stats.length -2].cases.recoveredToDate} yesterday={stats[stats.length -3].cases.recoveredToDate}></Delta>, 
-        {' '}<span className="bold">+{stats[stats.length -1].statePerTreatment.deceased}</span> oseb preminulih), 
+        {' '}+<span className="bold">{stats[stats.length -1].statePerTreatment.deceased}</span> oseb preminulih), 
         skupno <span className="bold">{stats[stats.length -2].cases.confirmedToDate}</span> potrjenih primerov.
       </p></ul>
       <ul><p className="text">
         Hospitalizirani: <span className="bold">{stats[stats.length -1].statePerTreatment.inHospital}</span> oseb 
-        (<span className="bold">+{patients[patients.length -1].total.inHospital.in}</span>, 
-        {' '}<span className="bold">-{patients[patients.length -1].total.inHospital.out}</span>), 
+        (+<span className="bold">{patients[patients.length -1].total.inHospital.in}</span>, 
+        {' '}-<span className="bold">{patients[patients.length -1].total.inHospital.out}</span>), 
         v intenzivni oskrbi <span className="bold">{stats[stats.length -1].statePerTreatment.inICU}</span> oseb (+
         <Delta today={stats[stats.length -1].statePerTreatment.inICU} yesterday={stats[stats.length -2].statePerTreatment.inICU}></Delta>).
       </p></ul>
       <ul><p className="text">
         Na respiratorju se zdravi <span className="bold">{stats[stats.length -1].statePerTreatment.critical}</span> oseb 
-        (+<Delta today={stats[stats.length -1].statePerTreatment.critical} yesterday={stats[stats.length -2].statePerTreatment.critical}></Delta>).
+        (<Delta today={stats[stats.length -1].statePerTreatment.critical} yesterday={stats[stats.length -2].statePerTreatment.critical}></Delta>).
       </p></ul>
-      <ul><p className="text">Preminuli: <span className="bold">+{stats[stats.length -1].statePerTreatment.deceased}</span>, skupaj: <span className="bold">{stats[stats.length -1].statePerTreatment.deceasedToDate}</span>.</p></ul>
+      <ul><p className="text">Preminuli: +<span className="bold">{stats[stats.length -1].statePerTreatment.deceased}</span>, skupaj: <span className="bold">{stats[stats.length -1].statePerTreatment.deceasedToDate}</span>.</p></ul>
       <ul><p className="text">
       Po starosti: 0-4 (<Delta today={stats[stats.length -2].statePerAgeToDate[0].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[0].allToDate}></Delta>), 
       5-14 (<Delta today={stats[stats.length -2].statePerAgeToDate[1].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[1].allToDate}></Delta>), 

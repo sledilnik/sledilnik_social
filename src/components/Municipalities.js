@@ -36,8 +36,8 @@ const Municipalities = (props) => {
   const all_numbers_yesterday = calc_regions(mun_yesterday);
 
   // DESC order arrays
-  console.log("all_numbers_today", all_numbers_today);
-  console.log("all_numbers_today", all_numbers_yesterday);
+//   console.log("all_numbers_today", all_numbers_today);
+//   console.log("all_numbers_today", all_numbers_yesterday);
 
   const difference_since_yesterday = _.assignWith(
     all_numbers_today,
@@ -45,7 +45,7 @@ const Municipalities = (props) => {
     (today, yesterday) => today - yesterday
   );
 
-  console.log("difference_since_yesterday", difference_since_yesterday);
+//   console.log("difference_since_yesterday", difference_since_yesterday);
 
   const difference_as_array = _.toPairs(difference_since_yesterday) // { ljubljana: 10, maribor: 8 } becomes [['ljubljana', 10], ['maribor', 8]]
     .sort((a, b) => a[1] - b[1])
