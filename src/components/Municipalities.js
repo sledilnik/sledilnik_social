@@ -67,7 +67,7 @@ const Municipalities = (props) => {
         </span>
       </div>
     );
-  });
+  }).reverse();
 
   return display_values;
 };
