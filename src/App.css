@@ -46,6 +46,10 @@
   background-color: #ffd922;
 }
 
+.red {
+  color: red;
+}
+
 @media only screen and (max-width: 1200px) {
   .container {
     margin: auto;

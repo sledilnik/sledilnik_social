@@ -2,7 +2,7 @@ import React from 'react';
 import Delta from './Delta';
 import Percentage from './Percentage';
 import Municipalities from './Municipalities';
-import RandomGenerator from './RandomGenerator';
+// import RandomGenerator from './RandomGenerator';
 const List = (props) => {
 
   const { stats } = props;
@@ -10,13 +10,29 @@ const List = (props) => {
   const { patients } = props;
   if (!stats || stats.length === 0) return <p>No data available, sorry!!!</p>;
 
+  const today = parseInt(new Date().getFullYear().toString()+(new Date().getMonth()+1).toString()+new Date().getDate().toString());
+  const statsCheck = stats[stats.length -1].year.toString()+stats[stats.length -1].month.toString()+stats[stats.length -1].day.toString();
+  const municipalitiesCheck = parseInt(municipalities[municipalities.length -1].year.toString()+municipalities[municipalities.length -1].month.toString()+municipalities[municipalities.length -1].day.toString());
+  //const patientsCheck = patients[patients.length -1].year.toString()+patients[patients.length -1].month.toString()+patients[patients.length -1].day.toString();
+
+  var paint_mun = "a";
+  var paint_stats = "a";
+
+  if ((today-statsCheck) > 0) {
+    paint_stats = "red"
+  }
+  if ((today-municipalitiesCheck+1) > 0) {
+    paint_mun = "red"
+  }
+
+
   return (
     <div>
-      
+      <span className={paint_stats}>
       <ul><p className="text">
         <span className="bold">#COVID19 SLO Update {stats[stats.length -1].day}.{stats[stats.length -1].month}.{stats[stats.length -1].year}
         </span></p></ul>
-      <ul><p><RandomGenerator mode={"start"}></RandomGenerator></p></ul>
+      {/* <ul><p><RandomGenerator mode={"start"}></RandomGenerator></p></ul> */}
       <ul><p className="text">
         Rast novih potrjenih primerov: <span className="bold">+{stats[stats.length -2].positiveTests}</span>, 
         št. testiranih: <span className="bold">{stats[stats.length -2].performedTests}</span>, 
@@ -41,6 +57,7 @@ const List = (props) => {
         (<Delta today={stats[stats.length -1].statePerTreatment.critical} yesterday={stats[stats.length -2].statePerTreatment.critical}></Delta>).
       </p></ul>
       <ul><p className="text">Preminuli: +<span className="bold">{stats[stats.length -1].statePerTreatment.deceased}</span>, skupaj: <span className="bold">{stats[stats.length -1].statePerTreatment.deceasedToDate}</span>.</p></ul>
+      
       <ul><p className="text">
       Po starosti: 0-4 (<Delta today={stats[stats.length -2].statePerAgeToDate[0].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[0].allToDate}></Delta>), 
       5-14 (<Delta today={stats[stats.length -2].statePerAgeToDate[1].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[1].allToDate}></Delta>), 
@@ -53,11 +70,14 @@ const List = (props) => {
       75-84 (<Delta today={stats[stats.length -2].statePerAgeToDate[8].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[8].allToDate}></Delta>), 
       85+ (<Delta today={stats[stats.length -2].statePerAgeToDate[9].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[9].allToDate}></Delta>).
       </p></ul>
+      </span>
       <ul><p className="text">
         Po krajih: 
       </p></ul>
-      <ul className="municipalities"><Municipalities data={municipalities}></Municipalities></ul>
-      <ul><p><RandomGenerator mode={"end"}></RandomGenerator></p></ul>
+      <ul className="municipalities">      
+      <span className={paint_mun}>
+      <Municipalities data={municipalities}></Municipalities></span></ul>
+      {/* <ul><p><RandomGenerator mode={"end"}></RandomGenerator></p></ul> */}
       <ul><p className="text">#OstaniZdrav <span role="img" aria-label='s'>📲 + 👐🧼🚿,😷 ,🙎↔️↔️🙎‍♂️🙎↔️↔️🙎 & 🤞</span></p></ul>
     </div>
   );
