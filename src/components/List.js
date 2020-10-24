@@ -53,8 +53,8 @@ const List = (props) => {
       75-84 (<Delta today={stats[stats.length -2].statePerAgeToDate[8].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[8].allToDate}></Delta>), 
       85+ (<Delta today={stats[stats.length -2].statePerAgeToDate[9].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[9].allToDate}></Delta>).
       </p></ul>
-      <ul><p className="text">
-        Po krajih: <Municipalities data={municipalities}></Municipalities>
+      <ul><p className="text municipalities">
+        Po krajih: <Municipalities className="municipalities" data={municipalities}></Municipalities>
       </p></ul>
       <ul><p><RandomGenerator mode={"end"}></RandomGenerator></p></ul>
       <ul><p className="text">#OstaniZdrav <span role="img" aria-label='s'>📲 + 👐🧼🚿,😷 ,🙎↔️↔️🙎‍♂️🙎↔️↔️🙎 & 🤞</span></p></ul>
