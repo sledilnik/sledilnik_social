@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
       setLoading(true);
-      const timer = setTimeout(() => { // timer
+      // const timer = setTimeout(() => { // timer
       Promise.all([
           fetch(`https://api.sledilnik.org/api/stats`) // apis
               .then((res) => res.json())
@@ -30,8 +30,8 @@ function App() {
       ])
           .catch(() => setError(true))
           .finally(() => setLoading(false)) // show data
-      }, 800);
-      return () => clearTimeout(timer);
+      // }, 800);
+      // return () => clearTimeout(timer);
   }, []);
 
   return (
