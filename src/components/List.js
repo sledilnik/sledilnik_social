@@ -24,13 +24,12 @@ const List = (props) => {
   if ((today-statsCheck) > 0) {
     paint_stats = "red"
   }
-  if ((today-municipalitiesCheck+1) > 0) {
+  if ((today-municipalitiesCheck) > 1) {
     paint_mun = "red"
   }
   if (stats[stats.length -2].statePerAgeToDate[0].allToDate === null) {
     paint_stats_age = "red"
   }
-
 
 
   return (
