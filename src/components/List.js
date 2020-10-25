@@ -17,6 +17,7 @@ const List = (props) => {
 
   var paint_mun = "a";
   var paint_stats = "a";
+  var paint_stats_age = "a";
 
   if ((today-statsCheck) > 0) {
     paint_stats = "red"
@@ -24,6 +25,10 @@ const List = (props) => {
   if ((today-municipalitiesCheck+1) > 0) {
     paint_mun = "red"
   }
+  if (stats[stats.length -2].statePerAgeToDate[0].allToDate === null) {
+    paint_stats_age = "red"
+  }
+
 
 
   return (
@@ -57,7 +62,8 @@ const List = (props) => {
         (<Delta today={stats[stats.length -1].statePerTreatment.critical} yesterday={stats[stats.length -2].statePerTreatment.critical}></Delta>).
       </p></ul>
       <ul><p className="text">Preminuli: +<span className="bold">{stats[stats.length -1].statePerTreatment.deceased}</span>, skupaj: <span className="bold">{stats[stats.length -1].statePerTreatment.deceasedToDate}</span>.</p></ul>
-      
+      </span>
+      <span className={paint_stats_age}>
       <ul><p className="text">
       Po starosti: 0-4 (<Delta today={stats[stats.length -2].statePerAgeToDate[0].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[0].allToDate}></Delta>), 
       5-14 (<Delta today={stats[stats.length -2].statePerAgeToDate[1].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[1].allToDate}></Delta>), 
