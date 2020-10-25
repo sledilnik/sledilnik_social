@@ -27,7 +27,7 @@ const List = (props) => {
   if ((today-municipalitiesCheck) > 1) {
     paint_mun = "red"
   }
-  if (stats[stats.length -2].statePerAgeToDate[0].allToDate === null) {
+  if (stats[stats.length -2].statePerAgeToDate[0].allToDate === null || (today-statsCheck) > 0) {
     paint_stats_age = "red"
   }
 
