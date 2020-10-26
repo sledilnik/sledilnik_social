@@ -44,12 +44,7 @@ function App() {
         <ListLoading isLoading={loading} stats={stats} municipalities={municipalities} patients={patients} />
       </div>
       <footer>
-        <div className='footer'>
-          Built with{' '}
-          <span role='img' aria-label='love'>
-            💚
-          </span>
-        </div><br />
+          <br /> <br /><br /> <br />
       </footer>
     </div>
   );

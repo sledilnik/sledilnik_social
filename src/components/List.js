@@ -2,6 +2,7 @@ import React from 'react';
 import Delta from './Delta';
 import Percentage from './Percentage';
 import Municipalities from './Municipalities';
+import Translate from './Translate';
 // import RandomGenerator from './RandomGenerator'; // for "moralec" :)
 const List = (props) => {
 
@@ -41,28 +42,33 @@ const List = (props) => {
       {/* <p><RandomGenerator mode={"start"}></RandomGenerator></p> */}
       <p className="text">
       <span role="img" aria-label='s'>➡️</span> Rast novih potrjenih primerov: <span className="bold">+{stats[stats.length -2].positiveTests}</span>, 
-        št. testiranih: <span className="bold">{stats[stats.length -2].performedTests}</span>, 
-        delež pozitivnih testov: <Percentage part={stats[stats.length -2].positiveTests} total={stats[stats.length -2].performedTests}></Percentage>%.
-      </p>     
+        št. testiranih: <span className="bold">{stats[stats.length -2].performedTests}</span>*, 
+        delež pozitivnih testov: <Percentage part={stats[stats.length -2].positiveTests} total={stats[stats.length -2].performedTests}></Percentage>%. (*samo pozitivni testi iz laboratorija)
+      </p>
+      <p className="text">
+        <span role="img" aria-label='s'>➡️</span> 14-dnevna pojavnost na 100.000 prebivalcev: <span className="bold">+{Math.round(stats[stats.length -2].cases.active*100000/2095861)}</span> (
+          <Percentage part={Math.round(stats[stats.length -2].cases.active*100000/2095861)} total={Math.round(stats[stats.length -3].cases.active*100000/2095861)} getPrefix={true} minus1={true}></Percentage>%). 
+      </p>        
       <p className="text">
       <span role="img" aria-label='s'>➡️</span> Št. vseh aktivnih primerov: <span className="bold">{stats[stats.length -2].cases.active}</span>  
         {' '}(+<span className="bold">{stats[stats.length -2].positiveTests}</span>, 
         -<Delta today={stats[stats.length -2].cases.recoveredToDate} yesterday={stats[stats.length -3].cases.recoveredToDate}></Delta>, 
-        {' '}+<span className="bold">{stats[stats.length -1].statePerTreatment.deceased}</span> oseb preminulih), 
+        {' '}+<span className="bold">{stats[stats.length -1].statePerTreatment.deceased}</span> <Translate text={"preminula oseba"} number={stats[stats.length -1].statePerTreatment.deceased}></Translate>), 
         skupno <span className="bold">{stats[stats.length -2].cases.confirmedToDate}</span> potrjenih primerov.
       </p>
       <p className="text">
-      <span role="img" aria-label='s'>➡️</span> Hospitalizirani: <span className="bold">{stats[stats.length -1].statePerTreatment.inHospital}</span> oseb 
+      <span role="img" aria-label='s'>➡️</span> Hospitalizirani: <span className="bold">{stats[stats.length -1].statePerTreatment.inHospital}</span> <Translate text={"oseba"} number={stats[stats.length -1].statePerTreatment.inHospital}></Translate>{' '} 
         (+<span className="bold">{patients[patients.length -1].total.inHospital.in}</span>, 
         {' '}-<span className="bold">{patients[patients.length -1].total.inHospital.out}</span>), 
-        v intenzivni oskrbi <span className="bold">{stats[stats.length -1].statePerTreatment.inICU}</span> oseb (+
-        <Delta today={stats[stats.length -1].statePerTreatment.inICU} yesterday={stats[stats.length -2].statePerTreatment.inICU}></Delta>).
+        v intenzivni oskrbi <span className="bold">{stats[stats.length -1].statePerTreatment.inICU}</span> <Translate text={"oseba"} number={stats[stats.length -1].statePerTreatment.inICU}></Translate>{' '} (
+        <Delta today={stats[stats.length -1].statePerTreatment.inICU} yesterday={stats[stats.length -2].statePerTreatment.inICU}  getPrefix={true}></Delta>).
       </p>
       <p className="text">
-      <span role="img" aria-label='s'>➡️</span> Na respiratorju se zdravi <span className="bold">{stats[stats.length -1].statePerTreatment.critical}</span> oseb 
-        (<Delta today={stats[stats.length -1].statePerTreatment.critical} yesterday={stats[stats.length -2].statePerTreatment.critical}></Delta>).
+      <span role="img" aria-label='s'>➡️</span> Na respiratorju se <Translate text={"zdravi"} number={stats[stats.length -1].statePerTreatment.critical}></Translate> <span className="bold">{stats[stats.length -1].statePerTreatment.critical}</span> 
+      {' '}<Translate text={"oseba"} number={stats[stats.length -1].statePerTreatment.critical}></Translate>{' '}        
+        (<Delta today={stats[stats.length -1].statePerTreatment.critical} yesterday={stats[stats.length -2].statePerTreatment.critical} getPrefix={true}></Delta>).
       </p>
-      <p className="text"><span role="img" aria-label='s'>➡️</span> Preminuli: +<span className="bold">{stats[stats.length -1].statePerTreatment.deceased}</span>, skupaj: <span className="bold">{stats[stats.length -1].statePerTreatment.deceasedToDate}</span>.</p>
+      <p className="text"><span role="img" aria-label='s'>➡️</span> Preminuli: {(stats[stats.length -1].statePerTreatment.deceased > 0)?"+":""}<span className="bold">{stats[stats.length -1].statePerTreatment.deceased}</span> <Translate text={"oseba"} number={stats[stats.length -1].statePerTreatment.deceased}></Translate>, skupaj: <span className="bold">{stats[stats.length -1].statePerTreatment.deceasedToDate}</span>.</p>
       </span>
       <span className={paint_stats_age}>
       <p className="text">
