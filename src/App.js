@@ -14,16 +14,17 @@ function App() {
   useEffect(() => {
       setLoading(true);
       // const timer = setTimeout(() => { // timer
+      const nDaysAgo = new Date(new Date().setDate(new Date().getDate() - 6)).toISOString()
       Promise.all([
-          fetch(`https://api.sledilnik.org/api/stats`) // apis
+          fetch(`https://api.sledilnik.org/api/stats?from=${nDaysAgo}`) // apis
               .then((res) => res.json())
               .then((data) => setStats(data))
               .catch(() => Promise.reject()),
-          fetch(`https://api.sledilnik.org/api/patients`)
+          fetch(`https://api.sledilnik.org/api/patients?from=${nDaysAgo}`)
               .then((res) => res.json())
               .then((data) => setPatients(data))
               .catch(() => Promise.reject()),
-          fetch(`https://api.sledilnik.org/api/municipalities`)
+          fetch(`https://api.sledilnik.org/api/municipalities?from=${nDaysAgo}`)
               .then((res) => res.json())
               .then((data) => setMunicipalities(data))
               .catch(() => Promise.reject()),
