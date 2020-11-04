@@ -40,15 +40,7 @@ const List = (props) => {
         <span className="bold">#COVID19 SLO Update {stats[stats.length -1].day}.{stats[stats.length -1].month}.{stats[stats.length -1].year}
         </span></p>
       {/* <p><RandomGenerator mode={"start"}></RandomGenerator></p> */}
-      <p className="text">
-      <span role="img" aria-label='s'>➡️</span> Rast novih potrjenih primerov: <span className="bold">+{stats[stats.length -2].positiveTests}</span>, 
-        št. testiranih: <span className="bold">{stats[stats.length -2].performedTests}</span>*, 
-        delež pozitivnih testov: <Percentage part={stats[stats.length -2].positiveTests} total={stats[stats.length -2].performedTests}></Percentage>%. (*samo pozitivni testi iz laboratorija)
-      </p>
-      <p className="text">
-        <span role="img" aria-label='s'>➡️</span> 14-dnevna pojavnost na 100.000 prebivalcev: <span className="bold">+{Math.round(stats[stats.length -2].cases.active*100000/2095861)}</span> (
-          <Percentage part={Math.round(stats[stats.length -2].cases.active*100000/2095861)} total={Math.round(stats[stats.length -3].cases.active*100000/2095861)} getPrefix={true} minus1={true}></Percentage>%). 
-      </p>        
+              
       <p className="text">
       <span role="img" aria-label='s'>➡️</span> Št. vseh aktivnih primerov: <span className="bold">{stats[stats.length -2].cases.active}</span>  
         {' '}(+<span className="bold">{stats[stats.length -2].positiveTests}</span>, 
@@ -69,7 +61,22 @@ const List = (props) => {
         (<Delta today={stats[stats.length -1].statePerTreatment.critical} yesterday={stats[stats.length -2].statePerTreatment.critical} getPrefix={true}></Delta>).
       </p>
       <p className="text"><span role="img" aria-label='s'>➡️</span> Preminuli: {(stats[stats.length -1].statePerTreatment.deceased > 0)?"+":""}<span className="bold">{stats[stats.length -1].statePerTreatment.deceased}</span> <Translate text={"oseba"} number={stats[stats.length -1].statePerTreatment.deceased}></Translate>, skupaj: <span className="bold">{stats[stats.length -1].statePerTreatment.deceasedToDate}</span>.</p>
+      
+        <p>/</p>
+
+      <p className="text">
+      <span role="img" aria-label='s'>➡️</span> Rast novih potrjenih primerov: <span className="bold">+{stats[stats.length -2].positiveTests}</span>, 
+        št. testiranih: <span className="bold">{stats[stats.length -2].performedTests}</span>*, 
+        delež pozitivnih testov: <Percentage part={stats[stats.length -2].positiveTests} total={stats[stats.length -2].performedTests}></Percentage>%. (*samo pozitivni testi iz laboratorija)
+      </p>
+      <p className="text">
+        <span role="img" aria-label='s'>➡️</span> 14-dnevna pojavnost na 100.000 prebivalcev: <span className="bold">+{Math.round(stats[stats.length -2].cases.active*100000/2095861)}</span> (
+          <Percentage part={Math.round(stats[stats.length -2].cases.active*100000/2095861)} total={Math.round(stats[stats.length -3].cases.active*100000/2095861)} getPrefix={true} minus1={true}></Percentage>%). 
+      </p>
       </span>
+
+      <p>/</p>
+
       <span className={paint_stats_age}>
       <p className="text">
       <span role="img" aria-label='s'>➡️</span>Po starosti: 0-4 (<Delta today={stats[stats.length -2].statePerAgeToDate[0].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[0].allToDate}></Delta>), 
