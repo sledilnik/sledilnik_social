@@ -61,9 +61,7 @@ const List = (props) => {
         (<Delta today={stats[stats.length -1].statePerTreatment.critical} yesterday={stats[stats.length -2].statePerTreatment.critical} getPrefix={true}></Delta>).
       </p>
       <p className="text"><span role="img" aria-label='s'>➡️</span> Preminuli: {(stats[stats.length -1].statePerTreatment.deceased > 0)?"+":""}<span className="bold">{stats[stats.length -1].statePerTreatment.deceased}</span> <Translate text={"oseba"} number={stats[stats.length -1].statePerTreatment.deceased}></Translate>, skupaj: <span className="bold">{stats[stats.length -1].statePerTreatment.deceasedToDate}</span>.</p>
-      
-        <p>/</p>
-
+      <br />
       <p className="text">
       <span role="img" aria-label='s'>➡️</span> Rast novih potrjenih primerov: <span className="bold">+{stats[stats.length -2].positiveTests}</span>, 
         št. testiranih: <span className="bold">{stats[stats.length -2].performedTests}</span>*, 
@@ -74,9 +72,7 @@ const List = (props) => {
           <Percentage part={Math.round(stats[stats.length -2].cases.active*100000/2095861)} total={Math.round(stats[stats.length -3].cases.active*100000/2095861)} getPrefix={true} minus1={true}></Percentage>%). 
       </p>
       </span>
-
-      <p>/</p>
-
+      <br />
       <span className={paint_stats_age}>
       <p className="text">
       <span role="img" aria-label='s'>➡️</span>Po starosti: 0-4 (<Delta today={stats[stats.length -2].statePerAgeToDate[0].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[0].allToDate}></Delta>), 
@@ -91,6 +87,7 @@ const List = (props) => {
       85+ (<Delta today={stats[stats.length -2].statePerAgeToDate[9].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[9].allToDate}></Delta>).
       </p>
       </span>
+      <br />
       <p className="text">
       <span role="img" aria-label='s'>➡️</span> Po krajih: 
       </p>
