@@ -100,7 +100,7 @@ const Municipalities = (props) => {
       for (let i=0; i < townsPastWeek.length;i++){
         trend += townsPastWeek[i]
       }
-      trend = Math.round(trend / 7)
+      trend = Math.round(trend / 6)
       
       // plot FB/TW friendly icons
       if (count < trend) {
