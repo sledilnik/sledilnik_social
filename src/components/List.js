@@ -43,7 +43,7 @@ const List = (props) => {
       <p className="text">
       <span role="img" aria-label='s'>➡️</span> Št. vseh aktivnih primerov: <span className="bold">{stats[stats.length -2].cases.active}</span>  
         {' '}(+<span className="bold">{stats[stats.length -2].positiveTests}</span>, 
-        -<Delta today={stats[stats.length -2].cases.recoveredToDate} yesterday={stats[stats.length -3].cases.recoveredToDate}></Delta>, 
+        -<Delta today={stats[stats.length -2].cases.recoveredToDate} yesterday={stats[stats.length -3].cases.recoveredToDate} noChanges={true}></Delta>, 
         {' '}+<span className="bold">{stats[stats.length -1].statePerTreatment.deceased}</span> <Translate text={"preminula oseba"} number={stats[stats.length -1].statePerTreatment.deceased}></Translate>), 
         skupno <span className="bold">{stats[stats.length -2].cases.confirmedToDate}</span> potrjenih primerov.
       </p>
@@ -52,12 +52,12 @@ const List = (props) => {
         (+<span className="bold">{patients[patients.length -1].total.inHospital.in}</span>, 
         {' '}-<span className="bold">{patients[patients.length -1].total.inHospital.out}</span>), 
         v intenzivni oskrbi <span className="bold">{stats[stats.length -1].statePerTreatment.inICU}</span> <Translate text={"oseba"} number={stats[stats.length -1].statePerTreatment.inICU}></Translate>{' '} (
-        <Delta today={stats[stats.length -1].statePerTreatment.inICU} yesterday={stats[stats.length -2].statePerTreatment.inICU}  getPrefix={true}></Delta>).
+        <Delta today={stats[stats.length -1].statePerTreatment.inICU} yesterday={stats[stats.length -2].statePerTreatment.inICU}  getPrefix={true} noChanges={true}></Delta>).
       </p>
       <p className="text">
       <span role="img" aria-label='s'>➡️</span> Na respiratorju se <Translate text={"zdravi"} number={stats[stats.length -1].statePerTreatment.critical}></Translate> <span className="bold">{stats[stats.length -1].statePerTreatment.critical}</span> 
       {' '}<Translate text={"oseba"} number={stats[stats.length -1].statePerTreatment.critical}></Translate>{' '}        
-        (<Delta today={stats[stats.length -1].statePerTreatment.critical} yesterday={stats[stats.length -2].statePerTreatment.critical} getPrefix={true}></Delta>).
+        (<Delta today={stats[stats.length -1].statePerTreatment.critical} yesterday={stats[stats.length -2].statePerTreatment.critical} getPrefix={true} noChanges={true}></Delta>).
       </p>
       <p className="text"><span role="img" aria-label='s'>➡️</span> Preminuli: {(stats[stats.length -1].statePerTreatment.deceased > 0)?"+":""}<span className="bold">{stats[stats.length -1].statePerTreatment.deceased}</span> <Translate text={"oseba"} number={stats[stats.length -1].statePerTreatment.deceased}></Translate>, skupaj: <span className="bold">{stats[stats.length -1].statePerTreatment.deceasedToDate}</span>.</p>
       <br />
