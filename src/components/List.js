@@ -32,7 +32,6 @@ const List = (props) => {
     paint_stats_age = "red"
   }
 
-
   return (
     <div>
       <span className={paint_stats}>
@@ -75,7 +74,7 @@ const List = (props) => {
       <br />
       <span className={paint_stats_age}>
       <p className="text">
-      <span role="img" aria-label='s'>➡️</span>Po starosti: 0-4 (<Delta today={stats[stats.length -2].statePerAgeToDate[0].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[0].allToDate}></Delta>), 
+      <span role="img" aria-label='s'>➡️</span>Novookuženi po starosti: 0-4 (<Delta today={stats[stats.length -2].statePerAgeToDate[0].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[0].allToDate}></Delta>), 
       5-14 (<Delta today={stats[stats.length -2].statePerAgeToDate[1].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[1].allToDate}></Delta>), 
       15-24 (<Delta today={stats[stats.length -2].statePerAgeToDate[2].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[2].allToDate}></Delta>), 
       25-34 (<Delta today={stats[stats.length -2].statePerAgeToDate[3].allToDate} yesterday={stats[stats.length -3].statePerAgeToDate[3].allToDate}></Delta>), 
@@ -94,6 +93,12 @@ const List = (props) => {
       <ul className="municipalities">      
       <span className={paint_mun}>
       <Municipalities data={municipalities}></Municipalities></span></ul>
+
+      {/* <p>Legenda trenda (primerjava današnjega stanja novookuženih glede na 7-dnevno povprečje):</p>
+      <p>- Nižje od povprečja <img src='trend_down.svg' alt='trend_down' width='16px' height='auto' /></p>
+      <p>- Ni sprememb <img src='trend_neutral.svg' alt='trend_neutral' width='16px' height='auto' /></p>
+      <p>- Višje od povprečja <img src='trend_up.svg' alt='trend_up' width='16px' height='auto' /></p>
+       */}
       {/* <p><RandomGenerator mode={"end"}></RandomGenerator></p> */}
       <p className="text">#OstaniZdrav <span role="img" aria-label='s'>📲 + 👐🧼🚿,😷 ,🙎↔️↔️🙎‍♂️🙎↔️↔️🙎 & 🤞</span></p>
     </div>
