@@ -9,6 +9,7 @@ function App() {
   const [stats, setStats] = useState(null);
   const [patients, setPatients] = useState(null)
   const [municipalities, setMunicipalities] = useState(null)
+  const [hospitalsList, setHospitalsList] = useState(null)
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -28,6 +29,10 @@ function App() {
               .then((res) => res.json())
               .then((data) => setMunicipalities(data))
               .catch(() => Promise.reject()),
+          fetch(`https://api.sledilnik.org/api/hospitals-list`)
+              .then((res) => res.json())
+              .then((data) => setHospitalsList(data))
+              .catch(() => Promise.reject()),
       ])
           .catch(() => setError(true))
           .finally(() => setLoading(false)) // show data
@@ -41,7 +46,7 @@ function App() {
       <div className="top"></div>
       <div className='container'>
         <h1>Sledilnik Social</h1>     
-        <ListLoading isLoading={loading} stats={stats} municipalities={municipalities} patients={patients} />
+        <ListLoading isLoading={loading} stats={stats} municipalities={municipalities} patients={patients} hospitalsList={hospitalsList} />
       </div>
       <footer>
           <br /> <br /><br /> <br />

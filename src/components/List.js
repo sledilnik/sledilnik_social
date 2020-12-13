@@ -9,14 +9,32 @@ const List = (props) => {
   const { stats } = props;
   const { municipalities } = props;
   const { patients } = props;
+  
   if (!stats || stats.length === 0) return <p>Napaka: API ne vrača podatkov, refresh page !!!</p>;
+
+  // prepare hospitalsDict
+  const { hospitalsList } = props;
+  let hospitalsDict = []
+  for (let i = 0; i < hospitalsList.length; i++) {
+    hospitalsDict.push([hospitalsList[i].code, hospitalsList[i].name])
+  }
+
+  // prepare perHospitalChanges
+  const perHospitalChanges = Object.entries(patients[0].facilities)
+  for (let i = 0; i < perHospitalChanges.length ; i++) {
+    for (let j= 0; j < hospitalsDict.length; j++){
+      if (perHospitalChanges[i][0] === hospitalsDict[j][0]) {
+        perHospitalChanges[i].push(hospitalsDict[j][1])
+      }
+    }
+  }
 
   // const datestamps
   const today = parseInt(new Date().getFullYear().toString()+(new Date().getMonth()+1).toString()+new Date().getDate().toString());
   const statsCheck = stats[stats.length -1].year.toString()+stats[stats.length -1].month.toString()+stats[stats.length -1].day.toString();
   const municipalitiesCheck = parseInt(municipalities[municipalities.length -1].year.toString()+municipalities[municipalities.length -1].month.toString()+municipalities[municipalities.length -1].day.toString());
   //const patientsCheck = patients[patients.length -1].year.toString()+patients[patients.length -1].month.toString()+patients[patients.length -1].day.toString();
-
+  
   // paint red if data is not updated for the current day
   var paint_mun = "a";
   var paint_stats = "a";
@@ -34,6 +52,7 @@ const List = (props) => {
 
   return (
     <div>
+
       <span className={paint_stats}>
       <p className="text">
         <span className="bold">#COVID19 SLO Update {stats[stats.length -1].day}.{stats[stats.length -1].month}.{stats[stats.length -1].year}
@@ -55,7 +74,7 @@ const List = (props) => {
         <Delta today={stats[stats.length -1].statePerTreatment.inICU} yesterday={stats[stats.length -2].statePerTreatment.inICU}  getPrefix={true} noChanges={true}></Delta>).
       </p>
       <p className="text">
-      <span role="img" aria-label='s'>➡️</span> Na respiratorju se <Translate text={"zdravi"} number={stats[stats.length -1].statePerTreatment.critical}></Translate> <span className="bold">{stats[stats.length -1].statePerTreatment.critical}</span> 
+      <span role="img" aria-label='s'>➡️</span> Na respiratorju (intubirani) se <Translate text={"zdravi"} number={stats[stats.length -1].statePerTreatment.critical}></Translate> <span className="bold">{stats[stats.length -1].statePerTreatment.critical}</span> 
       {' '}<Translate text={"oseba"} number={stats[stats.length -1].statePerTreatment.critical}></Translate>{' '}        
         (<Delta today={stats[stats.length -1].statePerTreatment.critical} yesterday={stats[stats.length -2].statePerTreatment.critical} getPrefix={true} noChanges={true}></Delta>).
       </p>
@@ -70,6 +89,25 @@ const List = (props) => {
         <span role="img" aria-label='s'>➡️</span> 14-dnevna pojavnost na 100.000 prebivalcev: <span className="bold">+{Math.round(stats[stats.length -2].cases.active*100000/2095861)}</span> (
           <Percentage part={Math.round(stats[stats.length -2].cases.active*100000/2095861)} total={Math.round(stats[stats.length -3].cases.active*100000/2095861)} getPrefix={true} minus1={true}></Percentage>%). 
       </p>
+
+      <span>
+      <p className="text"><span role="img" aria-label='s'>➡️</span> Stanje po bolnišnicah <span className="bold">[WIP - DO NOT USE YET !]</span>:</p>
+      <ul>
+      {perHospitalChanges
+      .sort((a, b) => { return b[1].inHospital.today - a[1].inHospital.today})
+      .map(hosp => {
+        return hosp[1].inHospital.today === undefined ?  "" :  <li key={hosp[0]}><span className="bold">
+          {hosp[2]}</span>: 
+          skupaj se zdravi <span className="bold">{hosp[1].inHospital.today}</span> <Translate text={"oseba"} number={hosp[1].inHospital.today}></Translate> 
+          {' '}(<span className="bold">+{hosp[1].inHospital.in} -{hosp[1].inHospital.out}</span>), 
+          od tega na ICU <span className="bold">{hosp[1].icu.today}</span> <Translate text={"oseba"} number={hosp[1].icu.today}></Translate> 
+          {' '}(<span className="bold">+{hosp[1].icu.in} -{hosp[1].icu.out}</span>).  
+          </li>
+      })
+      }
+      </ul>
+      </span>
+
       </span>
       <br />
       <span className={paint_stats_age}>
@@ -94,11 +132,11 @@ const List = (props) => {
       <span className={paint_mun}>
       <Municipalities data={municipalities}></Municipalities></span></ul>
 
-      {/* <p>Legenda trenda (primerjava današnjega stanja novookuženih glede na 7-dnevno povprečje):</p>
-      <p>- Nižje od povprečja <img src='trend_down.svg' alt='trend_down' width='16px' height='auto' /></p>
-      <p>- Ni sprememb <img src='trend_neutral.svg' alt='trend_neutral' width='16px' height='auto' /></p>
-      <p>- Višje od povprečja <img src='trend_up.svg' alt='trend_up' width='16px' height='auto' /></p>
-       */}
+      <p>Legenda trenda (primerjava današnjega stanja novookuženih glede na 7-dnevno povprečje):</p>
+      <p>- Trend novookuženih pada <span role="img" aria-label="up">📉</span></p>
+      <p>- Ni sprememb <span role="img" aria-label="neutral">➖</span></p>
+      <p>- Trend novookuženih raste <span role="img" aria-label="down">📈</span></p>
+      
       {/* <p><RandomGenerator mode={"end"}></RandomGenerator></p> */}
       <p className="text">#OstaniZdrav <span role="img" aria-label='s'>📲 + 👐🧼🚿,😷 ,🙎↔️↔️🙎‍♂️🙎↔️↔️🙎 & 🤞</span></p>
     </div>
