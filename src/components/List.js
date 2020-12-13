@@ -90,9 +90,9 @@ const List = (props) => {
       <p className="text">
       <span role="img" aria-label='s'>➡️</span> Po krajih: 
       </p>
-      <ul className="municipalities">      
+      {/* <ul className="municipalities">      
       <span className={paint_mun}>
-      <Municipalities data={municipalities}></Municipalities></span></ul>
+      <Municipalities data={municipalities}></Municipalities></span></ul> */}
 
       {/* <p>Legenda trenda (primerjava današnjega stanja novookuženih glede na 7-dnevno povprečje):</p>
       <p>- Nižje od povprečja <img src='trend_down.svg' alt='trend_down' width='16px' height='auto' /></p>
