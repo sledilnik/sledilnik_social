@@ -1,0 +1,193 @@
+[
+  {
+    "dayFromStart": 285,
+    "year": 2020,
+    "month": 12,
+    "day": 13,
+    "total": {
+      "outOfHospital": { "toDate": 4565 },
+      "inHospital": { "in": 106, "out": 52, "today": 1315, "toDate": 7353 },
+      "icu": { "in": 18, "out": 7, "today": 201, "toDate": 1068 },
+      "critical": { "in": 17, "out": 1, "today": 144, "toDate": 577 },
+      "deceased": {
+        "hospital": {
+          "icu": { "today": 2, "toDate": 248 },
+          "today": 15,
+          "toDate": 1470
+        },
+        "care": { "today": 3, "toDate": 47 },
+        "home": { "today": 4, "toDate": 546 },
+        "today": 22,
+        "toDate": 2063
+      },
+      "care": { "in": 8, "out": 4, "today": 129, "toDate": 628 },
+      "deceasedCare": { "today": 3, "toDate": 47 }
+    },
+    "facilities": {
+      "sbnm": {
+        "inHospital": { "in": 7, "out": 7, "today": 101, "toDate": 467 },
+        "icu": { "in": 0, "out": 1, "today": 14, "toDate": 14 },
+        "critical": { "in": 2, "today": 12, "toDate": 41 },
+        "deceased": { "icu": { "toDate": 18 }, "toDate": 95 },
+        "care": { "toDate": 12 },
+        "deceasedCare": { "toDate": 0 }
+      },
+      "pbvo": {
+        "inHospital": {},
+        "icu": {},
+        "critical": {},
+        "deceased": { "icu": {} },
+        "care": { "today": 7, "toDate": 32 },
+        "deceasedCare": {}
+      },
+      "pbbe": {
+        "inHospital": {},
+        "icu": {},
+        "critical": {},
+        "deceased": { "icu": {} },
+        "care": { "in": 1, "out": 2, "today": 11, "toDate": 29 },
+        "deceasedCare": {}
+      },
+      "sbce": {
+        "inHospital": { "in": 8, "out": 5, "today": 152, "toDate": 903 },
+        "icu": { "in": 3, "out": 1, "today": 19, "toDate": 156 },
+        "critical": { "in": 3, "today": 11, "toDate": 79 },
+        "deceased": { "icu": { "toDate": 39 }, "today": 1, "toDate": 196 },
+        "care": {},
+        "deceasedCare": {}
+      },
+      "sbtr": {
+        "inHospital": { "in": 1, "out": 1, "today": 31, "toDate": 155 },
+        "icu": { "in": 0, "out": 0, "today": 8, "toDate": 48 },
+        "critical": { "in": 1, "today": 4, "toDate": 23 },
+        "deceased": { "icu": { "toDate": 12 }, "today": 1, "toDate": 38 },
+        "care": {},
+        "deceasedCare": {}
+      },
+      "sbiz": {
+        "inHospital": { "out": 3, "today": 51, "toDate": 233 },
+        "icu": { "in": 2, "out": 1, "today": 5, "toDate": 24 },
+        "critical": { "in": 1, "today": 1, "toDate": 13 },
+        "deceased": { "icu": { "toDate": 9 }, "today": 2, "toDate": 50 },
+        "care": {},
+        "deceasedCare": {}
+      },
+      "sbpt": {
+        "inHospital": { "in": 6, "out": 1, "today": 45, "toDate": 354 },
+        "icu": { "in": 0, "out": 0, "today": 5, "toDate": 28 },
+        "critical": { "out": 1, "today": 2, "toDate": 13 },
+        "deceased": { "icu": { "toDate": 7 }, "today": 1, "toDate": 107 },
+        "care": {},
+        "deceasedCare": {}
+      },
+      "ukclj": {
+        "inHospital": { "in": 34, "out": 22, "today": 349, "toDate": 1867 },
+        "icu": { "in": 6, "out": 0, "today": 58, "toDate": 325 },
+        "critical": { "in": 2, "today": 47, "toDate": 155 },
+        "deceased": {
+          "icu": { "today": 2, "toDate": 62 },
+          "today": 1,
+          "toDate": 244
+        },
+        "care": { "toDate": 52 },
+        "deceasedCare": { "toDate": 0 }
+      },
+      "ukcmb": {
+        "inHospital": { "in": 15, "out": 4, "today": 207, "toDate": 1262 },
+        "icu": { "in": 6, "out": 2, "today": 46, "toDate": 242 },
+        "critical": { "in": 6, "today": 33, "toDate": 114 },
+        "deceased": { "icu": { "toDate": 39 }, "today": 3, "toDate": 238 },
+        "care": {},
+        "deceasedCare": {}
+      },
+      "sbje": {
+        "inHospital": { "in": 1, "out": 1, "today": 44, "toDate": 252 },
+        "icu": { "in": 0, "out": 0, "today": 4, "toDate": 18 },
+        "critical": { "today": 4, "toDate": 12 },
+        "deceased": { "icu": { "toDate": 5 }, "today": 1, "toDate": 58 },
+        "care": {},
+        "deceasedCare": {}
+      },
+      "sbsg": {
+        "inHospital": { "in": 5, "out": 5, "today": 52, "toDate": 429 },
+        "icu": { "in": 0, "out": 0, "today": 6, "toDate": 38 },
+        "critical": { "today": 4, "toDate": 20 },
+        "deceased": { "icu": { "toDate": 8 }, "toDate": 88 },
+        "care": {},
+        "deceasedCare": {}
+      },
+      "sbbr": {
+        "inHospital": { "in": 5, "out": 0, "today": 46, "toDate": 175 },
+        "icu": { "in": 1, "out": 1, "today": 2, "toDate": 2 },
+        "critical": {},
+        "deceased": { "icu": { "toDate": 2 }, "today": 3, "toDate": 44 },
+        "care": { "toDate": 46 },
+        "deceasedCare": { "toDate": 3 }
+      },
+      "sbng": {
+        "inHospital": { "in": 4, "out": 2, "today": 36, "toDate": 256 },
+        "icu": { "in": 0, "out": 0, "today": 6, "toDate": 19 },
+        "critical": { "in": 1, "today": 4, "toDate": 15 },
+        "deceased": { "icu": { "toDate": 3 }, "today": 2, "toDate": 74 },
+        "care": { "toDate": 8 },
+        "deceasedCare": { "toDate": 1 }
+      },
+      "pbor": {
+        "inHospital": {},
+        "icu": {},
+        "critical": {},
+        "deceased": { "icu": {} },
+        "care": { "in": 3, "today": 27, "toDate": 100 },
+        "deceasedCare": { "toDate": 1 }
+      },
+      "ukg": {
+        "inHospital": { "in": 4, "out": 0, "today": 64, "toDate": 420 },
+        "icu": { "in": 0, "out": 1, "today": 9, "toDate": 72 },
+        "critical": { "today": 6, "toDate": 40 },
+        "deceased": { "icu": { "toDate": 20 }, "toDate": 90 },
+        "care": { "toDate": 8 },
+        "deceasedCare": { "toDate": 0 }
+      },
+      "upklj": {
+        "inHospital": {},
+        "icu": {},
+        "critical": {},
+        "deceased": { "icu": {} },
+        "care": { "out": 1, "today": 18, "toDate": 99 },
+        "deceasedCare": { "toDate": 1 }
+      },
+      "bto": {
+        "inHospital": { "toDate": 8 },
+        "icu": {},
+        "critical": {},
+        "deceased": { "icu": {}, "toDate": 0 },
+        "care": { "in": 2, "today": 23, "toDate": 178 },
+        "deceasedCare": { "today": 2, "toDate": 21 }
+      },
+      "bse": {
+        "inHospital": { "toDate": 2 },
+        "icu": {},
+        "critical": {},
+        "deceased": { "icu": {}, "toDate": 1 },
+        "care": { "today": 26, "toDate": 27 },
+        "deceasedCare": { "today": 1, "toDate": 20 }
+      },
+      "sbms": {
+        "inHospital": { "in": 16, "out": 1, "today": 137, "toDate": 570 },
+        "icu": { "in": 0, "out": 0, "today": 19, "toDate": 82 },
+        "critical": { "in": 1, "today": 16, "toDate": 52 },
+        "deceased": { "icu": { "toDate": 24 }, "toDate": 147 },
+        "care": { "toDate": 3 },
+        "deceasedCare": { "toDate": 0 }
+      },
+      "pbid": {
+        "inHospital": {},
+        "icu": {},
+        "critical": {},
+        "deceased": { "icu": {} },
+        "care": { "in": 2, "out": 1, "today": 17, "toDate": 34 },
+        "deceasedCare": {}
+      }
+    }
+  }
+]

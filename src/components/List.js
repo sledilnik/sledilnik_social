@@ -20,7 +20,7 @@ const List = (props) => {
   }
 
   // prepare perHospitalChanges
-  const perHospitalChanges = Object.entries(patients[0].facilities)
+  const perHospitalChanges = Object.entries(patients[13].facilities)
   for (let i = 0; i < perHospitalChanges.length ; i++) {
     for (let j= 0; j < hospitalsDict.length; j++){
       if (perHospitalChanges[i][0] === hospitalsDict[j][0]) {
@@ -28,6 +28,8 @@ const List = (props) => {
       }
     }
   }
+
+console.log(patients[13].facilities)
 
   // const datestamps
   const today = parseInt(new Date().getFullYear().toString()+(new Date().getMonth()+1).toString()+new Date().getDate().toString());
@@ -91,17 +93,18 @@ const List = (props) => {
       </p>
 
       <span>
-      <p className="text"><span role="img" aria-label='s'>➡️</span> Stanje po bolnišnicah <span className="bold">[WIP - DO NOT USE YET !]</span>:</p>
+      <p className="text"><span role="img" aria-label='s'>➡️</span> Stanje po bolnišnicah:</p>
       <ul>
       {perHospitalChanges
       .sort((a, b) => { return b[1].inHospital.today - a[1].inHospital.today})
       .map(hosp => {
-        return hosp[1].inHospital.today === undefined ?  "" :  <li key={hosp[0]}><span className="bold">
+        return hosp[1].inHospital.today === undefined ?  "" :  <li key={hosp[0]}><span><span className="bold">
           {hosp[2]}</span>: 
           skupaj se zdravi <span className="bold">{hosp[1].inHospital.today}</span> <Translate text={"oseba"} number={hosp[1].inHospital.today}></Translate> 
           {' '}(<span className="bold">+{hosp[1].inHospital.in} -{hosp[1].inHospital.out}</span>), 
-          od tega na ICU <span className="bold">{hosp[1].icu.today}</span> <Translate text={"oseba"} number={hosp[1].icu.today}></Translate> 
-          {' '}(<span className="bold">+{hosp[1].icu.in} -{hosp[1].icu.out}</span>).  
+          ICU <span className="bold">{hosp[1].icu.today}</span> <Translate text={"oseba"} number={hosp[1].icu.today}></Translate> 
+          {' '}(<span className="bold">+{hosp[1].icu.in} -{hosp[1].icu.out}</span>). 
+          </span><br /><br /> 
           </li>
       })
       }
