@@ -8,7 +8,6 @@ const List = (props) => {
 
   const { stats } = props;
   const { municipalities } = props;
-  console.log(municipalities)
   const { patients } = props;
   if (!stats || stats.length === 0) return <p>Napaka: API ne vrača podatkov, refresh page !!!</p>;
 

@@ -35,6 +35,7 @@ const Municipalities = (props) => {
   const d6 = _.nth(props.data, -6);
   const d7 = _.nth(props.data, -7);
   const d8 = _.nth(props.data, -8);
+  const d9 = _.nth(props.data, -9);
 
   const mun_today = today.regions;
   const mun_yesterday = yesterday.regions;
@@ -44,6 +45,7 @@ const Municipalities = (props) => {
   const mun_d6 = d6.regions;
   const mun_d7 = d7.regions;
   const mun_d8 = d8.regions;
+  const mun_d9 = d9.regions;
 
   const all_numbers_today = calc_regions(mun_today);
   const all_numbers_yesterday = calc_regions(mun_yesterday);
@@ -53,6 +55,7 @@ const Municipalities = (props) => {
   const all_numbers_d6 = calc_regions(mun_d6);
   const all_numbers_d7 = calc_regions(mun_d7);
   const all_numbers_d8 = calc_regions(mun_d8);
+  const all_numbers_d9 = calc_regions(mun_d9);
 
   const difference_since_yesterday = _.assignWith(
     all_numbers_today,
@@ -84,28 +87,38 @@ const Municipalities = (props) => {
     let upDown = ""
     let outputTowns = []
     let outputTrends = []
+    let today7d = 0
+    let yesterday7d = 0
    
     // fetch 7-d data for trend
     for (let j=0; j < towns.length; j++) {
       let townsPastWeek = [
+      all_numbers_today[towns[j]],
       all_numbers_yesterday[towns[j]] - all_numbers_d3[towns[j]],
       all_numbers_d3[towns[j]] - all_numbers_d4[towns[j]],
       all_numbers_d4[towns[j]] - all_numbers_d5[towns[j]],
       all_numbers_d5[towns[j]] - all_numbers_d6[towns[j]],
       all_numbers_d6[towns[j]] - all_numbers_d7[towns[j]],
       all_numbers_d7[towns[j]] - all_numbers_d8[towns[j]],
+      all_numbers_d8[towns[j]] - all_numbers_d9[towns[j]],
     ]
       
       // calculate trend for every municipality
-      for (let i=0; i < townsPastWeek.length;i++){
-        trend += townsPastWeek[i]
+      // 7 days from today
+      for (let i=0; i <=6;i++){
+        today7d += townsPastWeek[i]
       }
-      trend = Math.round(trend / 6)
+      // 7 days from yesterday
+      for (let i=1; i <=7;i++){
+        yesterday7d += townsPastWeek[i]
+      }
+      // compare
+      trend = today7d - yesterday7d
       
       // plot FB/TW friendly icons
-      if (count < trend) {
+      if (trend < 0) {
         upDown = "📉"
-      } else if (count > trend) {
+      } else if (trend > 0) {
         upDown = "📈"
       } else {
         upDown = "➖"
@@ -124,7 +137,7 @@ const Municipalities = (props) => {
       outputTrends.push(upDown) 
     }
 
-    // generate HTML
+    // generate HTML output
     let outputLabel = ""
     for (var k = 0; k < outputTowns.length; k++) {
       outputLabel = outputLabel.concat(outputTowns[k])

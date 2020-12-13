@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
       setLoading(true);
       // const timer = setTimeout(() => { // timer
-      const nDaysAgo = new Date(new Date().setDate(new Date().getDate() - 10)).toISOString()
+      const nDaysAgo = new Date(new Date().setDate(new Date().getDate() - 14)).toISOString()
       Promise.all([
           fetch(`https://api.sledilnik.org/api/stats?from=${nDaysAgo}`) // apis
               .then((res) => res.json())
