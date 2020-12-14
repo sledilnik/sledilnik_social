@@ -20,7 +20,8 @@ const List = (props) => {
   }
 
   // prepare perHospitalChanges
-  const perHospitalChanges = Object.entries(patients[13].facilities)
+
+  const perHospitalChanges = patients[13] === undefined? "NI PODATKOV":Object.entries(patients[13].facilities)
   for (let i = 0; i < perHospitalChanges.length ; i++) {
     for (let j= 0; j < hospitalsDict.length; j++){
       if (perHospitalChanges[i][0] === hospitalsDict[j][0]) {
@@ -28,8 +29,6 @@ const List = (props) => {
       }
     }
   }
-
-console.log(patients[13].facilities)
 
   // const datestamps
   const today = parseInt(new Date().getFullYear().toString()+(new Date().getMonth()+1).toString()+new Date().getDate().toString());
@@ -95,7 +94,7 @@ console.log(patients[13].facilities)
       <span>
       <p className="text"><span role="img" aria-label='s'>➡️</span> Stanje po bolnišnicah:</p>
       <ul>
-      {perHospitalChanges
+      {patients[13] === undefined? "NI PODATKOV":perHospitalChanges
       .sort((a, b) => { return b[1].inHospital.today - a[1].inHospital.today})
       .map(hosp => {
         return hosp[1].inHospital.today === undefined ?  "" :  <li key={hosp[0]}><span><span className="bold">
