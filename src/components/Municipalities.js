@@ -220,9 +220,7 @@ const Municipalities = (props) => {
         outputLabel = outputLabel.concat(", ");
       }
     }
-    outputLabel = outputLabel.concat(
-      `<strong>&nbsp;+${count}<br></br></strong>`
-    );
+    outputLabel = outputLabel.concat(`<strong>&nbsp;+${count}<br></strong>`);
 
     return (
       <div key={count}>

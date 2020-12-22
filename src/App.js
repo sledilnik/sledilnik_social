@@ -16,7 +16,7 @@ function App() {
     setLoading(true);
     // const timer = setTimeout(() => { // timer
     const nDaysAgo = new Date(
-      new Date().setDate(new Date().getDate() - 17)
+      new Date().setDate(new Date().getDate() - 18)
     ).toISOString();
     Promise.all([
       fetch(`https://api.sledilnik.org/api/stats?from=${nDaysAgo}`) // apis

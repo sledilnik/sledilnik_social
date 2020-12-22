@@ -373,7 +373,6 @@ const List = (props) => {
                         ).
                       </span>
                       <br />
-                      <br />
                     </li>
                   );
                 })}
