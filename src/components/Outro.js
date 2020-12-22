@@ -1,4 +1,6 @@
 import React from "react";
+import Logo from "../assets/sledilnik-logo.svg";
+
 const Outro = (props) => {
   return (
     <p className="text">
@@ -18,6 +20,9 @@ const Outro = (props) => {
         </a>{" "}
         ✨
       </span>
+      <br />
+      <br />
+      <img src={Logo} alt="logo" className="logoCenter" />
     </p>
   );
 };
