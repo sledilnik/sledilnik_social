@@ -14,7 +14,7 @@ const Outro = (props) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          covid-spark.info
+          SPARK
         </a>{" "}
         ✨
       </span>

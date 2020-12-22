@@ -37,20 +37,24 @@ const List = (props) => {
   }
 
   // const datestamps
-  const today = parseInt(
+  const todayDate = parseInt(
     new Date().getFullYear().toString() +
       (new Date().getMonth() + 1).toString() +
       new Date().getDate().toString()
   );
-  const statsCheck =
+  const patientsDate =
+    patients[patients.length - 1].year.toString() +
+    patients[patients.length - 1].month.toString() +
+    patients[patients.length - 1].day.toString();
+  const statsDate =
     stats[stats.length - 1].year.toString() +
     stats[stats.length - 1].month.toString() +
     stats[stats.length - 1].day.toString();
-  // const municipalitiesCheck = parseInt(
-  //   municipalities[municipalities.length - 1].year.toString() +
-  //     municipalities[municipalities.length - 1].month.toString() +
-  //     municipalities[municipalities.length - 1].day.toString()
-  // );
+  const municipalitiesDate = parseInt(
+    municipalities[municipalities.length - 1].year.toString() +
+      municipalities[municipalities.length - 1].month.toString() +
+      municipalities[municipalities.length - 1].day.toString()
+  );
   //const patientsCheck = patients[patients.length -1].year.toString()+patients[patients.length -1].month.toString()+patients[patients.length -1].day.toString();
 
   let introTodayDate = `${stats[stats.length - 1].day}.${
@@ -60,26 +64,29 @@ const List = (props) => {
   // paint red if data is not updated for the current day
   var check_first = "";
   var check_second = "";
-  var check_third = "";
+  var check_third_age = "";
+  var check_third_mun = "";
 
-  if (
-    stats[stats.length - 2].positiveTests === null ||
-    today - statsCheck > 0
-  ) {
+  if (todayDate - statsDate > 0) {
     check_first = "red";
   }
-  if (
-    stats[stats.length - 1].statePerTreatment.inHospital === null ||
-    today - statsCheck > 0
-  ) {
+  if (todayDate - patientsDate > 0) {
     check_second = "red";
   }
   if (
-    stats[stats.length - 2].statePerAgeToDate[9].allToDate === null ||
-    today - statsCheck > 0
+    stats[stats.length - 2].statePerAgeToDate[0].allToDate === undefined ||
+    todayDate - statsDate > 0
   ) {
-    check_third = "red";
+    check_third_age = "red";
   }
+  if (true) {
+  }
+  if (todayDate - municipalitiesDate > 1) {
+    check_third_mun = "red";
+  }
+
+  console.log(patients[patients.length - 1]);
+  console.log("a");
 
   // render tweets
 
@@ -100,13 +107,12 @@ const List = (props) => {
               .toString()
               .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
           </span>
-          *, delež pozitivnih testov:{" "}
+          , delež pozitivnih testov:{" "}
           <Percentage
             part={stats[stats.length - 2].positiveTests}
             total={stats[stats.length - 2].performedTests}
           ></Percentage>
           %.
-          {/* (*samo pozitivni testi iz laboratorija) */}
         </p>
 
         <p className="text">
@@ -120,18 +126,18 @@ const List = (props) => {
           <span className="bold">{stats[stats.length - 2].positiveTests}</span>,
           -
           <Delta
-            today={stats[stats.length - 2].cases.recoveredToDate}
-            yesterday={stats[stats.length - 3].cases.recoveredToDate}
+            today={stats[stats.length - 2].cases.closedToDate}
+            yesterday={stats[stats.length - 3].cases.closedToDate}
             noChanges={true}
           ></Delta>
           {/* , +
-      <span className="bold">
-        {stats[stats.length - 1].statePerTreatment.deceased}
-      </span>{" "}
-      <Translate
-        text={"preminula oseba"}
-        number={stats[stats.length - 1].statePerTreatment.deceased}
-      ></Translate> */}
+          <span className="bold">
+            {stats[stats.length - 1].statePerTreatment.deceased}
+          </span>{" "}
+          <Translate
+            text={"preminula oseba"}
+            number={stats[stats.length - 1].statePerTreatment.deceased}
+          ></Translate> */}
           ), skupno{" "}
           <span className="bold">
             {stats[stats.length - 2].cases.confirmedToDate
@@ -170,7 +176,7 @@ const List = (props) => {
               .toString()
               .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
           </span>
-          ), v intenzivni oskrbi{" "}
+          ), v EIT{" "}
           <span className="bold">
             {stats[stats.length - 1].statePerTreatment.inICU
               .toString()
@@ -241,7 +247,7 @@ const List = (props) => {
 
   function ThirdTweet() {
     return (
-      <div className={check_third}>
+      <div>
         {/* <p className="text">
         <Arrow /> 14-dnevna pojavnost na 100.000 prebivalcev:{" "}
         <span className="bold">
@@ -263,127 +269,135 @@ const List = (props) => {
         ></Percentage>
         %).
       </p> */}
-
-        <p className="text">
-          <Arrow /> Potrjeni primeri po starosti: 0-4 (
-          <Delta
-            today={stats[stats.length - 2].statePerAgeToDate[0].allToDate}
-            yesterday={stats[stats.length - 3].statePerAgeToDate[0].allToDate}
-          ></Delta>
-          ), 5-14 (
-          <Delta
-            today={stats[stats.length - 2].statePerAgeToDate[1].allToDate}
-            yesterday={stats[stats.length - 3].statePerAgeToDate[1].allToDate}
-          ></Delta>
-          ), 15-24 (
-          <Delta
-            today={stats[stats.length - 2].statePerAgeToDate[2].allToDate}
-            yesterday={stats[stats.length - 3].statePerAgeToDate[2].allToDate}
-          ></Delta>
-          ), 25-34 (
-          <Delta
-            today={stats[stats.length - 2].statePerAgeToDate[3].allToDate}
-            yesterday={stats[stats.length - 3].statePerAgeToDate[3].allToDate}
-          ></Delta>
-          ), 35-44 (
-          <Delta
-            today={stats[stats.length - 2].statePerAgeToDate[4].allToDate}
-            yesterday={stats[stats.length - 3].statePerAgeToDate[4].allToDate}
-          ></Delta>
-          ), 45-54 (
-          <Delta
-            today={stats[stats.length - 2].statePerAgeToDate[5].allToDate}
-            yesterday={stats[stats.length - 3].statePerAgeToDate[5].allToDate}
-          ></Delta>
-          ), 55-64 (
-          <Delta
-            today={stats[stats.length - 2].statePerAgeToDate[6].allToDate}
-            yesterday={stats[stats.length - 3].statePerAgeToDate[6].allToDate}
-          ></Delta>
-          ), 65-74 (
-          <Delta
-            today={stats[stats.length - 2].statePerAgeToDate[7].allToDate}
-            yesterday={stats[stats.length - 3].statePerAgeToDate[7].allToDate}
-          ></Delta>
-          ), 75-84 (
-          <Delta
-            today={stats[stats.length - 2].statePerAgeToDate[8].allToDate}
-            yesterday={stats[stats.length - 3].statePerAgeToDate[8].allToDate}
-          ></Delta>
-          ), 85+ (
-          <Delta
-            today={stats[stats.length - 2].statePerAgeToDate[9].allToDate}
-            yesterday={stats[stats.length - 3].statePerAgeToDate[9].allToDate}
-          ></Delta>
-          ).
-        </p>
-
-        <p className="text">
-          <Arrow /> Stanje po bolnišnicah:
-        </p>
-        <ul>
-          {patients[patients.length - 1] === undefined
-            ? "NI PODATKOV"
-            : perHospitalChanges
-                .sort(
-                  (a, b) =>
-                    (b[1].inHospital.today || 0) - (a[1].inHospital.today || 0)
-                )
-                .map((hosp) => {
-                  return hosp[1].inHospital.today === undefined ? (
-                    ""
-                  ) : (
-                    <li key={hosp[0]}>
-                      <span>
-                        <span className="bold">{hosp[2]}</span>:{" "}
-                        <span className="bold">
-                          {hosp[1].inHospital.today
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-                        </span>{" "}
-                        <Translate
-                          text={"oseba"}
-                          number={hosp[1].inHospital.today}
-                        ></Translate>{" "}
-                        (
-                        <span className="bold">
-                          +{hosp[1].inHospital.in} -{hosp[1].inHospital.out}
+        <span className={check_third_age}>
+          <p className="text">
+            <Arrow /> Potrjeni primeri po starosti: 0-4 (
+            <Delta
+              today={stats[stats.length - 2].statePerAgeToDate[0].allToDate}
+              yesterday={stats[stats.length - 3].statePerAgeToDate[0].allToDate}
+            ></Delta>
+            ), 5-14 (
+            <Delta
+              today={stats[stats.length - 2].statePerAgeToDate[1].allToDate}
+              yesterday={stats[stats.length - 3].statePerAgeToDate[1].allToDate}
+            ></Delta>
+            ), 15-24 (
+            <Delta
+              today={stats[stats.length - 2].statePerAgeToDate[2].allToDate}
+              yesterday={stats[stats.length - 3].statePerAgeToDate[2].allToDate}
+            ></Delta>
+            ), 25-34 (
+            <Delta
+              today={stats[stats.length - 2].statePerAgeToDate[3].allToDate}
+              yesterday={stats[stats.length - 3].statePerAgeToDate[3].allToDate}
+            ></Delta>
+            ), 35-44 (
+            <Delta
+              today={stats[stats.length - 2].statePerAgeToDate[4].allToDate}
+              yesterday={stats[stats.length - 3].statePerAgeToDate[4].allToDate}
+            ></Delta>
+            ), 45-54 (
+            <Delta
+              today={stats[stats.length - 2].statePerAgeToDate[5].allToDate}
+              yesterday={stats[stats.length - 3].statePerAgeToDate[5].allToDate}
+            ></Delta>
+            ), 55-64 (
+            <Delta
+              today={stats[stats.length - 2].statePerAgeToDate[6].allToDate}
+              yesterday={stats[stats.length - 3].statePerAgeToDate[6].allToDate}
+            ></Delta>
+            ), 65-74 (
+            <Delta
+              today={stats[stats.length - 2].statePerAgeToDate[7].allToDate}
+              yesterday={stats[stats.length - 3].statePerAgeToDate[7].allToDate}
+            ></Delta>
+            ), 75-84 (
+            <Delta
+              today={stats[stats.length - 2].statePerAgeToDate[8].allToDate}
+              yesterday={stats[stats.length - 3].statePerAgeToDate[8].allToDate}
+            ></Delta>
+            ), 85+ (
+            <Delta
+              today={stats[stats.length - 2].statePerAgeToDate[9].allToDate}
+              yesterday={stats[stats.length - 3].statePerAgeToDate[9].allToDate}
+            ></Delta>
+            ).
+          </p>
+        </span>
+        <span className={check_second}>
+          <p className="text">
+            <Arrow /> Stanje po bolnišnicah:
+          </p>
+          <ul>
+            {patients[patients.length - 1] === undefined
+              ? "NI PODATKOV"
+              : perHospitalChanges
+                  .sort(
+                    (a, b) =>
+                      (b[1].inHospital.today || 0) -
+                      (a[1].inHospital.today || 0)
+                  )
+                  .map((hosp) => {
+                    return hosp[1].inHospital.today === undefined ? (
+                      ""
+                    ) : (
+                      <li key={hosp[0]}>
+                        <span>
+                          <span className="bold">{hosp[2]}</span>:{" "}
+                          <span className="bold">
+                            {hosp[1].inHospital.today
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                          </span>{" "}
+                          <Translate
+                            text={"oseba"}
+                            number={hosp[1].inHospital.today}
+                          ></Translate>{" "}
+                          (
+                          <span className="bold">
+                            +{hosp[1].inHospital.in} -{hosp[1].inHospital.out}
+                          </span>
+                          ), EIT{" "}
+                          <span className="bold">
+                            {hosp[1].icu.today
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                          </span>{" "}
+                          <Translate
+                            text={"oseba"}
+                            number={hosp[1].icu.today}
+                          ></Translate>{" "}
+                          (
+                          <span className="bold">
+                            +
+                            {hosp[1].icu.in
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                            -
+                            {hosp[1].icu.out
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                          </span>
+                          ).
                         </span>
-                        ), EIT{" "}
-                        <span className="bold">
-                          {hosp[1].icu.today
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-                        </span>{" "}
-                        <Translate
-                          text={"oseba"}
-                          number={hosp[1].icu.today}
-                        ></Translate>{" "}
-                        (
-                        <span className="bold">
-                          +
-                          {hosp[1].icu.in
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                          -
-                          {hosp[1].icu.out
-                            .toString()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
-                        </span>
-                        ).
-                      </span>
-                      <br />
-                    </li>
-                  );
-                })}
-        </ul>
+                        <br />
+                      </li>
+                    );
+                  })}
+          </ul>
+        </span>
 
-        <p className="text">
-          <Arrow /> Po krajih:
-        </p>
-        <ul className="municipalities">
-          <Municipalities data={municipalities} showTrend="y"></Municipalities>
-        </ul>
+        <span className={check_third_mun}>
+          <p className="text">
+            <Arrow /> Po krajih:
+          </p>
+          <ul className="municipalities">
+            <Municipalities
+              data={municipalities}
+              showTrend="y"
+            ></Municipalities>
+          </ul>
+        </span>
       </div>
     );
   }
