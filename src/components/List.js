@@ -6,11 +6,13 @@ import Translate from "./Translate";
 import Intro from "./Intro";
 import Outro from "./Outro";
 import Arrow from "./Arrow";
+import Separator from "./Separator";
 
 const List = (props) => {
   const { stats } = props;
   const { municipalities } = props;
   const { patients } = props;
+  const { labTests } = props;
 
   if (!stats || stats.length === 0)
     return <p>Napaka: API ne vrača podatkov, refresh page !!!</p>;
@@ -27,7 +29,7 @@ const List = (props) => {
   const perHospitalChanges =
     patients[patients.length - 1] === undefined
       ? "NI PODATKOV"
-      : Object.entries(patients[13].facilities);
+      : Object.entries(patients[patients.length - 1].facilities);
   for (let i = 0; i < perHospitalChanges.length; i++) {
     for (let j = 0; j < hospitalsDict.length; j++) {
       if (perHospitalChanges[i][0] === hospitalsDict[j][0]) {
@@ -85,27 +87,20 @@ const List = (props) => {
     check_third_mun = "red";
   }
 
-  console.log(patients[patients.length - 1]);
-  console.log("a");
-
   // render tweets
 
   function FirstTweet() {
     return (
       <div className={check_first}>
         <p className="text">
-          <Arrow /> Rast novih primerov:{" "}
+          <Arrow /> PCR:{" "}
           <span className="bold">
             +
-            {stats[stats.length - 2].positiveTests
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            <Separator number={stats[stats.length - 2].positiveTests} />
           </span>
           , št. testiranih:{" "}
           <span className="bold">
-            {stats[stats.length - 2].performedTests
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            <Separator number={stats[stats.length - 2].performedTests} />
           </span>
           , delež pozitivnih testov:{" "}
           <Percentage
@@ -116,15 +111,37 @@ const List = (props) => {
         </p>
 
         <p className="text">
+          <Arrow /> HAT:{" "}
+          <span className="bold">
+            +
+            <Separator
+              number={labTests[labTests.length - 1].data.hagt.positive.today}
+            />
+          </span>
+          , št. testiranih:{" "}
+          <span className="bold">
+            <Separator
+              number={labTests[labTests.length - 1].data.hagt.performed.today}
+            />
+          </span>
+          , delež pozitivnih testov:{" "}
+          <Percentage
+            part={labTests[labTests.length - 1].data.hagt.positive.today}
+            total={labTests[labTests.length - 1].data.hagt.performed.today}
+          ></Percentage>
+          %.
+        </p>
+
+        <p className="text">
           <Arrow /> Št. vseh aktivnih primerov:{" "}
           <span className="bold">
-            {stats[stats.length - 2].cases.active
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            <Separator number={stats[stats.length - 2].cases.active} />
           </span>{" "}
           (+
-          <span className="bold">{stats[stats.length - 2].positiveTests}</span>,
-          -
+          <span className="bold">
+            <Separator number={stats[stats.length - 2].positiveTests} />
+          </span>
+          , -
           <Delta
             today={stats[stats.length - 2].cases.closedToDate}
             yesterday={stats[stats.length - 3].cases.closedToDate}
@@ -140,9 +157,7 @@ const List = (props) => {
           ></Translate> */}
           ), skupno{" "}
           <span className="bold">
-            {stats[stats.length - 2].cases.confirmedToDate
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            <Separator number={stats[stats.length - 2].cases.confirmedToDate} />
           </span>{" "}
           potrjenih primerov.
         </p>
@@ -156,9 +171,9 @@ const List = (props) => {
         <p className="text">
           <Arrow /> Hospitalizirani:{" "}
           <span className="bold">
-            {stats[stats.length - 1].statePerTreatment.inHospital
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            <Separator
+              number={stats[stats.length - 1].statePerTreatment.inHospital}
+            />
           </span>{" "}
           <Translate
             text={"oseba"}
@@ -166,21 +181,21 @@ const List = (props) => {
           ></Translate>{" "}
           (+
           <span className="bold">
-            {patients[patients.length - 1].total.inHospital.in
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            <Separator
+              number={patients[patients.length - 1].total.inHospital.in}
+            />
           </span>
           , -
           <span className="bold">
-            {patients[patients.length - 1].total.inHospital.out
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            <Separator
+              number={patients[patients.length - 1].total.inHospital.out}
+            />
           </span>
           ), v EIT{" "}
           <span className="bold">
-            {stats[stats.length - 1].statePerTreatment.inICU
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            <Separator
+              number={stats[stats.length - 1].statePerTreatment.inICU}
+            />
           </span>{" "}
           <Translate
             text={"oseba"}
@@ -203,9 +218,9 @@ const List = (props) => {
             number={stats[stats.length - 1].statePerTreatment.critical}
           ></Translate>{" "}
           <span className="bold">
-            {stats[stats.length - 1].statePerTreatment.critical
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            <Separator
+              number={stats[stats.length - 1].statePerTreatment.critical}
+            />
           </span>{" "}
           <Translate
             text={"oseba"}
@@ -225,9 +240,9 @@ const List = (props) => {
           <Arrow /> Preminuli:{" "}
           {stats[stats.length - 1].statePerTreatment.deceased > 0 ? "+" : ""}
           <span className="bold">
-            {stats[stats.length - 1].statePerTreatment.deceased
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            <Separator
+              number={stats[stats.length - 1].statePerTreatment.deceased}
+            />
           </span>{" "}
           <Translate
             text={"oseba"}
@@ -235,9 +250,9 @@ const List = (props) => {
           ></Translate>
           , skupaj:{" "}
           <span className="bold">
-            {stats[stats.length - 1].statePerTreatment.deceasedToDate
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+            <Separator
+              number={stats[stats.length - 1].statePerTreatment.deceasedToDate}
+            />
           </span>
           .
         </p>
@@ -345,9 +360,7 @@ const List = (props) => {
                         <span>
                           <span className="bold">{hosp[2]}</span>:{" "}
                           <span className="bold">
-                            {hosp[1].inHospital.today
-                              .toString()
-                              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                            <Separator number={hosp[1].inHospital.today} />
                           </span>{" "}
                           <Translate
                             text={"oseba"}
@@ -355,13 +368,12 @@ const List = (props) => {
                           ></Translate>{" "}
                           (
                           <span className="bold">
-                            +{hosp[1].inHospital.in} -{hosp[1].inHospital.out}
+                            +<Separator number={hosp[1].inHospital.in} /> -
+                            <Separator number={hosp[1].inHospital.out} />
                           </span>
                           ), EIT{" "}
                           <span className="bold">
-                            {hosp[1].icu.today
-                              .toString()
-                              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                            <Separator number={hosp[1].icu.today} />
                           </span>{" "}
                           <Translate
                             text={"oseba"}
@@ -370,13 +382,8 @@ const List = (props) => {
                           (
                           <span className="bold">
                             +
-                            {hosp[1].icu.in
-                              .toString()
-                              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                            -
-                            {hosp[1].icu.out
-                              .toString()
-                              .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                            <Separator number={hosp[1].icu.in} /> -
+                            <Separator number={hosp[1].icu.out} />
                           </span>
                           ).
                         </span>
@@ -395,6 +402,20 @@ const List = (props) => {
             <Municipalities
               data={municipalities}
               showTrend="y"
+              icons="FB"
+            ></Municipalities>
+          </ul>
+          <Outro />
+          <br />
+          <br />
+          <p className="text">
+            <Arrow /> Po krajih:
+          </p>
+          <ul className="municipalities">
+            <Municipalities
+              data={municipalities}
+              showTrend="y"
+              icons="TW"
             ></Municipalities>
           </ul>
         </span>

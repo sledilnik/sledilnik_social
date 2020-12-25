@@ -169,16 +169,30 @@ const Municipalities = (props) => {
 
       if (props.showTrend === "y") {
         // plot FB/TW friendly icons
-        if (trend < -0.03) {
-          upDown = "⤵ ";
-        } else if (trend > 0.03) {
-          upDown = "⤴ ";
-        } else if (trend === "no") {
-          upDown = "";
-        } else if (trend >= -0.03 || trend <= 0.03) {
-          upDown = "➖ ";
-        } else {
-          upDown = "... ";
+        if (props.icons === "FB") {
+          if (trend < -0.03) {
+            upDown = "⤵ ";
+          } else if (trend > 0.03) {
+            upDown = "⤴ ";
+          } else if (trend === "no") {
+            upDown = "";
+          } else if (trend >= -0.03 || trend <= 0.03) {
+            upDown = "➖ ";
+          } else {
+            upDown = "... ";
+          }
+        } else if (props.icons === "TW") {
+          if (trend < -0.03) {
+            upDown = "📉 ";
+          } else if (trend > 0.03) {
+            upDown = "📈 ";
+          } else if (trend === "no") {
+            upDown = "";
+          } else if (trend >= -0.03 || trend <= 0.03) {
+            upDown = "➖ ";
+          } else {
+            upDown = "... ";
+          }
         }
       } else {
         upDown = `<i>${

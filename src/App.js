@@ -11,6 +11,7 @@ function App() {
   const [municipalities, setMunicipalities] = useState(null);
   const [hospitalsList, setHospitalsList] = useState(null);
   const [error, setError] = useState(false);
+  const [labTests, setLabTests] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -35,6 +36,10 @@ function App() {
         .then((res) => res.json())
         .then((data) => setHospitalsList(data))
         .catch(() => Promise.reject()),
+      fetch(`https://api.sledilnik.org/api/lab-tests?from=${nDaysAgo}`)
+        .then((res) => res.json())
+        .then((data) => setLabTests(data))
+        .catch(() => Promise.reject()),
     ])
       .catch(() => setError(true))
       .finally(() => setLoading(false)); // show data
@@ -54,6 +59,7 @@ function App() {
           municipalities={municipalities}
           patients={patients}
           hospitalsList={hospitalsList}
+          labTests={labTests}
         />
       </div>
       <footer>

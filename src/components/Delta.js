@@ -1,4 +1,5 @@
 import React from "react";
+import Separator from "./Separator";
 const Calculate = (props) => {
   let deltaCalculation = props.today - props.yesterday;
 
@@ -11,11 +12,15 @@ const Calculate = (props) => {
           ? "+"
           : ""
         : ""}
-      {props.noChanges === true
-        ? props.today - props.yesterday === 0
-          ? "ni sprememb"
-          : deltaCalculation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-        : deltaCalculation.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+      {props.noChanges === true ? (
+        props.today - props.yesterday === 0 ? (
+          "ni sprememb"
+        ) : (
+          <Separator number={deltaCalculation} />
+        )
+      ) : (
+        <Separator number={deltaCalculation} />
+      )}
     </span>
   );
 };
