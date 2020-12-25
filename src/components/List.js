@@ -14,6 +14,9 @@ const List = (props) => {
   const { patients } = props;
   const { labTests } = props;
 
+  console.log(labTests[labTests.length - 1]);
+  console.log(stats);
+
   if (!stats || stats.length === 0)
     return <p>Napaka: API ne vrača podatkov, refresh page !!!</p>;
 
@@ -96,16 +99,22 @@ const List = (props) => {
           <Arrow /> PCR:{" "}
           <span className="bold">
             +
-            <Separator number={stats[stats.length - 2].positiveTests} />
+            <Separator
+              number={labTests[labTests.length - 1].data.regular.positive.today}
+            />
           </span>
           , št. testiranih:{" "}
           <span className="bold">
-            <Separator number={stats[stats.length - 2].performedTests} />
+            <Separator
+              number={
+                labTests[labTests.length - 1].data.regular.performed.today
+              }
+            />
           </span>
           , delež pozitivnih testov:{" "}
           <Percentage
-            part={stats[stats.length - 2].positiveTests}
-            total={stats[stats.length - 2].performedTests}
+            part={labTests[labTests.length - 1].data.regular.positive.today}
+            total={labTests[labTests.length - 1].data.regular.performed.today}
           ></Percentage>
           %.
         </p>
@@ -139,7 +148,12 @@ const List = (props) => {
           </span>{" "}
           (+
           <span className="bold">
-            <Separator number={stats[stats.length - 2].positiveTests} />
+            <Separator
+              number={
+                labTests[labTests.length - 1].data.regular.positive.today +
+                labTests[labTests.length - 1].data.hagt.positive.today
+              }
+            />
           </span>
           , -
           <Delta
