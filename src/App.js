@@ -41,6 +41,7 @@ function App() {
         .then((res) => res.json())
         .then((data) => setLabTests(data))
         .catch(() => Promise.reject()),
+      fetch(`https://api.sledilnik.org/api/summary  `)
         .then((res) => res.json())
         .then((data) => setSummary(data))
         .catch(() => Promise.reject()),
