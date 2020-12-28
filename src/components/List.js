@@ -13,9 +13,7 @@ const List = (props) => {
   const { municipalities } = props;
   const { patients } = props;
   const { labTests } = props;
-
-  console.log(labTests[labTests.length - 1]);
-  console.log(stats);
+  const { summary } = props;
 
   if (!stats || stats.length === 0)
     return <p>Napaka: API ne vrača podatkov, refresh page !!!</p>;
@@ -90,6 +88,8 @@ const List = (props) => {
     check_third_mun = "red";
   }
 
+  console.log(summary);
+
   // render tweets
 
   function FirstTweet() {
@@ -103,7 +103,7 @@ const List = (props) => {
               number={labTests[labTests.length - 1].data.regular.positive.today}
             />
           </span>
-          , št. testiranih:{" "}
+          , testiranih:{" "}
           <span className="bold">
             <Separator
               number={
@@ -111,7 +111,7 @@ const List = (props) => {
               }
             />
           </span>
-          , delež pozitivnih testov:{" "}
+          , delež pozitivnih:{" "}
           <Percentage
             part={labTests[labTests.length - 1].data.regular.positive.today}
             total={labTests[labTests.length - 1].data.regular.performed.today}
@@ -127,13 +127,13 @@ const List = (props) => {
               number={labTests[labTests.length - 1].data.hagt.positive.today}
             />
           </span>
-          , št. testiranih:{" "}
+          , testiranih:{" "}
           <span className="bold">
             <Separator
               number={labTests[labTests.length - 1].data.hagt.performed.today}
             />
           </span>
-          , delež pozitivnih testov:{" "}
+          , delež pozitivnih:{" "}
           <Percentage
             part={labTests[labTests.length - 1].data.hagt.positive.today}
             total={labTests[labTests.length - 1].data.hagt.performed.today}
@@ -142,25 +142,19 @@ const List = (props) => {
         </p>
 
         <p className="text">
-          <Arrow /> Št. vseh aktivnih primerov:{" "}
+          <Arrow /> Vseh aktivnih primerov:{" "}
           <span className="bold">
-            <Separator number={stats[stats.length - 2].cases.active} />
+            <Separator number={summary.casesActive.value} />
           </span>{" "}
           (+
           <span className="bold">
-            <Separator
-              number={
-                labTests[labTests.length - 1].data.regular.positive.today +
-                labTests[labTests.length - 1].data.hagt.positive.today
-              }
-            />
+            <Separator number={summary.casesActive.subValues.in} />
           </span>
           , -
-          <Delta
-            today={stats[stats.length - 2].cases.closedToDate}
-            yesterday={stats[stats.length - 3].cases.closedToDate}
-            noChanges={true}
-          ></Delta>
+          <span className="bold">
+            <Separator number={summary.casesActive.subValues.out} />
+          </span>
+          ).
           {/* , +
           <span className="bold">
             {stats[stats.length - 1].statePerTreatment.deceased}
@@ -169,11 +163,11 @@ const List = (props) => {
             text={"preminula oseba"}
             number={stats[stats.length - 1].statePerTreatment.deceased}
           ></Translate> */}
-          ), skupno{" "}
+          {/* ), skupno{" "}
           <span className="bold">
             <Separator number={stats[stats.length - 2].cases.confirmedToDate} />
           </span>{" "}
-          potrjenih primerov.
+          potrjenih primerov. */}
         </p>
       </div>
     );
@@ -453,6 +447,11 @@ const List = (props) => {
       <br />
       <Intro post={3} introTodayDate={introTodayDate} />
       {FirstTweet()}
+      <Arrow /> Skupaj{" "}
+      <span className="bold">
+        <Separator number={stats[stats.length - 2].cases.confirmedToDate} />
+      </span>{" "}
+      potrjenih primerov.
       {SecondTweet()}
       {ThirdTweet()}
       <Outro />

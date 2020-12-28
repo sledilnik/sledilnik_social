@@ -12,6 +12,7 @@ function App() {
   const [hospitalsList, setHospitalsList] = useState(null);
   const [error, setError] = useState(false);
   const [labTests, setLabTests] = useState(false);
+  const [summary, setSummary] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -40,6 +41,9 @@ function App() {
         .then((res) => res.json())
         .then((data) => setLabTests(data))
         .catch(() => Promise.reject()),
+        .then((res) => res.json())
+        .then((data) => setSummary(data))
+        .catch(() => Promise.reject()),
     ])
       .catch(() => setError(true))
       .finally(() => setLoading(false)); // show data
@@ -60,6 +64,7 @@ function App() {
           patients={patients}
           hospitalsList={hospitalsList}
           labTests={labTests}
+          summary={summary}
         />
       </div>
       <footer>
