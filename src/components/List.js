@@ -58,6 +58,10 @@ const List = (props) => {
       municipalities[municipalities.length - 1].month.toString() +
       municipalities[municipalities.length - 1].day.toString()
   );
+  const summaryDate =
+    summary.testsToday.year.toString() +
+    summary.testsToday.month.toString() +
+    summary.testsToday.day.toString();
   //const patientsCheck = patients[patients.length -1].year.toString()+patients[patients.length -1].month.toString()+patients[patients.length -1].day.toString();
 
   let introTodayDate = `${stats[stats.length - 1].day}.${
@@ -70,7 +74,7 @@ const List = (props) => {
   var check_third_age = "";
   var check_third_mun = "";
 
-  if (todayDate - statsDate > 0) {
+  if (todayDate - summaryDate === -1) {
     check_first = "red";
   }
   if (todayDate - patientsDate > 0) {
@@ -142,7 +146,7 @@ const List = (props) => {
         </p>
 
         <p className="text">
-          <Arrow /> Vseh aktivnih primerov:{" "}
+          <Arrow /> Aktivni primeri:{" "}
           <span className="bold">
             <Separator number={summary.casesActive.value} />
           </span>{" "}
