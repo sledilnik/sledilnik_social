@@ -45,6 +45,7 @@ const List = (props) => {
       (new Date().getMonth() + 1).toString() +
       new Date().getDate().toString()
   );
+
   const patientsDate =
     patients[patients.length - 1].year.toString() +
     patients[patients.length - 1].month.toString() +
@@ -64,9 +65,19 @@ const List = (props) => {
     summary.testsToday.day.toString();
   //const patientsCheck = patients[patients.length -1].year.toString()+patients[patients.length -1].month.toString()+patients[patients.length -1].day.toString();
 
-  let introTodayDate = `${stats[stats.length - 1].day}.${
-    stats[stats.length - 1].month
-  }.${stats[stats.length - 1].year}`;
+  // let introTodayDate = `${stats[stats.length - 1].day}.${
+  //   stats[stats.length - 1].month
+  // }.${stats[stats.length - 1].year}`;
+
+  let introTodayDate =
+    new Date().getDate().toString() +
+    "." +
+    (new Date().getMonth() + 1).toString() +
+    "." +
+    new Date().getFullYear().toString();
+
+  console.log(introTodayDate);
+  console.log(todayDate);
 
   // paint red if data is not updated for the current day
   var check_first = "";
