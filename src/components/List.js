@@ -76,9 +76,6 @@ const List = (props) => {
     "." +
     new Date().getFullYear().toString();
 
-  console.log(introTodayDate);
-  console.log(todayDate);
-
   // paint red if data is not updated for the current day
   var check_first = "";
   var check_second = "";
@@ -102,8 +99,6 @@ const List = (props) => {
   if (todayDate - municipalitiesDate > 1) {
     check_third_mun = "red";
   }
-
-  console.log(summary);
 
   // render tweets
 
