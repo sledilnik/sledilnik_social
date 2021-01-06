@@ -16,6 +16,16 @@ function App() {
   const [summary, setSummary] = useState(false);
 
   useEffect(() => {
+    async function fetchData(url, setState) {
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        setState(data);
+      } catch (error) {
+        setError(true);
+      }
+    }
+
     setLoading(true);
     // const timer = setTimeout(() => { // timer
     const {
@@ -28,30 +38,12 @@ function App() {
     } = apiPathObject;
 
     Promise.all([
-      fetch(statsPath) // apis
-        .then(res => res.json())
-        .then(data => setStats(data))
-        .catch(() => Promise.reject()),
-      fetch(patientsPath)
-        .then(res => res.json())
-        .then(data => setPatients(data))
-        .catch(() => Promise.reject()),
-      fetch(municipalitiesPath)
-        .then(res => res.json())
-        .then(data => setMunicipalities(data))
-        .catch(() => Promise.reject()),
-      fetch(hospitalsPath)
-        .then(res => res.json())
-        .then(data => setHospitalsList(data))
-        .catch(() => Promise.reject()),
-      fetch(lab_testsPath)
-        .then(res => res.json())
-        .then(data => setLabTests(data))
-        .catch(() => Promise.reject()),
-      fetch(summaryPath)
-        .then(res => res.json())
-        .then(data => setSummary(data))
-        .catch(() => Promise.reject()),
+      fetchData(statsPath, setStats),
+      fetchData(patientsPath, setPatients),
+      fetchData(municipalitiesPath, setMunicipalities),
+      fetchData(hospitalsPath, setHospitalsList),
+      fetchData(lab_testsPath, setLabTests),
+      fetchData(summaryPath, setSummary),
     ])
       .catch(() => setError(true))
       .finally(() => setLoading(false)); // show data
