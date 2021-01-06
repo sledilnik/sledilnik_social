@@ -1,10 +1,10 @@
 import React from 'react';
 import Arrow from '../Arrow';
-import Delta from '../Delta';
 import Separator from '../Separator';
 import Translate from '../Translate';
 import Municipalities from '../Municipalities';
 import Outro from '../Outro';
+import PerAgeLine from '../PerAgeLine';
 
 function ThirdTweet({
   check_second,
@@ -15,32 +15,16 @@ function ThirdTweet({
   municipalities,
   perHospitalChanges,
 }) {
-  const todayArray = stats[stats.length - 2].statePerAgeToDate;
-  const yesterdayArray = stats[stats.length - 3].statePerAgeToDate;
-  const deltas = [];
-
-  // index is not good for key
-  for (let i = 0; i < 10; i++) {
-    const { ageFrom, ageTo } = todayArray[i];
-    const today = todayArray[i].allToDate;
-    const yesterday = yesterdayArray[i].allToDate;
-    const _delta = (
-      <span key={i}>
-        {' '}
-        {ageFrom}-{ageTo} (
-        <Delta today={today} yesterday={yesterday} />){i !== 9 ? ',' : ''}
-      </span>
-    );
-    deltas.push(_delta);
-  }
+  const todayPerAge = stats[stats.length - 2].statePerAgeToDate;
+  const yesterdayPerAge = stats[stats.length - 3].statePerAgeToDate;
 
   return (
     <div>
-      <span className={check_third_age}>
-        <p className="text">
-          <Arrow /> Potrjeni primeri po starosti:{deltas}.
-        </p>
-      </span>
+      <PerAgeLine
+        check_third_age={check_third_age}
+        todayPerAge={todayPerAge}
+        yesterdayPerAge={yesterdayPerAge}
+      />
       <span className={check_second}>
         <p className="text">
           <Arrow /> Stanje po bolnišnicah:
