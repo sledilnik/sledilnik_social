@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import List from './components/List';
 import withListLoading from './components/withListLoading';
-import getDateBefore from './helpers/getDateBefore';
+import apiPathObject from './utils/apiPathObject';
 
 function App() {
   const ListLoading = withListLoading(List);
@@ -18,29 +18,37 @@ function App() {
   useEffect(() => {
     setLoading(true);
     // const timer = setTimeout(() => { // timer
-    const nDaysAgo = getDateBefore().toISOString();
+    const {
+      statsPath,
+      patientsPath,
+      municipalitiesPath,
+      hospitalsPath,
+      lab_testsPath,
+      summaryPath,
+    } = apiPathObject;
+
     Promise.all([
-      fetch(`https://api.sledilnik.org/api/stats?from=${nDaysAgo}`) // apis
+      fetch(statsPath) // apis
         .then(res => res.json())
         .then(data => setStats(data))
         .catch(() => Promise.reject()),
-      fetch(`https://api.sledilnik.org/api/patients?from=${nDaysAgo}`)
+      fetch(patientsPath)
         .then(res => res.json())
         .then(data => setPatients(data))
         .catch(() => Promise.reject()),
-      fetch(`https://api.sledilnik.org/api/municipalities?from=${nDaysAgo}`)
+      fetch(municipalitiesPath)
         .then(res => res.json())
         .then(data => setMunicipalities(data))
         .catch(() => Promise.reject()),
-      fetch(`https://api.sledilnik.org/api/hospitals-list`)
+      fetch(hospitalsPath)
         .then(res => res.json())
         .then(data => setHospitalsList(data))
         .catch(() => Promise.reject()),
-      fetch(`https://api.sledilnik.org/api/lab-tests?from=${nDaysAgo}`)
+      fetch(lab_testsPath)
         .then(res => res.json())
         .then(data => setLabTests(data))
         .catch(() => Promise.reject()),
-      fetch(`https://api.sledilnik.org/api/summary  `)
+      fetch(summaryPath)
         .then(res => res.json())
         .then(data => setSummary(data))
         .catch(() => Promise.reject()),
