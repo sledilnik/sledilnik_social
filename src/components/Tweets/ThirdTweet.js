@@ -2,9 +2,8 @@ import React from 'react';
 import Arrow from '../Arrow';
 import Separator from '../Separator';
 import Translate from '../Translate';
-import Municipalities from '../Municipalities';
-import Outro from '../Outro';
 import PerAgeLine from '../PerAgeLine';
+import MunicipalitiesLines from '../MunicipalitiesLines';
 
 function ThirdTweet({
   check_second,
@@ -79,31 +78,10 @@ function ThirdTweet({
         </ul>
       </span>
 
-      <span className={check_third_mun}>
-        <p className="text">
-          <Arrow /> Po krajih:
-        </p>
-        <ul className="municipalities">
-          <Municipalities
-            data={municipalities}
-            showTrend="y"
-            icons="FB"
-          ></Municipalities>
-        </ul>
-        <Outro />
-        <br />
-        <br />
-        <p className="text">
-          <Arrow /> Po krajih:
-        </p>
-        <ul className="municipalities">
-          <Municipalities
-            data={municipalities}
-            showTrend="y"
-            icons="TW"
-          ></Municipalities>
-        </ul>
-      </span>
+      <MunicipalitiesLines
+        check_third_mun={check_third_mun}
+        municipalities={municipalities}
+      />
     </div>
   );
 }
