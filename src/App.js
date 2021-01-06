@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
-import List from "./components/List";
-import withListLoading from "./components/withListLoading";
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import List from './components/List';
+import withListLoading from './components/withListLoading';
+import getDateBefore from './helpers/getDateBefore';
 
 function App() {
   const ListLoading = withListLoading(List);
@@ -17,33 +18,31 @@ function App() {
   useEffect(() => {
     setLoading(true);
     // const timer = setTimeout(() => { // timer
-    const nDaysAgo = new Date(
-      new Date().setDate(new Date().getDate() - 18)
-    ).toISOString();
+    const nDaysAgo = getDateBefore().toISOString();
     Promise.all([
       fetch(`https://api.sledilnik.org/api/stats?from=${nDaysAgo}`) // apis
-        .then((res) => res.json())
-        .then((data) => setStats(data))
+        .then(res => res.json())
+        .then(data => setStats(data))
         .catch(() => Promise.reject()),
       fetch(`https://api.sledilnik.org/api/patients?from=${nDaysAgo}`)
-        .then((res) => res.json())
-        .then((data) => setPatients(data))
+        .then(res => res.json())
+        .then(data => setPatients(data))
         .catch(() => Promise.reject()),
       fetch(`https://api.sledilnik.org/api/municipalities?from=${nDaysAgo}`)
-        .then((res) => res.json())
-        .then((data) => setMunicipalities(data))
+        .then(res => res.json())
+        .then(data => setMunicipalities(data))
         .catch(() => Promise.reject()),
       fetch(`https://api.sledilnik.org/api/hospitals-list`)
-        .then((res) => res.json())
-        .then((data) => setHospitalsList(data))
+        .then(res => res.json())
+        .then(data => setHospitalsList(data))
         .catch(() => Promise.reject()),
       fetch(`https://api.sledilnik.org/api/lab-tests?from=${nDaysAgo}`)
-        .then((res) => res.json())
-        .then((data) => setLabTests(data))
+        .then(res => res.json())
+        .then(data => setLabTests(data))
         .catch(() => Promise.reject()),
       fetch(`https://api.sledilnik.org/api/summary  `)
-        .then((res) => res.json())
-        .then((data) => setSummary(data))
+        .then(res => res.json())
+        .then(data => setSummary(data))
         .catch(() => Promise.reject()),
     ])
       .catch(() => setError(true))
@@ -54,7 +53,7 @@ function App() {
 
   return (
     <div className="App">
-      {error ? console.log(error) : ""}
+      {error ? console.log(error) : ''}
       <div className="top"></div>
       <div className="container">
         <h1>Sledilnik Social</h1>
