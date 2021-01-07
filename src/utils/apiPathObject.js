@@ -5,13 +5,17 @@ const dateFrom = addDays(new Date(), -18).toISOString();
 const BASE_API_URL = 'https://api.sledilnik.org';
 const baseURL = new URL(BASE_API_URL);
 
+// dash "-" is not valid Object key
+// api path with dash must be later converted
+// in case path has underscore, add key <noReplace> with truthy value
+// example: path_with_underscore: {params: {...}, noReplace: true}
 const pathsParamsObject = {
-  stats: { from: dateFrom },
-  patients: { from: dateFrom },
-  municipalities: { from: dateFrom },
-  hospitals_list: {},
-  lab_tests: { from: dateFrom },
-  summary: {},
+  stats: { params: { from: dateFrom } },
+  patients: { params: { from: dateFrom } },
+  municipalities: { params: { from: dateFrom } },
+  hospitals_list: { params: {} },
+  lab_tests: { params: { from: dateFrom } },
+  summary: { params: {} },
 };
 
 const pathsArray = Object.entries(pathsParamsObject);
@@ -19,9 +23,11 @@ const pathsArray = Object.entries(pathsParamsObject);
 const replaceUnderscoreWithDash = val => val.replace('_', '-');
 
 const apiPathObject = (paths = []) => {
-  return paths.reduce((acc, [_path, params]) => {
+  return paths.reduce((acc, [_path, { params, noReplace }]) => {
     const key = `${_path}Path`;
-    const path = `api/${replaceUnderscoreWithDash(_path)}`;
+    const path = noReplace
+      ? `api/${_path}`
+      : `api/${replaceUnderscoreWithDash(_path)}`;
 
     const url = new URL(path, baseURL);
 
