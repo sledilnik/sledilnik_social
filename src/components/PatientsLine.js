@@ -20,6 +20,15 @@ function PatientsLine({ check_second, patients, perHospitalChanges }) {
     </span>
   );
 
+  const TitleLine = ({ children, title }) => (
+    <p className="text">
+      <Arrow /> {title}: {children}
+    </p>
+  );
+
+  return (
+    <span className={check_second}>
+      <TitleLine title={'Stanje po bolnišnicah'} />
       <ul>
         {patients[patients.length - 1] === undefined
           ? 'NI PODATKOV'
