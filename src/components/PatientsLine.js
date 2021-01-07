@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Arrow from './Arrow';
 import Separator from './Separator';
 import Translate from './Translate';
+import TitleLine from './TitleLine';
 
 function PatientsLine({ check_second, patients, perHospitalChanges }) {
   const PersonsToday = ({ number, text }) => (
@@ -18,12 +18,6 @@ function PatientsLine({ check_second, patients, perHospitalChanges }) {
     <span className="bold">
       +<Separator number={numPositive} /> -<Separator number={numNegative} />
     </span>
-  );
-
-  const TitleLine = ({ children, title }) => (
-    <p className="text">
-      <Arrow /> {title}: {children}
-    </p>
   );
 
   return (

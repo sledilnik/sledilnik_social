@@ -1,14 +1,13 @@
 import React from 'react';
-import Arrow from '../Arrow';
 import Separator from '../Separator';
 import Translate from '../Translate';
 import Delta from '../Delta';
+import TitleLine from '../TitleLine';
 
 function SecondTweet({ check_second, stats, patients }) {
   return (
     <div className={check_second}>
-      <p className="text">
-        <Arrow /> Hospitalizirani:{' '}
+      <TitleLine title={'Hospitalizirani'}>
         <span className="bold">
           <Separator
             number={stats[stats.length - 1].statePerTreatment.inHospital}
@@ -46,10 +45,8 @@ function SecondTweet({ check_second, stats, patients }) {
           noChanges={true}
         ></Delta>
         ).
-      </p>
-
-      <p className="text">
-        <Arrow /> Na respiratorju (intubirani) se{' '}
+      </TitleLine>
+      <TitleLine title={'Na respiratorju (intubirani) se'} noColon={true}>
         <Translate
           text={'zdravi'}
           number={stats[stats.length - 1].statePerTreatment.critical}
@@ -71,10 +68,8 @@ function SecondTweet({ check_second, stats, patients }) {
           noChanges={true}
         ></Delta>
         ).
-      </p>
-
-      <p className="text">
-        <Arrow /> Preminuli:{' '}
+      </TitleLine>
+      <TitleLine title={'Preminuli'}>
         {stats[stats.length - 1].statePerTreatment.deceased > 0 ? '+' : ''}
         <span className="bold">
           <Separator
@@ -92,7 +87,7 @@ function SecondTweet({ check_second, stats, patients }) {
           />
         </span>
         .
-      </p>
+      </TitleLine>
     </div>
   );
 }

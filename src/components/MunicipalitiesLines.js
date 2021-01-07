@@ -1,14 +1,12 @@
 import React from 'react';
-import Arrow from './Arrow';
 import Municipalities from './Municipalities';
 import Outro from './Outro';
+import TitleLine from './TitleLine';
 
 function MunicipalitiesLines({ check_third_mun, municipalities }) {
   const munVer = iconsVersion => (
     <>
-      <p className="text">
-        <Arrow /> Po krajih:
-      </p>
+      <TitleLine title={'Po krajih'} />
       <ul className="municipalities">
         <Municipalities
           data={municipalities}

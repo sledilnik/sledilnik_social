@@ -1,6 +1,6 @@
 import React from 'react';
-import Arrow from './Arrow';
 import Delta from './Delta';
+import TitleLine from './TitleLine';
 
 function PerAgeLine({ check_third_age, todayPerAge, yesterdayPerAge }) {
   const deltas = [];
@@ -23,9 +23,7 @@ function PerAgeLine({ check_third_age, todayPerAge, yesterdayPerAge }) {
 
   return (
     <span className={check_third_age}>
-      <p className="text">
-        <Arrow /> Potrjeni primeri po starosti:{deltas}.
-      </p>
+      <TitleLine title={'Potrjeni primeri po starosti'}> {deltas}</TitleLine>
     </span>
   );
 }
