@@ -14,6 +14,12 @@ function PatientsLine({ check_second, patients, perHospitalChanges }) {
     </>
   );
 
+  const InOut = ({ numPositive, numNegative }) => (
+    <span className="bold">
+      +<Separator number={numPositive} /> -<Separator number={numNegative} />
+    </span>
+  );
+
       <ul>
         {patients[patients.length - 1] === undefined
           ? 'NI PODATKOV'
@@ -34,18 +40,17 @@ function PatientsLine({ check_second, patients, perHospitalChanges }) {
                         text={'oseba'}
                       />{' '}
                       (
-                      <span className="bold">
-                        +<Separator number={hosp[1].inHospital.in} /> -
-                        <Separator number={hosp[1].inHospital.out} />
-                      </span>
+                      <InOut
+                        numPositive={hosp[1].inHospital.in}
+                        numNegative={hosp[1].inHospital.out}
+                      />
                       ), EIT{' '}
                       <PersonsToday number={hosp[1].icu.today} text={'oseba'} />{' '}
                       (
-                      <span className="bold">
-                        +
-                        <Separator number={hosp[1].icu.in} /> -
-                        <Separator number={hosp[1].icu.out} />
-                      </span>
+                      <InOut
+                        numPositive={hosp[1].icu.in}
+                        numNegative={hosp[1].icu.out}
+                      />
                       ).
                     </span>
                     <br />
