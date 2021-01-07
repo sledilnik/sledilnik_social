@@ -5,7 +5,7 @@ const dateFrom = addDays(new Date(), -18).toISOString();
 const BASE_API_URL = 'https://api.sledilnik.org';
 const baseURL = new URL(BASE_API_URL);
 
-// dash "-" is not valid Object key
+// dash "-" is not valid Object key unless declare explicity as string :)
 // api path with dash must be later converted
 // in case path has underscore, add key <noReplace> with truthy value
 // example: path_with_underscore: {params: {...}, noReplace: true}
