@@ -5,11 +5,15 @@ import Separator from './Separator';
 import Translate from './Translate';
 
 function PatientsLine({ check_second, patients, perHospitalChanges }) {
-  return (
-    <span className={check_second}>
-      <p className="text">
-        <Arrow /> Stanje po bolnišnicah:
-      </p>
+  const PersonsToday = ({ number, text }) => (
+    <>
+      <span className="bold">
+        <Separator number={number} />
+      </span>{' '}
+      <Translate text={text} number={number}></Translate>{' '}
+    </>
+  );
+
       <ul>
         {patients[patients.length - 1] === undefined
           ? 'NI PODATKOV'
@@ -25,26 +29,17 @@ function PatientsLine({ check_second, patients, perHospitalChanges }) {
                   <li key={hosp[0]}>
                     <span>
                       <span className="bold">{hosp[2]}</span>:{' '}
-                      <span className="bold">
-                        <Separator number={hosp[1].inHospital.today} />
-                      </span>{' '}
-                      <Translate
-                        text={'oseba'}
+                      <PersonsToday
                         number={hosp[1].inHospital.today}
-                      ></Translate>{' '}
+                        text={'oseba'}
+                      />{' '}
                       (
                       <span className="bold">
                         +<Separator number={hosp[1].inHospital.in} /> -
                         <Separator number={hosp[1].inHospital.out} />
                       </span>
                       ), EIT{' '}
-                      <span className="bold">
-                        <Separator number={hosp[1].icu.today} />
-                      </span>{' '}
-                      <Translate
-                        text={'oseba'}
-                        number={hosp[1].icu.today}
-                      ></Translate>{' '}
+                      <PersonsToday number={hosp[1].icu.today} text={'oseba'} />{' '}
                       (
                       <span className="bold">
                         +
