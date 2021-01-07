@@ -1,7 +1,7 @@
 import getSledilnikApiPath from '../helpers/getSledilnikApiPath';
-import getDateBefore from '../helpers/getDateBefore';
+import { addDays } from 'date-fns';
 
-const dateFrom = getDateBefore().toISOString();
+const dateFrom = addDays(new Date(), -18).toISOString();
 
 const pathsParamsObject = {
   stats: { from: dateFrom },
