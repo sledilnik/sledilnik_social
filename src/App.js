@@ -33,7 +33,7 @@ function App() {
       statsPath,
       patientsPath,
       municipalitiesPath,
-      hospitalsPath,
+      hospitals_listPath,
       lab_testsPath,
       summaryPath,
     } = apiPathObject;
@@ -42,7 +42,7 @@ function App() {
       fetchData(statsPath, setStats),
       fetchData(patientsPath, setPatients),
       fetchData(municipalitiesPath, setMunicipalities),
-      fetchData(hospitalsPath, setHospitalsList),
+      fetchData(hospitals_listPath, setHospitalsList),
       fetchData(lab_testsPath, setLabTests),
       fetchData(summaryPath, setSummary),
     ])

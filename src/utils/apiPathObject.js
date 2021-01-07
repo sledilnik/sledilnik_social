@@ -7,7 +7,7 @@ const pathsParamsObject = {
   stats: { from: dateFrom },
   patients: { from: dateFrom },
   municipalities: { from: dateFrom },
-  hospitals: {},
+  hospitals_list: {},
   lab_tests: { from: dateFrom },
   summary: {},
 };
