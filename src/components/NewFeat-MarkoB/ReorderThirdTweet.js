@@ -50,6 +50,7 @@ function ThirdTweetMarkoB({
         labTests={labTests}
         summary={summary}
       />
+      <p className="text">
         <DataLinePart
           number={stats[stats.length - 2].vaccination.administered.toDate}
           prefix={'Število cepljenih oseb:'}
@@ -60,12 +61,15 @@ function ThirdTweetMarkoB({
           insideColons={true}
         />
         .
+      </p>
+      <p className="text">
         <DataLinePart
           number={stats[stats.length - 2].cases.confirmedToDate}
           prefix={'Skupaj'}
           suffix={'potrjenih primerov'}
         />
         .
+      </p>
       <PerAgeLine
         check_third_age={check_third_age}
         todayPerAge={todayPerAge}
@@ -82,6 +86,7 @@ function ThirdTweetMarkoB({
           patients={patients}
           perHospitalChanges={perHospitalChanges}
         />
+        .
         <MunicipalitiesLines
           check_third_mun={check_third_mun}
           municipalities={municipalities}
