@@ -14,8 +14,9 @@ function PerAgeLine({ check_third_age, todayPerAge, yesterdayPerAge }) {
     const _delta = (
       <span key={key}>
         {' '}
-        {ageRange} (
-        <Delta today={today} yesterday={yesterday} />){i !== 9 ? ',' : ''}
+        {ageRange}{' '}
+        <Delta today={today} yesterday={yesterday} insideColons={true} />
+        {i !== 9 ? ',' : ''}
       </span>
     );
     deltas.push(_delta);

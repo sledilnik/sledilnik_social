@@ -32,14 +32,14 @@ function SecondTweet({ check_second, stats, patients }) {
           number={stats[stats.length - 1].statePerTreatment.inICU}
           text={'oseba'}
         />
-        (
         <Delta
           today={stats[stats.length - 1].statePerTreatment.inICU}
           yesterday={stats[stats.length - 2].statePerTreatment.inICU}
+          insideColons={true}
           getPrefix={true}
           noChanges={true}
         ></Delta>
-        ).
+        .
       </TitleLine>
       <TitleLine title={'Na respiratorju (intubirani) se'} noColon={true}>
         <Translate
@@ -50,14 +50,14 @@ function SecondTweet({ check_second, stats, patients }) {
           number={stats[stats.length - 1].statePerTreatment.critical}
           text={'oseba'}
         />{' '}
-        (
         <Delta
           today={stats[stats.length - 1].statePerTreatment.critical}
           yesterday={stats[stats.length - 2].statePerTreatment.critical}
+          insideColons={true}
           getPrefix={true}
           noChanges={true}
         ></Delta>
-        ).
+        .
       </TitleLine>
       <TitleLine title={'Preminuli'}>
         {stats[stats.length - 1].statePerTreatment.deceased > 0 ? '+' : ''}
