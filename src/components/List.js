@@ -6,6 +6,8 @@ import FirstTweet from './Tweets/FirstTweet';
 import SecondTweet from './Tweets/SecondTweet';
 import ThirdTweet from './Tweets/ThirdTweet';
 
+import ThirdTweetMarkoB from './NewFeat-MarkoB/ReorderThirdTweet';
+
 const List = props => {
   const { stats } = props;
   const { municipalities } = props;
@@ -179,6 +181,29 @@ const List = props => {
       <ul className="municipalities">
         <Municipalities data={municipalities} showTrend="n"></Municipalities>
       </ul>
+      <div style={{ marginTop: '40px' }}>
+        <hr />
+        <h2>Future Features</h2>
+        <h3>asked by: MarkoB</h3>
+        <p>Reorder lines. Move per age cases before embed second tweet.</p>
+        <hr />
+        <Intro post={3} introTodayDate={introTodayDate} />
+        <ThirdTweetMarkoB
+          check_first={check_first}
+          check_second={check_second}
+          check_third_age={check_third_age}
+          check_third_mun={check_third_mun}
+          labTests={labTests}
+          summary={summary}
+          stats={stats}
+          patients={patients}
+          municipalities={municipalities}
+          perHospitalChanges={perHospitalChanges}
+        />
+        <Outro />
+        <br />
+        <br />
+      </div>
     </div>
   );
 };
