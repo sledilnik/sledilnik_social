@@ -141,7 +141,10 @@ const List = props => {
       <p>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
       <br />
       <br />
+      <h2>Legenda</h2>
       <Legend municipalities={municipalities} />
+      {/* TODO Delete before master merge */}
+      {/* Next time create playground in new branch */}
       <div style={{ marginTop: '40px' }}>
         <hr />
         <h2>Future Features</h2>
