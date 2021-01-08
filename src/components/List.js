@@ -123,25 +123,13 @@ const List = props => {
       <br />
       <br />
       <Intro post={3} introTodayDate={introTodayDate} />
-      <FirstTweet
-        check_first={check_first}
-        labTests={labTests}
-        summary={summary}
-      />
-      <Arrow /> Skupaj{' '}
-      <span className="bold">
-        <Separator number={stats[stats.length - 2].cases.confirmedToDate} />
-      </span>{' '}
-      potrjenih primerov.
-      <SecondTweet
-        check_second={check_second}
-        stats={stats}
-        patients={patients}
-      />
       <ThirdTweet
+        check_first={check_first}
         check_second={check_second}
         check_third_age={check_third_age}
         check_third_mun={check_third_mun}
+        labTests={labTests}
+        summary={summary}
         stats={stats}
         patients={patients}
         municipalities={municipalities}
