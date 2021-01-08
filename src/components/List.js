@@ -2,8 +2,6 @@ import React from 'react';
 import Municipalities from './Municipalities';
 import Intro from './Intro';
 import Outro from './Outro';
-import Arrow from './Arrow';
-import Separator from './Separator';
 import FirstTweet from './Tweets/FirstTweet';
 import SecondTweet from './Tweets/SecondTweet';
 import ThirdTweet from './Tweets/ThirdTweet';
