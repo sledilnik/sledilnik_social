@@ -1,20 +1,10 @@
 import React from 'react';
 
-import Separator from './Separator';
-import Translate from './Translate';
 import TitleLine from './TitleLine';
 import InOut from './InOut';
+import DataTranslate from './DataTranslate';
 
 function PatientsLine({ check_second, patients, perHospitalChanges }) {
-  const PersonsToday = ({ number, text }) => (
-    <>
-      <span className="bold">
-        <Separator number={number} />
-      </span>{' '}
-      <Translate text={text} number={number}></Translate>{' '}
-    </>
-  );
-
   return (
     <span className={check_second}>
       <TitleLine title={'Stanje po bolnišnicah'} />
@@ -32,7 +22,7 @@ function PatientsLine({ check_second, patients, perHospitalChanges }) {
                 ) : (
                   <li key={hosp[0]}>
                     <span className="bold">{hosp[2]}</span>:{' '}
-                    <PersonsToday
+                    <DataTranslate
                       number={hosp[1].inHospital.today}
                       text={'oseba'}
                     />{' '}
@@ -42,7 +32,7 @@ function PatientsLine({ check_second, patients, perHospitalChanges }) {
                       insideColons={true}
                     />
                     , EIT{' '}
-                    <PersonsToday number={hosp[1].icu.today} text={'oseba'} />{' '}
+                    <DataTranslate number={hosp[1].icu.today} text={'oseba'} />{' '}
                     <InOut
                       numIn={hosp[1].icu.in}
                       numOut={hosp[1].icu.out}

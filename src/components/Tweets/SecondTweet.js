@@ -4,17 +4,9 @@ import Translate from '../Translate';
 import Delta from '../Delta';
 import TitleLine from '../TitleLine';
 import InOut from '../InOut';
+import DataTranslate from '../DataTranslate';
 
 function SecondTweet({ check_second, stats, patients }) {
-  const DataTranslate = ({ number, text }) => (
-    <>
-      <span className="bold">
-        <Separator number={number} />
-      </span>{' '}
-      <Translate text={text} number={number}></Translate>{' '}
-    </>
-  );
-
   return (
     <div className={check_second}>
       <TitleLine title={'Hospitalizirani'}>
