@@ -1,27 +1,39 @@
-import React from "react";
-import Separator from "./Separator";
-const Calculate = (props) => {
-  let deltaCalculation = props.today - props.yesterday;
+import React from 'react';
+import Separator from './Separator';
+const Calculate = ({
+  today,
+  yesterday,
+  getPrefix,
+  noChanges,
+  insideColons = false,
+}) => {
+  let deltaCalculation = today - yesterday;
+
+  const prefix = getPrefix
+    ? today - yesterday === 0
+      ? ''
+      : today - yesterday > 0
+      ? '+'
+      : ''
+    : '';
 
   return (
-    <span className="bold">
-      {props.getPrefix
-        ? props.today - props.yesterday === 0
-          ? ""
-          : props.today - props.yesterday > 0
-          ? "+"
-          : ""
-        : ""}
-      {props.noChanges === true ? (
-        props.today - props.yesterday === 0 ? (
-          "ni sprememb"
+    <>
+      {insideColons ? '(' : ''}
+      <span className="bold">
+        {prefix}
+        {noChanges === true ? (
+          today - yesterday === 0 ? (
+            'ni sprememb'
+          ) : (
+            <Separator number={deltaCalculation} />
+          )
         ) : (
           <Separator number={deltaCalculation} />
-        )
-      ) : (
-        <Separator number={deltaCalculation} />
-      )}
-    </span>
+        )}
+      </span>
+      {insideColons ? ')' : ''}
+    </>
   );
 };
 export default Calculate;
