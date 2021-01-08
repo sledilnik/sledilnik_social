@@ -8,6 +8,7 @@ import Arrow from '../Arrow';
 import Separator from '../Separator';
 import FirstTweet from '../Tweets/FirstTweet';
 import SecondTweet from '../Tweets/SecondTweet';
+import InOut from '../InOut';
 
 function ThirdTweetMarkoB({
   check_first,
