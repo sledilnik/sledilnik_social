@@ -3,6 +3,7 @@ import React from 'react';
 import Separator from './Separator';
 import Translate from './Translate';
 import TitleLine from './TitleLine';
+import InOut from './InOut';
 
 function PatientsLine({ check_second, patients, perHospitalChanges }) {
   const PersonsToday = ({ number, text }) => (
@@ -12,12 +13,6 @@ function PatientsLine({ check_second, patients, perHospitalChanges }) {
       </span>{' '}
       <Translate text={text} number={number}></Translate>{' '}
     </>
-  );
-
-  const InOut = ({ numPositive, numNegative }) => (
-    <span className="bold">
-      +<Separator number={numPositive} /> -<Separator number={numNegative} />
-    </span>
   );
 
   return (
@@ -44,15 +39,17 @@ function PatientsLine({ check_second, patients, perHospitalChanges }) {
                       />{' '}
                       (
                       <InOut
-                        numPositive={hosp[1].inHospital.in}
-                        numNegative={hosp[1].inHospital.out}
+                        numIn={hosp[1].inHospital.in}
+                        numOut={hosp[1].inHospital.out}
+                        insideColons={true}
                       />
                       ), EIT{' '}
                       <PersonsToday number={hosp[1].icu.today} text={'oseba'} />{' '}
                       (
                       <InOut
-                        numPositive={hosp[1].icu.in}
-                        numNegative={hosp[1].icu.out}
+                        numIn={hosp[1].icu.in}
+                        numOut={hosp[1].icu.out}
+                        insideColons={true}
                       />
                       ).
                     </span>

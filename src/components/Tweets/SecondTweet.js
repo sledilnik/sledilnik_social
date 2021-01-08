@@ -3,6 +3,7 @@ import Separator from '../Separator';
 import Translate from '../Translate';
 import Delta from '../Delta';
 import TitleLine from '../TitleLine';
+import InOut from '../InOut';
 
 function SecondTweet({ check_second, stats, patients }) {
   const DataTranslate = ({ number, text }) => (
@@ -14,12 +15,6 @@ function SecondTweet({ check_second, stats, patients }) {
     </>
   );
 
-  const InOut = ({ numPositive, numNegative }) => (
-    <span className="bold">
-      +<Separator number={numPositive} /> -<Separator number={numNegative} />
-    </span>
-  );
-
   return (
     <div className={check_second}>
       <TitleLine title={'Hospitalizirani'}>
@@ -27,12 +22,12 @@ function SecondTweet({ check_second, stats, patients }) {
           number={stats[stats.length - 1].statePerTreatment.inHospital}
           text={'oseba'}
         />
-        (
         <InOut
-          numPositive={patients[patients.length - 1].total.inHospital.in}
-          numNegative={patients[patients.length - 1].total.inHospital.out}
+          numIn={patients[patients.length - 1].total.inHospital.in}
+          numOut={patients[patients.length - 1].total.inHospital.out}
+          insideColons={true}
         />
-        ), v EIT{' '}
+        , v EIT{' '}
         <DataTranslate
           number={stats[stats.length - 1].statePerTreatment.inICU}
           text={'oseba'}
