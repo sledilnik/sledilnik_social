@@ -2,6 +2,7 @@ import React from 'react';
 import Separator from '../Separator';
 import Percentage from '../Percentage';
 import TitleLine from '../TitleLine';
+import InOut from '../InOut';
 
 function FirstTweet({ check_first, labTests, summary }) {
   const FirstTweetData = ({ numPositive, numPerformed }) => (
@@ -42,15 +43,12 @@ function FirstTweet({ check_first, labTests, summary }) {
         <span className="bold">
           <Separator number={summary.casesActive.value} />
         </span>{' '}
-        (+
-        <span className="bold">
-          <Separator number={summary.casesActive.subValues.in} />
-        </span>
-        , -
-        <span className="bold">
-          <Separator number={summary.casesActive.subValues.out} />
-        </span>
-        ).
+        <InOut
+          numIn={summary.casesActive.subValues.in}
+          numOut={summary.casesActive.subValues.out}
+          insideColons={true}
+        />
+        .
       </TitleLine>
     </div>
   );
