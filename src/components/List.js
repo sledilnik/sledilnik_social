@@ -185,7 +185,7 @@ const List = props => {
         <hr />
         <h2>Future Features</h2>
         <h3>asked by: MarkoB</h3>
-        <p>Reorder lines. Move per age cases before embed second tweet.</p>
+        <p>Reorder lines. Move per age cases before embedded second tweet.</p>
         <hr />
         <Intro post={3} introTodayDate={introTodayDate} />
         <ThirdTweetMarkoB
