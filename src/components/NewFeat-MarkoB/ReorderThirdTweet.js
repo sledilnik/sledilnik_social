@@ -50,6 +50,16 @@ function ThirdTweetMarkoB({
         summary={summary}
       />
         <DataLinePart
+          number={stats[stats.length - 2].vaccination.administered.toDate}
+          prefix={'Število cepljenih oseb:'}
+          suffix={' '}
+        />
+        <InOut
+          numIn={stats[stats.length - 2].vaccination.administered.today}
+          insideColons={true}
+        />
+        .
+        <DataLinePart
           number={stats[stats.length - 2].cases.confirmedToDate}
           prefix={'Skupaj'}
           suffix={'potrjenih primerov'}
