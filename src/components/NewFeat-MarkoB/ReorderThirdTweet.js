@@ -32,11 +32,13 @@ function ThirdTweetMarkoB({
     insideColons = false,
   }) => (
     <>
-      <Arrow /> Skupaj{' '}
+      {insideColons ? '(' : ''}
+      {noArrow ? '' : <Arrow />} {prefix}{' '}
       <span className="bold">
         <Separator number={number} />
       </span>{' '}
-      potrjenih primerov.
+      {suffix}
+      {insideColons ? ')' : ''}
     </>
   );
 
