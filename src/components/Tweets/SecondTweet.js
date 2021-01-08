@@ -5,38 +5,38 @@ import Delta from '../Delta';
 import TitleLine from '../TitleLine';
 
 function SecondTweet({ check_second, stats, patients }) {
+  const DataTranslate = ({ number, text }) => (
+    <>
+      <span className="bold">
+        <Separator number={number} />
+      </span>{' '}
+      <Translate text={text} number={number}></Translate>{' '}
+    </>
+  );
+
+  const InOut = ({ numPositive, numNegative }) => (
+    <span className="bold">
+      +<Separator number={numPositive} /> -<Separator number={numNegative} />
+    </span>
+  );
+
   return (
     <div className={check_second}>
       <TitleLine title={'Hospitalizirani'}>
-        <span className="bold">
-          <Separator
-            number={stats[stats.length - 1].statePerTreatment.inHospital}
-          />
-        </span>{' '}
-        <Translate
-          text={'oseba'}
+        <DataTranslate
           number={stats[stats.length - 1].statePerTreatment.inHospital}
-        ></Translate>{' '}
-        (+
-        <span className="bold">
-          <Separator
-            number={patients[patients.length - 1].total.inHospital.in}
-          />
-        </span>
-        , -
-        <span className="bold">
-          <Separator
-            number={patients[patients.length - 1].total.inHospital.out}
-          />
-        </span>
-        ), v EIT{' '}
-        <span className="bold">
-          <Separator number={stats[stats.length - 1].statePerTreatment.inICU} />
-        </span>{' '}
-        <Translate
           text={'oseba'}
+        />
+        (
+        <InOut
+          numPositive={patients[patients.length - 1].total.inHospital.in}
+          numNegative={patients[patients.length - 1].total.inHospital.out}
+        />
+        ), v EIT{' '}
+        <DataTranslate
           number={stats[stats.length - 1].statePerTreatment.inICU}
-        ></Translate>{' '}
+          text={'oseba'}
+        />
         (
         <Delta
           today={stats[stats.length - 1].statePerTreatment.inICU}
@@ -51,15 +51,10 @@ function SecondTweet({ check_second, stats, patients }) {
           text={'zdravi'}
           number={stats[stats.length - 1].statePerTreatment.critical}
         ></Translate>{' '}
-        <span className="bold">
-          <Separator
-            number={stats[stats.length - 1].statePerTreatment.critical}
-          />
-        </span>{' '}
-        <Translate
-          text={'oseba'}
+        <DataTranslate
           number={stats[stats.length - 1].statePerTreatment.critical}
-        ></Translate>{' '}
+          text={'oseba'}
+        />{' '}
         (
         <Delta
           today={stats[stats.length - 1].statePerTreatment.critical}
@@ -71,15 +66,10 @@ function SecondTweet({ check_second, stats, patients }) {
       </TitleLine>
       <TitleLine title={'Preminuli'}>
         {stats[stats.length - 1].statePerTreatment.deceased > 0 ? '+' : ''}
-        <span className="bold">
-          <Separator
-            number={stats[stats.length - 1].statePerTreatment.deceased}
-          />
-        </span>{' '}
-        <Translate
-          text={'oseba'}
+        <DataTranslate
           number={stats[stats.length - 1].statePerTreatment.deceased}
-        ></Translate>
+          text={'oseba'}
+        />
         , skupaj:{' '}
         <span className="bold">
           <Separator
