@@ -24,7 +24,13 @@ function ThirdTweetMarkoB({
   const todayPerAge = stats[stats.length - 2].statePerAgeToDate;
   const yesterdayPerAge = stats[stats.length - 3].statePerAgeToDate;
 
-  const ConfirmedLine = ({ number }) => (
+  const DataLinePart = ({
+    number,
+    prefix,
+    suffix,
+    noArrow = false,
+    insideColons = false,
+  }) => (
     <>
       <Arrow /> Skupaj{' '}
       <span className="bold">
@@ -41,8 +47,12 @@ function ThirdTweetMarkoB({
         labTests={labTests}
         summary={summary}
       />
-      <ConfirmedLine number={stats[stats.length - 2].cases.confirmedToDate} />
-      <br />
+        <DataLinePart
+          number={stats[stats.length - 2].cases.confirmedToDate}
+          prefix={'Skupaj'}
+          suffix={'potrjenih primerov'}
+        />
+        .
       <PerAgeLine
         check_third_age={check_third_age}
         todayPerAge={todayPerAge}
