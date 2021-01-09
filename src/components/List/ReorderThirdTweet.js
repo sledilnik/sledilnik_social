@@ -6,7 +6,7 @@ import InHospitals from './shared/InHospitals';
 
 import Arrow from './shared/Arrow';
 import Separator from './shared/Separator';
-import FirstTweet from '../shared/FirstTweet';
+import TESTS_ACTIVE from '../shared/TESTS_ACTIVE';
 import SecondTweet from '../shared/SecondTweet';
 import InOut from './shared/InOut';
 
@@ -45,7 +45,7 @@ function ThirdTweetMarkoB({
 
   return (
     <>
-      <FirstTweet
+      <TESTS_ACTIVE
         check_first={check_first}
         labTests={labTests}
         summary={summary}

@@ -1,7 +1,7 @@
 import React from 'react';
 import Intro from './List/Intro';
 import Outro from './shared/Outro';
-import FirstTweet from './shared/FirstTweet';
+import TESTS_ACTIVE from './shared/TESTS_ACTIVE';
 import SecondTweet from './shared/SecondTweet';
 import ThirdTweet from './List/ThirdTweet';
 
@@ -105,7 +105,7 @@ const List = props => {
     <div>
       {' '}
       <Intro post={1} introTodayDate={introTodayDate} />
-      <FirstTweet
+      <TESTS_ACTIVE
         check_first={check_first}
         labTests={labTests}
         summary={summary}

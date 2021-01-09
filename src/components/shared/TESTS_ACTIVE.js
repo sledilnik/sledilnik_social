@@ -1,10 +1,10 @@
 import React from 'react';
 import Separator from '../List/shared/Separator';
-import Percentage from '../List/FirstTweet/Percentage';
+import Percentage from '../List/TESTS_ACTIVE/Percentage';
 import TitleLine from '../List/shared/TitleLine';
 import InOut from '../List/shared/InOut';
 
-function FirstTweet({ check_first, labTests, summary }) {
+function TESTS_ACTIVE({ check_first, labTests, summary }) {
   const FirstTweetData = ({ numPositive, numPerformed }) => (
     <>
       <span className="bold">
@@ -54,4 +54,4 @@ function FirstTweet({ check_first, labTests, summary }) {
   );
 }
 
-export default FirstTweet;
+export default TESTS_ACTIVE;
