@@ -3,7 +3,7 @@ import Intro from './List/Intro';
 import Outro from './shared/Outro';
 import TESTS_ACTIVE from './shared/TESTS_ACTIVE';
 import SecondTweet from './shared/SecondTweet';
-import ThirdTweet from './List/ThirdTweet';
+import Combined from './List/Combined';
 
 import ThirdTweetMarkoB from './List/ReorderThirdTweet';
 import Legend from './List/Legend';
@@ -123,7 +123,7 @@ const List = props => {
       <br />
       <br />
       <Intro post={3} introTodayDate={introTodayDate} />
-      <ThirdTweet
+      <Combined
         check_first={check_first}
         check_second={check_second}
         check_third_age={check_third_age}

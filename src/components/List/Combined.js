@@ -8,7 +8,7 @@ import Arrow from './shared/Arrow';
 import Separator from './shared/Separator';
 import SecondTweet from '../shared/SecondTweet';
 
-function ThirdTweet({
+function Combined({
   check_first,
   check_second,
   check_third_age,
@@ -60,4 +60,4 @@ function ThirdTweet({
   );
 }
 
-export default ThirdTweet;
+export default Combined;
