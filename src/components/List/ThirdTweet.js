@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PerAgeLine from './shared/PerAgeLine';
+import PerAge from './shared/PerAge';
 import Cities_SocialFriendly from './shared/Cities_SocialFriendly';
 import InHospitals from './shared/InHospitals';
 import FirstTweet from '../shared/FirstTweet';
@@ -41,7 +41,7 @@ function ThirdTweet({
         patients={patients}
       />
       <div>
-        <PerAgeLine
+        <PerAge
           check_third_age={check_third_age}
           todayPerAge={todayPerAge}
           yesterdayPerAge={yesterdayPerAge}

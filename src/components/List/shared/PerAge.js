@@ -2,7 +2,7 @@ import React from 'react';
 import Delta from './Delta';
 import TitleLine from './TitleLine';
 
-function PerAgeLine({ check_third_age, todayPerAge, yesterdayPerAge }) {
+function PerAge({ check_third_age, todayPerAge, yesterdayPerAge }) {
   const deltas = [];
 
   for (let i = 0; i < 10; i++) {
@@ -29,4 +29,4 @@ function PerAgeLine({ check_third_age, todayPerAge, yesterdayPerAge }) {
   );
 }
 
-export default PerAgeLine;
+export default PerAge;
