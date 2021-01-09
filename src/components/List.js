@@ -302,61 +302,6 @@ const List = props => {
         ></Percentage>
         %).
       </p> */}
-        <span className={check_third_age}>
-          <p className="text">
-            <Arrow /> Potrjeni primeri po starosti: 0-4 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[0].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[0].allToDate}
-            ></Delta>
-            ), 5-14 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[1].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[1].allToDate}
-            ></Delta>
-            ), 15-24 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[2].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[2].allToDate}
-            ></Delta>
-            ), 25-34 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[3].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[3].allToDate}
-            ></Delta>
-            ), 35-44 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[4].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[4].allToDate}
-            ></Delta>
-            ), 45-54 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[5].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[5].allToDate}
-            ></Delta>
-            ), 55-64 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[6].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[6].allToDate}
-            ></Delta>
-            ), 65-74 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[7].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[7].allToDate}
-            ></Delta>
-            ), 75-84 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[8].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[8].allToDate}
-            ></Delta>
-            ), 85+ (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[9].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[9].allToDate}
-            ></Delta>
-            ).
-          </p>
-        </span>
         <span className={check_second}>
           <p className="text">
             <Arrow /> Stanje po bolnišnicah:
@@ -458,7 +403,7 @@ const List = props => {
       <Intro post={3} introTodayDate={introTodayDate} />
       {FirstTweet()}
       <p className="text">
-        <Arrow /> Skupaj cepljenih:{' '}
+        <Arrow /> Skupaj cepljenih oseb:{' '}
         <span className="bold">
           <Separator
             number={stats[stats.length - 2].vaccination.administered.toDate}
@@ -475,6 +420,61 @@ const List = props => {
         <Separator number={stats[stats.length - 2].cases.confirmedToDate} />
       </span>{' '}
       potrjenih primerov.
+      <span className={check_third_age}>
+        <p className="text">
+          <Arrow /> Potrjeni primeri po starosti: 0-4 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[0].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[0].allToDate}
+          ></Delta>
+          ), 5-14 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[1].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[1].allToDate}
+          ></Delta>
+          ), 15-24 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[2].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[2].allToDate}
+          ></Delta>
+          ), 25-34 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[3].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[3].allToDate}
+          ></Delta>
+          ), 35-44 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[4].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[4].allToDate}
+          ></Delta>
+          ), 45-54 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[5].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[5].allToDate}
+          ></Delta>
+          ), 55-64 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[6].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[6].allToDate}
+          ></Delta>
+          ), 65-74 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[7].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[7].allToDate}
+          ></Delta>
+          ), 75-84 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[8].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[8].allToDate}
+          ></Delta>
+          ), 85+ (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[9].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[9].allToDate}
+          ></Delta>
+          ).
+        </p>
+      </span>
       {SecondTweet()}
       {ThirdTweet()}
       <Outro />
