@@ -1,8 +1,8 @@
 import React from 'react';
 
-import TitleLine from './TitleLine';
-import InOut from './InOut';
-import DataTranslate from './DataTranslate';
+import TitleLine from '../shared/TitleLine';
+import InOut from '../shared/InOut';
+import DataTranslate from '../shared/DataTranslate';
 
 function InHospitals({ check_second, patients, perHospitalChanges }) {
   return (

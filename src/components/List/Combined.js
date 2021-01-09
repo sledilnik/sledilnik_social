@@ -1,8 +1,8 @@
 import React from 'react';
 
-import PerAge from './shared/PerAge';
-import CITIES_SOCIALFRIENDLY from './shared/CITIES_SOCIALFRIENDLY';
-import InHospitals from './shared/InHospitals';
+import PerAge from './Combined/PerAge';
+import CITIES_SOCIALFRIENDLY from './Combined/CITIES_SOCIALFRIENDLY';
+import InHospitals from './Combined/InHospitals';
 import TESTS_ACTIVE from '../shared/TESTS_ACTIVE';
 import Arrow from './shared/Arrow';
 import Separator from './shared/Separator';

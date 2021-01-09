@@ -1,7 +1,7 @@
 import React from 'react';
-import Municipalities from './Municipalities';
+import Municipalities from '../shared/Municipalities';
 import Outro from '../../shared/Outro';
-import TitleLine from './TitleLine';
+import TitleLine from '../shared/TitleLine';
 
 function CITIES_SOCIALFRIENDLY({ check_third_mun, municipalities }) {
   const munVer = iconsVersion => (
