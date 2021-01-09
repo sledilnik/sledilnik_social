@@ -42,25 +42,21 @@ function Combined({
     </>
   );
 
-  return (
-    <>
-      <TESTS_ACTIVE
-        check_first={check_first}
-        labTests={labTests}
-        summary={summary}
-      />
+  function Vaccination({ toDate, today }) {
+    return (
       <p className="text">
         <DataLinePart
-          number={stats[stats.length - 2].vaccination.administered.toDate}
+          number={toDate}
           prefix={'Število cepljenih oseb:'}
           suffix={' '}
         />
-        <InOut
-          numIn={stats[stats.length - 2].vaccination.administered.today}
-          insideColons={true}
-        />
-        .
+        <InOut numIn={today} insideColons={true} />.
       </p>
+    );
+  }
+
+  function Confirmed({ toDate }) {
+    return (
       <p className="text">
         <DataLinePart
           number={stats[stats.length - 2].cases.confirmedToDate}
@@ -69,6 +65,21 @@ function Combined({
         />
         .
       </p>
+    );
+  }
+
+  return (
+    <>
+      <TESTS_ACTIVE
+        check_first={check_first}
+        labTests={labTests}
+        summary={summary}
+      />
+      <Vaccination
+        toDate={stats[stats.length - 2].vaccination.administered.toDate}
+        today={stats[stats.length - 2].vaccination.administered.today}
+      />
+      <Confirmed toDate={stats[stats.length - 2].cases.confirmedToDate} />
       <PerAge
         check_third_age={check_third_age}
         todayPerAge={todayPerAge}
