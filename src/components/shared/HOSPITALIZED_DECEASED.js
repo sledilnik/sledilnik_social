@@ -6,7 +6,7 @@ import TitleLine from '../List/shared/TitleLine';
 import InOut from '../List/shared/InOut';
 import DataTranslate from '../List/shared/DataTranslate';
 
-function SecondTweet({ check_second, stats, patients }) {
+function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
   return (
     <div className={check_second}>
       <TitleLine title={'Hospitalizirani'}>
@@ -69,4 +69,4 @@ function SecondTweet({ check_second, stats, patients }) {
   );
 }
 
-export default SecondTweet;
+export default HOSPITALIZED_DECEASED;

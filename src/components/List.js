@@ -2,7 +2,7 @@ import React from 'react';
 import Intro from './List/Intro';
 import Outro from './shared/Outro';
 import TESTS_ACTIVE from './shared/TESTS_ACTIVE';
-import SecondTweet from './shared/SecondTweet';
+import HOSPITALIZED_DECEASED from './shared/HOSPITALIZED_DECEASED';
 import Combined from './List/Combined';
 import Legend from './List/Legend';
 
@@ -112,7 +112,7 @@ const List = props => {
       <br />
       <br />
       <Intro post={2} introTodayDate={introTodayDate} />
-      <SecondTweet
+      <HOSPITALIZED_DECEASED
         check_second={check_second}
         stats={stats}
         patients={patients}

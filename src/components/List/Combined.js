@@ -6,7 +6,7 @@ import InHospitals from './shared/InHospitals';
 import TESTS_ACTIVE from '../shared/TESTS_ACTIVE';
 import Arrow from './shared/Arrow';
 import Separator from './shared/Separator';
-import SecondTweet from '../shared/SecondTweet';
+import HOSPITALIZED_DECEASED from '../shared/HOSPITALIZED_DECEASED';
 import InOut from './shared/InOut';
 
 function Combined({
@@ -85,7 +85,7 @@ function Combined({
         todayPerAge={todayPerAge}
         yesterdayPerAge={yesterdayPerAge}
       />
-      <SecondTweet
+      <HOSPITALIZED_DECEASED
         check_second={check_second}
         stats={stats}
         patients={patients}
