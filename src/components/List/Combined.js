@@ -54,11 +54,7 @@ function Combined({
   function Confirmed({ toDate }) {
     return (
       <p className="text">
-        <Data
-          number={stats[stats.length - 2].cases.confirmedToDate}
-          prefix={'Skupaj'}
-          suffix={'potrjenih primerov'}
-        />
+        <Data number={toDate} prefix={'Skupaj'} suffix={'potrjenih primerov'} />
         .
       </p>
     );
