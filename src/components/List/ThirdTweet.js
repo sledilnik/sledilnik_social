@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PerAgeLine from './shared/PerAgeLine';
-import MunicipalitiesLines from './shared/MunicipalitiesLines';
+import MunicipalitiesLines from './shared/Cities_SocialFriendly';
 import PatientsLine from './shared/PatientsLine';
 import FirstTweet from '../shared/FirstTweet';
 import Arrow from './shared/Arrow';
