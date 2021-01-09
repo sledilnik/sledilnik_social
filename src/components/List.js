@@ -408,14 +408,14 @@ const List = props => {
           <Separator
             number={stats[stats.length - 2].vaccination.administered.toDate}
           />{' '}
-          (+{' '}
+          (+
           <Separator
             number={stats[stats.length - 2].vaccination.administered.today}
           />
           ).
         </span>
       </p>
-      <Arrow /> Skupaj <Arrow /> Skupaj{' '}
+      <Arrow /> Skupaj{' '}
       <span className="bold">
         <Separator number={stats[stats.length - 2].cases.confirmedToDate} />
       </span>{' '}
