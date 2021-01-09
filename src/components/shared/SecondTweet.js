@@ -1,10 +1,10 @@
 import React from 'react';
-import Separator from '../Separator';
-import Translate from '../Translate';
-import Delta from '../Delta';
-import TitleLine from '../TitleLine';
-import InOut from '../InOut';
-import DataTranslate from '../DataTranslate';
+import Separator from '../List/shared/Separator';
+import Translate from '../List/shared/Translate';
+import Delta from '../List/shared/Delta';
+import TitleLine from '../List/shared/TitleLine';
+import InOut from '../List/shared/InOut';
+import DataTranslate from '../List/shared/DataTranslate';
 
 function SecondTweet({ check_second, stats, patients }) {
   return (

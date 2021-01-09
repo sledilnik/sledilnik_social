@@ -1,12 +1,12 @@
 import React from 'react';
 
-import PerAgeLine from '../PerAgeLine';
-import MunicipalitiesLines from '../MunicipalitiesLines';
-import PatientsLine from '../PatientsLine';
-import FirstTweet from './FirstTweet';
-import Arrow from '../Arrow';
-import Separator from '../Separator';
-import SecondTweet from './SecondTweet';
+import PerAgeLine from './shared/PerAgeLine';
+import MunicipalitiesLines from './shared/MunicipalitiesLines';
+import PatientsLine from './shared/PatientsLine';
+import FirstTweet from '../shared/FirstTweet';
+import Arrow from './shared/Arrow';
+import Separator from './shared/Separator';
+import SecondTweet from '../shared/SecondTweet';
 
 function ThirdTweet({
   check_first,

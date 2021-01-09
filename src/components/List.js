@@ -1,12 +1,12 @@
 import React from 'react';
-import Intro from './Intro';
-import Outro from './Outro';
-import FirstTweet from './Tweets/FirstTweet';
-import SecondTweet from './Tweets/SecondTweet';
-import ThirdTweet from './Tweets/ThirdTweet';
+import Intro from './List/Intro';
+import Outro from './shared/Outro';
+import FirstTweet from './shared/FirstTweet';
+import SecondTweet from './shared/SecondTweet';
+import ThirdTweet from './List/ThirdTweet';
 
-import ThirdTweetMarkoB from './NewFeat-MarkoB/ReorderThirdTweet';
-import Legend from './Legend';
+import ThirdTweetMarkoB from './List/ReorderThirdTweet';
+import Legend from './List/Legend';
 
 const List = props => {
   const { stats } = props;

@@ -1,6 +1,6 @@
 import React from 'react';
 import Municipalities from './Municipalities';
-import Outro from './Outro';
+import Outro from '../../shared/Outro';
 import TitleLine from './TitleLine';
 
 function MunicipalitiesLines({ check_third_mun, municipalities }) {

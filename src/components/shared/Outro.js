@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../assets/sledilnik-logo.svg";
+import Logo from "../../assets/sledilnik-logo.svg";
 
 const Outro = (props) => {
   return (

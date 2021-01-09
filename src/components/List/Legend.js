@@ -1,5 +1,5 @@
 import React from 'react';
-import Municipalities from './Municipalities';
+import Municipalities from './shared/Municipalities';
 
 const municipalitiesTrend = [
   {

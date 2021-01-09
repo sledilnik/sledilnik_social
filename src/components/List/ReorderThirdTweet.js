@@ -1,14 +1,14 @@
 import React from 'react';
 
-import PerAgeLine from '../PerAgeLine';
-import MunicipalitiesLines from '../MunicipalitiesLines';
-import PatientsLine from '../PatientsLine';
+import PerAgeLine from './shared/PerAgeLine';
+import MunicipalitiesLines from './shared/MunicipalitiesLines';
+import PatientsLine from './shared/PatientsLine';
 
-import Arrow from '../Arrow';
-import Separator from '../Separator';
-import FirstTweet from '../Tweets/FirstTweet';
-import SecondTweet from '../Tweets/SecondTweet';
-import InOut from '../InOut';
+import Arrow from './shared/Arrow';
+import Separator from './shared/Separator';
+import FirstTweet from '../shared/FirstTweet';
+import SecondTweet from '../shared/SecondTweet';
+import InOut from './shared/InOut';
 
 function ThirdTweetMarkoB({
   check_first,

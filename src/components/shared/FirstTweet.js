@@ -1,8 +1,8 @@
 import React from 'react';
-import Separator from '../Separator';
-import Percentage from '../Percentage';
-import TitleLine from '../TitleLine';
-import InOut from '../InOut';
+import Separator from '../List/shared/Separator';
+import Percentage from '../List/FirstTweet/Percentage';
+import TitleLine from '../List/shared/TitleLine';
+import InOut from '../List/shared/InOut';
 
 function FirstTweet({ check_first, labTests, summary }) {
   const FirstTweetData = ({ numPositive, numPerformed }) => (

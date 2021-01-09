@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import MunicipalitiesDict from '../MunicipalitiesDict';
+import MunicipalitiesDict from '../../../MunicipalitiesDict';
 
 // { name: x, translation: X} becomes { x: { name: x, translation: X }}
 const MunicipalitiesLookup = _.keyBy(MunicipalitiesDict, 'name');
