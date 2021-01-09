@@ -24,7 +24,7 @@ function Combined({
   const todayPerAge = stats[stats.length - 2].statePerAgeToDate;
   const yesterdayPerAge = stats[stats.length - 3].statePerAgeToDate;
 
-  const DataLinePart = ({
+  const Data = ({
     number,
     prefix,
     suffix,
@@ -45,11 +45,7 @@ function Combined({
   function Vaccination({ toDate, today }) {
     return (
       <p className="text">
-        <DataLinePart
-          number={toDate}
-          prefix={'Število cepljenih oseb:'}
-          suffix={' '}
-        />
+        <Data number={toDate} prefix={'Število cepljenih oseb:'} suffix={' '} />
         <InOut numIn={today} insideColons={true} />.
       </p>
     );
@@ -58,7 +54,7 @@ function Combined({
   function Confirmed({ toDate }) {
     return (
       <p className="text">
-        <DataLinePart
+        <Data
           number={stats[stats.length - 2].cases.confirmedToDate}
           prefix={'Skupaj'}
           suffix={'potrjenih primerov'}
