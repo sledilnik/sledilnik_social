@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PerAge from './shared/PerAge';
-import Cities_SocialFriendly from './shared/Cities_SocialFriendly';
+import CITIES_SOCIALFRIENDLY from './shared/CITIES_SOCIALFRIENDLY';
 import InHospitals from './shared/InHospitals';
 import TESTS_ACTIVE from '../shared/TESTS_ACTIVE';
 import Arrow from './shared/Arrow';
@@ -51,7 +51,7 @@ function ThirdTweet({
           patients={patients}
           perHospitalChanges={perHospitalChanges}
         />
-        <Cities_SocialFriendly
+        <CITIES_SOCIALFRIENDLY
           check_third_mun={check_third_mun}
           municipalities={municipalities}
         />

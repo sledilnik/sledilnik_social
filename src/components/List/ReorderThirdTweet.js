@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PerAge from './shared/PerAge';
-import Cities_SocialFriendly from './shared/Cities_SocialFriendly';
+import CITIES_SOCIALFRIENDLY from './shared/CITIES_SOCIALFRIENDLY';
 import InHospitals from './shared/InHospitals';
 
 import Arrow from './shared/Arrow';
@@ -87,7 +87,7 @@ function ThirdTweetMarkoB({
           perHospitalChanges={perHospitalChanges}
         />
         .
-        <Cities_SocialFriendly
+        <CITIES_SOCIALFRIENDLY
           check_third_mun={check_third_mun}
           municipalities={municipalities}
         />
