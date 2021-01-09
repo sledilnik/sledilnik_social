@@ -1,8 +1,8 @@
 import React from 'react';
 
 import PerAgeLine from './shared/PerAgeLine';
-import MunicipalitiesLines from './shared/Cities_SocialFriendly';
-import PatientsLine from './shared/PatientsLine';
+import Cities_SocialFriendly from './shared/Cities_SocialFriendly';
+import InHospitals from './shared/InHospitals';
 import FirstTweet from '../shared/FirstTweet';
 import Arrow from './shared/Arrow';
 import Separator from './shared/Separator';
@@ -46,12 +46,12 @@ function ThirdTweet({
           todayPerAge={todayPerAge}
           yesterdayPerAge={yesterdayPerAge}
         />
-        <PatientsLine
+        <InHospitals
           check_second={check_second}
           patients={patients}
           perHospitalChanges={perHospitalChanges}
         />
-        <MunicipalitiesLines
+        <Cities_SocialFriendly
           check_third_mun={check_third_mun}
           municipalities={municipalities}
         />

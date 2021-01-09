@@ -4,7 +4,7 @@ import TitleLine from './TitleLine';
 import InOut from './InOut';
 import DataTranslate from './DataTranslate';
 
-function PatientsLine({ check_second, patients, perHospitalChanges }) {
+function InHospitals({ check_second, patients, perHospitalChanges }) {
   return (
     <span className={check_second}>
       <TitleLine title={'Stanje po bolnišnicah'} />
@@ -47,4 +47,4 @@ function PatientsLine({ check_second, patients, perHospitalChanges }) {
   );
 }
 
-export default PatientsLine;
+export default InHospitals;

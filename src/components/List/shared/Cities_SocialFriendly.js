@@ -3,7 +3,7 @@ import Municipalities from './Municipalities';
 import Outro from '../../shared/Outro';
 import TitleLine from './TitleLine';
 
-function MunicipalitiesLines({ check_third_mun, municipalities }) {
+function Cities_SocialFriendly({ check_third_mun, municipalities }) {
   const munVer = iconsVersion => (
     <>
       <TitleLine title={'Po krajih'} />
@@ -28,4 +28,4 @@ function MunicipalitiesLines({ check_third_mun, municipalities }) {
   );
 }
 
-export default MunicipalitiesLines;
+export default Cities_SocialFriendly;
