@@ -7,6 +7,8 @@ import StyledNumber from '../List/shared/StyledNumber';
 function TESTS_ACTIVE({ check_first, labTests, summary }) {
   const { regular, hagt } = labTests[labTests.length - 1].data;
   const casesActive = summary.casesActive.value;
+  const casesActiveIn = summary.casesActive.subValues.in;
+  const casesActiveOut = summary.casesActive.subValues.out;
 
   const DataWithRatio = ({ numPositive, numPerformed }) => (
     <>
@@ -17,6 +19,15 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
       %.
     </>
   );
+
+  const DataWithInOut = ({ number, numIn, numOut }) => {
+    return (
+      <>
+        <StyledNumber className="bold" number={number} />{' '}
+        <InOut numIn={numIn} numOut={numOut} insideColons={true} />
+      </>
+    );
+  };
 
   return (
     <div className={check_first}>
@@ -33,11 +44,10 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
         />
       </DataRow>
       <DataRow title={'Aktivni primeri'}>
-        <StyledNumber className="bold" number={casesActive} />{' '}
-        <InOut
-          numIn={summary.casesActive.subValues.in}
-          numOut={summary.casesActive.subValues.out}
-          insideColons={true}
+        <DataWithInOut
+          number={casesActive}
+          numIn={casesActiveIn}
+          numOut={casesActiveOut}
         />
         .
       </DataRow>
