@@ -7,7 +7,7 @@ function PerAge({ check_third_age, todayPerAge, yesterdayPerAge }) {
 
   for (let i = 0; i < 10; i++) {
     const { ageFrom, ageTo } = todayPerAge[i];
-    const ageRange = `${ageFrom}${ageTo ? '-' + ageTo : '+'}`;
+    const ageRange = `${ageFrom}${ageTo ? `-${ageTo}` : '+'}`;
     const key = `${i}_${ageRange}`;
     const today = todayPerAge[i].allToDate;
     const yesterday = yesterdayPerAge[i].allToDate;
