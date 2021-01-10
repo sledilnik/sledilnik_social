@@ -74,18 +74,15 @@ function Combined({
         stats={stats}
         patients={patients}
       />
-      <div>
-        <InHospitals
-          check_second={check_second}
-          patients={patients}
-          perHospitalChanges={perHospitalChanges}
-        />
-        .
-        <CITIES_SOCIALFRIENDLY
-          check_third_mun={check_third_mun}
-          municipalities={municipalities}
-        />
-      </div>
+      <InHospitals
+        check_second={check_second}
+        patients={patients}
+        perHospitalChanges={perHospitalChanges}
+      />
+      <CITIES_SOCIALFRIENDLY
+        check_third_mun={check_third_mun}
+        municipalities={municipalities}
+      />
     </>
   );
 }
