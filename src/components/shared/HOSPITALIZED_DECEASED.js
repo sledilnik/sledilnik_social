@@ -1,10 +1,10 @@
 import React from 'react';
-import Separator from '../List/shared/Separator';
 import Translate from '../List/shared/Translate';
 import Delta from '../List/shared/Delta';
 import DataRow from '../List/shared/DataRow';
 import InOut from '../List/shared/InOut';
 import DataTranslate from '../List/shared/DataTranslate';
+import StyledNumber from '../List/shared/StyledNumber';
 
 function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
   const hospNum = stats[stats.length - 1].statePerTreatment.inHospital;
@@ -71,10 +71,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
       <DataRow title={'Preminuli'}>
         {plusOrEmpty}
         <DataTranslate number={deceased} text={'oseba'} />, skupaj:{' '}
-        <span className="bold">
-          <Separator number={deceasedToDate} />
-        </span>
-        .
+        <StyledNumber className="bold" number={deceasedToDate} />.
       </DataRow>
     );
   }

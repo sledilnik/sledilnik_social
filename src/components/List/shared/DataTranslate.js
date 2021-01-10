@@ -1,13 +1,11 @@
 import React from 'react';
-import Separator from './Separator';
 import Translate from './Translate';
+import StyledNumber from './StyledNumber';
 
 function DataTranslate({ number, text }) {
   return (
     <>
-      <span className="bold">
-        <Separator number={number} />
-      </span>{' '}
+      <StyledNumber className="bold" number={number} />{' '}
       <Translate text={text} number={number}></Translate>{' '}
     </>
   );

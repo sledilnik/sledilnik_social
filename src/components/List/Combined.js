@@ -4,10 +4,10 @@ import PerAge from './Combined/PerAge';
 import CITIES_SOCIALFRIENDLY from './Combined/CITIES_SOCIALFRIENDLY';
 import InHospitals from './Combined/InHospitals';
 import TESTS_ACTIVE from '../shared/TESTS_ACTIVE';
-import Separator from './shared/Separator';
 import HOSPITALIZED_DECEASED from '../shared/HOSPITALIZED_DECEASED';
 import InOut from './shared/InOut';
 import DataRow from './shared/DataRow';
+import StyledNumber from './shared/StyledNumber';
 
 function Combined({
   check_first,
@@ -33,11 +33,7 @@ function Combined({
 
   const Data = ({ number, prefix, suffix }) => (
     <>
-      {prefix}{' '}
-      <span className="bold">
-        <Separator number={number} />
-      </span>{' '}
-      {suffix}
+      {prefix} <StyledNumber className="bold" number={number} /> {suffix}
     </>
   );
 
