@@ -2,7 +2,7 @@ import React from 'react';
 import StyledNumberWithText from './StyledNumberWithText';
 import InOut from './InOut';
 
-function DataWithInOut({
+function StyledNumberWithInOut({
   number,
   prefix,
   suffix,
@@ -24,4 +24,4 @@ function DataWithInOut({
   );
 }
 
-export default DataWithInOut;
+export default StyledNumberWithInOut;
