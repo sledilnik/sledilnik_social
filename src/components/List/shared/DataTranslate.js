@@ -6,7 +6,7 @@ function DataTranslate({ number, text }) {
   return (
     <>
       <StyledNumber className="bold" number={number} />{' '}
-      <Translate text={text} number={number}></Translate>{' '}
+      <Translate text={text} number={number}></Translate>
     </>
   );
 }
