@@ -4,10 +4,10 @@ import PerAge from './Combined/PerAge';
 import CITIES_SOCIALFRIENDLY from './Combined/CITIES_SOCIALFRIENDLY';
 import InHospitals from './Combined/InHospitals';
 import TESTS_ACTIVE from '../shared/TESTS_ACTIVE';
-import Arrow from './shared/Arrow';
 import Separator from './shared/Separator';
 import HOSPITALIZED_DECEASED from '../shared/HOSPITALIZED_DECEASED';
 import InOut from './shared/InOut';
+import TitleLine from './shared/TitleLine';
 
 function Combined({
   check_first,
@@ -24,39 +24,31 @@ function Combined({
   const todayPerAge = stats[stats.length - 2].statePerAgeToDate;
   const yesterdayPerAge = stats[stats.length - 3].statePerAgeToDate;
 
-  const Data = ({
-    number,
-    prefix,
-    suffix,
-    noArrow = false,
-    insideColons = false,
-  }) => (
+  const Data = ({ number, prefix, suffix }) => (
     <>
-      {insideColons ? '(' : ''}
-      {noArrow ? '' : <Arrow />} {prefix}{' '}
+      {prefix}{' '}
       <span className="bold">
         <Separator number={number} />
       </span>{' '}
       {suffix}
-      {insideColons ? ')' : ''}
     </>
   );
 
   function Vaccination({ toDate, today }) {
     return (
-      <p className="text">
-        <Data number={toDate} prefix={'Število cepljenih oseb:'} suffix={' '} />
+      <TitleLine title={'Število cepljenih oseb'}>
+        <Data number={toDate} />
         <InOut numIn={today} insideColons={true} />.
-      </p>
+      </TitleLine>
     );
   }
 
   function Confirmed({ toDate }) {
     return (
-      <p className="text">
+      <TitleLine>
         <Data number={toDate} prefix={'Skupaj'} suffix={'potrjenih primerov'} />
         .
-      </p>
+      </TitleLine>
     );
   }
 
