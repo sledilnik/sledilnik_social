@@ -31,17 +31,25 @@ function Combined({
 
   const confirmedToDate = stats[stats.length - 2].cases.confirmedToDate;
 
-  const Data = ({ number, prefix, suffix }) => (
+  const StyleNumberWithText = ({ number, prefix, suffix }) => (
     <>
       {prefix} <StyledNumber className="bold" number={number} /> {suffix}
     </>
   );
 
+  const DataWithInOut = ({ number, numIn, numOut, insideColons }) => {
+    return (
+      <>
+        <StyleNumberWithText number={number} />
+        <InOut numIn={numIn} insideColons={insideColons} />
+      </>
+    );
+  };
+
   function Vaccination({ toDate, today }) {
     return (
       <DataRow title={'Število cepljenih oseb'}>
-        <Data number={toDate} />
-        <InOut numIn={today} insideColons={true} />.
+        <DataWithInOut number={toDate} numIn={today} insideColons={true} />.
       </DataRow>
     );
   }
@@ -49,7 +57,11 @@ function Combined({
   function Confirmed({ toDate }) {
     return (
       <DataRow>
-        <Data number={toDate} prefix={'Skupaj'} suffix={'potrjenih primerov'} />
+        <StyleNumberWithText
+          number={toDate}
+          prefix={'Skupaj'}
+          suffix={'potrjenih primerov'}
+        />
         .
       </DataRow>
     );
