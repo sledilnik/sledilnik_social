@@ -24,6 +24,13 @@ function Combined({
   const todayPerAge = stats[stats.length - 2].statePerAgeToDate;
   const yesterdayPerAge = stats[stats.length - 3].statePerAgeToDate;
 
+  const vaccinationToDate =
+    stats[stats.length - 2].vaccination.administered.toDate;
+  const vaccinationToday =
+    stats[stats.length - 2].vaccination.administered.today;
+
+  const confirmedToDate = stats[stats.length - 2].cases.confirmedToDate;
+
   const Data = ({ number, prefix, suffix }) => (
     <>
       {prefix}{' '}
@@ -59,11 +66,8 @@ function Combined({
         labTests={labTests}
         summary={summary}
       />
-      <Vaccination
-        toDate={stats[stats.length - 2].vaccination.administered.toDate}
-        today={stats[stats.length - 2].vaccination.administered.today}
-      />
-      <Confirmed toDate={stats[stats.length - 2].cases.confirmedToDate} />
+      <Vaccination toDate={vaccinationToDate} today={vaccinationToday} />
+      <Confirmed toDate={confirmedToDate} />
       <PerAge
         check_third_age={check_third_age}
         todayPerAge={todayPerAge}
