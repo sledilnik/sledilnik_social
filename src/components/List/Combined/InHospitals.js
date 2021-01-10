@@ -1,13 +1,13 @@
 import React from 'react';
 
-import TitleLine from '../shared/TitleLine';
+import DataRow from '../shared/DataRow';
 import InOut from '../shared/InOut';
 import DataTranslate from '../shared/DataTranslate';
 
 function InHospitals({ check_second, patients, perHospitalChanges }) {
   return (
     <span className={check_second}>
-      <TitleLine title={'Stanje po bolnišnicah'} />
+      <DataRow title={'Stanje po bolnišnicah'} />
       <ul>
         {patients[patients.length - 1] === undefined
           ? 'NI PODATKOV'

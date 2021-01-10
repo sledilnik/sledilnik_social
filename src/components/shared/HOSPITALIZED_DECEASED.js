@@ -2,14 +2,14 @@ import React from 'react';
 import Separator from '../List/shared/Separator';
 import Translate from '../List/shared/Translate';
 import Delta from '../List/shared/Delta';
-import TitleLine from '../List/shared/TitleLine';
+import DataRow from '../List/shared/DataRow';
 import InOut from '../List/shared/InOut';
 import DataTranslate from '../List/shared/DataTranslate';
 
 function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
   return (
     <div className={check_second}>
-      <TitleLine title={'Hospitalizirani'}>
+      <DataRow title={'Hospitalizirani'}>
         <DataTranslate
           number={stats[stats.length - 1].statePerTreatment.inHospital}
           text={'oseba'}
@@ -32,8 +32,8 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
           noChanges={true}
         ></Delta>
         .
-      </TitleLine>
-      <TitleLine title={'Na respiratorju (intubirani) se'} noColon={true}>
+      </DataRow>
+      <DataRow title={'Na respiratorju (intubirani) se'} noColon={true}>
         <Translate
           text={'zdravi'}
           number={stats[stats.length - 1].statePerTreatment.critical}
@@ -50,8 +50,8 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
           noChanges={true}
         ></Delta>
         .
-      </TitleLine>
-      <TitleLine title={'Preminuli'}>
+      </DataRow>
+      <DataRow title={'Preminuli'}>
         {stats[stats.length - 1].statePerTreatment.deceased > 0 ? '+' : ''}
         <DataTranslate
           number={stats[stats.length - 1].statePerTreatment.deceased}
@@ -64,7 +64,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
           />
         </span>
         .
-      </TitleLine>
+      </DataRow>
     </div>
   );
 }

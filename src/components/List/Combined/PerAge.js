@@ -1,6 +1,6 @@
 import React from 'react';
 import Delta from '../shared/Delta';
-import TitleLine from '../shared/TitleLine';
+import DataRow from '../shared/DataRow';
 
 function PerAge({ check_third_age, todayPerAge, yesterdayPerAge }) {
   const deltas = [];
@@ -24,7 +24,7 @@ function PerAge({ check_third_age, todayPerAge, yesterdayPerAge }) {
 
   return (
     <span className={check_third_age}>
-      <TitleLine title={'Potrjeni primeri po starosti'}> {deltas}</TitleLine>
+      <DataRow title={'Potrjeni primeri po starosti'}> {deltas}</DataRow>
     </span>
   );
 }

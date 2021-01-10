@@ -1,7 +1,7 @@
 import React from 'react';
 import Arrow from './Arrow';
 
-function TitleLine({ children, title, noColon }) {
+function DataRow({ children, title, noColon }) {
   let colon = !title || noColon ? '' : ': ';
 
   return (
@@ -13,4 +13,4 @@ function TitleLine({ children, title, noColon }) {
   );
 }
 
-export default TitleLine;
+export default DataRow;

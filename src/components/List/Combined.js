@@ -7,7 +7,7 @@ import TESTS_ACTIVE from '../shared/TESTS_ACTIVE';
 import Separator from './shared/Separator';
 import HOSPITALIZED_DECEASED from '../shared/HOSPITALIZED_DECEASED';
 import InOut from './shared/InOut';
-import TitleLine from './shared/TitleLine';
+import DataRow from './shared/DataRow';
 
 function Combined({
   check_first,
@@ -43,19 +43,19 @@ function Combined({
 
   function Vaccination({ toDate, today }) {
     return (
-      <TitleLine title={'Število cepljenih oseb'}>
+      <DataRow title={'Število cepljenih oseb'}>
         <Data number={toDate} />
         <InOut numIn={today} insideColons={true} />.
-      </TitleLine>
+      </DataRow>
     );
   }
 
   function Confirmed({ toDate }) {
     return (
-      <TitleLine>
+      <DataRow>
         <Data number={toDate} prefix={'Skupaj'} suffix={'potrjenih primerov'} />
         .
-      </TitleLine>
+      </DataRow>
     );
   }
 

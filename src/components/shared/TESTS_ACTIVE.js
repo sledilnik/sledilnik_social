@@ -1,7 +1,7 @@
 import React from 'react';
 import Separator from '../List/shared/Separator';
 import Percentage from '../List/TESTS_ACTIVE/Percentage';
-import TitleLine from '../List/shared/TitleLine';
+import DataRow from '../List/shared/DataRow';
 import InOut from '../List/shared/InOut';
 
 function TESTS_ACTIVE({ check_first, labTests, summary }) {
@@ -23,7 +23,7 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
 
   return (
     <div className={check_first}>
-      <TitleLine title={'PCR'}>
+      <DataRow title={'PCR'}>
         <FirstTweetData
           numPositive={
             labTests[labTests.length - 1].data.regular.positive.today
@@ -32,14 +32,14 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
             labTests[labTests.length - 1].data.regular.performed.today
           }
         />
-      </TitleLine>
-      <TitleLine title={'HAT'}>
+      </DataRow>
+      <DataRow title={'HAT'}>
         <FirstTweetData
           numPositive={labTests[labTests.length - 1].data.hagt.positive.today}
           numPerformed={labTests[labTests.length - 1].data.hagt.performed.today}
         />
-      </TitleLine>
-      <TitleLine title={'Aktivni primeri'}>
+      </DataRow>
+      <DataRow title={'Aktivni primeri'}>
         <span className="bold">
           <Separator number={summary.casesActive.value} />
         </span>{' '}
@@ -49,7 +49,7 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
           insideColons={true}
         />
         .
-      </TitleLine>
+      </DataRow>
     </div>
   );
 }

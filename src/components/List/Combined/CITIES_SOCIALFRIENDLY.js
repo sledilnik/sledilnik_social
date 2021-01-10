@@ -1,12 +1,12 @@
 import React from 'react';
 import Municipalities from '../shared/Municipalities';
 import Outro from '../../shared/Outro';
-import TitleLine from '../shared/TitleLine';
+import DataRow from '../shared/DataRow';
 
 function CITIES_SOCIALFRIENDLY({ check_third_mun, municipalities }) {
   const munVer = iconsVersion => (
     <>
-      <TitleLine title={'Po krajih'} />
+      <DataRow title={'Po krajih'} />
       <ul className="municipalities">
         <Municipalities
           data={municipalities}
