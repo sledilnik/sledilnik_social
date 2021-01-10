@@ -1,21 +1,18 @@
 import React from 'react';
-import Separator from '../List/shared/Separator';
 import Percentage from '../List/TESTS_ACTIVE/Percentage';
 import DataRow from '../List/shared/DataRow';
 import InOut from '../List/shared/InOut';
+import StyledNumber from '../List/shared/StyledNumber';
 
 function TESTS_ACTIVE({ check_first, labTests, summary }) {
-  const FirstTweetData = ({ numPositive, numPerformed }) => (
+  const { regular, hagt } = labTests[labTests.length - 1].data;
+  const casesActive = summary.casesActive.value;
+
+  const DataWithRatio = ({ numPositive, numPerformed }) => (
     <>
-      <span className="bold">
-        +
-        <Separator number={numPositive} />
-      </span>
-      , testiranih:{' '}
-      <span className="bold">
-        <Separator number={numPerformed} />
-      </span>
-      , delež pozitivnih:{' '}
+      <StyledNumber className="bold" number={numPositive} prefix={true} />,
+      testiranih: <StyledNumber className="bold" number={numPerformed} />, delež
+      pozitivnih:{' '}
       <Percentage part={numPositive} total={numPerformed}></Percentage>
       %.
     </>
@@ -24,25 +21,19 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
   return (
     <div className={check_first}>
       <DataRow title={'PCR'}>
-        <FirstTweetData
-          numPositive={
-            labTests[labTests.length - 1].data.regular.positive.today
-          }
-          numPerformed={
-            labTests[labTests.length - 1].data.regular.performed.today
-          }
+        <DataWithRatio
+          numPositive={regular.positive.today}
+          numPerformed={regular.performed.today}
         />
       </DataRow>
       <DataRow title={'HAT'}>
-        <FirstTweetData
-          numPositive={labTests[labTests.length - 1].data.hagt.positive.today}
-          numPerformed={labTests[labTests.length - 1].data.hagt.performed.today}
+        <DataWithRatio
+          numPositive={hagt.positive.today}
+          numPerformed={hagt.performed.today}
         />
       </DataRow>
       <DataRow title={'Aktivni primeri'}>
-        <span className="bold">
-          <Separator number={summary.casesActive.value} />
-        </span>{' '}
+        <StyledNumber className="bold" number={casesActive} />{' '}
         <InOut
           numIn={summary.casesActive.subValues.in}
           numOut={summary.casesActive.subValues.out}
