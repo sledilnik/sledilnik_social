@@ -8,7 +8,7 @@ function DataWithRatio({ numPositive, numPerformed }) {
       <StyledNumberWithText
         className="bold"
         number={numPositive}
-        numSign={true}
+        preSign={true}
         suffix=","
       />
       <StyledNumberWithText

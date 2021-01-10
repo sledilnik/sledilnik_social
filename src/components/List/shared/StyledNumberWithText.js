@@ -1,11 +1,11 @@
 import React from 'react';
 import StyledNumber from './StyledNumber';
 
-function StyledNumberWithText({ number, prefix, suffix, numSign = false }) {
+function StyledNumberWithText({ number, prefix, suffix, preSign = false }) {
   return (
     <>
       {prefix}{' '}
-      <StyledNumber className="bold" number={number} prefix={numSign} />{' '}
+      <StyledNumber className="bold" number={number} preSign={preSign} />{' '}
       {suffix}
     </>
   );
