@@ -2,7 +2,7 @@ import React from 'react';
 import Arrow from './Arrow';
 
 function DataRow({ children, title, noColon }) {
-  let colon = !title || noColon ? '' : ': ';
+  let colon = !title || noColon ? ' ' : ': ';
 
   return (
     <p className="text">

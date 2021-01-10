@@ -31,7 +31,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
   }) {
     return (
       <DataRow title={title}>
-        <DataTranslate number={totalNum} text={'oseba'} />
+        <DataTranslate number={totalNum} text={'oseba'} />{' '}
         <InOut numIn={inOut[0]} numOut={inOut[1]} insideColons={true} />,{' '}
         {subtitle} <DataTranslate number={icuNum} text={'oseba'} />
         <Delta
@@ -48,9 +48,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
 
   function OnRespiratory({ today, yesterday }) {
     return (
-      // TODO DataRow if noColon true add space instead
       <DataRow title={'Na respiratorju (intubirani) se'} noColon={true}>
-        {' '}
         <Translate text={'zdravi'} number={today}></Translate>{' '}
         <DataTranslate number={today} text={'oseba'} />{' '}
         <Delta
