@@ -1,40 +1,32 @@
 import React from 'react';
 
 import DataRow from '../shared/DataRow';
-import InOut from '../shared/InOut';
-import DataTranslate from '../shared/DataTranslate';
+import DataTranslateWithInOut from '../shared/DataTranslateWithInOut';
 
 function InHospitals({ check_second, patients, perHospitalChanges }) {
-  const DataWithInOut = ({ number, text, numIn, numOut }) => {
-    return (
-      <>
-        <DataTranslate number={number} text={text} />{' '}
-        <InOut numIn={numIn} numOut={numOut} insideColons={true} />
-      </>
-    );
-  };
-
   const InHospital = ({
-    key,
+    hospShort,
     hospitalName,
     hosp = { number: 0, in: 0, out: 0 },
     icu = { number: 0, in: 0, out: 0 },
   }) => {
     return (
-      <li key={key}>
+      <li key={hospShort}>
         <span className="bold">{hospitalName}</span>:{' '}
-        <DataWithInOut
+        <DataTranslateWithInOut
           number={hosp.number}
           text={'oseba'}
           numIn={hosp.in}
           numOut={hosp.out}
+          insideColons={true}
         />
         , EIT{' '}
-        <DataWithInOut
+        <DataTranslateWithInOut
           number={icu.number}
           text={'oseba'}
           numIn={icu.in}
           numOut={icu.out}
+          insideColons={true}
         />
         .
       </li>
@@ -63,6 +55,7 @@ function InHospitals({ check_second, patients, perHospitalChanges }) {
     ) : (
       <InHospital
         key={hosp[0]}
+        hospShort={hosp[0]}
         hospitalName={hosp[2]}
         hosp={{ ...hospital }}
         icu={{ ...icu }}

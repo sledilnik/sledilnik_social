@@ -5,9 +5,9 @@ import CITIES_SOCIALFRIENDLY from './Combined/CITIES_SOCIALFRIENDLY';
 import InHospitals from './Combined/InHospitals';
 import TESTS_ACTIVE from '../shared/TESTS_ACTIVE';
 import HOSPITALIZED_DECEASED from '../shared/HOSPITALIZED_DECEASED';
-import InOut from './shared/InOut';
 import DataRow from './shared/DataRow';
-import StyledNumber from './shared/StyledNumber';
+import StyledNumberWithText from './shared/StyledNumberWithText';
+import StyledNumberWithInOut from './shared/StyledNumberWithInOut';
 
 function Combined({
   check_first,
@@ -31,25 +31,15 @@ function Combined({
 
   const confirmedToDate = stats[stats.length - 2].cases.confirmedToDate;
 
-  const StyleNumberWithText = ({ number, prefix, suffix }) => (
-    <>
-      {prefix} <StyledNumber className="bold" number={number} /> {suffix}
-    </>
-  );
-
-  const DataWithInOut = ({ number, numIn, numOut, insideColons }) => {
-    return (
-      <>
-        <StyleNumberWithText number={number} />
-        <InOut numIn={numIn} insideColons={insideColons} />
-      </>
-    );
-  };
-
   function Vaccination({ toDate, today }) {
     return (
       <DataRow title={'Število cepljenih oseb'}>
-        <DataWithInOut number={toDate} numIn={today} insideColons={true} />.
+        <StyledNumberWithInOut
+          number={toDate}
+          numIn={today}
+          insideColons={true}
+        />
+        .
       </DataRow>
     );
   }
@@ -57,7 +47,7 @@ function Combined({
   function Confirmed({ toDate }) {
     return (
       <DataRow>
-        <StyleNumberWithText
+        <StyledNumberWithText
           number={toDate}
           prefix={'Skupaj'}
           suffix={'potrjenih primerov'}

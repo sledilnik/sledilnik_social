@@ -2,9 +2,9 @@ import React from 'react';
 import Translate from '../List/shared/Translate';
 import Delta from '../List/shared/Delta';
 import DataRow from '../List/shared/DataRow';
-import InOut from '../List/shared/InOut';
 import DataTranslate from '../List/shared/DataTranslate';
-import StyledNumber from '../List/shared/StyledNumber';
+import StyledNumberWithText from '../List/shared/StyledNumberWithText';
+import DataTranslateWithInOut from '../List/shared/DataTranslateWithInOut';
 
 function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
   const hospNum = stats[stats.length - 1].statePerTreatment.inHospital;
@@ -31,8 +31,13 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
   }) {
     return (
       <DataRow title={title}>
-        <DataTranslate number={totalNum} text={'oseba'} />{' '}
-        <InOut numIn={inOut[0]} numOut={inOut[1]} insideColons={true} />,{' '}
+        <DataTranslateWithInOut
+          number={totalNum}
+          text={'oseba'}
+          numIn={inOut[0]}
+          numOut={inOut[1]}
+          insideColons={true}
+        />
         {subtitle} <DataTranslate number={icuNum} text={'oseba'} />
         <Delta
           today={icuDelta[0]}
@@ -68,8 +73,13 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
     return (
       <DataRow title={'Preminuli'}>
         {plusOrEmpty}
-        <DataTranslate number={deceased} text={'oseba'} />, skupaj:{' '}
-        <StyledNumber className="bold" number={deceasedToDate} />.
+        <DataTranslate number={deceased} text={'oseba'} />
+        <StyledNumberWithText
+          prefix={', skupaj:'}
+          className="bold"
+          number={deceasedToDate}
+        />
+        .
       </DataRow>
     );
   }
@@ -78,7 +88,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
     <div className={check_second}>
       <Hospitalized
         title={'Hospitalizirani'}
-        subtitle={'v EIT'}
+        subtitle={', v EIT'}
         totalNum={hospNum}
         inOut={[hospIn, hospOut]}
         icuNum={icuNum}

@@ -1,33 +1,13 @@
 import React from 'react';
-import Percentage from '../List/TESTS_ACTIVE/Percentage';
 import DataRow from '../List/shared/DataRow';
-import InOut from '../List/shared/InOut';
-import StyledNumber from '../List/shared/StyledNumber';
+import StyledNumberWithInOut from '../List/shared/StyledNumberWithInOut';
+import DataWithRatio from '../List/shared/DataWithRatio';
 
 function TESTS_ACTIVE({ check_first, labTests, summary }) {
   const { regular, hagt } = labTests[labTests.length - 1].data;
   const casesActive = summary.casesActive.value;
   const casesActiveIn = summary.casesActive.subValues.in;
   const casesActiveOut = summary.casesActive.subValues.out;
-
-  const DataWithRatio = ({ numPositive, numPerformed }) => (
-    <>
-      <StyledNumber className="bold" number={numPositive} prefix={true} />,
-      testiranih: <StyledNumber className="bold" number={numPerformed} />, delež
-      pozitivnih:{' '}
-      <Percentage part={numPositive} total={numPerformed}></Percentage>
-      %.
-    </>
-  );
-
-  const DataWithInOut = ({ number, numIn, numOut }) => {
-    return (
-      <>
-        <StyledNumber className="bold" number={number} />{' '}
-        <InOut numIn={numIn} numOut={numOut} insideColons={true} />
-      </>
-    );
-  };
 
   return (
     <div className={check_first}>
@@ -44,12 +24,12 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
         />
       </DataRow>
       <DataRow title={'Aktivni primeri'}>
-        <DataWithInOut
+        <StyledNumberWithInOut
           number={casesActive}
           numIn={casesActiveIn}
           numOut={casesActiveOut}
+          insideColons={true}
         />
-        .
       </DataRow>
     </div>
   );
