@@ -8,6 +8,35 @@ import HOSPITALIZED_DECEASED from '../shared/HOSPITALIZED_DECEASED';
 import DataRow from './shared/DataRow';
 import EmbeddedNumber from './shared/EmbeddedNumber';
 import EmbeddedNumberInOut from './shared/EmbeddedNumberInOut';
+import Arrow from './shared/Arrow';
+
+const isUndefined = value => value === undefined;
+
+const isOneArgumentUndefined = (values = {}) => {
+  let result = false;
+  for (const [key, value] of Object.entries(values)) {
+    const valueIsUndefined = isUndefined(value);
+    if (valueIsUndefined) {
+      console.warn(`Argument: ${key} is undefined!`);
+      result = true;
+    }
+  }
+  return result;
+};
+
+function NoData({ text, html = { tag: 'span', classes: '' } }) {
+  if (html.tag === 'span') {
+    return <span className={html.classes}>{text}</span>;
+  }
+  if (html.tag === 'p') {
+    return (
+      <p className={html.classes}>
+        <Arrow /> {text}
+      </p>
+    );
+  }
+  return;
+}
 
 function Combined({
   check_first,
@@ -32,16 +61,28 @@ function Combined({
   const confirmedToDate = stats[stats.length - 2].cases.confirmedToDate;
 
   function Vaccination({ toDate, today }) {
+    const showNoData = isOneArgumentUndefined({ toDate, today });
+    const title = 'Število cepljenih oseb';
+
     return (
-      <DataRow title={'Število cepljenih oseb'}>
-        <EmbeddedNumberInOut
-          suffix={' '}
-          number={toDate}
-          numIn={today}
-          insideColons={true}
-        />
-        .
-      </DataRow>
+      <>
+        {showNoData ? (
+          <NoData
+            text={'Ni vseh podatkov za cepljene osebe.'}
+            html={{ classes: 'text', tag: 'p' }}
+          />
+        ) : (
+          <DataRow title={title}>
+            <EmbeddedNumberInOut
+              suffix={' '}
+              number={toDate}
+              numIn={today}
+              insideColons={true}
+            />
+            .
+          </DataRow>
+        )}
+      </>
     );
   }
 
