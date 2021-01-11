@@ -38,7 +38,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
           numOut={inOut[1]}
           insideColons={true}
         />
-        {subtitle} <DataTranslate number={icuNum} text={'oseba'} />
+        {subtitle} <DataTranslate number={icuNum} text={'oseba'} />{' '}
         <Delta
           today={icuDelta[0]}
           yesterday={icuDelta[1]}
