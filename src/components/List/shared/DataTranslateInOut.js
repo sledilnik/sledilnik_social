@@ -2,7 +2,7 @@ import React from 'react';
 import DataTranslate from './DataTranslate';
 import InOut from './InOut';
 
-function DataTranslateWithInOut({
+function DataTranslateInOut({
   number,
   text,
   numIn,
@@ -17,4 +17,4 @@ function DataTranslateWithInOut({
   );
 }
 
-export default DataTranslateWithInOut;
+export default DataTranslateInOut;

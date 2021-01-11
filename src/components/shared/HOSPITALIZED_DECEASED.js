@@ -4,7 +4,7 @@ import Delta from '../List/shared/Delta';
 import DataRow from '../List/shared/DataRow';
 import DataTranslate from '../List/shared/DataTranslate';
 import StyledNumberWithText from '../List/shared/StyledNumberWithText';
-import DataTranslateWithInOut from '../List/shared/DataTranslateWithInOut';
+import DataTranslateInOut from '../List/shared/DataTranslateInOut';
 
 function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
   const hospNum = stats[stats.length - 1].statePerTreatment.inHospital;
@@ -31,7 +31,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
   }) {
     return (
       <DataRow title={title}>
-        <DataTranslateWithInOut
+        <DataTranslateInOut
           number={totalNum}
           text={'oseba'}
           numIn={inOut[0]}
