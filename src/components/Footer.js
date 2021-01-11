@@ -3,6 +3,11 @@ import React from 'react';
 function Footer() {
   return (
     <footer>
+      <div>
+        <a href="https://sledilnik-social-old.netlify.app/">
+          Sledilnik Social Old
+        </a>
+      </div>
       <br /> <br />
       <svg
         xmlns="http://www.w3.org/2000/svg"
