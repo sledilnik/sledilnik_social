@@ -3,13 +3,13 @@ import Separator from './Separator';
 const Calculate = ({
   today,
   yesterday,
-  getPrefix,
+  withPrefix,
   noChanges,
   insideColons = false,
 }) => {
   let deltaCalculation = today - yesterday;
 
-  const prefix = getPrefix
+  const prefix = withPrefix
     ? today - yesterday === 0
       ? ''
       : today - yesterday > 0

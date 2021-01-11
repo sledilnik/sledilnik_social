@@ -43,7 +43,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
           today={icuDelta[0]}
           yesterday={icuDelta[1]}
           insideColons={true}
-          getPrefix={true}
+          withPrefix={true}
           noChanges={true}
         ></Delta>
         .
@@ -60,7 +60,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
           today={today}
           yesterday={yesterday}
           insideColons={true}
-          getPrefix={true}
+          withPrefix={true}
           noChanges={true}
         ></Delta>
         .
