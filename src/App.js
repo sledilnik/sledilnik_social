@@ -67,8 +67,8 @@ function App() {
           labTests={labTests}
           summary={summary}
         />
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 }
