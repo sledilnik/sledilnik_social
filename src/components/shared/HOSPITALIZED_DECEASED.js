@@ -75,7 +75,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
         {plusOrEmpty}
         <DataTranslate number={deceased} text={'oseba'} />
         <StyledNumberWithText
-          prefix={', skupaj:'}
+          prefix={', skupaj: '}
           className="bold"
           number={deceasedToDate}
         />
