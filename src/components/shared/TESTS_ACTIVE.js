@@ -9,22 +9,32 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
   const casesActiveIn = summary.casesActive.subValues.in;
   const casesActiveOut = summary.casesActive.subValues.out;
 
+  function PercentageRow({ title = '', numPositive = 0, numPerformed = 0 }) {
+    return (
+      <DataRow title={title}>
+        <DataPercentage numPositive={numPositive} numPerformed={numPerformed} />
+        .
+      </DataRow>
+    );
+  }
+
+  const { today: regToday } = regular.positive;
+  const { today: regPerformed } = regular.performed;
+  const { today: hagtToday } = hagt.positive;
+  const { today: hagtPerformed } = hagt.performed;
+
   return (
     <div className={check_first}>
-      <DataRow title={'PCR'}>
-        <DataPercentage
-          numPositive={regular.positive.today}
-          numPerformed={regular.performed.today}
-        />
-        .
-      </DataRow>
-      <DataRow title={'HAT'}>
-        <DataPercentage
-          numPositive={hagt.positive.today}
-          numPerformed={hagt.performed.today}
-        />
-        .
-      </DataRow>
+      <PercentageRow
+        title={'PCR'}
+        numPositive={regToday}
+        numPerformed={regPerformed}
+      />
+      <PercentageRow
+        title={'HAT'}
+        numPositive={hagtToday}
+        numPerformed={hagtPerformed}
+      />
       <DataRow title={'Aktivni primeri'}>
         <EmbeddedNumberInOut
           number={casesActive}
