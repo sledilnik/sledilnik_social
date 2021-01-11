@@ -88,7 +88,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
     <div className={check_second}>
       <Hospitalized
         title={'Hospitalizirani'}
-        subtitle={', v EIT'}
+        subtitle={', v EIT '}
         totalNum={hospNum}
         inOut={[hospIn, hospOut]}
         icuNum={icuNum}
