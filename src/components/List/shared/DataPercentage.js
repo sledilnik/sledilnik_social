@@ -2,7 +2,7 @@ import React from 'react';
 import StyledNumberWithText from './StyledNumberWithText';
 import Percentage from '../TESTS_ACTIVE/Percentage';
 
-function DataWithRatio({ numPositive, numPerformed }) {
+function DataPercentage({ numPositive, numPerformed }) {
   return (
     <>
       <StyledNumberWithText
@@ -22,4 +22,4 @@ function DataWithRatio({ numPositive, numPerformed }) {
   );
 }
 
-export default DataWithRatio;
+export default DataPercentage;

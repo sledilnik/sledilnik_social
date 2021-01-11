@@ -1,7 +1,7 @@
 import React from 'react';
 import DataRow from '../List/shared/DataRow';
 import StyledNumberWithInOut from '../List/shared/StyledNumberWithInOut';
-import DataWithRatio from '../List/shared/DataWithRatio';
+import DataPercentage from '../List/shared/DataPercentage';
 
 function TESTS_ACTIVE({ check_first, labTests, summary }) {
   const { regular, hagt } = labTests[labTests.length - 1].data;
@@ -12,14 +12,14 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
   return (
     <div className={check_first}>
       <DataRow title={'PCR'}>
-        <DataWithRatio
+        <DataPercentage
           numPositive={regular.positive.today}
           numPerformed={regular.performed.today}
         />
         .
       </DataRow>
       <DataRow title={'HAT'}>
-        <DataWithRatio
+        <DataPercentage
           numPositive={hagt.positive.today}
           numPerformed={hagt.performed.today}
         />
