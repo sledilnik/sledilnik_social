@@ -24,7 +24,7 @@ function PerAge({ check_third_age, todayPerAge, yesterdayPerAge }) {
 
   return (
     <span className={check_third_age}>
-      <DataRow title={'Potrjeni primeri po starosti'}> {deltas}</DataRow>
+      <DataRow title={'Potrjeni primeri po starosti'}> {deltas}.</DataRow>
     </span>
   );
 }
