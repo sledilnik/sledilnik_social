@@ -1,14 +1,14 @@
-import React from "react";
-import Delta from "./Delta";
-import Percentage from "./Percentage";
-import Municipalities from "./Municipalities";
-import Translate from "./Translate";
-import Intro from "./Intro";
-import Outro from "./Outro";
-import Arrow from "./Arrow";
-import Separator from "./Separator";
+import React from 'react';
+import Delta from './Delta';
+import Percentage from './Percentage';
+import Municipalities from './Municipalities';
+import Translate from './Translate';
+import Intro from './Intro';
+import Outro from './Outro';
+import Arrow from './Arrow';
+import Separator from './Separator';
 
-const List = (props) => {
+const List = props => {
   const { stats } = props;
   const { municipalities } = props;
   const { patients } = props;
@@ -29,7 +29,7 @@ const List = (props) => {
 
   const perHospitalChanges =
     patients[patients.length - 1] === undefined
-      ? "NI PODATKOV"
+      ? 'NI PODATKOV'
       : Object.entries(patients[patients.length - 1].facilities);
   for (let i = 0; i < perHospitalChanges.length; i++) {
     for (let j = 0; j < hospitalsDict.length; j++) {
@@ -71,33 +71,33 @@ const List = (props) => {
 
   let introTodayDate =
     new Date().getDate().toString() +
-    "." +
+    '.' +
     (new Date().getMonth() + 1).toString() +
-    "." +
+    '.' +
     new Date().getFullYear().toString();
 
   // paint red if data is not updated for the current day
-  var check_first = "";
-  var check_second = "";
-  var check_third_age = "";
-  var check_third_mun = "";
+  var check_first = '';
+  var check_second = '';
+  var check_third_age = '';
+  var check_third_mun = '';
 
   if (todayDate - summaryDate === -1) {
-    check_first = "red";
+    check_first = 'red';
   }
   if (todayDate - patientsDate > 0) {
-    check_second = "red";
+    check_second = 'red';
   }
   if (
     stats[stats.length - 2].statePerAgeToDate[0].allToDate === undefined ||
     todayDate - statsDate > 0
   ) {
-    check_third_age = "red";
+    check_third_age = 'red';
   }
   if (true) {
   }
   if (todayDate - municipalitiesDate > 1) {
-    check_third_mun = "red";
+    check_third_mun = 'red';
   }
 
   // render tweets
@@ -106,14 +106,14 @@ const List = (props) => {
     return (
       <div className={check_first}>
         <p className="text">
-          <Arrow /> PCR:{" "}
+          <Arrow /> PCR:{' '}
           <span className="bold">
             +
             <Separator
               number={labTests[labTests.length - 1].data.regular.positive.today}
             />
           </span>
-          , testiranih:{" "}
+          , testiranih:{' '}
           <span className="bold">
             <Separator
               number={
@@ -121,7 +121,7 @@ const List = (props) => {
               }
             />
           </span>
-          , delež pozitivnih:{" "}
+          , delež pozitivnih:{' '}
           <Percentage
             part={labTests[labTests.length - 1].data.regular.positive.today}
             total={labTests[labTests.length - 1].data.regular.performed.today}
@@ -130,20 +130,20 @@ const List = (props) => {
         </p>
 
         <p className="text">
-          <Arrow /> HAT:{" "}
+          <Arrow /> HAT:{' '}
           <span className="bold">
             +
             <Separator
               number={labTests[labTests.length - 1].data.hagt.positive.today}
             />
           </span>
-          , testiranih:{" "}
+          , testiranih:{' '}
           <span className="bold">
             <Separator
               number={labTests[labTests.length - 1].data.hagt.performed.today}
             />
           </span>
-          , delež pozitivnih:{" "}
+          , delež pozitivnih:{' '}
           <Percentage
             part={labTests[labTests.length - 1].data.hagt.positive.today}
             total={labTests[labTests.length - 1].data.hagt.performed.today}
@@ -152,10 +152,10 @@ const List = (props) => {
         </p>
 
         <p className="text">
-          <Arrow /> Aktivni primeri:{" "}
+          <Arrow /> Aktivni primeri:{' '}
           <span className="bold">
             <Separator number={summary.casesActive.value} />
-          </span>{" "}
+          </span>{' '}
           (+
           <span className="bold">
             <Separator number={summary.casesActive.subValues.in} />
@@ -187,16 +187,16 @@ const List = (props) => {
     return (
       <div className={check_second}>
         <p className="text">
-          <Arrow /> Hospitalizirani:{" "}
+          <Arrow /> Hospitalizirani:{' '}
           <span className="bold">
             <Separator
               number={stats[stats.length - 1].statePerTreatment.inHospital}
             />
-          </span>{" "}
+          </span>{' '}
           <Translate
-            text={"oseba"}
+            text={'oseba'}
             number={stats[stats.length - 1].statePerTreatment.inHospital}
-          ></Translate>{" "}
+          ></Translate>{' '}
           (+
           <span className="bold">
             <Separator
@@ -209,16 +209,16 @@ const List = (props) => {
               number={patients[patients.length - 1].total.inHospital.out}
             />
           </span>
-          ), v EIT{" "}
+          ), v EIT{' '}
           <span className="bold">
             <Separator
               number={stats[stats.length - 1].statePerTreatment.inICU}
             />
-          </span>{" "}
+          </span>{' '}
           <Translate
-            text={"oseba"}
+            text={'oseba'}
             number={stats[stats.length - 1].statePerTreatment.inICU}
-          ></Translate>{" "}
+          ></Translate>{' '}
           (
           <Delta
             today={stats[stats.length - 1].statePerTreatment.inICU}
@@ -230,20 +230,20 @@ const List = (props) => {
         </p>
 
         <p className="text">
-          <Arrow /> Na respiratorju (intubirani) se{" "}
+          <Arrow /> Na respiratorju (intubirani) se{' '}
           <Translate
-            text={"zdravi"}
+            text={'zdravi'}
             number={stats[stats.length - 1].statePerTreatment.critical}
-          ></Translate>{" "}
+          ></Translate>{' '}
           <span className="bold">
             <Separator
               number={stats[stats.length - 1].statePerTreatment.critical}
             />
-          </span>{" "}
+          </span>{' '}
           <Translate
-            text={"oseba"}
+            text={'oseba'}
             number={stats[stats.length - 1].statePerTreatment.critical}
-          ></Translate>{" "}
+          ></Translate>{' '}
           (
           <Delta
             today={stats[stats.length - 1].statePerTreatment.critical}
@@ -255,18 +255,18 @@ const List = (props) => {
         </p>
 
         <p className="text">
-          <Arrow /> Preminuli:{" "}
-          {stats[stats.length - 1].statePerTreatment.deceased > 0 ? "+" : ""}
+          <Arrow /> Preminuli:{' '}
+          {stats[stats.length - 1].statePerTreatment.deceased > 0 ? '+' : ''}
           <span className="bold">
             <Separator
               number={stats[stats.length - 1].statePerTreatment.deceased}
             />
-          </span>{" "}
+          </span>{' '}
           <Translate
-            text={"oseba"}
+            text={'oseba'}
             number={stats[stats.length - 1].statePerTreatment.deceased}
           ></Translate>
-          , skupaj:{" "}
+          , skupaj:{' '}
           <span className="bold">
             <Separator
               number={stats[stats.length - 1].statePerTreatment.deceasedToDate}
@@ -302,101 +302,46 @@ const List = (props) => {
         ></Percentage>
         %).
       </p> */}
-        <span className={check_third_age}>
-          <p className="text">
-            <Arrow /> Potrjeni primeri po starosti: 0-4 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[0].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[0].allToDate}
-            ></Delta>
-            ), 5-14 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[1].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[1].allToDate}
-            ></Delta>
-            ), 15-24 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[2].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[2].allToDate}
-            ></Delta>
-            ), 25-34 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[3].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[3].allToDate}
-            ></Delta>
-            ), 35-44 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[4].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[4].allToDate}
-            ></Delta>
-            ), 45-54 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[5].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[5].allToDate}
-            ></Delta>
-            ), 55-64 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[6].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[6].allToDate}
-            ></Delta>
-            ), 65-74 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[7].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[7].allToDate}
-            ></Delta>
-            ), 75-84 (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[8].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[8].allToDate}
-            ></Delta>
-            ), 85+ (
-            <Delta
-              today={stats[stats.length - 2].statePerAgeToDate[9].allToDate}
-              yesterday={stats[stats.length - 3].statePerAgeToDate[9].allToDate}
-            ></Delta>
-            ).
-          </p>
-        </span>
         <span className={check_second}>
           <p className="text">
             <Arrow /> Stanje po bolnišnicah:
           </p>
           <ul>
             {patients[patients.length - 1] === undefined
-              ? "NI PODATKOV"
+              ? 'NI PODATKOV'
               : perHospitalChanges
                   .sort(
                     (a, b) =>
                       (b[1].inHospital.today || 0) -
                       (a[1].inHospital.today || 0)
                   )
-                  .map((hosp) => {
+                  .map(hosp => {
                     return hosp[1].inHospital.today === undefined ? (
-                      ""
+                      ''
                     ) : (
                       <li key={hosp[0]}>
                         <span>
-                          <span className="bold">{hosp[2]}</span>:{" "}
+                          <span className="bold">{hosp[2]}</span>:{' '}
                           <span className="bold">
                             <Separator number={hosp[1].inHospital.today} />
-                          </span>{" "}
+                          </span>{' '}
                           <Translate
-                            text={"oseba"}
+                            text={'oseba'}
                             number={hosp[1].inHospital.today}
-                          ></Translate>{" "}
+                          ></Translate>{' '}
                           (
                           <span className="bold">
                             +<Separator number={hosp[1].inHospital.in} /> -
                             <Separator number={hosp[1].inHospital.out} />
                           </span>
-                          ), EIT{" "}
+                          ), EIT{' '}
                           <span className="bold">
                             <Separator number={hosp[1].icu.today} />
-                          </span>{" "}
+                          </span>{' '}
                           <Translate
-                            text={"oseba"}
+                            text={'oseba'}
                             number={hosp[1].icu.today}
-                          ></Translate>{" "}
+                          ></Translate>{' '}
                           (
                           <span className="bold">
                             +
@@ -444,7 +389,7 @@ const List = (props) => {
   // render app
   return (
     <div>
-      {" "}
+      {' '}
       <Intro post={1} introTodayDate={introTodayDate} />
       {FirstTweet()}
       <Outro />
@@ -457,11 +402,79 @@ const List = (props) => {
       <br />
       <Intro post={3} introTodayDate={introTodayDate} />
       {FirstTweet()}
-      <Arrow /> Skupaj{" "}
+      <p className="text">
+        <Arrow /> Skupaj cepljenih oseb:{' '}
+        <span className="bold">
+          <Separator
+            number={stats[stats.length - 2].vaccination.administered.toDate}
+          />{' '}
+          (+
+          <Separator
+            number={stats[stats.length - 2].vaccination.administered.today}
+          />
+          ).
+        </span>
+      </p>
+      <Arrow /> Skupaj{' '}
       <span className="bold">
         <Separator number={stats[stats.length - 2].cases.confirmedToDate} />
-      </span>{" "}
+      </span>{' '}
       potrjenih primerov.
+      <span className={check_third_age}>
+        <p className="text">
+          <Arrow /> Potrjeni primeri po starosti: 0-4 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[0].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[0].allToDate}
+          ></Delta>
+          ), 5-14 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[1].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[1].allToDate}
+          ></Delta>
+          ), 15-24 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[2].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[2].allToDate}
+          ></Delta>
+          ), 25-34 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[3].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[3].allToDate}
+          ></Delta>
+          ), 35-44 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[4].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[4].allToDate}
+          ></Delta>
+          ), 45-54 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[5].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[5].allToDate}
+          ></Delta>
+          ), 55-64 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[6].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[6].allToDate}
+          ></Delta>
+          ), 65-74 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[7].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[7].allToDate}
+          ></Delta>
+          ), 75-84 (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[8].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[8].allToDate}
+          ></Delta>
+          ), 85+ (
+          <Delta
+            today={stats[stats.length - 2].statePerAgeToDate[9].allToDate}
+            yesterday={stats[stats.length - 3].statePerAgeToDate[9].allToDate}
+          ></Delta>
+          ).
+        </p>
+      </span>
       {SecondTweet()}
       {ThirdTweet()}
       <Outro />
@@ -474,20 +487,20 @@ const List = (props) => {
         Legenda trenda rasti potrjenih primerov v posamezni občini:
       </p>
       <p>
-        - Trend potrjenih primerov v občini pada{" "}
+        - Trend potrjenih primerov v občini pada{' '}
         <span role="img" aria-label="up">
           ⤵
         </span>
       </p>
       <p>
-        - Ni sprememb v trendu potrjenih primerov{" "}
-        <i>(trend v območju -0,03 do +0,03)</i>{" "}
+        - Ni sprememb v trendu potrjenih primerov{' '}
+        <i>(trend v območju -0,03 do +0,03)</i>{' '}
         <span role="img" aria-label="neutral">
           ➖
         </span>
       </p>
       <p>
-        - Trend potrjenih primerov v občini raste{" "}
+        - Trend potrjenih primerov v občini raste{' '}
         <span role="img" aria-label="down">
           ⤴
         </span>
