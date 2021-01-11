@@ -1,6 +1,6 @@
 import React from 'react';
 import Separator from './Separator';
-const Calculate = ({
+const Delta = ({
   today,
   yesterday,
   withPrefix,
@@ -34,4 +34,4 @@ const Calculate = ({
     </span>
   );
 };
-export default Calculate;
+export default Delta;
