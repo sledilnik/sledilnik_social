@@ -3,7 +3,7 @@ import Translate from '../List/shared/Translate';
 import Delta from '../List/shared/Delta';
 import DataRow from '../List/shared/DataRow';
 import DataTranslate from '../List/shared/DataTranslate';
-import StyledNumberWithText from '../List/shared/StyledNumberWithText';
+import EmbeddedNumber from '../List/shared/EmbeddedNumber';
 import DataTranslateInOut from '../List/shared/DataTranslateInOut';
 
 function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
@@ -74,7 +74,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
       <DataRow title={'Preminuli'}>
         {plusOrEmpty}
         <DataTranslate number={deceased} text={'oseba'} />
-        <StyledNumberWithText
+        <EmbeddedNumber
           prefix={', skupaj: '}
           className="bold"
           number={deceasedToDate}

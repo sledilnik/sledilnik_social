@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledNumberWithText from './StyledNumberWithText';
+import EmbeddedNumber from './EmbeddedNumber';
 import InOut from './InOut';
 
 function StyledNumberWithInOut({
@@ -13,7 +13,7 @@ function StyledNumberWithInOut({
 }) {
   return (
     <>
-      <StyledNumberWithText
+      <EmbeddedNumber
         number={number}
         prefix={prefix}
         suffix={suffix}

@@ -1,7 +1,7 @@
 import React from 'react';
 import StyledNumber from './StyledNumber';
 
-function StyledNumberWithText({ number, prefix, suffix, preSign = false }) {
+function EmbeddedNumber({ number, prefix, suffix, preSign = false }) {
   return (
     <>
       {prefix}
@@ -11,4 +11,4 @@ function StyledNumberWithText({ number, prefix, suffix, preSign = false }) {
   );
 }
 
-export default StyledNumberWithText;
+export default EmbeddedNumber;

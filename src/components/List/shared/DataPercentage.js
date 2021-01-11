@@ -1,17 +1,17 @@
 import React from 'react';
-import StyledNumberWithText from './StyledNumberWithText';
+import EmbeddedNumber from './EmbeddedNumber';
 import Percentage from '../TESTS_ACTIVE/Percentage';
 
 function DataPercentage({ numPositive, numPerformed }) {
   return (
     <>
-      <StyledNumberWithText
+      <EmbeddedNumber
         className="bold"
         number={numPositive}
         preSign={true}
         suffix=", "
       />
-      <StyledNumberWithText
+      <EmbeddedNumber
         className="bold"
         number={numPerformed}
         prefix={'testiranih: '}

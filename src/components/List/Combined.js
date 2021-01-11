@@ -6,7 +6,7 @@ import InHospitals from './Combined/InHospitals';
 import TESTS_ACTIVE from '../shared/TESTS_ACTIVE';
 import HOSPITALIZED_DECEASED from '../shared/HOSPITALIZED_DECEASED';
 import DataRow from './shared/DataRow';
-import StyledNumberWithText from './shared/StyledNumberWithText';
+import EmbeddedNumber from './shared/EmbeddedNumber';
 import StyledNumberWithInOut from './shared/StyledNumberWithInOut';
 
 function Combined({
@@ -48,7 +48,7 @@ function Combined({
   function Confirmed({ toDate }) {
     return (
       <DataRow>
-        <StyledNumberWithText
+        <EmbeddedNumber
           number={toDate}
           prefix={'Skupaj '}
           suffix={' potrjenih primerov'}
