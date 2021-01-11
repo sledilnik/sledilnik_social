@@ -35,6 +35,7 @@ function Combined({
     return (
       <DataRow title={'Število cepljenih oseb'}>
         <StyledNumberWithInOut
+          suffix={' '}
           number={toDate}
           numIn={today}
           insideColons={true}
