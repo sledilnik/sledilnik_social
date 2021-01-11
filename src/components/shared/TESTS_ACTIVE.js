@@ -16,20 +16,24 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
           numPositive={regular.positive.today}
           numPerformed={regular.performed.today}
         />
+        .
       </DataRow>
       <DataRow title={'HAT'}>
         <DataWithRatio
           numPositive={hagt.positive.today}
           numPerformed={hagt.performed.today}
         />
+        .
       </DataRow>
       <DataRow title={'Aktivni primeri'}>
         <StyledNumberWithInOut
           number={casesActive}
           numIn={casesActiveIn}
           numOut={casesActiveOut}
+          suffix=" "
           insideColons={true}
         />
+        .
       </DataRow>
     </div>
   );

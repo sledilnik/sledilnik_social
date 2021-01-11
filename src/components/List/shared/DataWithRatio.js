@@ -9,7 +9,7 @@ function DataWithRatio({ numPositive, numPerformed }) {
         className="bold"
         number={numPositive}
         preSign={true}
-        suffix=","
+        suffix=", "
       />
       <StyledNumberWithText
         className="bold"
@@ -17,8 +17,7 @@ function DataWithRatio({ numPositive, numPerformed }) {
         prefix={'testiranih: '}
         suffix={', delež pozitivnih: '}
       />
-      <Percentage part={numPositive} total={numPerformed}></Percentage>
-      %.
+      <Percentage part={numPositive} total={numPerformed}></Percentage>%
     </>
   );
 }
