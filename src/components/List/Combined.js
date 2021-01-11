@@ -7,7 +7,7 @@ import TESTS_ACTIVE from '../shared/TESTS_ACTIVE';
 import HOSPITALIZED_DECEASED from '../shared/HOSPITALIZED_DECEASED';
 import DataRow from './shared/DataRow';
 import EmbeddedNumber from './shared/EmbeddedNumber';
-import StyledNumberWithInOut from './shared/StyledNumberWithInOut';
+import EmbeddedNumberInOut from './shared/EmbeddedNumberInOut';
 
 function Combined({
   check_first,
@@ -34,7 +34,7 @@ function Combined({
   function Vaccination({ toDate, today }) {
     return (
       <DataRow title={'Število cepljenih oseb'}>
-        <StyledNumberWithInOut
+        <EmbeddedNumberInOut
           suffix={' '}
           number={toDate}
           numIn={today}

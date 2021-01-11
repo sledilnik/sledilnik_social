@@ -1,6 +1,6 @@
 import React from 'react';
 import DataRow from '../List/shared/DataRow';
-import StyledNumberWithInOut from '../List/shared/StyledNumberWithInOut';
+import EmbeddedNumberInOut from '../List/shared/EmbeddedNumberInOut';
 import DataPercentage from '../List/shared/DataPercentage';
 
 function TESTS_ACTIVE({ check_first, labTests, summary }) {
@@ -26,7 +26,7 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
         .
       </DataRow>
       <DataRow title={'Aktivni primeri'}>
-        <StyledNumberWithInOut
+        <EmbeddedNumberInOut
           number={casesActive}
           numIn={casesActiveIn}
           numOut={casesActiveOut}
