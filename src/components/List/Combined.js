@@ -49,8 +49,8 @@ function Combined({
       <DataRow>
         <StyledNumberWithText
           number={toDate}
-          prefix={'Skupaj'}
-          suffix={'potrjenih primerov'}
+          prefix={'Skupaj '}
+          suffix={' potrjenih primerov'}
         />
         .
       </DataRow>
