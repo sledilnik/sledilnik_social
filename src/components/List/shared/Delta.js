@@ -18,22 +18,20 @@ const Calculate = ({
     : '';
 
   return (
-    <>
+    <span className="bold">
       {insideColons ? '(' : ''}
-      <span className="bold">
-        {prefix}
-        {noChanges === true ? (
-          today - yesterday === 0 ? (
-            'ni sprememb'
-          ) : (
-            <Separator number={deltaCalculation} />
-          )
+      {prefix}
+      {noChanges === true ? (
+        today - yesterday === 0 ? (
+          'ni sprememb'
         ) : (
           <Separator number={deltaCalculation} />
-        )}
-      </span>
+        )
+      ) : (
+        <Separator number={deltaCalculation} />
+      )}
       {insideColons ? ')' : ''}
-    </>
+    </span>
   );
 };
 export default Calculate;
