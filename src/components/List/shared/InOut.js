@@ -6,17 +6,15 @@ function InOut({ numIn, numOut, insideColons = false }) {
   const minus = numOut === undefined ? '' : '-';
   const comma = numOut === undefined ? '' : ', ';
   return (
-    <>
+    <span className="bold">
       {insideColons ? '(' : ''}
-      <span className="bold">
-        {plus}
-        <Separator number={numIn} />
-        {comma}
-        {minus}
-        <Separator number={numOut} />
-      </span>
+      {plus}
+      <Separator number={numIn} />
+      {comma}
+      {minus}
+      <Separator number={numOut} />
       {insideColons ? ')' : ''}
-    </>
+    </span>
   );
 }
 
