@@ -8,7 +8,7 @@ function WithListLoading(Component) {
     if (!isLoading) return <Component {...props} />;
     return (
       <Modal>
-        <Backdrop>
+        <Backdrop className="backdrop-loader">
           <Loader />
         </Backdrop>
       </Modal>
