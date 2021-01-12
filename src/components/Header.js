@@ -31,10 +31,11 @@ function Header() {
       </div>
       <nav className="nav-container" onClick={onCloseHandler}>
         <div className="nav-heading">Meni</div>
-        <a href="#legenda" onClick={onLinkClick}>
+        <a className="nav-link" href="#legenda" onClick={onLinkClick}>
           Legenda
         </a>
         <a
+          className="nav-link"
           href="https://covid-19.sledilnik.org/"
           target="_blank"
           rel="noopener noreferrer"
@@ -43,6 +44,7 @@ function Header() {
           <div className="logo">Covid-19 Sledilnik</div>
         </a>
         <a
+          className="nav-link"
           href="https://sledilnik-social-old.netlify.app/"
           target="_blank"
           rel="noopener noreferrer"

@@ -107,14 +107,14 @@
   z-index: 2100;
 }
 
-.nav-container > a {
-  margin: 0 0.5em;
-}
-
-.nav-links .nav-heading {
+.nav-container .nav-heading {
   margin-bottom: 18px;
   font-size: 21px;
   font-weight: 700;
+}
+
+.nav-link {
+  padding: 9px 0;
 }
 
 .main {
@@ -164,7 +164,7 @@
     background-color: #ffd922;
     display: flex;
     align-items: center;
-    margin: 0 1em 0 auto;
+
     z-index: 1098;
   }
 
@@ -178,6 +178,10 @@
   .nav-heading,
   .🍔 {
     display: none;
+  }
+
+  .nav-link {
+    margin: 0 0.5em;
   }
 
   .list-container {
