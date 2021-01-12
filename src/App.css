@@ -117,10 +117,6 @@
   font-weight: 700;
 }
 
-.header > .nav-container {
-  margin: 0 1em 0 auto;
-}
-
 .main {
   margin-top: 10vh;
   background-color: #f5f5f0;
@@ -168,6 +164,7 @@
     background-color: #ffd922;
     display: flex;
     align-items: center;
+    margin: 0 1em 0 auto;
     z-index: 1098;
   }
 
@@ -178,6 +175,7 @@
     padding: 0;
   }
 
+  .nav-heading,
   .🍔 {
     display: none;
   }
