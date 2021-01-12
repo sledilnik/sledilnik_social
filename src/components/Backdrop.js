@@ -1,8 +1,8 @@
 import React from 'react';
 import './Backdrop.css';
 
-function Backdrop({ children }) {
-  return <div className="backdrop">{children}</div>;
+function Backdrop({ children, className }) {
+  return <div className={className}>{children}</div>;
 }
 
 export default Backdrop;
