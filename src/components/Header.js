@@ -36,9 +36,7 @@ function Header() {
         </a>
       </nav>
       {open ? (
-        <Modal>
-          <Backdrop className="backdrop-sidebar">This is MODAL</Backdrop>
-        </Modal>
+        <Backdrop className="backdrop-sidebar">This is BACKDROP</Backdrop>
       ) : (
         ''
       )}
