@@ -9,6 +9,12 @@ function Header() {
     header.classList.toggle('menuOpen');
   };
 
+  const onLinkClick = event => {
+    const header = document.getElementById('header');
+    setOpen(false);
+    header.classList.remove('menuOpen');
+  };
+
   return (
     <header id="header" className="header">
       <div className="logo">Covid-19 Sledilnik Social</div>
@@ -17,13 +23,15 @@ function Header() {
         <div className="line line-2"></div>
         <div className="line line-3"></div>
       </div>
-      <nav className="nav-container">
-        <div class="nav-heading">Meni</div>
-        <a href="#legenda">Legenda</a>
+        <div className="nav-heading">Meni</div>
+        <a href="#legenda" onClick={onLinkClick}>
+          Legenda
+        </a>
         <a
           href="https://covid-19.sledilnik.org/"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={onLinkClick}
         >
           <div className="logo">Covid-19 Sledilnik</div>
         </a>
@@ -31,6 +39,7 @@ function Header() {
           href="https://sledilnik-social-old.netlify.app/"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={onLinkClick}
         >
           previous version
         </a>
