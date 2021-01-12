@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Backdrop from './Backdrop';
-import Modal from './Modal';
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -19,6 +18,7 @@ function Header() {
         <div className="line line-3"></div>
       </div>
       <nav className="nav-container">
+        <div class="nav-heading">Meni</div>
         <a href="#legenda">Legenda</a>
         <a
           href="https://covid-19.sledilnik.org/"

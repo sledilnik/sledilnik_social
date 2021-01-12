@@ -125,6 +125,12 @@
   margin: 0 0.5em;
 }
 
+.nav-links .nav-heading {
+  margin-bottom: 18px;
+  font-size: 21px;
+  font-weight: 700;
+}
+
 .header > .nav-container {
   margin: 0 1em 0 auto;
 }
