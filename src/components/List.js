@@ -100,46 +100,52 @@ const List = props => {
 
   // render app
   return (
-    <div>
-      {' '}
-      <Intro post={1} introTodayDate={introTodayDate} />
-      <TESTS_ACTIVE
-        check_first={check_first}
-        labTests={labTests}
-        summary={summary}
-      />
-      <Outro />
+    <div className="list-container">
+      <section className="tweet">
+        <Intro post={1} introTodayDate={introTodayDate} />
+        <TESTS_ACTIVE
+          check_first={check_first}
+          labTests={labTests}
+          summary={summary}
+        />
+        <Outro />
+      </section>
       <br />
       <br />
-      <Intro post={2} introTodayDate={introTodayDate} />
-      <HOSPITALIZED_DECEASED
-        check_second={check_second}
-        stats={stats}
-        patients={patients}
-      />
-      <Outro />
+      <section className="tweet">
+        <Intro post={2} introTodayDate={introTodayDate} />
+        <HOSPITALIZED_DECEASED
+          check_second={check_second}
+          stats={stats}
+          patients={patients}
+        />
+        <Outro />
+      </section>
+
       <br />
       <br />
-      <Intro post={3} introTodayDate={introTodayDate} />
-      <Combined
-        check_first={check_first}
-        check_second={check_second}
-        check_third_age={check_third_age}
-        check_third_mun={check_third_mun}
-        labTests={labTests}
-        summary={summary}
-        stats={stats}
-        patients={patients}
-        municipalities={municipalities}
-        perHospitalChanges={perHospitalChanges}
-      />
-      <Outro />
+      <section className="tweet">
+        <Intro post={3} introTodayDate={introTodayDate} />
+        <Combined
+          check_first={check_first}
+          check_second={check_second}
+          check_third_age={check_third_age}
+          check_third_mun={check_third_mun}
+          labTests={labTests}
+          summary={summary}
+          stats={stats}
+          patients={patients}
+          municipalities={municipalities}
+          perHospitalChanges={perHospitalChanges}
+        />
+        <Outro />
+      </section>
       <br />
       <br />
       <p>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
       <br />
       <br />
-      <h2>Legenda</h2>
+      <h2 id="legenda">Legenda</h2>
       <Legend municipalities={municipalities} />
     </div>
   );
