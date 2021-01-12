@@ -4,6 +4,7 @@ import List from './components/List';
 import withListLoading from './components/withListLoading';
 import apiPathObject from './utils/apiPathObject';
 import Footer from './components/Footer';
+import Header from './components/Header';
 
 function App() {
   const ListLoading = withListLoading(List);
@@ -56,6 +57,7 @@ function App() {
     <div className="App">
       {error ? console.log(error) : ''}
       <Header />
+      <main className="main">
         <ListLoading
           isLoading={loading}
           stats={stats}
@@ -65,8 +67,8 @@ function App() {
           labTests={labTests}
           summary={summary}
         />
-        <Footer />
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 }
