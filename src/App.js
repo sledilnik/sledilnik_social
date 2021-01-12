@@ -54,15 +54,8 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        <a href="https://sledilnik-social-old.netlify.app/">
-          Sledilnik Social Old
-        </a>
-      </div>
       {error ? console.log(error) : ''}
-      <div className="top"></div>
-      <div className="container">
-        <h1>Sledilnik Social</h1>
+      <Header />
         <ListLoading
           isLoading={loading}
           stats={stats}
