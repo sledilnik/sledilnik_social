@@ -15,6 +15,12 @@ function Header() {
     header.classList.remove('menuOpen');
   };
 
+  const onCloseHandler = event => {
+    const header = document.getElementById('header');
+    setOpen(false);
+    header.classList.remove('menuOpen');
+  };
+
   return (
     <header id="header" className="header">
       <div className="logo">Covid-19 Sledilnik Social</div>
@@ -23,6 +29,7 @@ function Header() {
         <div className="line line-2"></div>
         <div className="line line-3"></div>
       </div>
+      <nav className="nav-container" onClick={onCloseHandler}>
         <div className="nav-heading">Meni</div>
         <a href="#legenda" onClick={onLinkClick}>
           Legenda
