@@ -52,7 +52,10 @@ function Header() {
         </a>
       </nav>
       {open ? (
-        <Backdrop className="backdrop-sidebar">This is BACKDROP</Backdrop>
+        <Backdrop
+          className="backdrop-sidebar"
+          onClick={onCloseHandler}
+        ></Backdrop>
       ) : (
         ''
       )}
