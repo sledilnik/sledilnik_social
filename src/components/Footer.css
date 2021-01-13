@@ -3,5 +3,5 @@
   background-color: var(--white);
   display: flex;
   align-items: center;
-  z-index: 1098;
+  z-index: 100;
 }

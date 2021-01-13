@@ -11,7 +11,7 @@
   width: var(--width);
   height: var(--width);
   margin: auto;
-  z-index: 1999;
+  z-index: 200;
 }
 
 .loader-container {

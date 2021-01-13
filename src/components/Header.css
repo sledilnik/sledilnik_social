@@ -8,7 +8,7 @@
   background-color: var(--bcg-header-clr);
   display: flex;
   align-items: center;
-  z-index: 1098;
+  z-index: 100;
 }
 
 .Header > .logo {
@@ -23,7 +23,7 @@
   margin-right: -3px;
   position: absolute;
   right: 15px;
-  z-index: 2200;
+  z-index: 500;
   cursor: pointer;
 }
 
@@ -46,7 +46,7 @@
   right: 0;
   bottom: 0;
   left: 33%;
-  z-index: 1100;
+  z-index: 400;
   background: var(--bcg-header-clr);
   padding: 20px 0 0 15px;
   overflow: auto;
@@ -105,7 +105,7 @@ body.menuOpen {
   transform: translateZ(0);
   animation: menu-transition 0.65s;
   will-change: transform;
-  z-index: 2100;
+  z-index: 400;
 }
 
 .menuOpen .🍔 .line-1 {
