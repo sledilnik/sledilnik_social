@@ -5,10 +5,21 @@ import './Header.css';
 
 function Header() {
   const [open, setOpen] = useState(false);
+
   const onHamburgerClick = event => {
     const header = document.getElementById('header');
-    setOpen(prev => setOpen(!prev));
-    header.classList.toggle('menuOpen');
+    setOpen(prev => !prev);
+
+    if (open) {
+      header.classList.add('closingMenu');
+      header.classList.remove('menuOpen');
+    }
+
+    if (!open) {
+      header.classList.remove('closingMenu');
+      header.classList.add('menuOpen');
+    }
+
     // document.body.classList.toggle('menuOpen'); // on mobile (ios14) can not close menu
   };
 
