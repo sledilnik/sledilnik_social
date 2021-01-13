@@ -1,6 +1,6 @@
 .List {
   margin: 16px auto;
-  width: 90%;
+  width: 95%;
 }
 
 .List p {
@@ -9,7 +9,7 @@
 
 .tweet {
   margin: 8px 0;
-  padding: 6px;
+  padding: 8px 16px;
   background-color: var(--white);
   -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
