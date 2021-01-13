@@ -77,8 +77,6 @@ function Legend({ municipalities, isLoading }) {
       >
         <LegendTable data={municipalitiesTrend} />
       </LegendSection>
-      <br />
-      <br />
       <LegendSection title={'Formula za izračun trenda'}>
         <p>trend = ( log(y1)+3*log(y3) - 4*log(y2) ) / 8</p>
         <p>..</p>
@@ -86,8 +84,6 @@ function Legend({ municipalities, isLoading }) {
         <p>y2=vsota novih primerov za dneve (-10..-4)</p>
         <p>y3=vsota novih primerov za dneve (-6..0)</p>
       </LegendSection>
-      <br />
-      <br />
       <LegendSection title={'Občine CHECK ratio'}>
         <ul className="municipalities">
           <Municipalities data={municipalities} showTrend="n"></Municipalities>

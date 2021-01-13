@@ -5,7 +5,7 @@
   height: 100%;
   width: 100vw;
   z-index: 2000;
-  background-color: #ffd922;
+  background-color: var(--bcg-header-clr);
   opacity: 0.8;
 }
 

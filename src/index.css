@@ -1,6 +1,10 @@
 :root {
   --red: #dc3545;
   --white: #fff;
+  --black: #000;
+  --bcg-header-clr: #ffd922;
+  --bcg-body-clr: #f5f5f0;
+  --menu-clr: rgba(0, 0, 0, 0.56);
 }
 
 *,

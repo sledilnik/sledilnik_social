@@ -47,7 +47,7 @@
   bottom: 0;
   left: 33%;
   z-index: 1100;
-  background: #ffd922;
+  background: var(--bcg-header-clr);
   padding: 20px 0 0 15px;
   overflow: auto;
   transition: all 0.4s ease-in-out;
@@ -64,7 +64,7 @@
   position: relative;
   padding: 9px 0;
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.56);
+  color: var(--menu-clr);
   transition: all 0.4s linear;
   /* border: solid 2px black; */
 }
@@ -72,7 +72,7 @@
 .nav-link:active,
 .nav-link:focus,
 .nav-link:hover {
-  color: #000;
+  color: var(--black);
   outline: none;
 }
 
@@ -127,18 +127,6 @@ body.menuOpen {
 }
 
 @media only screen and (min-width: 768px) {
-  .Header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 10vh;
-    background-color: #ffd922;
-    display: flex;
-    align-items: center;
-    z-index: 1098;
-  }
-
   .nav-container {
     position: initial;
     display: flex;

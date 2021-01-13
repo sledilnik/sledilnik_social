@@ -111,8 +111,6 @@ const List = props => {
         />
         <Outro />
       </section>
-      <br />
-      <br />
       <section className="tweet">
         <Intro post={2} introTodayDate={introTodayDate} />
         <HOSPITALIZED_DECEASED
@@ -122,9 +120,6 @@ const List = props => {
         />
         <Outro />
       </section>
-
-      <br />
-      <br />
       <section className="tweet">
         <Intro post={3} introTodayDate={introTodayDate} />
         <Combined
@@ -141,8 +136,6 @@ const List = props => {
         />
         <Outro />
       </section>
-      <br />
-      <br />
     </div>
   );
 };
