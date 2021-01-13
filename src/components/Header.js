@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Backdrop from './Backdrop';
 
+import './Header.css';
+
 function Header() {
   const [open, setOpen] = useState(false);
   const onHamburgerClick = event => {
@@ -32,7 +34,7 @@ function Header() {
   };
 
   return (
-    <header id="header" className="header">
+    <header id="header" className="Header">
       <div className="logo">Covid-19 Sledilnik Social</div>
       <div className="🍔" onClick={onHamburgerClick}>
         <div className="line line-1"></div>
