@@ -1,0 +1,18 @@
+.List {
+  margin: auto;
+  width: 90%;
+}
+
+.List p {
+  margin: 1em 0;
+}
+
+.tweet > span > ul {
+  margin: 0 0 0 2em;
+}
+
+@media only screen and (min-width: 768px) {
+  .List {
+    width: 70%;
+  }
+}
