@@ -28,9 +28,10 @@ const municipalitiesTrend = [
 ];
 
 function Legend({ municipalities, isLoading }) {
-  // if (isLoading || !municipalities) {
-  //   return 'Legend loading...';
-  // }
+  // i guess should render different for each condition
+  if (isLoading || !municipalities) {
+    return '';
+  }
 
   const LegendSection = ({ title, children }) => (
     <>
