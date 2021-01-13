@@ -1,7 +1,10 @@
 import React from 'react';
+
+import './Intro.css';
+
 const Intro = props => {
   return (
-    <h2 className="text">
+    <h2 className="Intro text">
       <span className="bold">
         Status #COVID19{' '}
         <span role="img" aria-label="s">
