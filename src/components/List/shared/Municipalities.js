@@ -1,11 +1,11 @@
-import React from "react";
-import _ from "lodash";
-import MunicipalitiesDict from "../MunicipalitiesDict";
+import React from 'react';
+import _ from 'lodash';
+import MunicipalitiesDict from '../../../MunicipalitiesDict';
 
 // { name: x, translation: X} becomes { x: { name: x, translation: X }}
-const MunicipalitiesLookup = _.keyBy(MunicipalitiesDict, "name");
+const MunicipalitiesLookup = _.keyBy(MunicipalitiesDict, 'name');
 
-const calc_regions = (regions) => {
+const calc_regions = regions => {
   const region_names = Object.keys(regions);
 
   const result = region_names.reduce((region_box, region) => {
@@ -26,7 +26,53 @@ const calc_regions = (regions) => {
   return result;
 };
 
-const Municipalities = (props) => {
+// platform friendly icons
+const FB_ICONS = {
+  down: '⤵ ',
+  up: '⤴ ',
+  no: '',
+  between: '➖ ',
+  dots: '... ',
+};
+
+const TW_ICONS = {
+  down: '📉 ',
+  up: '📈 ',
+  no: '',
+  between: '➖ ',
+  dots: '... ',
+};
+
+const ICONS = {
+  FB: FB_ICONS,
+  TW: TW_ICONS,
+};
+
+const setPlatformFriendlyIcon = (iconsVersion = 'FB') => trend => {
+  const selectedIcons = ICONS[iconsVersion];
+
+  function getIconKey(trend) {
+    if (trend < -0.03) {
+      return 'down';
+    }
+    if (trend > 0.03) {
+      return 'up';
+    }
+    if (trend === 'no') {
+      return 'no';
+    }
+    if (trend >= -0.03 || trend <= 0.03) {
+      return 'between';
+    }
+    return 'dots';
+  }
+
+  const iconKey = getIconKey(trend);
+
+  return selectedIcons[iconKey];
+};
+
+const Municipalities = props => {
   // set 16d for calculating 15d difference
   const today = _.nth(props.data, -1);
   const yesterday = _.nth(props.data, -2);
@@ -104,7 +150,7 @@ const Municipalities = (props) => {
     // if there is a single town for a specific number of new cases, calculate 7-d trend
 
     let trend = 0;
-    let upDown = "";
+    let upDown = '';
     let outputTowns = [];
     let outputTrends = [];
 
@@ -143,7 +189,7 @@ const Municipalities = (props) => {
       }
 
       if (y1 === 0 || y2 === 0 || y3 === 0) {
-        trend = "no";
+        trend = 'no';
       } else {
         trend = (Math.log(y1) + 3 * Math.log(y3) - 4 * Math.log(y2)) / 8;
       }
@@ -167,33 +213,9 @@ const Municipalities = (props) => {
       // // compare
       // trend = today7d - yesterday7d;
 
-      if (props.showTrend === "y") {
+      if (props.showTrend === 'y') {
         // plot FB/TW friendly icons
-        if (props.icons === "FB") {
-          if (trend < -0.03) {
-            upDown = "⤵ ";
-          } else if (trend > 0.03) {
-            upDown = "⤴ ";
-          } else if (trend === "no") {
-            upDown = "";
-          } else if (trend >= -0.03 || trend <= 0.03) {
-            upDown = "➖ ";
-          } else {
-            upDown = "... ";
-          }
-        } else if (props.icons === "TW") {
-          if (trend < -0.03) {
-            upDown = "📉 ";
-          } else if (trend > 0.03) {
-            upDown = "📈 ";
-          } else if (trend === "no") {
-            upDown = "";
-          } else if (trend >= -0.03 || trend <= 0.03) {
-            upDown = "➖ ";
-          } else {
-            upDown = "... ";
-          }
-        }
+        upDown = setPlatformFriendlyIcon(props.icons)(trend);
       } else {
         upDown = `<i>${
           Math.round((trend + Number.EPSILON) * 100000) / 100000
@@ -223,15 +245,15 @@ const Municipalities = (props) => {
     }
 
     // generate HTML output
-    let outputLabel = "";
+    let outputLabel = '';
     for (var k = 0; k < outputTowns.length; k++) {
       outputLabel = outputLabel.concat(outputTowns[k]);
-      outputLabel = outputLabel.concat(" ");
+      outputLabel = outputLabel.concat(' ');
       outputLabel = outputLabel.concat(
-        outputTrends[k] === "" ? "" : outputTrends[k]
+        outputTrends[k] === '' ? '' : outputTrends[k]
       ); // remove NaN that reside in an array due to y1-y3 being 0
       if (k < outputTowns.length - 1) {
-        outputLabel = outputLabel.concat(", ");
+        outputLabel = outputLabel.concat(', ');
       }
     }
     outputLabel = outputLabel.concat(`<strong>&nbsp;+${count}<br></strong>`);

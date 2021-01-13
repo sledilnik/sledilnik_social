@@ -1,0 +1,30 @@
+.Legend {
+  margin: 1em auto;
+  width: 90%;
+}
+
+.legend-section {
+  margin: 16px 0;
+}
+
+.legend-section p {
+  margin: 1em 0;
+}
+
+.legend-section :not(:first-of-type) {
+  font-size: 0.95em;
+}
+
+.legend-section-title {
+  margin: 24px 0 16px;
+}
+
+.table-symbol {
+  text-align: center;
+  font-size: 1em;
+}
+
+.table-description {
+  font-size: 0.85em;
+  padding: 0 0.5em;
+}
