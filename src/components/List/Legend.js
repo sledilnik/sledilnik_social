@@ -1,6 +1,8 @@
 import React from 'react';
 import Municipalities from './shared/Municipalities';
 
+import './Legend.css';
+
 const municipalitiesTrend = [
   {
     description: 'Trend potrjenih primerov v občini pada.',
@@ -67,7 +69,8 @@ function Legend({ municipalities, isLoading }) {
   };
 
   return (
-    <div>
+    <div className="Legend">
+      <h2 id="legenda">Legenda</h2>
       <LegendSection
         title={'Trend rasti potrjenih primerov v posamezni občini'}
       >
