@@ -11,8 +11,8 @@
   margin: 8px 0;
   padding: 8px 16px;
   background-color: var(--white);
-  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 1px 3px 0 var(--box-shadow);
+  box-shadow: 0 1px 3px 0 var(--box-shadow);
   border-radius: 6px;
 }
 

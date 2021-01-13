@@ -5,7 +5,7 @@
   left: 0;
   right: 0;
   height: 10vh;
-  background-color: #ffd922;
+  background-color: var(--bcg-header-clr);
   display: flex;
   align-items: center;
   z-index: 1098;
@@ -30,7 +30,7 @@
 .🍔 .line {
   height: 2px;
   width: 24px;
-  background: #000;
+  background: var(--black);
 }
 
 .🍔 .line + .line {

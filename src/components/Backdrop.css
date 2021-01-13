@@ -17,6 +17,6 @@
   width: 100vw;
   color: var(--white);
   z-index: 2000;
-  background-color: #000;
+  background-color: var(--black);
   opacity: 0.8;
 }
