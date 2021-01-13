@@ -1,8 +1,10 @@
 import React from 'react';
 
+import './Footer.css';
+
 function Footer() {
   return (
-    <footer className="footer">
+    <footer className="Footer">
       <br /> <br />
       <svg
         xmlns="http://www.w3.org/2000/svg"
