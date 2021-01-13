@@ -34,10 +34,10 @@ function Legend({ municipalities, isLoading }) {
   }
 
   const LegendSection = ({ title, children }) => (
-    <>
-      <p className="bold">{title}:</p>
+    <section className="legend-section">
+      <h3 className="bold legend-section-title">{title}:</h3>
       {children}
-    </>
+    </section>
   );
 
   const LegendTable = ({ data = [{}] }) => {
@@ -79,7 +79,6 @@ function Legend({ municipalities, isLoading }) {
       </LegendSection>
       <LegendSection title={'Formula za izračun trenda'}>
         <p>trend = ( log(y1)+3*log(y3) - 4*log(y2) ) / 8</p>
-        <p>..</p>
         <p>y1=vsota novih primerov za dneve (-14..-8)</p>
         <p>y2=vsota novih primerov za dneve (-10..-4)</p>
         <p>y3=vsota novih primerov za dneve (-6..0)</p>

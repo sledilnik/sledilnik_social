@@ -6,3 +6,11 @@
 .Legend p {
   margin: 1em 0;
 }
+
+.legend-section {
+  margin: 16px 0;
+}
+
+.legend-section-title {
+  margin: 24px 0 16px;
+}
