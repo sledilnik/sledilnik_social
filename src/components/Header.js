@@ -7,9 +7,19 @@ function Header() {
     const header = document.getElementById('header');
     setOpen(prev => setOpen(!prev));
     header.classList.toggle('menuOpen');
+    // document.body.classList.toggle('menuOpen'); // on mobile (ios14) can not close menu
   };
 
   const onLinkClick = event => {
+    const { target } = event;
+    if (target.id === 'legend-link') {
+      event.preventDefault();
+      const legend = document.getElementById('legenda');
+      legend.scrollIntoView({
+        // behavior: 'smooth',
+        block: 'center',
+      });
+    }
     const header = document.getElementById('header');
     setOpen(false);
     header.classList.remove('menuOpen');
