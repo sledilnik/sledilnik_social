@@ -21,7 +21,7 @@ const municipalitiesTrend = [
     description:
       'Trenda ni mogoče izračunati (ena od vrednosti y1, y2, y3 je enaka 0).',
     icon: {
-      symbol: 'ni simbola',
+      symbol: 'brez',
       attr: { role: 'img', ariaLabel: 'no symbol' },
     },
   },

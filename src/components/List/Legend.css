@@ -11,6 +11,10 @@
   margin: 1em 0;
 }
 
+.legend-section :not(:first-of-type) {
+  font-size: 0.95em;
+}
+
 .legend-section-title {
   margin: 24px 0 16px;
 }
@@ -22,4 +26,5 @@
 
 .table-description {
   font-size: 0.85em;
+  padding: 0 0.5em;
 }
