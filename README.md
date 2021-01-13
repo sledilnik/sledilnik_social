@@ -34,7 +34,7 @@ Active cases: total, increased and decreased.
 
 Display 3 sets of data:
 
-1. How many persons needs hospital treatment.
+1. How many persons need hospital treatment.
 2. How many person are on repirators.
 3. Number of deceased.
 
