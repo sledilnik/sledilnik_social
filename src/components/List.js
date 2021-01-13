@@ -4,7 +4,8 @@ import Outro from './shared/Outro';
 import TESTS_ACTIVE from './shared/TESTS_ACTIVE';
 import HOSPITALIZED_DECEASED from './shared/HOSPITALIZED_DECEASED';
 import Combined from './List/Combined';
-import Legend from './List/Legend';
+
+import './List.css';
 
 const List = props => {
   const { stats } = props;
@@ -100,7 +101,7 @@ const List = props => {
 
   // render app
   return (
-    <div className="list-container">
+    <div className="List">
       <section className="tweet">
         <Intro post={1} introTodayDate={introTodayDate} />
         <TESTS_ACTIVE
@@ -110,8 +111,6 @@ const List = props => {
         />
         <Outro />
       </section>
-      <br />
-      <br />
       <section className="tweet">
         <Intro post={2} introTodayDate={introTodayDate} />
         <HOSPITALIZED_DECEASED
@@ -121,9 +120,6 @@ const List = props => {
         />
         <Outro />
       </section>
-
-      <br />
-      <br />
       <section className="tweet">
         <Intro post={3} introTodayDate={introTodayDate} />
         <Combined
@@ -140,13 +136,6 @@ const List = props => {
         />
         <Outro />
       </section>
-      <br />
-      <br />
-      <p>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
-      <br />
-      <br />
-      <h2 id="legenda">Legenda</h2>
-      <Legend municipalities={municipalities} />
     </div>
   );
 };

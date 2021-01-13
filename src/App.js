@@ -5,6 +5,7 @@ import withListLoading from './components/withListLoading';
 import apiPathObject from './utils/apiPathObject';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import Legend from './components/List/Legend';
 
 function App() {
   const ListLoading = withListLoading(List);
@@ -67,6 +68,7 @@ function App() {
           labTests={labTests}
           summary={summary}
         />
+        <Legend isLoading={loading} municipalities={municipalities} />
       </main>
       <Footer />
     </div>

@@ -1,15 +1,18 @@
-import React from "react";
-const Intro = (props) => {
+import React from 'react';
+
+import './Intro.css';
+
+const Intro = props => {
   return (
-    <p className="text">
+    <h2 className="Intro text">
       <span className="bold">
-        Status #COVID19{" "}
+        Status #COVID19{' '}
         <span role="img" aria-label="s">
           🇸🇮
-        </span>{" "}
+        </span>{' '}
         {props.post}/3 {props.introTodayDate}
       </span>
-    </p>
+    </h2>
   );
 };
 export default Intro;

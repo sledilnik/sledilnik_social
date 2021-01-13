@@ -21,8 +21,6 @@ function CITIES_SOCIALFRIENDLY({ check_third_mun, municipalities }) {
     <span className={check_third_mun}>
       {munVer('FB')}
       <Outro />
-      <br />
-      <br />
       {munVer('TW')}
     </span>
   );
