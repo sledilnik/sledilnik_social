@@ -31,7 +31,12 @@ function Header() {
       </div>
       <nav className="nav-container" onClick={onCloseHandler}>
         <div className="nav-heading">Meni</div>
-        <a className="nav-link" href="#legenda" onClick={onLinkClick}>
+        <a
+          id="legend-link"
+          className="nav-link"
+          href="#legenda"
+          onClick={onLinkClick}
+        >
           Legenda
         </a>
         <a
@@ -45,12 +50,21 @@ function Header() {
         </a>
         <a
           className="nav-link"
+          href="https://covid-spark.info/"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={onLinkClick}
+        >
+          <div className="logo">Spark</div>
+        </a>
+        <a
+          className="nav-link"
           href="https://sledilnik-social-old.netlify.app/"
           target="_blank"
           rel="noopener noreferrer"
           onClick={onLinkClick}
         >
-          previous version
+          ver 0.1.0
         </a>
       </nav>
       {open ? (
