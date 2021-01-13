@@ -142,11 +142,6 @@ const List = props => {
       </section>
       <br />
       <br />
-      <p>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
-      <br />
-      <br />
-      <h2 id="legenda">Legenda</h2>
-      <Legend municipalities={municipalities} />
     </div>
   );
 };
