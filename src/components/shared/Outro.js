@@ -23,7 +23,13 @@ const Outro = props => {
           ✨
         </span>
       </p>
-      <img src={Logo} alt="logo" className="logoCenter" width />
+      <img
+        src={Logo}
+        alt="logo"
+        className="logoCenter"
+        width="48"
+        height="48"
+      />
     </div>
   );
 };
