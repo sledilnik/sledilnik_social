@@ -3,14 +3,23 @@
   width: 90%;
 }
 
-.Legend p {
-  margin: 1em 0;
-}
-
 .legend-section {
   margin: 16px 0;
 }
 
+.legend-section p {
+  margin: 1em 0;
+}
+
 .legend-section-title {
   margin: 24px 0 16px;
+}
+
+.table-symbol {
+  text-align: center;
+  font-size: 1em;
+}
+
+.table-description {
+  font-size: 0.85em;
 }
