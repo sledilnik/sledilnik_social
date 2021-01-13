@@ -25,7 +25,11 @@ const municipalitiesTrend = [
   },
 ];
 
-function Legend({ municipalities }) {
+function Legend({ municipalities, isLoading }) {
+  // if (isLoading || !municipalities) {
+  //   return 'Legend loading...';
+  // }
+
   const LegendSection = ({ title, children }) => (
     <>
       <p className="bold">{title}:</p>
