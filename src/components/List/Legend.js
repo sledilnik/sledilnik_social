@@ -28,7 +28,7 @@ const municipalitiesTrend = [
 ];
 
 function Legend({ municipalities, isLoading }) {
-  // i guess should render different for each condition
+  // should render different for each condition?
   if (isLoading || !municipalities) {
     return '';
   }

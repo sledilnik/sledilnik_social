@@ -2,7 +2,7 @@ import React from 'react';
 import EmbeddedNumber from './EmbeddedNumber';
 import Percentage from '../TESTS_ACTIVE/Percentage';
 
-// not sure, bussines logic checks for undefined
+// not sure if bussines logic checks for undefined
 const defaults = {
   number: undefined,
   prefix: '',

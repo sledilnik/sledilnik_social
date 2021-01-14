@@ -19,8 +19,6 @@ function Header() {
       header.classList.remove('closingMenu');
       header.classList.add('menuOpen');
     }
-
-    // document.body.classList.toggle('menuOpen'); // on mobile (ios14) can not close menu
   };
 
   const onLinkClick = event => {
@@ -29,7 +27,6 @@ function Header() {
       event.preventDefault();
       const legend = document.getElementById('legenda');
       legend.scrollIntoView({
-        // behavior: 'smooth',
         block: 'center',
       });
     }

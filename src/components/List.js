@@ -25,7 +25,6 @@ const List = props => {
   }
 
   // prepare perHospitalChanges
-
   const perHospitalChanges =
     patients[patients.length - 1] === undefined
       ? 'NI PODATKOV'
@@ -62,11 +61,6 @@ const List = props => {
     summary.testsToday.year.toString() +
     summary.testsToday.month.toString() +
     summary.testsToday.day.toString();
-  //const patientsCheck = patients[patients.length -1].year.toString()+patients[patients.length -1].month.toString()+patients[patients.length -1].day.toString();
-
-  // let introTodayDate = `${stats[stats.length - 1].day}.${
-  //   stats[stats.length - 1].month
-  // }.${stats[stats.length - 1].year}`;
 
   let introTodayDate =
     new Date().getDate().toString() +
@@ -99,7 +93,6 @@ const List = props => {
     check_third_mun = 'red';
   }
 
-  // render app
   return (
     <div className="List">
       <section className="tweet">
