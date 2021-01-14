@@ -1,22 +1,29 @@
 import React from 'react';
+
+const getFraction = (numerator = 0, denominator = 0) => numerator / denominator;
+const getPercentage = value => value * 100;
+
+// use Memo?
 const Percentage = ({
   numerator = 0,
   denominator = 0,
-  minus1 = false,
-  getPrefix = false,
+  includeSuffix = true,
 }) => {
-  const percentage =
-    denominator &&
-    numerator &&
-    Math.round(
-      (numerator / denominator - (minus1 === true ? 1 : 0) + Number.EPSILON) *
-        1000
-    ) / 10;
+  const fraction = getFraction(numerator, denominator);
+
+  if (fraction === Infinity) {
+    return <span className="bold">{' - '}</span>;
+  }
+
+  const percentage = getPercentage(fraction);
+  const rounded = +parseFloat(percentage).toFixed(1);
+
+  const suffix = includeSuffix ? '%' : '';
 
   return (
     <span className="bold">
-      {getPrefix ? (numerator > denominator ? '+' : '-') : ''}
-      {percentage.toLocaleString('sl-SL')}
+      {rounded.toLocaleString('sl-SL')}
+      {suffix}
     </span>
   );
 };

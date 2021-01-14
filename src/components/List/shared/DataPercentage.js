@@ -34,7 +34,6 @@ function DataPercentage({
         numerator={numeratorOptions.number}
         denominator={denominatorOptions.number}
       ></Percentage>
-      %
     </>
   );
 }
