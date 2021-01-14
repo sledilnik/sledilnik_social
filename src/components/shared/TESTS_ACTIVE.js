@@ -9,10 +9,24 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
   const casesActiveIn = summary.casesActive.subValues.in;
   const casesActiveOut = summary.casesActive.subValues.out;
 
-  function PercentageRow({ title = '', numPositive = 0, numPerformed = 0 }) {
+  const defaults = {
+    number: undefined,
+    prefix: '',
+    suffix: ', ',
+    preSign: false,
+  };
+
+  function PercentageRow({
+    title = '',
+    numeratorOptions = { ...defaults },
+    denominatorOptions = { ...defaults },
+  }) {
     return (
       <DataRow title={title}>
-        <DataPercentage numPositive={numPositive} numPerformed={numPerformed} />
+        <DataPercentage
+          numeratorOptions={numeratorOptions}
+          denominatorOptions={denominatorOptions}
+        />
         .
       </DataRow>
     );
@@ -23,17 +37,47 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
   const { today: hagtToday } = hagt.positive;
   const { today: hagtPerformed } = hagt.performed;
 
+  const options1 = {
+    suffix: ', ',
+    preSign: true,
+  };
+
+  const options2 = {
+    prefix: 'testiranih: ',
+    suffix: ', delež pozitivnih: ',
+  };
+
+  const regPositiveData = {
+    number: regToday,
+    ...options1,
+  };
+
+  const regPerformedData = {
+    number: regPerformed,
+    ...options2,
+  };
+
+  const hagtPositiveData = {
+    number: hagtToday,
+    ...options1,
+  };
+
+  const hagtPerformedData = {
+    number: hagtPerformed,
+    ...options2,
+  };
+
   return (
     <div className={check_first}>
       <PercentageRow
         title={'PCR'}
-        numPositive={regToday}
-        numPerformed={regPerformed}
+        numeratorOptions={regPositiveData}
+        denominatorOptions={regPerformedData}
       />
       <PercentageRow
         title={'HAT'}
-        numPositive={hagtToday}
-        numPerformed={hagtPerformed}
+        numeratorOptions={hagtPositiveData}
+        denominatorOptions={hagtPerformedData}
       />
       <DataRow title={'Aktivni primeri'}>
         <EmbeddedNumberInOut

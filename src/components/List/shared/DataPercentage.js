@@ -2,20 +2,33 @@ import React from 'react';
 import EmbeddedNumber from './EmbeddedNumber';
 import Percentage from '../TESTS_ACTIVE/Percentage';
 
-function DataPercentage({ numPositive, numPerformed }) {
+// not sure, bussines logic checks for undefined
+const defaults = {
+  number: undefined,
+  prefix: '',
+  suffix: ', ',
+  preSign: false,
+};
+
+function DataPercentage({
+  numeratorOptions = { ...defaults },
+  denominatorOptions = { ...defaults },
+}) {
   return (
     <>
       <EmbeddedNumber
         className="bold"
-        number={numPositive}
-        preSign={true}
-        suffix=", "
+        number={numeratorOptions.number}
+        prefix={numeratorOptions.prefix}
+        suffix={numeratorOptions.suffix}
+        preSign={numeratorOptions.preSign}
       />
       <EmbeddedNumber
         className="bold"
-        number={numPerformed}
-        prefix={'testiranih: '}
-        suffix={', delež pozitivnih: '}
+        number={denominatorOptions.number}
+        prefix={denominatorOptions.prefix}
+        suffix={denominatorOptions.suffix}
+        preSign={denominatorOptions.preSign}
       />
       <Percentage
         numerator={numeratorOptions.number}
