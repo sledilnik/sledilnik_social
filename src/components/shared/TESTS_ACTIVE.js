@@ -1,36 +1,13 @@
 import React from 'react';
 import DataRow from '../List/shared/DataRow';
 import EmbeddedNumberInOut from '../List/shared/EmbeddedNumberInOut';
-import DataPercentage from '../List/shared/DataPercentage';
+import PercentageRow from '../List/shared/PercentageRow';
 
 function TESTS_ACTIVE({ check_first, labTests, summary }) {
   const { regular, hagt } = labTests[labTests.length - 1].data;
   const casesActive = summary.casesActive.value;
   const casesActiveIn = summary.casesActive.subValues.in;
   const casesActiveOut = summary.casesActive.subValues.out;
-
-  const defaults = {
-    number: undefined,
-    prefix: '',
-    suffix: ', ',
-    preSign: false,
-  };
-
-  function PercentageRow({
-    title = '',
-    numeratorOptions = { ...defaults },
-    denominatorOptions = { ...defaults },
-  }) {
-    return (
-      <DataRow title={title}>
-        <DataPercentage
-          numeratorOptions={numeratorOptions}
-          denominatorOptions={denominatorOptions}
-        />
-        .
-      </DataRow>
-    );
-  }
 
   const { today: regToday } = regular.positive;
   const { today: regPerformed } = regular.performed;
