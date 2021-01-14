@@ -82,7 +82,7 @@ function Header() {
         </a>
         <a
           className="nav-link"
-          href="https://sledilnik-social-old.netlify.app/"
+          href="https://sledilnik-social-ver-0-1-0.netlify.app/"
           target="_blank"
           rel="noopener noreferrer"
           onClick={onLinkClick}
