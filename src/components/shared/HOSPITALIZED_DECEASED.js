@@ -36,13 +36,13 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
           text={'oseba'}
           numIn={inOut[0]}
           numOut={inOut[1]}
-          insideColons={true}
+          inBrackets={true}
         />
         {subtitle} <DataTranslate number={icuNum} text={'oseba'} />{' '}
         <Delta
           today={icuDelta[0]}
           yesterday={icuDelta[1]}
-          insideColons={true}
+          inBrackets={true}
           withPrefix={true}
           noChanges={true}
         ></Delta>
@@ -59,7 +59,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
         <Delta
           today={today}
           yesterday={yesterday}
-          insideColons={true}
+          inBrackets={true}
           withPrefix={true}
           noChanges={true}
         ></Delta>

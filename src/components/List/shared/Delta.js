@@ -5,7 +5,7 @@ const Delta = ({
   yesterday,
   withPrefix,
   noChanges,
-  insideColons = false,
+  inBrackets = false,
 }) => {
   let deltaCalculation = today - yesterday;
 
@@ -19,7 +19,7 @@ const Delta = ({
 
   return (
     <span className="bold">
-      {insideColons ? '(' : ''}
+      {inBrackets ? '(' : ''}
       {prefix}
       {noChanges === true ? (
         today - yesterday === 0 ? (
@@ -30,7 +30,7 @@ const Delta = ({
       ) : (
         <Separator number={deltaCalculation} />
       )}
-      {insideColons ? ')' : ''}
+      {inBrackets ? ')' : ''}
     </span>
   );
 };

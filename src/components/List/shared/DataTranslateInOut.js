@@ -7,12 +7,12 @@ function DataTranslateInOut({
   text,
   numIn,
   numOut,
-  insideColons = false,
+  inBrackets = false,
 }) {
   return (
     <>
       <DataTranslate number={number} text={text} />{' '}
-      <InOut numIn={numIn} numOut={numOut} insideColons={insideColons} />
+      <InOut numIn={numIn} numOut={numOut} inBrackets={inBrackets} />
     </>
   );
 }

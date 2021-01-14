@@ -41,7 +41,7 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
           numIn={casesActiveIn}
           numOut={casesActiveOut}
           suffix=" "
-          insideColons={true}
+          inBrackets={true}
         />
         .
       </DataRow>

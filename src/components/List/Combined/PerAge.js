@@ -15,7 +15,7 @@ function PerAge({ check_third_age, todayPerAge, yesterdayPerAge }) {
       <span key={key}>
         {' '}
         {ageRange}{' '}
-        <Delta today={today} yesterday={yesterday} insideColons={true} />
+        <Delta today={today} yesterday={yesterday} inBrackets={true} />
         {i !== 9 ? ',' : ''}
       </span>
     );

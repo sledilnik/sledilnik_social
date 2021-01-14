@@ -77,7 +77,7 @@ function Combined({
               suffix={' '}
               number={toDate}
               numIn={today}
-              insideColons={true}
+              inBrackets={true}
             />
             .
           </DataRow>

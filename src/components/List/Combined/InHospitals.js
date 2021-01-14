@@ -18,7 +18,7 @@ function InHospitals({ check_second, patients, perHospitalChanges }) {
           text={'oseba'}
           numIn={hosp.in}
           numOut={hosp.out}
-          insideColons={true}
+          inBrackets={true}
         />
         , EIT{' '}
         <DataTranslateInOut
@@ -26,7 +26,7 @@ function InHospitals({ check_second, patients, perHospitalChanges }) {
           text={'oseba'}
           numIn={icu.in}
           numOut={icu.out}
-          insideColons={true}
+          inBrackets={true}
         />
         .
       </li>

@@ -9,7 +9,7 @@ function EmbeddedNumberInOut({
   numSign = false,
   numIn,
   numOut,
-  insideColons,
+  inBrackets,
 }) {
   return (
     <>
@@ -19,7 +19,7 @@ function EmbeddedNumberInOut({
         suffix={suffix}
         numSign={numSign}
       />
-      <InOut numIn={numIn} numOut={numOut} insideColons={insideColons} />
+      <InOut numIn={numIn} numOut={numOut} inBrackets={inBrackets} />
     </>
   );
 }
