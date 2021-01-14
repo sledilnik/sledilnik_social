@@ -17,6 +17,8 @@ Endpoints for data fetch are set in `apiPathObject.js`
 
 ### Components
 
+### Main
+
 There are 3 main components: `<TESTS_ACTIVE>`, `<HOSPITALIZED_DECEASED>` and `<Combined>`
 
 #### TESTS_ACTIVE
@@ -30,7 +32,7 @@ Display 3 sets of data:
 Tests data includes: positive, performed and percentage.
 Active cases: total, increased and decreased.
 
-### HOSPITALIZED_DECEASED
+#### HOSPITALIZED_DECEASED
 
 Display 3 sets of data:
 
@@ -38,7 +40,7 @@ Display 3 sets of data:
 2. How many person are on repirators.
 3. Number of deceased.
 
-### Combined
+#### Combined
 
 1. Data in TESTS_ACTIVE.
 2. Vaccination.
@@ -47,6 +49,21 @@ Display 3 sets of data:
 5. data in HOSPITALIZED_DECEASED
 6. Number of patients in hospitals by hospital.
 7. Data by municipalities with social friendly icons (Facebook, Twitter) for each social platform.
+
+#### Data Display
+
+##### DataRow
+
+Takes 3 arguments: title, noColon, children.
+
+```javascript
+
+<DataRow title="Some text">Some data</DataRow>
+
+// Output
+➡️ Title: Some data
+
+```
 
 ## ver: 0.1.0
 
