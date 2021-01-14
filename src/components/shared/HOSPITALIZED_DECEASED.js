@@ -46,7 +46,6 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
           withPrefix={true}
           noChanges={true}
         ></Delta>
-        .
       </DataRow>
     );
   }
@@ -63,7 +62,6 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
           withPrefix={true}
           noChanges={true}
         ></Delta>
-        .
       </DataRow>
     );
   }
@@ -79,7 +77,6 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
           className="bold"
           number={deceasedToDate}
         />
-        .
       </DataRow>
     );
   }

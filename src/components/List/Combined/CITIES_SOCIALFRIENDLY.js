@@ -6,7 +6,7 @@ import DataRow from '../shared/DataRow';
 function CITIES_SOCIALFRIENDLY({ check_third_mun, municipalities }) {
   const munVer = iconsVersion => (
     <>
-      <DataRow title={'Po krajih'} />
+      <DataRow title={'Po krajih'} endOfSentence={{ end: false }} />
       <ul className="municipalities">
         <Municipalities
           data={municipalities}

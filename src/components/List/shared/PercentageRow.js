@@ -20,7 +20,6 @@ function PercentageRow({
         numeratorOptions={numeratorOptions}
         denominatorOptions={denominatorOptions}
       />
-      .
     </DataRow>
   );
 }

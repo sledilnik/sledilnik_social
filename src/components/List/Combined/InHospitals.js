@@ -71,7 +71,7 @@ function InHospitals({ check_second, patients, perHospitalChanges }) {
 
   return (
     <span className={check_second}>
-      <DataRow title={'Stanje po bolnišnicah'} />
+      <DataRow title={'Stanje po bolnišnicah'} endOfSentence={{ end: false }} />
       <ul>{noPatientsData ? 'NI PODATKOV' : hospitalOutput}</ul>
     </span>
   );

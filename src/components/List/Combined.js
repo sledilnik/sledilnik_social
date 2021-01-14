@@ -79,7 +79,6 @@ function Combined({
               numIn={today}
               inBrackets={true}
             />
-            .
           </DataRow>
         )}
       </>
@@ -94,7 +93,6 @@ function Combined({
           prefix={'Skupaj '}
           suffix={' potrjenih primerov'}
         />
-        .
       </DataRow>
     );
   }

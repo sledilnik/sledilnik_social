@@ -64,7 +64,6 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
           suffix=" "
           inBrackets={true}
         />
-        .
       </DataRow>
     </div>
   );
