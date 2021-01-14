@@ -6,6 +6,7 @@ function DataRow({
   title,
   noColon,
   endOfSentence = { end: true, punctuationMark: '.' },
+  noArrow = false,
 }) {
   let colon = !title || noColon ? ' ' : ': ';
 
@@ -13,7 +14,7 @@ function DataRow({
 
   return (
     <p className="text">
-      <Arrow /> {title}
+      {noArrow ? '' : <Arrow />} {title}
       {colon}
       {children}
       {end && punctuationMark}
