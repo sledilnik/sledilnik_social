@@ -17,7 +17,11 @@ function DataPercentage({ numPositive, numPerformed }) {
         prefix={'testiranih: '}
         suffix={', delež pozitivnih: '}
       />
-      <Percentage part={numPositive} total={numPerformed}></Percentage>%
+      <Percentage
+        numerator={numeratorOptions.number}
+        denominator={denominatorOptions.number}
+      ></Percentage>
+      %
     </>
   );
 }

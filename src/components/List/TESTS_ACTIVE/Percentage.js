@@ -1,15 +1,16 @@
 import React from 'react';
-const Percentage = ({ part, total, minus1, getPrefix }) => {
+const Percentage = ({ numerator, denominator, minus1, getPrefix }) => {
   const percentage =
-    total &&
-    part &&
+    denominator &&
+    numerator &&
     Math.round(
-      (part / total - (minus1 === true ? 1 : 0) + Number.EPSILON) * 1000
+      (numerator / denominator - (minus1 === true ? 1 : 0) + Number.EPSILON) *
+        1000
     ) / 10;
 
   return (
     <span className="bold">
-      {getPrefix ? (part > total ? '+' : '-') : ''}
+      {getPrefix ? (numerator > denominator ? '+' : '-') : ''}
       {percentage.toString().replace(/\./g, ',')}
     </span>
   );
