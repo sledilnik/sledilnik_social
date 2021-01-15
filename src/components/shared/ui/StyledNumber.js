@@ -35,4 +35,15 @@ function StyledNumber({
   );
 }
 
+export const NumberFormat = ({ number, fractionDigits, className = '' }) => {
+  return (
+    <StyledNumber
+      className={className}
+      number={number}
+      fractionDigits={fractionDigits}
+      getPrefix={true}
+    />
+  );
+};
+
 export default StyledNumber;
