@@ -6,7 +6,7 @@ const defaults = {
   number: undefined,
   prefix: '',
   suffix: ', ',
-  preSign: false,
+  getPrefix: false,
 };
 
 function PercentageRow({
