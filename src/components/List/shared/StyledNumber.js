@@ -11,6 +11,7 @@ function StyledNumber({
   fractionDigits = 0,
   getPrefix = false,
   className = '',
+  getSuffix = false,
 }) {
   if (isNullOrUndefined(number)) {
     return <span className={className}>{' - '}</span>;
@@ -20,6 +21,8 @@ function StyledNumber({
   const getPlus = getPrefix && isPositive;
   const prefix = getPlus && '+';
 
+  const suffix = getSuffix && '%';
+
   const rounded = +parseFloat(number).toFixed(fractionDigits);
   const locale = toLocale(rounded);
 
@@ -27,6 +30,7 @@ function StyledNumber({
     <span className={className}>
       {prefix}
       {locale}
+      {suffix}
     </span>
   );
 }
