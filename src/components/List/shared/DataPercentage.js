@@ -1,19 +1,21 @@
 import React from 'react';
 import EmbeddedNumber from './EmbeddedNumber';
-import Percentage from '../TESTS_ACTIVE/Percentage';
 
 // not sure if bussines logic checks for undefined
 const defaults = {
   number: undefined,
   prefix: '',
   suffix: ', ',
-  preSign: false,
+  getPrefix: false,
 };
 
 function DataPercentage({
   numeratorOptions = { ...defaults },
   denominatorOptions = { ...defaults },
+  percentage,
 }) {
+  const renderPercentage = isFinite(percentage);
+
   return (
     <>
       <EmbeddedNumber
@@ -21,19 +23,25 @@ function DataPercentage({
         number={numeratorOptions.number}
         prefix={numeratorOptions.prefix}
         suffix={numeratorOptions.suffix}
-        preSign={numeratorOptions.preSign}
+        getPrefix={numeratorOptions.getPrefix}
       />
       <EmbeddedNumber
         className="bold"
         number={denominatorOptions.number}
         prefix={denominatorOptions.prefix}
         suffix={denominatorOptions.suffix}
-        preSign={denominatorOptions.preSign}
+        getPrefix={denominatorOptions.getPrefix}
       />
-      <Percentage
-        numerator={numeratorOptions.number}
-        denominator={denominatorOptions.number}
-      ></Percentage>
+      {renderPercentage ? (
+        <EmbeddedNumber
+          className="bold"
+          number={percentage}
+          getSuffix={true}
+          fractionDigits={1}
+        />
+      ) : (
+        ''
+      )}
     </>
   );
 }
