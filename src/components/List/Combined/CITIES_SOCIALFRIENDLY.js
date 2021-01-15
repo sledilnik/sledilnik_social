@@ -1,7 +1,7 @@
 import React from 'react';
-import Municipalities from '../shared/Municipalities';
-import Outro from '../../shared/Outro';
-import DataRow from '../shared/DataRow';
+import DataRow from './../../shared/ui/DataRow';
+import Municipalities from './../../shared/ui/Municipalities';
+import Outro from './../../shared/ui/Outro';
 
 function CITIES_SOCIALFRIENDLY({ check_third_mun, municipalities }) {
   const munVer = iconsVersion => (

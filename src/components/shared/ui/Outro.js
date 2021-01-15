@@ -1,6 +1,6 @@
 import React from 'react';
-import sledilnikLogo from '../../assets/sledilnik-logo.svg';
-import DataRow from '../List/shared/DataRow';
+import sledilnikLogo from '../../../assets/sledilnik-logo.svg';
+import DataRow from './DataRow';
 
 const Outro = () => {
   const emojis = '💨🏠,😷,🙎↔️↔️🙎‍♂️🙎↔️↔️🙎 + 👐🧼🚿 + #OstaniZdrav 📲 & 🤞';

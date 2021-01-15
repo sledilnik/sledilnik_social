@@ -1,6 +1,6 @@
 import React from 'react';
-import Delta from '../shared/Delta';
-import DataRow from '../shared/DataRow';
+import DataRow from './../../shared/ui/DataRow';
+import Delta from './../../shared/ui/Delta';
 
 function PerAge({ check_third_age, todayPerAge, yesterdayPerAge }) {
   const deltas = [];

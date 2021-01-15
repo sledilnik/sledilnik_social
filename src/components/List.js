@@ -1,8 +1,8 @@
 import React from 'react';
-import Intro from './List/Intro';
-import Outro from './shared/Outro';
-import TESTS_ACTIVE from './shared/TESTS_ACTIVE';
-import HOSPITALIZED_DECEASED from './shared/HOSPITALIZED_DECEASED';
+import Intro from './shared/ui/Intro';
+import Outro from './shared/ui/Outro';
+import TESTS_ACTIVE from './List/TESTS_ACTIVE';
+import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 import Combined from './List/Combined';
 
 import './List.css';

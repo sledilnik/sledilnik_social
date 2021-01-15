@@ -1,14 +1,15 @@
 import React from 'react';
 
-import PerAge from './Combined/PerAge';
+import TESTS_ACTIVE from './TESTS_ACTIVE';
+import HOSPITALIZED_DECEASED from './HOSPITALIZED_DECEASED';
 import CITIES_SOCIALFRIENDLY from './Combined/CITIES_SOCIALFRIENDLY';
+import PerAge from './Combined/PerAge';
 import InHospitals from './Combined/InHospitals';
-import TESTS_ACTIVE from '../shared/TESTS_ACTIVE';
-import HOSPITALIZED_DECEASED from '../shared/HOSPITALIZED_DECEASED';
-import DataRow from './shared/DataRow';
-import EmbeddedNumber from './shared/EmbeddedNumber';
-import EmbeddedNumberInOut from './shared/EmbeddedNumberInOut';
-import Arrow from './shared/Arrow';
+
+import Arrow from './../shared/ui/Arrow';
+import DataRow from './../shared/ui/DataRow';
+import EmbeddedNumber from './../shared/ui/EmbeddedNumber';
+import EmbeddedNumberInOut from './../shared/ui/EmbeddedNumberInOut';
 
 const isUndefined = value => value === undefined;
 

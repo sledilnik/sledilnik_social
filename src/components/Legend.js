@@ -1,7 +1,7 @@
 import React from 'react';
-import Municipalities from './shared/Municipalities';
 
 import './Legend.css';
+import Municipalities from './shared/ui/Municipalities';
 
 const municipalitiesTrend = [
   {

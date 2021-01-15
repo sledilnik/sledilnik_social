@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Backdrop from './Backdrop';
 
 import './Header.css';
+import Backdrop from './shared/Backdrop';
 
 function Header() {
   const [open, setOpen] = useState(false);

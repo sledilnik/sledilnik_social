@@ -1,7 +1,7 @@
 import React from 'react';
-import Loader from './Loader';
-import Modal from './Modal';
-import Backdrop from './Backdrop';
+import Modal from './shared/Modal';
+import Backdrop from './shared/Backdrop';
+import Loader from './shared/Loader';
 
 function WithListLoading(Component) {
   return function WihLoadingComponent({ isLoading, ...props }) {

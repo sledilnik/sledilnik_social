@@ -1,7 +1,7 @@
 import React from 'react';
-import DataRow from '../List/shared/DataRow';
-import EmbeddedNumberInOut from '../List/shared/EmbeddedNumberInOut';
-import PercentageRow from '../List/shared/PercentageRow';
+import DataRow from './../shared/ui/DataRow';
+import EmbeddedNumberInOut from './../shared/ui/EmbeddedNumberInOut';
+import PercentageRow from './../shared/ui/PercentageRow';
 
 function TESTS_ACTIVE({ check_first, labTests, summary }) {
   const { regular, hagt } = labTests[labTests.length - 1].data;

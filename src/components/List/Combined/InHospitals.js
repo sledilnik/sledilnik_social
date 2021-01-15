@@ -1,7 +1,7 @@
 import React from 'react';
 
-import DataRow from '../shared/DataRow';
-import DataTranslateInOut from '../shared/DataTranslateInOut';
+import DataRow from './../../shared/ui/DataRow';
+import DataTranslateInOut from './../../shared/ui/DataTranslateInOut';
 
 function InHospitals({ check_second, patients, perHospitalChanges }) {
   const InHospital = ({

@@ -1,10 +1,10 @@
 import React from 'react';
-import Translate from '../List/shared/Translate';
-import Delta from '../List/shared/Delta';
-import DataRow from '../List/shared/DataRow';
-import DataTranslate from '../List/shared/DataTranslate';
-import EmbeddedNumber from '../List/shared/EmbeddedNumber';
-import DataTranslateInOut from '../List/shared/DataTranslateInOut';
+import DataRow from '../shared/ui/DataRow';
+import DataTranslateInOut from '../shared/ui/DataTranslateInOut';
+import DataTranslate from '../shared/ui/DataTranslate';
+import Delta from '../shared/ui/Delta';
+import Translate from '../shared/ui/Translate';
+import EmbeddedNumber from '../shared/ui/EmbeddedNumber';
 
 function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
   const hospNum = stats[stats.length - 1].statePerTreatment.inHospital;
