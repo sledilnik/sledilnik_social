@@ -1,5 +1,5 @@
 import React from 'react';
-import EmbeddedNumber from './EmbeddedNumber';
+import EmbeddedNumber from '../../../shared/ui/EmbeddedNumber';
 
 // not sure if bussines logic checks for undefined
 const defaults = {

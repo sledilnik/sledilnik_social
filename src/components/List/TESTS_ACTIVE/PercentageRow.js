@@ -1,6 +1,6 @@
 import React from 'react';
-import DataRow from './DataRow';
-import DataPercentage from './DataPercentage';
+import DataRow from '../../shared/ui/DataRow';
+import DataPercentage from './PercentageRow/DataPercentage';
 
 const defaults = {
   number: undefined,
