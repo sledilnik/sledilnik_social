@@ -6,6 +6,8 @@ function EmbeddedNumber({
   prefix,
   suffix,
   getPrefix = false,
+  getSuffix = false,
+  fractionDigits = 0,
 }) {
   return (
     <>
@@ -14,6 +16,8 @@ function EmbeddedNumber({
         className="bold"
         number={number}
         getPrefix={getPrefix}
+        getSuffix={getSuffix}
+        fractionDigits={fractionDigits}
       />
       {suffix}
     </>
