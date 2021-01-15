@@ -1,6 +1,7 @@
 import React from 'react';
-import StyledNumber from './StyledNumber';
+import { NumberFormat } from './StyledNumber';
 
+// TODO isUndefined
 function InOut({ numIn, numOut, inBrackets = false }) {
   const plus = numIn === undefined ? '' : '+';
   const minus = numOut === undefined ? '' : '-';
@@ -9,10 +10,10 @@ function InOut({ numIn, numOut, inBrackets = false }) {
     <span className="bold">
       {inBrackets ? '(' : ''}
       {plus}
-      <StyledNumber number={numIn} />
+      <NumberFormat number={numIn} getPrefix={false} />
       {comma}
       {minus}
-      <StyledNumber number={numOut} />
+      <NumberFormat number={numOut} getPrefix={false} />
       {inBrackets ? ')' : ''}
     </span>
   );

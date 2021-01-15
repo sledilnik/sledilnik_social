@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledNumber from './StyledNumber';
+import { NumberFormat } from './StyledNumber';
 const Delta = ({
   today,
   yesterday,
@@ -25,10 +25,10 @@ const Delta = ({
         today - yesterday === 0 ? (
           'ni sprememb'
         ) : (
-          <StyledNumber number={deltaCalculation} />
+          <NumberFormat number={deltaCalculation} />
         )
       ) : (
-        <StyledNumber number={deltaCalculation} />
+        <NumberFormat number={deltaCalculation} />
       )}
       {inBrackets ? ')' : ''}
     </span>
