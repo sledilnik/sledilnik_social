@@ -46,4 +46,19 @@ export const NumberFormat = ({ number, fractionDigits, className = '' }) => {
   );
 };
 
+export const NumberPercentage = ({
+  number,
+  fractionDigits,
+  className = '',
+}) => {
+  return (
+    <StyledNumber
+      className={className}
+      number={number}
+      fractionDigits={fractionDigits}
+      getSuffix={true}
+    />
+  );
+};
+
 export default StyledNumber;
