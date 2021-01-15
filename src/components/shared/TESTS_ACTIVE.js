@@ -16,7 +16,7 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
 
   const options1 = {
     suffix: ', ',
-    preSign: true,
+    getPrefix: true,
   };
 
   const options2 = {
