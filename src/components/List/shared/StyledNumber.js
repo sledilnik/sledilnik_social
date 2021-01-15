@@ -17,8 +17,8 @@ function StyledNumber({
   }
 
   const isPositive = number > 0;
-  const signShouldBePlus = getPrefix && isPositive;
-  const prefix = signShouldBePlus && '+';
+  const getPlus = getPrefix && isPositive;
+  const prefix = getPlus && '+';
 
   const rounded = +parseFloat(number).toFixed(fractionDigits);
   const locale = toLocale(rounded);
