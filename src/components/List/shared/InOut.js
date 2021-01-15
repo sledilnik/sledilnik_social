@@ -1,5 +1,5 @@
 import React from 'react';
-import Separator from './Separator';
+import StyledNumber from './StyledNumber';
 
 function InOut({ numIn, numOut, inBrackets = false }) {
   const plus = numIn === undefined ? '' : '+';
@@ -9,10 +9,10 @@ function InOut({ numIn, numOut, inBrackets = false }) {
     <span className="bold">
       {inBrackets ? '(' : ''}
       {plus}
-      <Separator number={numIn} />
+      <StyledNumber number={numIn} />
       {comma}
       {minus}
-      <Separator number={numOut} />
+      <StyledNumber number={numOut} />
       {inBrackets ? ')' : ''}
     </span>
   );
