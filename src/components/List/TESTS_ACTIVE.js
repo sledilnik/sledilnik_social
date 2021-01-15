@@ -1,7 +1,7 @@
 import React from 'react';
-import DataRow from './../shared/ui/DataRow';
-import EmbeddedNumberInOut from './../shared/ui/EmbeddedNumberInOut';
+
 import PercentageRow from './TESTS_ACTIVE/PercentageRow';
+import ActiveCasesRow from './TESTS_ACTIVE/ActiveCasesRow';
 
 function TESTS_ACTIVE({ check_first, labTests, summary }) {
   const { regular, hagt } = labTests[labTests.length - 1].data;
@@ -56,15 +56,14 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
         numeratorOptions={hagtPositiveData}
         denominatorOptions={hagtPerformedData}
       />
-      <DataRow title={'Aktivni primeri'}>
-        <EmbeddedNumberInOut
-          number={casesActive}
-          numIn={casesActiveIn}
-          numOut={casesActiveOut}
-          suffix=" "
-          inBrackets={true}
-        />
-      </DataRow>
+      <ActiveCasesRow
+        title={'Aktivni primeri'}
+        number={casesActive}
+        numIn={casesActiveIn}
+        numOut={casesActiveOut}
+        suffix=" "
+        inBrackets={true}
+      />
     </div>
   );
 }
