@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 
 import format from 'date-fns/format';
 import { sl } from 'date-fns/locale';
@@ -24,20 +23,14 @@ const List = props => {
 
   // prepare hospitalsDict
   const { hospitalsList } = props;
-  const hospitalsDict = hospitalsList.map(item => [item.code, item.name]);
+  const hospitalsDict = prepareHospitalsDict(hospitalsList);
 
   // prepare perHospitalChanges
-  const perHospitalChanges =
-    patients[patients.length - 1] === undefined
-      ? 'NI PODATKOV'
-      : Object.entries(patients[patients.length - 1].facilities);
-  for (let i = 0; i < perHospitalChanges.length; i++) {
-    for (let j = 0; j < hospitalsDict.length; j++) {
-      if (perHospitalChanges[i][0] === hospitalsDict[j][0]) {
-        perHospitalChanges[i].push(hospitalsDict[j][1]);
-      }
-    }
-  }
+  const perHospitalChanges = getPerHospitalChanges(patients);
+  const perHospitalChangesWithLongName = findAndPushLongHospitalName(
+    perHospitalChanges,
+    hospitalsDict
+  );
 
   /**
    * checks if data is not updated for the current day; if certain conditions are met then sets variable which represent error css class
@@ -48,7 +41,6 @@ const List = props => {
    * ? -statsCheck(check_third_age) +???
    * ? -municipalitiesCheck(check_third_mun) +???
    */
-
   const {
     check_first,
     check_second,
@@ -90,7 +82,7 @@ const List = props => {
           stats={stats}
           patients={patients}
           municipalities={municipalities}
-          perHospitalChanges={perHospitalChanges}
+          perHospitalChanges={perHospitalChangesWithLongName}
         />
         <Outro />
       </section>
@@ -99,6 +91,34 @@ const List = props => {
 };
 export default List;
 
+const isUndefined = val => val === undefined;
+
+// prepare hospitalsDict
+function prepareHospitalsDict(hospitalsList) {
+  return hospitalsList.map(hospital => [hospital.code, hospital.name]);
+}
+
+// prepare perHospitalChanges
+function getPerHospitalChanges(patients) {
+  const patientsData = patients[patients.length - 1];
+  const patientsDataIsNotUndefined = !isUndefined(patientsData);
+
+  return (
+    patientsDataIsNotUndefined &&
+    Object.entries(patients[patients.length - 1].facilities)
+  );
+}
+
+function findAndPushLongHospitalName(perHospitalChanges, hospitalsDict) {
+  return perHospitalChanges.map(hospital => {
+    const hospitalLongName = hospitalsDict.filter(
+      item => hospital[0] === item[0]
+    )[0][1];
+    return [...hospital, hospitalLongName];
+  });
+}
+
+// Format
 function formatToLocaleDateString(
   formatStr = "E, d. MMM yyyy 'ob' H.mm",
   options = { locale: sl }
@@ -144,27 +164,25 @@ function getChecks({ stats, municipalities, patients, summary }) {
     const MILLISECONDS_DAY = 24 * 60 * 60 * 1000;
     return (date1 - date2) / MILLISECONDS_DAY;
   };
+  const getDaysToToday = daysDifference(todayDate);
 
-  const differenceInDays = daysDifference(todayDate);
-
-  if (differenceInDays(summaryDate) === -1) {
+  if (getDaysToToday(summaryDate) === -1) {
     summaryCheck = 'red';
   }
 
-  if (differenceInDays(patientsDate) > 0) {
+  if (getDaysToToday(patientsDate) > 0) {
     patientsCheck = 'red';
   }
 
-  const isUndefined = val => val === undefined;
   const allToDateIsUndefined = isUndefined(
     stats[stats.length - 2].statePerAgeToDate[0].allToDate
   );
 
-  if (allToDateIsUndefined || differenceInDays(statsDate) > 0) {
+  if (allToDateIsUndefined || getDaysToToday(statsDate) > 0) {
     statsCheck = 'red';
   }
 
-  if (differenceInDays(municipalitiesDate) > 1) {
+  if (getDaysToToday(municipalitiesDate) > 1) {
     municipalitiesCheck = 'red';
   }
 
