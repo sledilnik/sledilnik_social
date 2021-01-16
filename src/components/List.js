@@ -1,4 +1,7 @@
 import React from 'react';
+import format from 'date-fns/format';
+import { sl } from 'date-fns/locale';
+
 import Intro from './shared/ui/Intro';
 import Outro from './shared/ui/Outro';
 import TESTS_ACTIVE from './List/TESTS_ACTIVE';
@@ -6,6 +9,14 @@ import Combined from './List/Combined';
 
 import './List.css';
 import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
+
+const formatToLocaleDateString = (
+  formatStr = "E, d. MMM yyyy 'ob' H.mm",
+  options = { locale: sl }
+) => dateAsText => {
+  const date = new Date(dateAsText);
+  return format(date, formatStr, options);
+};
 
 const List = props => {
   const { stats } = props;
@@ -62,12 +73,7 @@ const List = props => {
     summary.testsToday.month.toString() +
     summary.testsToday.day.toString();
 
-  let introTodayDate =
-    new Date().getDate().toString() +
-    '.' +
-    (new Date().getMonth() + 1).toString() +
-    '.' +
-    new Date().getFullYear().toString();
+  let introTodayDate = formatToLocaleDateString('d.M.yyyy')(new Date());
 
   // paint red if data is not updated for the current day
   var check_first = '';
