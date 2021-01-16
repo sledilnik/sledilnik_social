@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import format from 'date-fns/format';
 import { sl } from 'date-fns/locale';
@@ -23,10 +24,7 @@ const List = props => {
 
   // prepare hospitalsDict
   const { hospitalsList } = props;
-  let hospitalsDict = [];
-  for (let i = 0; i < hospitalsList.length; i++) {
-    hospitalsDict.push([hospitalsList[i].code, hospitalsList[i].name]);
-  }
+  const hospitalsDict = hospitalsList.map(item => [item.code, item.name]);
 
   // prepare perHospitalChanges
   const perHospitalChanges =
