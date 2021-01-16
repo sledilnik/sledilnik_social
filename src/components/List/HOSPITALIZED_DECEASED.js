@@ -19,6 +19,8 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
     stats.length - 1
   ].statePerTreatment;
 
+  const negativeHospOut = -hospOut;
+
   return (
     <div className={check_second}>
       <Hospitalized
@@ -27,7 +29,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
         hospitalized={hospNum}
         translateText={'oseba'}
         hospitalizedIn={hospIn}
-        hospitalizedOut={-hospOut}
+        hospitalizedOut={negativeHospOut}
         icuNum={icuNum}
         icuDelta={icuDelta}
       />
