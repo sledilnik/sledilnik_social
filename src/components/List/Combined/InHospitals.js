@@ -57,7 +57,7 @@ function InHospitals({ check_second, title, patients, perHospitalChanges }) {
     const noHospitalData = hosp[1].inHospital.today === undefined;
 
     return noHospitalData ? (
-      ' - '
+      ''
     ) : (
       <InHospital
         key={hosp[0]}
