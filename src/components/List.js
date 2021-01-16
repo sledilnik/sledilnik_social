@@ -41,6 +41,7 @@ const List = props => {
     }
   }
 
+  // TODO find better variable names
   const {
     check_first,
     check_second,
@@ -127,10 +128,10 @@ function getChecks({ stats, municipalities, patients, summary }) {
   const summaryDate = getDateNoTime(summary.testsToday);
 
   // paint red if data is not updated for the current day
-  var check_first = '';
-  var check_second = '';
-  var check_third_age = '';
-  var check_third_mun = '';
+  var summaryCheck = '';
+  var patientsCheck = '';
+  var statsCheck = '';
+  var municipalitiesCheck = '';
 
   const daysDifference = date1 => date2 => {
     const MILLISECONDS_DAY = 24 * 60 * 60 * 1000;
@@ -140,11 +141,28 @@ function getChecks({ stats, municipalities, patients, summary }) {
   const differenceInDays = daysDifference(todayDate);
 
   if (differenceInDays(summaryDate) === -1) {
-    check_first = 'red';
+    summaryCheck = 'red';
   }
 
+  const todayDateOld = parseInt(
+    new Date().getFullYear().toString() +
+      (new Date().getMonth() + 1).toString() +
+      new Date().getDate().toString()
+  );
+
+  const statsDateOld =
+    stats[stats.length - 1].year.toString() +
+    stats[stats.length - 1].month.toString() +
+    stats[stats.length - 1].day.toString();
+
+  console.log(
+    differenceInDays(patientsDate),
+    { todayDateOld, statsDateOld },
+    todayDateOld - statsDateOld
+  );
+
   if (differenceInDays(patientsDate) > 0) {
-    check_second = 'red';
+    patientsCheck = 'red';
   }
 
   const isUndefined = val => val === undefined;
@@ -152,13 +170,18 @@ function getChecks({ stats, municipalities, patients, summary }) {
     stats[stats.length - 2].statePerAgeToDate[0].allToDate
   );
 
-  if (allToDateIsUndefined === undefined || differenceInDays(statsDate) > 0) {
-    check_third_age = 'red';
+  if (allToDateIsUndefined || differenceInDays(statsDate) > 0) {
+    statsCheck = 'red';
   }
 
   if (differenceInDays(municipalitiesDate) > 1) {
-    check_third_mun = 'red';
+    municipalitiesCheck = 'red';
   }
 
-  return { check_first, check_second, check_third_age, check_third_mun };
+  return {
+    check_first: summaryCheck,
+    check_second: patientsCheck,
+    check_third_age: statsCheck,
+    check_third_mun: municipalitiesCheck,
+  };
 }
