@@ -34,6 +34,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
       <OnRespiratory today={todayCritical} yesterday={yesterdayCritical} />
       <Deceased
         title={'Preminuli'}
+        subtitle={'skupaj '}
         deceased={deceased}
         deceasedToDate={deceasedToDate}
       />
