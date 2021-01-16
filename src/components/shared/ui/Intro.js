@@ -1,17 +1,19 @@
 import React from 'react';
 
 import './Intro.css';
+import { Bold, Text, Emoji } from './New';
 
-const Intro = props => {
+const Intro = ({ post, introTodayDate }) => {
   return (
     <h2 className="Intro text">
-      <span className="bold">
-        Status #COVID19{' '}
-        <span role="img" aria-label="s">
-          🇸🇮
-        </span>{' '}
-        {props.post}/3 {props.introTodayDate}
-      </span>
+      <Bold>
+        <Text>Status #COVID19 </Text>
+        <Emoji emoji={'🇸🇮'} ariaLabel={'flag'} />
+        <Text>
+          {' '}
+          {post}/3 {introTodayDate}
+        </Text>
+      </Bold>
     </h2>
   );
 };

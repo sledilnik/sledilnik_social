@@ -1,8 +1,8 @@
 import React from 'react';
-import DataRow from './../../shared/ui/DataRow';
-import Delta from './../../shared/ui/Delta';
 
-function PerAge({ check_third_age, todayPerAge, yesterdayPerAge }) {
+import { Row, Text, Brackets, Bold, LocaleNumber } from '../../shared/ui/New';
+
+function PerAge({ check_third_age, title, todayPerAge, yesterdayPerAge }) {
   const deltas = [];
 
   for (let i = 0; i < 10; i++) {
@@ -11,11 +11,17 @@ function PerAge({ check_third_age, todayPerAge, yesterdayPerAge }) {
     const key = `${i}_${ageRange}`;
     const today = todayPerAge[i].allToDate;
     const yesterday = yesterdayPerAge[i].allToDate;
+
+    const delta = today - yesterday;
     const _delta = (
       <span key={key}>
         {' '}
         {ageRange}{' '}
-        <Delta today={today} yesterday={yesterday} inBrackets={true} />
+        <Bold>
+          <Brackets>
+            <LocaleNumber number={delta} />
+          </Brackets>
+        </Bold>
         {i !== 9 ? ',' : ''}
       </span>
     );
@@ -24,7 +30,10 @@ function PerAge({ check_third_age, todayPerAge, yesterdayPerAge }) {
 
   return (
     <span className={check_third_age}>
-      <DataRow title={'Potrjeni primeri po starosti'}> {deltas}</DataRow>
+      <Row>
+        <Text>{title}: </Text>
+        {deltas}
+      </Row>
     </span>
   );
 }

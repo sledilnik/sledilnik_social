@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import MunicipalitiesDict from '../../../MunicipalitiesDict';
+import MunicipalitiesDict from '../../../../MunicipalitiesDict';
 
 // { name: x, translation: X} becomes { x: { name: x, translation: X }}
 const MunicipalitiesLookup = _.keyBy(MunicipalitiesDict, 'name');
@@ -221,6 +221,7 @@ const Municipalities = props => {
     }
     outputLabel = outputLabel.concat(`<strong>&nbsp;+${count}<br></strong>`);
 
+    // TODO Lists do not contain only <li> elements and script supporting elements (<script> and <template>)
     return (
       <div key={count}>
         <span dangerouslySetInnerHTML={{ __html: outputLabel }}></span>

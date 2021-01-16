@@ -1,12 +1,15 @@
 import React from 'react';
-import DataRow from './../../shared/ui/DataRow';
-import Municipalities from './../../shared/ui/Municipalities';
-import Outro from './../../shared/ui/Outro';
 
-function CITIES_SOCIALFRIENDLY({ check_third_mun, municipalities }) {
+import Municipalities from './CITIES_SOCIAL_FRIENDLY/Municipalities';
+import Outro from '../../shared/ui/Outro';
+import { Row, Text } from '../../shared/ui/New';
+
+function CITIES_SOCIAL_FRIENDLY({ check_third_mun, title, municipalities }) {
   const munVer = iconsVersion => (
     <>
-      <DataRow title={'Po krajih'} endOfSentence={{ end: false }} />
+      <Row end={false}>
+        <Text>{title}: </Text>
+      </Row>
       <ul className="municipalities">
         <Municipalities
           data={municipalities}
@@ -26,4 +29,4 @@ function CITIES_SOCIALFRIENDLY({ check_third_mun, municipalities }) {
   );
 }
 
-export default CITIES_SOCIALFRIENDLY;
+export default CITIES_SOCIAL_FRIENDLY;

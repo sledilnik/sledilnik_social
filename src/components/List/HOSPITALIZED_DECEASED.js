@@ -1,10 +1,7 @@
 import React from 'react';
-import DataRow from '../shared/ui/DataRow';
-import DataTranslateInOut from '../shared/ui/DataTranslateInOut';
-import DataTranslate from '../shared/ui/DataTranslate';
-import Delta from '../shared/ui/Delta';
-import Translate from '../shared/ui/Translate';
-import EmbeddedNumber from '../shared/ui/EmbeddedNumber';
+import Hospitalized from './HOSPITALIZED_DECEASED/Hospitalized';
+import OnRespiratory from './HOSPITALIZED_DECEASED/OnRespiratory';
+import Deceased from './HOSPITALIZED_DECEASED/Deceased';
 
 function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
   const hospNum = stats[stats.length - 1].statePerTreatment.inHospital;
@@ -13,6 +10,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
   const icuNum = stats[stats.length - 1].statePerTreatment.inICU;
   const todayICU = stats[stats.length - 1].statePerTreatment.inICU;
   const yesterdayICU = stats[stats.length - 2].statePerTreatment.inICU;
+  const icuDelta = todayICU - yesterdayICU;
 
   const todayCritical = stats[stats.length - 1].statePerTreatment.critical;
   const yesterdayCritical = stats[stats.length - 2].statePerTreatment.critical;
@@ -21,78 +19,24 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
     stats.length - 1
   ].statePerTreatment;
 
-  function Hospitalized({
-    title,
-    subtitle,
-    totalNum,
-    inOut = [0, 0],
-    icuNum,
-    icuDelta = [0, 0],
-  }) {
-    return (
-      <DataRow title={title}>
-        <DataTranslateInOut
-          number={totalNum}
-          text={'oseba'}
-          numIn={inOut[0]}
-          numOut={inOut[1]}
-          inBrackets={true}
-        />
-        {subtitle} <DataTranslate number={icuNum} text={'oseba'} />{' '}
-        <Delta
-          today={icuDelta[0]}
-          yesterday={icuDelta[1]}
-          inBrackets={true}
-          withPrefix={true}
-          noChanges={true}
-        ></Delta>
-      </DataRow>
-    );
-  }
-
-  function OnRespiratory({ today, yesterday }) {
-    return (
-      <DataRow title={'Na respiratorju (intubirani) se'} noColon={true}>
-        <Translate text={'zdravi'} number={today}></Translate>{' '}
-        <DataTranslate number={today} text={'oseba'} />{' '}
-        <Delta
-          today={today}
-          yesterday={yesterday}
-          inBrackets={true}
-          withPrefix={true}
-          noChanges={true}
-        ></Delta>
-      </DataRow>
-    );
-  }
-
-  function Deceased({ deceased, deceasedToDate }) {
-    const plusOrEmpty = deceased > 0 ? '+' : '';
-    return (
-      <DataRow title={'Preminuli'}>
-        {plusOrEmpty}
-        <DataTranslate number={deceased} text={'oseba'} />
-        <EmbeddedNumber
-          prefix={', skupaj: '}
-          className="bold"
-          number={deceasedToDate}
-        />
-      </DataRow>
-    );
-  }
-
   return (
     <div className={check_second}>
       <Hospitalized
         title={'Hospitalizirani'}
-        subtitle={', v EIT '}
-        totalNum={hospNum}
-        inOut={[hospIn, hospOut]}
+        subtitle={'v EIT'}
+        hospitalized={hospNum}
+        translateText={'oseba'}
+        hospitalizedIn={hospIn}
+        hospitalizedOut={-hospOut}
         icuNum={icuNum}
-        icuDelta={[todayICU, yesterdayICU]}
+        icuDelta={icuDelta}
       />
       <OnRespiratory today={todayCritical} yesterday={yesterdayCritical} />
-      <Deceased deceased={deceased} deceasedToDate={deceasedToDate} />
+      <Deceased
+        title={'Preminuli'}
+        deceased={deceased}
+        deceasedToDate={deceasedToDate}
+      />
     </div>
   );
 }

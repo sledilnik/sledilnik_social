@@ -2,10 +2,10 @@ import React from 'react';
 import Intro from './shared/ui/Intro';
 import Outro from './shared/ui/Outro';
 import TESTS_ACTIVE from './List/TESTS_ACTIVE';
-import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 import Combined from './List/Combined';
 
 import './List.css';
+import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 
 const List = props => {
   const { stats } = props;

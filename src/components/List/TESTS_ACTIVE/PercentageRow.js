@@ -1,46 +1,30 @@
 import React from 'react';
-import DataRow from '../../shared/ui/DataRow';
-import DataPercentage from './PercentageRow/DataPercentage';
 
-const defaults = {
-  number: undefined,
-  prefix: '',
-  suffix: ', ',
-  getPrefix: false,
-};
+import {
+  Row,
+  Bold,
+  LocaleNumberWithPlus,
+  LocaleNumber,
+  Text,
+  LocaleNumberWithPercent,
+} from '../../shared/ui/New';
 
-const getFraction = (numerator = 0, denominator = 0) => numerator / denominator;
-const getPercentage = value => value * 100;
-
-function PercentageRow({
-  title = '',
-  numeratorOptions = { ...defaults },
-  denominatorOptions = { ...defaults },
-}) {
-  const { number: numerator } = numeratorOptions;
-  const { number: denominator } = denominatorOptions;
-  const canNotCalc = isNaN(numerator) || isNaN(denominator);
-
-  if (canNotCalc) {
-    return (
-      <DataRow title={title} endOfSentence={{ punctuationMark: '!' }}>
-        <span>{' - odstotka ni mogoče izračunati'}</span>
-      </DataRow>
-    );
-  }
-
-  const fraction = getFraction(numerator, denominator);
-
-  const percentage = getPercentage(fraction);
-
+function PercentageRow({ title = '', numerator, denominator, percent }) {
   return (
-    <DataRow title={title}>
-      <DataPercentage
-        numeratorOptions={numeratorOptions}
-        denominatorOptions={denominatorOptions}
-        percentage={percentage}
-      />
-    </DataRow>
+    <Row>
+      <Text> {title}: </Text>
+      <Bold>
+        <LocaleNumberWithPlus number={numerator} />
+      </Bold>
+      <Text>, testiranih: </Text>
+      <Bold>
+        <LocaleNumber number={denominator} />
+      </Bold>
+      <Text>, delež pozitivnih: </Text>
+      <Bold>
+        <LocaleNumberWithPercent number={percent} fractionDigits={1} />
+      </Bold>
+    </Row>
   );
 }
 

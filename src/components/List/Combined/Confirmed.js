@@ -1,16 +1,16 @@
 import React from 'react';
-import DataRow from '../../shared/ui/DataRow';
-import EmbeddedNumber from '../../shared/ui/EmbeddedNumber';
 
-function Confirmed({ toDate }) {
+import { Row, Text, LocaleNumber, Bold } from '../../shared/ui/New';
+
+function Confirmed({ confirmed }) {
   return (
-    <DataRow>
-      <EmbeddedNumber
-        number={toDate}
-        prefix={'Skupaj '}
-        suffix={' potrjenih primerov'}
-      />
-    </DataRow>
+    <Row>
+      <Text>Skupaj </Text>
+      <Bold>
+        <LocaleNumber number={confirmed} />
+      </Bold>{' '}
+      potrjenih primerov
+    </Row>
   );
 }
 

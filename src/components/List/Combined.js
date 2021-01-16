@@ -2,7 +2,7 @@ import React from 'react';
 
 import TESTS_ACTIVE from './TESTS_ACTIVE';
 import HOSPITALIZED_DECEASED from './HOSPITALIZED_DECEASED';
-import CITIES_SOCIALFRIENDLY from './Combined/CITIES_SOCIALFRIENDLY';
+import CITIES_SOCIAL_FRIENDLY from './Combined/CITIES_SOCIAL_FRIENDLY';
 import PerAge from './Combined/PerAge';
 import InHospitals from './Combined/InHospitals';
 import Vaccination from './Combined/Vaccination';
@@ -38,8 +38,9 @@ function Combined({
         summary={summary}
       />
       <Vaccination toDate={vaccinationToDate} today={vaccinationToday} />
-      <Confirmed toDate={confirmedToDate} />
+      <Confirmed confirmed={confirmedToDate} />
       <PerAge
+        title={'Potrjeni primeri po starosti'}
         check_third_age={check_third_age}
         todayPerAge={todayPerAge}
         yesterdayPerAge={yesterdayPerAge}
@@ -50,11 +51,13 @@ function Combined({
         patients={patients}
       />
       <InHospitals
+        title={'Stanje po bolnišnicah'}
         check_second={check_second}
         patients={patients}
         perHospitalChanges={perHospitalChanges}
       />
-      <CITIES_SOCIALFRIENDLY
+      <CITIES_SOCIAL_FRIENDLY
+        title={'Po krajih'}
         check_third_mun={check_third_mun}
         municipalities={municipalities}
       />

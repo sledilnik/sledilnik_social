@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './Legend.css';
-import Municipalities from './shared/ui/Municipalities';
+import Municipalities from './List/Combined/CITIES_SOCIAL_FRIENDLY/Municipalities';
 
 const municipalitiesTrend = [
   {

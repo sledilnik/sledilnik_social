@@ -1,59 +1,29 @@
 import React from 'react';
-import EmbeddedNumberInOut from '../../shared/ui/EmbeddedNumberInOut';
-import Arrow from '../../shared/ui/Arrow';
-import DataRow from '../../shared/ui/DataRow';
+import {
+  Row,
+  Text,
+  Bold,
+  LocaleNumberWithPlus,
+  LocaleNumber,
+  Brackets,
+} from '../../shared/ui/New';
 
-const isUndefined = value => value === undefined;
-
-const isOneArgumentUndefined = (values = {}) => {
-  let result = false;
-  for (const [key, value] of Object.entries(values)) {
-    const valueIsUndefined = isUndefined(value);
-    if (valueIsUndefined) {
-      console.warn(`Argument: ${key} is undefined!`);
-      result = true;
-    }
-  }
-  return result;
-};
-
-// TODO use DataRow
-function NoData({ text, html = { tag: 'span', classes: '' } }) {
-  if (html.tag === 'span') {
-    return <span className={html.classes}>{text}</span>;
-  }
-  if (html.tag === 'p') {
-    return (
-      <p className={html.classes}>
-        <Arrow /> {text}
-      </p>
-    );
-  }
-  return;
-}
-
+// TODO rename toDate -> vaccinated, today -> vaccinatedToday
 function Vaccination({ toDate, today }) {
-  const showNoData = isOneArgumentUndefined({ toDate, today });
   const title = 'Število cepljenih oseb';
 
   return (
-    <>
-      {showNoData ? (
-        <NoData
-          text={'Ni vseh podatkov za cepljene osebe.'}
-          html={{ classes: 'text', tag: 'p' }}
-        />
-      ) : (
-        <DataRow title={title}>
-          <EmbeddedNumberInOut
-            suffix={' '}
-            number={toDate}
-            numIn={today}
-            inBrackets={true}
-          />
-        </DataRow>
-      )}
-    </>
+    <Row>
+      <Text>{title} </Text>
+      <Bold>
+        <LocaleNumber number={toDate} />
+      </Bold>{' '}
+      <Brackets>
+        <Bold>
+          <LocaleNumberWithPlus number={today} />
+        </Bold>
+      </Brackets>
+    </Row>
   );
 }
 

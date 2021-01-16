@@ -1,23 +1,17 @@
 import React from 'react';
 import sledilnikLogo from '../../../assets/sledilnik-logo.svg';
-import DataRow from './DataRow';
+import { Row, Emoji } from '../ui/New';
 
 const Outro = () => {
   const emojis = '💨🏠,😷,🙎↔️↔️🙎‍♂️🙎↔️↔️🙎 + 👐🧼🚿 + #OstaniZdrav 📲 & 🤞';
 
   const EmojisRow = () => (
-    <DataRow noArrow={true}>
-      <span role="img" aria-label="emojis">
-        {emojis}
-      </span>
-    </DataRow>
+    <Row noArrow={true}>
+      <Emoji emoji={emojis} ariaLabel="emojis"></Emoji>
+    </Row>
   );
 
-  const Spark = () => (
-    <span role="img" aria-label="s">
-      ✨
-    </span>
-  );
+  const Spark = () => <Emoji emoji={'✨'} ariaLabel="spark" />;
 
   const Link = ({
     text = '',
@@ -49,7 +43,7 @@ const Outro = () => {
 
   // TODO edit css .spark-link
   const SparkRow = () => (
-    <DataRow noArrow={true}>
+    <Row noArrow={true}>
       <Spark />{' '}
       <Link
         text="SPARK"
@@ -59,7 +53,7 @@ const Outro = () => {
         rel="noopener noreferrer"
       />{' '}
       <Spark />
-    </DataRow>
+    </Row>
   );
 
   return (

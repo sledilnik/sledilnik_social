@@ -1,26 +1,27 @@
 import React from 'react';
 
-import DataRow from '../../shared/ui/DataRow';
-import EmbeddedNumberInOut from '../../shared/ui/EmbeddedNumberInOut';
+import {
+  Text,
+  Row,
+  Bold,
+  LocaleNumber,
+  LocaleNumberWithPlus,
+  Brackets,
+} from '../../shared/ui/New';
 
-function ActiveCasesRow({
-  title = '',
-  number = 0,
-  numIn = 0,
-  numOut = 0,
-  suffix = '',
-  inBrackets = true,
-}) {
+// TODO params: isUndefined, isNull?
+function ActiveCasesRow({ casesActive, casesActiveIn, casesActiveOut }) {
   return (
-    <DataRow title={title}>
-      <EmbeddedNumberInOut
-        number={number}
-        numIn={numIn}
-        numOut={numOut}
-        suffix={suffix}
-        inBrackets={inBrackets}
-      />
-    </DataRow>
+    <Row>
+      <Text> Aktivni primeri: </Text>
+      <Bold>
+        <LocaleNumber number={casesActive} />{' '}
+        <Brackets>
+          <LocaleNumberWithPlus number={casesActiveIn} />,{' '}
+          <LocaleNumber number={-casesActiveOut} />
+        </Brackets>
+      </Bold>
+    </Row>
   );
 }
 

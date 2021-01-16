@@ -14,55 +14,40 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
   const { today: hagtToday } = hagt.positive;
   const { today: hagtPerformed } = hagt.performed;
 
-  const options1 = {
-    suffix: ', ',
-    getPrefix: true,
+  const calcFraction = (numerator, denominator) => numerator / denominator;
+  const calcPercentage = value => value * 100;
+  const getPercentage = (numerator, denominator) => {
+    const canNotCalc = isNaN(numerator) || isNaN(denominator);
+    if (canNotCalc) {
+      return ' - ';
+    }
+
+    const fraction = calcFraction(numerator, denominator);
+    return calcPercentage(fraction);
   };
 
-  const options2 = {
-    prefix: 'testiranih: ',
-    suffix: ', delež pozitivnih: ',
-  };
-
-  const regPositiveData = {
-    number: regToday,
-    ...options1,
-  };
-
-  const regPerformedData = {
-    number: regPerformed,
-    ...options2,
-  };
-
-  const hagtPositiveData = {
-    number: hagtToday,
-    ...options1,
-  };
-
-  const hagtPerformedData = {
-    number: hagtPerformed,
-    ...options2,
-  };
+  const regPercentage = getPercentage(regToday, regPerformed);
+  const hagtPercentage = getPercentage(hagtToday, hagtPerformed);
 
   return (
     <div className={check_first}>
       <PercentageRow
         title={'PCR'}
-        numeratorOptions={regPositiveData}
-        denominatorOptions={regPerformedData}
+        numerator={regToday}
+        denominator={regPerformed}
+        percent={regPercentage}
       />
       <PercentageRow
-        title={'HAT'}
-        numeratorOptions={hagtPositiveData}
-        denominatorOptions={hagtPerformedData}
+        title={'PCR'}
+        numerator={hagtToday}
+        denominator={hagtPerformed}
+        percent={hagtPercentage}
       />
       <ActiveCasesRow
         title={'Aktivni primeri'}
-        number={casesActive}
-        numIn={casesActiveIn}
-        numOut={casesActiveOut}
-        suffix=" "
-        inBrackets={true}
+        casesActive={casesActive}
+        casesActiveIn={casesActiveIn}
+        casesActiveOut={casesActiveOut}
       />
     </div>
   );
