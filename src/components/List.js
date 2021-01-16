@@ -118,9 +118,9 @@ function findAndPushLongHospitalName(perHospitalChanges, hospitalsDict) {
   });
 }
 
-// Format
+// get date for Intro component
 function formatToLocaleDateString(
-  formatStr = "E, d. MMM yyyy 'ob' H.mm",
+  formatStr = 'd.M.yyyy',
   options = { locale: sl }
 ) {
   return dateAsText => {
@@ -129,8 +129,13 @@ function formatToLocaleDateString(
   };
 }
 
+/**
+ * get date with time 0:00:00; need to calculate if fetched data is not up to date
+ * date received is part of an object with properties: year, month, day
+ * at the moment we need to compare 4 dates from fetched data to today
+ */
 function getDateNoTime(obj) {
-  // TODO error check
+  // TODO error check?
   if (!obj) {
     const today = new Date();
     const todayArray = [today.getFullYear(), today.getMonth(), today.getDate()];
@@ -142,7 +147,7 @@ function getDateNoTime(obj) {
 }
 
 function getChecks({ stats, municipalities, patients, summary }) {
-  // data - no need for summary while it's an object
+  // data - no need to destructure summary while it's an object
   const patientsData = patients[patients.length - 1];
   const statsData = stats[stats.length - 1];
   const municipalitiesData = municipalities[municipalities.length - 1];
