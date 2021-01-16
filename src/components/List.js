@@ -171,25 +171,20 @@ function getChecks({ stats, municipalities, patients, summary }) {
   };
   const getDaysToToday = daysDifference(todayDate);
 
-  if (getDaysToToday(summaryDate) === -1) {
-    summaryCheck = 'red';
-  }
+  const setClassName = (className = '') => condition =>
+    condition ? className : '';
+  const setRED = setClassName('red');
 
-  if (getDaysToToday(patientsDate) > 0) {
-    patientsCheck = 'red';
-  }
+  const summaryCheck = setRED(getDaysToToday(summaryDate) === -1);
+  const patientsCheck = setRED(getDaysToToday(patientsDate) > 0);
+  const municipalitiesCheck = setRED(getDaysToToday(municipalitiesDate) > 1);
 
   const allToDateIsUndefined = isUndefined(
     stats[stats.length - 2].statePerAgeToDate[0].allToDate
   );
-
-  if (allToDateIsUndefined || getDaysToToday(statsDate) > 0) {
-    statsCheck = 'red';
-  }
-
-  if (getDaysToToday(municipalitiesDate) > 1) {
-    municipalitiesCheck = 'red';
-  }
+  const statsCheck = setRED(
+    (allToDateIsUndefined || getDaysToToday(statsDate)) > 0
+  );
 
   return {
     check_first: summaryCheck,
