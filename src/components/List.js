@@ -41,7 +41,16 @@ const List = props => {
     }
   }
 
-  // TODO find better variable names
+  /**
+   * checks if data is not updated for the current day; if certain conditions are met then sets variable which represent error css class
+   * TODO find better variable names?
+   * ? implement -"red" +"error"
+   * ? -summaryCheck(check_first) +???
+   * ? -patientsCheck(check_second) +???
+   * ? -statsCheck(check_third_age) +???
+   * ? -municipalitiesCheck(check_third_mun) +???
+   */
+
   const {
     check_first,
     check_second,
@@ -120,14 +129,14 @@ function getChecks({ stats, municipalities, patients, summary }) {
   const statsData = stats[stats.length - 1];
   const municipalitiesData = municipalities[municipalities.length - 1];
 
-  // my datestamps
+  // dates
   const todayDate = getDateNoTime();
   const patientsDate = getDateNoTime(patientsData);
   const statsDate = getDateNoTime(statsData);
   const municipalitiesDate = getDateNoTime(municipalitiesData);
   const summaryDate = getDateNoTime(summary.testsToday);
 
-  // paint red if data is not updated for the current day
+  // paint red if data is not updated for the current day;
   var summaryCheck = '';
   var patientsCheck = '';
   var statsCheck = '';
@@ -143,23 +152,6 @@ function getChecks({ stats, municipalities, patients, summary }) {
   if (differenceInDays(summaryDate) === -1) {
     summaryCheck = 'red';
   }
-
-  const todayDateOld = parseInt(
-    new Date().getFullYear().toString() +
-      (new Date().getMonth() + 1).toString() +
-      new Date().getDate().toString()
-  );
-
-  const statsDateOld =
-    stats[stats.length - 1].year.toString() +
-    stats[stats.length - 1].month.toString() +
-    stats[stats.length - 1].day.toString();
-
-  console.log(
-    differenceInDays(patientsDate),
-    { todayDateOld, statsDateOld },
-    todayDateOld - statsDateOld
-  );
 
   if (differenceInDays(patientsDate) > 0) {
     patientsCheck = 'red';
