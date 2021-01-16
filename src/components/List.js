@@ -55,49 +55,7 @@ const List = props => {
       new Date().getDate().toString()
   );
 
-  const patientsDate =
-    patients[patients.length - 1].year.toString() +
-    patients[patients.length - 1].month.toString() +
-    patients[patients.length - 1].day.toString();
-  const statsDate =
-    stats[stats.length - 1].year.toString() +
-    stats[stats.length - 1].month.toString() +
-    stats[stats.length - 1].day.toString();
-  const municipalitiesDate = parseInt(
-    municipalities[municipalities.length - 1].year.toString() +
-      municipalities[municipalities.length - 1].month.toString() +
-      municipalities[municipalities.length - 1].day.toString()
-  );
-  const summaryDate =
-    summary.testsToday.year.toString() +
-    summary.testsToday.month.toString() +
-    summary.testsToday.day.toString();
-
-  let introTodayDate = formatToLocaleDateString('d.M.yyyy')(new Date());
-
-  // paint red if data is not updated for the current day
-  var check_first = '';
-  var check_second = '';
-  var check_third_age = '';
-  var check_third_mun = '';
-
-  if (todayDate - summaryDate === -1) {
-    check_first = 'red';
-  }
-  if (todayDate - patientsDate > 0) {
-    check_second = 'red';
-  }
-  if (
-    stats[stats.length - 2].statePerAgeToDate[0].allToDate === undefined ||
-    todayDate - statsDate > 0
-  ) {
-    check_third_age = 'red';
-  }
-  if (true) {
-  }
-  if (todayDate - municipalitiesDate > 1) {
-    check_third_mun = 'red';
-  }
+  const introTodayDate = formatToLocaleDateString('d.M.yyyy')(new Date());
 
   return (
     <div className="List">
