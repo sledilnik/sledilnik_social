@@ -2,7 +2,7 @@
 
 Basic API extraction to serve Sledilnik's API data in a Social media form.
 
-## ver: 0.2.0
+## ver: 0.2.1
 
 Endpoints for data fetch are set in `apiPathObject.js`
 
@@ -52,18 +52,92 @@ Display 3 sets of data:
 
 #### Data Display
 
-##### DataRow
+##### Translate
 
-Takes 3 arguments: title, noColon, children.
+##### DataTranslate
 
 ```javascript
-
-<DataRow title="Some text">Some data</DataRow>
-
-// Output
-➡️ Title: Some data
-
+<DataTranslate number={hosp.number} text={'oseba'} />
 ```
+
+Output: 327 oseb
+
+##### Intro
+
+##### Outro
+
+---
+
+##### Text
+
+##### Bold
+
+##### Emoji
+
+```javascript
+<Emoji emoji={'🇸🇮'} ariaLabel={'flag'} />
+```
+
+Output: 🇸🇮
+
+##### Arrow
+
+##### Row
+
+```javascript
+const Row = ({
+  children,
+  end = true,
+  punctuationMark = '.',
+  noArrow = false,
+  className = '',
+}) => {
+  return (
+    <p className={`text ${className}`}>
+      {noArrow ? '' : <Arrow />} {children}
+      {end && punctuationMark}
+    </p>
+  );
+};
+
+<Row>
+  <Text>Skupaj </Text>
+  <Bold>
+    <LocaleNumber number={confirmed} />
+  </Bold> potrjenih primerov
+</Row>;
+```
+
+Output: ➡️ Skupaj 148.556 potrjenih primerov.
+
+```javascript
+<Row end={false}>
+  <Text>{title}: </Text>
+</Row>
+```
+
+Output: ➡️ Stanje po bolnišnicah:
+
+##### LocaleNumber
+
+##### LocaleNumberWithPlus
+
+##### LocaleNumberWithPercent
+
+##### Brackets
+
+```javascript
+<Brackets>
+  <LocaleNumberWithPlus number={icu.in} />,{' '}
+  <LocaleNumberWithPlus number={-icu.out} />
+</Brackets>
+```
+
+Output: (+6, −9)
+
+_*not implemented yet*_
+
+##### NoData
 
 ## ver: 0.1.0
 
