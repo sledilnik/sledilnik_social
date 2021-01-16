@@ -146,6 +146,11 @@ function getDateNoTime(obj) {
   return new Date(year, month - 1, day);
 }
 
+/**
+ * paint red if data is not updated for the current day;
+ * params <somethin>Check are used as className
+ * TODO figure out if you can use date-fns
+ */
 function getChecks({ stats, municipalities, patients, summary }) {
   // data - no need to destructure summary while it's an object
   const patientsData = patients[patients.length - 1];
@@ -158,12 +163,6 @@ function getChecks({ stats, municipalities, patients, summary }) {
   const statsDate = getDateNoTime(statsData);
   const municipalitiesDate = getDateNoTime(municipalitiesData);
   const summaryDate = getDateNoTime(summary.testsToday);
-
-  // paint red if data is not updated for the current day;
-  var summaryCheck = '';
-  var patientsCheck = '';
-  var statsCheck = '';
-  var municipalitiesCheck = '';
 
   const daysDifference = date1 => date2 => {
     const MILLISECONDS_DAY = 24 * 60 * 60 * 1000;
