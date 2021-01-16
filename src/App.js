@@ -5,7 +5,7 @@ import withListLoading from './components/withListLoading';
 import apiPathObject from './utils/apiPathObject';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import Legend from './components/List/Legend';
+import Legend from './components/Legend';
 
 function App() {
   const ListLoading = withListLoading(List);

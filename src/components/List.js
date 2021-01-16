@@ -1,11 +1,15 @@
 import React from 'react';
-import Intro from './List/Intro';
-import Outro from './shared/Outro';
-import TESTS_ACTIVE from './shared/TESTS_ACTIVE';
-import HOSPITALIZED_DECEASED from './shared/HOSPITALIZED_DECEASED';
+
+import format from 'date-fns/format';
+import { sl } from 'date-fns/locale';
+
+import Intro from './shared/ui/Intro';
+import Outro from './shared/ui/Outro';
+import TESTS_ACTIVE from './List/TESTS_ACTIVE';
 import Combined from './List/Combined';
 
 import './List.css';
+import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 
 const List = props => {
   const { stats } = props;
@@ -19,87 +23,33 @@ const List = props => {
 
   // prepare hospitalsDict
   const { hospitalsList } = props;
-  let hospitalsDict = [];
-  for (let i = 0; i < hospitalsList.length; i++) {
-    hospitalsDict.push([hospitalsList[i].code, hospitalsList[i].name]);
-  }
+  const hospitalsDict = prepareHospitalsDict(hospitalsList);
 
   // prepare perHospitalChanges
-
-  const perHospitalChanges =
-    patients[patients.length - 1] === undefined
-      ? 'NI PODATKOV'
-      : Object.entries(patients[patients.length - 1].facilities);
-  for (let i = 0; i < perHospitalChanges.length; i++) {
-    for (let j = 0; j < hospitalsDict.length; j++) {
-      if (perHospitalChanges[i][0] === hospitalsDict[j][0]) {
-        perHospitalChanges[i].push(hospitalsDict[j][1]);
-      }
-    }
-  }
-
-  // const datestamps
-  const todayDate = parseInt(
-    new Date().getFullYear().toString() +
-      (new Date().getMonth() + 1).toString() +
-      new Date().getDate().toString()
+  const perHospitalChanges = getPerHospitalChanges(patients);
+  const perHospitalChangesWithLongName = findAndPushLongHospitalName(
+    perHospitalChanges,
+    hospitalsDict
   );
 
-  const patientsDate =
-    patients[patients.length - 1].year.toString() +
-    patients[patients.length - 1].month.toString() +
-    patients[patients.length - 1].day.toString();
-  const statsDate =
-    stats[stats.length - 1].year.toString() +
-    stats[stats.length - 1].month.toString() +
-    stats[stats.length - 1].day.toString();
-  const municipalitiesDate = parseInt(
-    municipalities[municipalities.length - 1].year.toString() +
-      municipalities[municipalities.length - 1].month.toString() +
-      municipalities[municipalities.length - 1].day.toString()
-  );
-  const summaryDate =
-    summary.testsToday.year.toString() +
-    summary.testsToday.month.toString() +
-    summary.testsToday.day.toString();
-  //const patientsCheck = patients[patients.length -1].year.toString()+patients[patients.length -1].month.toString()+patients[patients.length -1].day.toString();
+  /**
+   * checks if data is not updated for the current day; if certain conditions are met then sets variable which represent error css class
+   * TODO find better variable names?
+   * ? implement -"red" +"error"
+   * ? -summaryCheck(check_first) +???
+   * ? -patientsCheck(check_second) +???
+   * ? -statsCheck(check_third_age) +???
+   * ? -municipalitiesCheck(check_third_mun) +???
+   */
+  const {
+    check_first,
+    check_second,
+    check_third_age,
+    check_third_mun,
+  } = getChecks({ stats, municipalities, patients, summary });
 
-  // let introTodayDate = `${stats[stats.length - 1].day}.${
-  //   stats[stats.length - 1].month
-  // }.${stats[stats.length - 1].year}`;
+  const introTodayDate = formatToLocaleDateString('d.M.yyyy')(new Date());
 
-  let introTodayDate =
-    new Date().getDate().toString() +
-    '.' +
-    (new Date().getMonth() + 1).toString() +
-    '.' +
-    new Date().getFullYear().toString();
-
-  // paint red if data is not updated for the current day
-  var check_first = '';
-  var check_second = '';
-  var check_third_age = '';
-  var check_third_mun = '';
-
-  if (todayDate - summaryDate === -1) {
-    check_first = 'red';
-  }
-  if (todayDate - patientsDate > 0) {
-    check_second = 'red';
-  }
-  if (
-    stats[stats.length - 2].statePerAgeToDate[0].allToDate === undefined ||
-    todayDate - statsDate > 0
-  ) {
-    check_third_age = 'red';
-  }
-  if (true) {
-  }
-  if (todayDate - municipalitiesDate > 1) {
-    check_third_mun = 'red';
-  }
-
-  // render app
   return (
     <div className="List">
       <section className="tweet">
@@ -132,7 +82,7 @@ const List = props => {
           stats={stats}
           patients={patients}
           municipalities={municipalities}
-          perHospitalChanges={perHospitalChanges}
+          perHospitalChanges={perHospitalChangesWithLongName}
         />
         <Outro />
       </section>
@@ -140,3 +90,105 @@ const List = props => {
   );
 };
 export default List;
+
+const isUndefined = val => val === undefined;
+
+// prepare hospitalsDict
+function prepareHospitalsDict(hospitalsList) {
+  return hospitalsList.map(hospital => [hospital.code, hospital.name]);
+}
+
+// prepare perHospitalChanges
+function getPerHospitalChanges(patients) {
+  const patientsData = patients[patients.length - 1];
+  const patientsDataIsNotUndefined = !isUndefined(patientsData);
+
+  return (
+    patientsDataIsNotUndefined &&
+    Object.entries(patients[patients.length - 1].facilities)
+  );
+}
+
+function findAndPushLongHospitalName(perHospitalChanges, hospitalsDict) {
+  return perHospitalChanges.map(hospital => {
+    const hospitalLongName = hospitalsDict.filter(
+      item => hospital[0] === item[0]
+    )[0][1];
+    return [...hospital, hospitalLongName];
+  });
+}
+
+// get date for Intro component
+function formatToLocaleDateString(
+  formatStr = 'd.M.yyyy',
+  options = { locale: sl }
+) {
+  return dateAsText => {
+    const date = new Date(dateAsText);
+    return format(date, formatStr, options);
+  };
+}
+
+/**
+ * get date with time 0:00:00; need to calculate if fetched data is not up to date
+ * date received is part of an object with properties: year, month, day
+ * at the moment we need to compare 4 dates from fetched data to today
+ */
+function getDateNoTime(obj) {
+  // TODO error check?
+  if (!obj) {
+    const today = new Date();
+    const todayArray = [today.getFullYear(), today.getMonth(), today.getDate()];
+    return new Date(...todayArray);
+  }
+
+  let { year, month, day } = obj;
+  return new Date(year, month - 1, day);
+}
+
+/**
+ * paint red if data is not updated for the current day;
+ * params <somethin>Check are used as className
+ * TODO figure out if you can use date-fns
+ */
+function getChecks({ stats, municipalities, patients, summary }) {
+  // data - no need to destructure summary while it's an object
+  const patientsData = patients[patients.length - 1];
+  const statsData = stats[stats.length - 1];
+  const municipalitiesData = municipalities[municipalities.length - 1];
+
+  // dates
+  const todayDate = getDateNoTime();
+  const patientsDate = getDateNoTime(patientsData);
+  const statsDate = getDateNoTime(statsData);
+  const municipalitiesDate = getDateNoTime(municipalitiesData);
+  const summaryDate = getDateNoTime(summary.testsToday);
+
+  const daysDifference = date1 => date2 => {
+    const MILLISECONDS_DAY = 24 * 60 * 60 * 1000;
+    return (date1 - date2) / MILLISECONDS_DAY;
+  };
+  const getDaysToToday = daysDifference(todayDate);
+
+  const setClassName = (className = '') => condition =>
+    condition ? className : '';
+  const setRED = setClassName('red');
+
+  const summaryCheck = setRED(getDaysToToday(summaryDate) === -1);
+  const patientsCheck = setRED(getDaysToToday(patientsDate) > 0);
+  const municipalitiesCheck = setRED(getDaysToToday(municipalitiesDate) > 1);
+
+  const allToDateIsUndefined = isUndefined(
+    stats[stats.length - 2].statePerAgeToDate[0].allToDate
+  );
+  const statsCheck = setRED(
+    (allToDateIsUndefined || getDaysToToday(statsDate)) > 0
+  );
+
+  return {
+    check_first: summaryCheck,
+    check_second: patientsCheck,
+    check_third_age: statsCheck,
+    check_third_mun: municipalitiesCheck,
+  };
+}

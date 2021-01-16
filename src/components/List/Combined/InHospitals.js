@@ -1,9 +1,15 @@
 import React from 'react';
 
-import DataRow from '../shared/DataRow';
-import DataTranslateInOut from '../shared/DataTranslateInOut';
+import {
+  Row,
+  Bold,
+  Brackets,
+  LocaleNumberWithPlus,
+  Text,
+} from '../../shared/ui/New';
+import DataTranslate from '../../shared/ui/DataTranslate';
 
-function InHospitals({ check_second, patients, perHospitalChanges }) {
+function InHospitals({ check_second, title, patients, perHospitalChanges }) {
   const InHospital = ({
     hospShort,
     hospitalName,
@@ -12,23 +18,23 @@ function InHospitals({ check_second, patients, perHospitalChanges }) {
   }) => {
     return (
       <li key={hospShort}>
-        <span className="bold">{hospitalName}</span>:{' '}
-        <DataTranslateInOut
-          number={hosp.number}
-          text={'oseba'}
-          numIn={hosp.in}
-          numOut={hosp.out}
-          insideColons={true}
-        />
-        , EIT{' '}
-        <DataTranslateInOut
-          number={icu.number}
-          text={'oseba'}
-          numIn={icu.in}
-          numOut={icu.out}
-          insideColons={true}
-        />
-        .
+        <Bold>{hospitalName}</Bold>:{' '}
+        <DataTranslate number={hosp.number} text={'oseba'} />{' '}
+        <Bold>
+          <Brackets>
+            <LocaleNumberWithPlus number={hosp.in} />,{' '}
+            <LocaleNumberWithPlus number={-hosp.out} />
+          </Brackets>
+        </Bold>
+        <Text>, EIT: </Text>
+        <DataTranslate number={icu.number} text={'oseba'} />{' '}
+        <Bold>
+          <Brackets>
+            <LocaleNumberWithPlus number={icu.in} />,{' '}
+            <LocaleNumberWithPlus number={-icu.out} />
+          </Brackets>
+        </Bold>
+        <Text>.</Text>
       </li>
     );
   };
@@ -71,7 +77,7 @@ function InHospitals({ check_second, patients, perHospitalChanges }) {
 
   return (
     <span className={check_second}>
-      <DataRow title={'Stanje po bolnišnicah'} />
+      <Row end={false}>{title}: </Row>
       <ul>{noPatientsData ? 'NI PODATKOV' : hospitalOutput}</ul>
     </span>
   );

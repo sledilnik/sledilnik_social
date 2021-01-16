@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Backdrop from './Backdrop';
 
 import './Header.css';
+import Backdrop from './shared/Backdrop';
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -19,8 +19,6 @@ function Header() {
       header.classList.remove('closingMenu');
       header.classList.add('menuOpen');
     }
-
-    // document.body.classList.toggle('menuOpen'); // on mobile (ios14) can not close menu
   };
 
   const onLinkClick = event => {
@@ -29,7 +27,6 @@ function Header() {
       event.preventDefault();
       const legend = document.getElementById('legenda');
       legend.scrollIntoView({
-        // behavior: 'smooth',
         block: 'center',
       });
     }
@@ -82,7 +79,7 @@ function Header() {
         </a>
         <a
           className="nav-link"
-          href="https://sledilnik-social-old.netlify.app/"
+          href="https://sledilnik-social-ver-0-1-0.netlify.app/"
           target="_blank"
           rel="noopener noreferrer"
           onClick={onLinkClick}

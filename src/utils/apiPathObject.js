@@ -1,6 +1,7 @@
 import { addDays } from 'date-fns';
 
-const dateFrom = addDays(new Date(), -18).toISOString();
+const daysBefore = 18; // to calculate trends we need data for 18 days
+const dateFrom = addDays(new Date(), -daysBefore).toISOString();
 
 const BASE_API_URL = 'https://api.sledilnik.org';
 const baseURL = new URL(BASE_API_URL);

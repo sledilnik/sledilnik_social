@@ -1,7 +1,7 @@
 import React from 'react';
-import Municipalities from './shared/Municipalities';
 
 import './Legend.css';
+import Municipalities from './List/Combined/CITIES_SOCIAL_FRIENDLY/Municipalities';
 
 const municipalitiesTrend = [
   {
@@ -28,7 +28,7 @@ const municipalitiesTrend = [
 ];
 
 function Legend({ municipalities, isLoading }) {
-  // i guess should render different for each condition
+  // should render different for each condition?
   if (isLoading || !municipalities) {
     return '';
   }

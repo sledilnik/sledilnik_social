@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import MunicipalitiesDict from '../../../MunicipalitiesDict';
+import MunicipalitiesDict from '../../../../MunicipalitiesDict';
 
 // { name: x, translation: X} becomes { x: { name: x, translation: X }}
 const MunicipalitiesLookup = _.keyBy(MunicipalitiesDict, 'name');
@@ -194,25 +194,6 @@ const Municipalities = props => {
         trend = (Math.log(y1) + 3 * Math.log(y3) - 4 * Math.log(y2)) / 8;
       }
 
-      //       red = log(y1*y3^3/y2^4) / 8
-      // y1=vsota novih primerov za dneve (-14..-8)
-      // y2=vsota novih primerov za dneve (-10..-4)
-      // y3=vsota novih primerov za dneve (-6..0)
-
-      // OLD
-      // let today7d = 0;
-      // let yesterday7d = 0;
-      // // 7 days from today
-      // for (let i = 0; i <= 13; i++) {
-      //   today7d += townsDifferences[i];
-      // }
-      // // 7 days from yesterday
-      // for (let i = 1; i <= 13; i++) {
-      //   yesterday7d += townsDifferences[i];
-      // }
-      // // compare
-      // trend = today7d - yesterday7d;
-
       if (props.showTrend === 'y') {
         // plot FB/TW friendly icons
         upDown = setPlatformFriendlyIcon(props.icons)(trend);
@@ -221,24 +202,6 @@ const Municipalities = props => {
           Math.round((trend + Number.EPSILON) * 100000) / 100000
         }</i> `;
       }
-
-      // fancy SVGs
-      // if (count < trend) {
-      //   upDown = "<img src='trend_down.svg' alt='trend_down' width='16px' height='auto'>"
-      // } else if (count > trend) {
-      //   upDown = "<img src='trend_up.svg' alt='trend_up' width='16px' height='auto'>"
-      // } else {
-      //   upDown = "<img src='trend_neutral.svg' alt='trend_neutral' width='16px' height='auto'>"
-      // }
-
-      // OLD ICONS
-      // if (trend < 0) {
-      //   upDown = "📉"
-      // } else if (trend > 0) {
-      //   upDown = "📈"
-      // } else {
-      //   upDown = "➖"
-      // }
 
       outputTowns.push(towns[j]);
       outputTrends.push(upDown);
@@ -258,6 +221,7 @@ const Municipalities = props => {
     }
     outputLabel = outputLabel.concat(`<strong>&nbsp;+${count}<br></strong>`);
 
+    // TODO Lists do not contain only <li> elements and script supporting elements (<script> and <template>)
     return (
       <div key={count}>
         <span dangerouslySetInnerHTML={{ __html: outputLabel }}></span>
