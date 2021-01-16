@@ -35,6 +35,7 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
       <Deceased
         title={'Preminuli'}
         subtitle={'skupaj '}
+        translate={'oseba'}
         deceased={deceased}
         deceasedToDate={deceasedToDate}
       />
