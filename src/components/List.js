@@ -2,6 +2,7 @@ import React from 'react';
 
 import format from 'date-fns/format';
 import { sl } from 'date-fns/locale';
+import _ from 'lodash';
 
 import Intro from './shared/ui/Intro';
 import Outro from './shared/ui/Outro';
@@ -100,13 +101,9 @@ function prepareHospitalsDict(hospitalsList) {
 
 // prepare perHospitalChanges
 function getPerHospitalChanges(patients) {
-  const patientsData = patients[patients.length - 1];
+  const patientsData = _.last(patients);
   const patientsDataIsNotUndefined = !isUndefined(patientsData);
-
-  return (
-    patientsDataIsNotUndefined &&
-    Object.entries(patients[patients.length - 1].facilities)
-  );
+  return patientsDataIsNotUndefined && Object.entries(patientsData.facilities);
 }
 
 function findAndPushLongHospitalName(perHospitalChanges, hospitalsDict) {
@@ -153,9 +150,9 @@ function getDateNoTime(obj) {
  */
 function getChecks({ stats, municipalities, patients, summary }) {
   // data - no need to destructure summary while it's an object
-  const patientsData = patients[patients.length - 1];
+  const patientsData = _.last(patients);
   const statsData = stats[stats.length - 1];
-  const municipalitiesData = municipalities[municipalities.length - 1];
+  const municipalitiesData = _.last(municipalities);
 
   // dates
   const todayDate = getDateNoTime();
@@ -179,7 +176,7 @@ function getChecks({ stats, municipalities, patients, summary }) {
   const municipalitiesCheck = setRED(getDaysToToday(municipalitiesDate) > 1);
 
   const allToDateIsUndefined = isUndefined(
-    stats[stats.length - 2].statePerAgeToDate[0].allToDate
+    _.get(_.nth(stats, -2), 'statePerAgeToDate[0].allToDate')
   );
   const statsCheck = setRED(
     (allToDateIsUndefined || getDaysToToday(statsDate)) > 0
