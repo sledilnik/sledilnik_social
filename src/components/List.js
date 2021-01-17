@@ -150,7 +150,7 @@ function getDateNoTime(obj) {
 function getChecks({ stats, municipalities, patients, summary }) {
   // data - no need to destructure summary while it's an object
   const patientsData = _.last(patients);
-  const statsData = stats[stats.length - 1];
+  const statsData = _.last(stats);
   const municipalitiesData = _.last(municipalities);
 
   // dates
