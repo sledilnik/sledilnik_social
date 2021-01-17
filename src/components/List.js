@@ -49,7 +49,7 @@ const List = props => {
     check_third_mun,
   } = getChecks({ stats, municipalities, patients, summary });
 
-  const introTodayDate = formatToLocaleDateString('2020-12-1', 'd.M.yyyy');
+  const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
 
   return (
     <div className="List">
