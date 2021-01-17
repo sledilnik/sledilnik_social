@@ -2,6 +2,7 @@ import React from 'react';
 
 import format from 'date-fns/format';
 import { sl } from 'date-fns/locale';
+import differenceInDays from 'date-fns/differenceInDays';
 
 import Intro from './shared/ui/Intro';
 import Outro from './shared/ui/Outro';
@@ -125,18 +126,9 @@ function formatToLocaleDateString(
 }
 
 /**
- * get date with time 0:00:00; need to calculate if fetched data is not up to date
  * date received is part of an object with properties: year, month, day
- * at the moment we need to compare 4 dates from fetched data to today
  */
-function getDateNoTime(obj) {
-  // TODO error check?
-  if (!obj) {
-    const today = new Date();
-    const todayArray = [today.getFullYear(), today.getMonth(), today.getDate()];
-    return new Date(...todayArray);
-  }
-
+function createDateFromObject(obj = {}) {
   let { year, month, day } = obj;
   return new Date(year, month - 1, day);
 }
@@ -153,37 +145,29 @@ function getChecks({ stats, municipalities, patients, summary }) {
   const municipalitiesData = municipalities.slice(-1).pop();
 
   // dates
-  const todayDate = getDateNoTime();
-  const patientsDate = getDateNoTime(patientsData);
-  const statsDate = getDateNoTime(statsData);
-  const municipalitiesDate = getDateNoTime(municipalitiesData);
-  const summaryDate = getDateNoTime(summary.testsToday);
+  const patientsDate = createDateFromObject(patientsData);
+  const statsDate = createDateFromObject(statsData);
+  const municipalitiesDate = createDateFromObject(municipalitiesData);
+  const summaryDate = createDateFromObject(summary.testsToday);
 
-  const daysDifference = date1 => date2 => {
-    const MILLISECONDS_DAY = 24 * 60 * 60 * 1000;
-    return (date1 - date2) / MILLISECONDS_DAY;
-  };
-  const getDaysToToday = daysDifference(todayDate);
+  // checks
+  const patientsCheck = differenceInDays(new Date(), patientsDate) > 0;
 
   const isPerAgeDataUndefined = isUndefined(
     stats.slice(-2, -1).pop().statePerAgeToDate[0].allToDate
   );
+  const statsCheck =
+    isPerAgeDataUndefined || differenceInDays(new Date(), statsDate) > 0;
 
-  const summaryCheck = setRED(getDaysToToday(summaryDate) === -1);
-  const patientsCheck = setRED(getDaysToToday(patientsDate) > 0);
-  const municipalitiesCheck = setRED(getDaysToToday(municipalitiesDate) > 1);
+  const municipalitiesCheck =
+    differenceInDays(new Date(), municipalitiesDate) > 1;
 
-  const allToDateIsUndefined = isUndefined(
-    _.get(_.nth(stats, -2), 'statePerAgeToDate[0].allToDate')
-  );
-  const statsCheck = setRED(
-    (allToDateIsUndefined || getDaysToToday(statsDate)) > 0
-  );
+  const summaryCheck = differenceInDays(new Date(), summaryDate) === -1;
 
   return {
-    check_first: summaryCheck,
-    check_second: patientsCheck,
-    check_third_age: statsCheck,
-    check_third_mun: municipalitiesCheck,
+    check_first: summaryCheck ? 'red' : '',
+    check_second: patientsCheck ? 'red' : '',
+    check_third_age: statsCheck ? 'red' : '',
+    check_third_mun: municipalitiesCheck ? 'red' : '',
   };
 }
