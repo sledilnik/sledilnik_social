@@ -49,7 +49,7 @@ const List = props => {
     check_third_mun,
   } = getChecks({ stats, municipalities, patients, summary });
 
-  const introTodayDate = formatToLocaleDateString('d.M.yyyy')(new Date());
+  const introTodayDate = formatToLocaleDateString('2020-12-1', 'd.M.yyyy');
 
   return (
     <div className="List">
@@ -117,13 +117,12 @@ function findAndPushLongHospitalName(perHospitalChanges, hospitalsDict) {
 
 // get date for Intro component
 function formatToLocaleDateString(
+  dateAsText = '',
   formatStr = 'd.M.yyyy',
   options = { locale: sl }
 ) {
-  return dateAsText => {
-    const date = new Date(dateAsText);
-    return format(date, formatStr, options);
-  };
+  const date = new Date(dateAsText);
+  return format(date, formatStr, options);
 }
 
 /**
