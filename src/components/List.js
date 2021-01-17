@@ -2,7 +2,6 @@ import React from 'react';
 
 import format from 'date-fns/format';
 import { sl } from 'date-fns/locale';
-import _ from 'lodash';
 
 import Intro from './shared/ui/Intro';
 import Outro from './shared/ui/Outro';
@@ -101,7 +100,7 @@ function prepareHospitalsDict(hospitalsList) {
 
 // prepare perHospitalChanges
 function getPerHospitalChanges(patients) {
-  const patientsData = _.last(patients);
+  const patientsData = patients.slice(-1).pop();
   const patientsDataIsNotUndefined = !isUndefined(patientsData);
   return patientsDataIsNotUndefined && Object.entries(patientsData.facilities);
 }
@@ -148,10 +147,10 @@ function getDateNoTime(obj) {
  * TODO figure out if you can use date-fns
  */
 function getChecks({ stats, municipalities, patients, summary }) {
-  // data - no need to destructure summary while it's an object
-  const patientsData = _.last(patients);
-  const statsData = _.last(stats);
-  const municipalitiesData = _.last(municipalities);
+  // data
+  const patientsData = patients.slice(-1).pop();
+  const statsData = stats.slice(-1).pop();
+  const municipalitiesData = municipalities.slice(-1).pop();
 
   // dates
   const todayDate = getDateNoTime();
@@ -166,9 +165,9 @@ function getChecks({ stats, municipalities, patients, summary }) {
   };
   const getDaysToToday = daysDifference(todayDate);
 
-  const setClassName = (className = '') => condition =>
-    condition ? className : '';
-  const setRED = setClassName('red');
+  const isPerAgeDataUndefined = isUndefined(
+    stats.slice(-2, -1).pop().statePerAgeToDate[0].allToDate
+  );
 
   const summaryCheck = setRED(getDaysToToday(summaryDate) === -1);
   const patientsCheck = setRED(getDaysToToday(patientsDate) > 0);
