@@ -7,8 +7,7 @@ function Vaccination({ toDate, today }) {
 
   return (
     <Row>
-      {title}
-      <span className="bold">{toDate}</span>{' '}
+      {title}: <span className="bold">{toDate}</span>{' '}
       <Brackets>
         <span className="bold">{today}</span>
       </Brackets>
