@@ -159,6 +159,8 @@ const List = ({
       <section className="tweet">
         <Intro post={3} introTodayDate={introTodayDate} />
         <Combined
+          testsActive={{ cases, regTests, hagtTests }}
+          hospitalizedDeceased={{ hospitalized, onRespiratory, deceased }}
           check_first={check_first}
           check_second={check_second}
           check_third_age={check_third_age}

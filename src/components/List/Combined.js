@@ -13,6 +13,8 @@ import {
 } from './../../utils/createLocaleNumberFormat';
 
 function Combined({
+  testsActive,
+  hospitalizedDeceased,
   check_first,
   check_second,
   check_third_age,
@@ -38,8 +40,9 @@ function Combined({
     <>
       <TESTS_ACTIVE
         check_first={check_first}
-        labTests={labTests}
-        summary={summary}
+        cases={testsActive.cases}
+        regTests={testsActive.regTests}
+        hagtTests={testsActive.hagtTests}
       />
       <Vaccination
         toDate={formatNumber(vaccinationToDate)}
@@ -54,8 +57,9 @@ function Combined({
       />
       <HOSPITALIZED_DECEASED
         check_second={check_second}
-        stats={stats}
-        patients={patients}
+        hospitalized={hospitalizedDeceased.hospitalized}
+        onRespiratory={hospitalizedDeceased.onRespiratory}
+        deceased={hospitalizedDeceased.deceased}
       />
       <InHospitals
         title={'Stanje po bolnišnicah'}
