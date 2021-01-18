@@ -13,7 +13,7 @@ import './List.css';
 import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 
 function getTestsActiveData(labTests, summary) {
-  const { regular, hagt } = labTests[labTests.length - 1].data;
+  const { regular, hagt } = labTests.slice(-1).pop().data;
   const casesActive = summary.casesActive.value;
   const casesActiveIn = summary.casesActive.subValues.in;
   const casesActiveOut = summary.casesActive.subValues.out;
