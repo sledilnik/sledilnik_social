@@ -45,7 +45,7 @@ function Combined({
         toDate={formatNumber(vaccinationToDate)}
         today={alwaysSignDisplay(vaccinationToday)}
       />
-      <Confirmed confirmed={confirmedToDate} />
+      <Confirmed confirmed={formatNumber(confirmedToDate)} />
       <PerAge
         title={'Potrjeni primeri po starosti'}
         check_third_age={check_third_age}
