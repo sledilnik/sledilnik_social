@@ -12,11 +12,11 @@ import Combined from './List/Combined';
 import './List.css';
 import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 
-function getTestsActiveData(labTests, summary) {
-  const { regular, hagt } = labTests.slice(-1).pop().data;
-  const casesActive = summary.casesActive.value;
-  const casesActiveIn = summary.casesActive.subValues.in;
-  const casesActiveOut = summary.casesActive.subValues.out;
+function getTestsActiveData(labData, active) {
+  const { regular, hagt } = labData;
+  const casesActive = active.value;
+  const casesActiveIn = active.subValues.in;
+  const casesActiveOut = active.subValues.out;
 
   const cases = { casesActive, casesActiveIn, casesActiveOut };
 
@@ -40,18 +40,18 @@ function getTestsActiveData(labTests, summary) {
   };
 }
 
-const List = props => {
-  const { stats } = props;
-  const { municipalities } = props;
-  const { patients } = props;
-  const { labTests } = props;
-  const { summary } = props;
-
+const List = ({
+  stats,
+  municipalities,
+  patients,
+  labTests,
+  summary,
+  hospitalsList,
+}) => {
   if (!stats || stats.length === 0)
     return <p>Napaka: API ne vrača podatkov, refresh page !!!</p>;
 
   // prepare hospitalsDict
-  const { hospitalsList } = props;
   const hospitalsDict = prepareHospitalsDict(hospitalsList);
 
   // prepare perHospitalChanges
@@ -79,7 +79,15 @@ const List = props => {
 
   const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
 
-  const { cases, regTests, hagtTests } = getTestsActiveData(labTests, summary);
+  //prepare data for TESTS_ACTIVE
+  const lastLabTests = labTests.slice(-1).pop().data;
+  const { casesActive } = summary;
+  const { cases, regTests, hagtTests } = getTestsActiveData(
+    lastLabTests,
+    casesActive
+  );
+
+  // prepare data for HOSPITALIZED_DECEASED
 
   return (
     <div className="List">

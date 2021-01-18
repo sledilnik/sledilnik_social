@@ -9,6 +9,9 @@ import {
 } from '../../utils/createLocaleNumberFormat';
 
 function TESTS_ACTIVE({ check_first, cases, regTests, hagtTests }) {
+  if (regTests === undefined) {
+    return 'no regTests';
+  }
   const { regToday, regPerformed, regFraction } = regTests;
   const { hagtToday, hagtPerformed, hagtFraction } = hagtTests;
   const { casesActive, casesActiveIn, casesActiveOut } = cases;
