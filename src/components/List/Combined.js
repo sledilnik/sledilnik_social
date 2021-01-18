@@ -7,6 +7,10 @@ import PerAge from './Combined/PerAge';
 import InHospitals from './Combined/InHospitals';
 import Vaccination from './Combined/Vaccination';
 import Confirmed from './Combined/Confirmed';
+import {
+  formatNumber,
+  alwaysSignDisplay,
+} from './../../utils/createLocaleNumberFormat';
 
 function Combined({
   check_first,
@@ -37,7 +41,10 @@ function Combined({
         labTests={labTests}
         summary={summary}
       />
-      <Vaccination toDate={vaccinationToDate} today={vaccinationToday} />
+      <Vaccination
+        toDate={formatNumber(vaccinationToDate)}
+        today={alwaysSignDisplay(vaccinationToday)}
+      />
       <Confirmed confirmed={confirmedToDate} />
       <PerAge
         title={'Potrjeni primeri po starosti'}

@@ -2,14 +2,12 @@ import React from 'react';
 
 import Municipalities from './CITIES_SOCIAL_FRIENDLY/Municipalities';
 import Outro from '../../shared/ui/Outro';
-import { Row, Text } from '../../shared/ui/New';
+import { Row } from '../../shared/ui/New';
 
 function CITIES_SOCIAL_FRIENDLY({ check_third_mun, title, municipalities }) {
   const munVer = iconsVersion => (
     <>
-      <Row end={false}>
-        <Text>{title}: </Text>
-      </Row>
+      <Row end={false}>{title}: </Row>
       <ul className="municipalities">
         <Municipalities
           data={municipalities}

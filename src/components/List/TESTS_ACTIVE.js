@@ -2,6 +2,11 @@ import React from 'react';
 
 import PercentageRow from './TESTS_ACTIVE/PercentageRow';
 import ActiveCasesRow from './TESTS_ACTIVE/ActiveCasesRow';
+import {
+  alwaysSignDisplay,
+  formatNumber,
+  percentStyle,
+} from '../../utils/createLocaleNumberFormat';
 
 function TESTS_ACTIVE({ check_first, labTests, summary }) {
   const { regular, hagt } = labTests[labTests.length - 1].data;
@@ -15,39 +20,29 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
   const { today: hagtPerformed } = hagt.performed;
 
   const calcFraction = (numerator, denominator) => numerator / denominator;
-  const calcPercentage = value => value * 100;
-  const getPercentage = (numerator, denominator) => {
-    const canNotCalc = isNaN(numerator) || isNaN(denominator);
-    if (canNotCalc) {
-      return ' - ';
-    }
 
-    const fraction = calcFraction(numerator, denominator);
-    return calcPercentage(fraction);
-  };
-
-  const regPercentage = getPercentage(regToday, regPerformed);
-  const hagtPercentage = getPercentage(hagtToday, hagtPerformed);
+  const regFraction = calcFraction(regToday, regPerformed);
+  const hagtFraction = calcFraction(hagtToday, hagtPerformed);
 
   return (
     <div className={check_first}>
       <PercentageRow
         title={'PCR'}
-        numerator={regToday}
-        denominator={regPerformed}
-        percent={regPercentage}
+        numerator={alwaysSignDisplay(regToday)}
+        denominator={formatNumber(regPerformed)}
+        percent={percentStyle(regFraction)}
       />
       <PercentageRow
         title={'PCR'}
-        numerator={hagtToday}
-        denominator={hagtPerformed}
-        percent={hagtPercentage}
+        numerator={alwaysSignDisplay(hagtToday)}
+        denominator={formatNumber(hagtPerformed)}
+        percent={percentStyle(hagtFraction)}
       />
       <ActiveCasesRow
         title={'Aktivni primeri'}
-        casesActive={casesActive}
-        casesActiveIn={casesActiveIn}
-        casesActiveOut={casesActiveOut}
+        casesActive={formatNumber(casesActive)}
+        casesActiveIn={alwaysSignDisplay(casesActiveIn)}
+        casesActiveOut={alwaysSignDisplay(casesActiveOut)}
       />
     </div>
   );

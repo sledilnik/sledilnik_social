@@ -2,6 +2,10 @@ import React from 'react';
 import Hospitalized from './HOSPITALIZED_DECEASED/Hospitalized';
 import OnRespiratory from './HOSPITALIZED_DECEASED/OnRespiratory';
 import Deceased from './HOSPITALIZED_DECEASED/Deceased';
+import {
+  formatNumber,
+  alwaysSignDisplay,
+} from '../../utils/createLocaleNumberFormat';
 
 function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
   const hospNum = stats[stats.length - 1].statePerTreatment.inHospital;
@@ -21,25 +25,30 @@ function HOSPITALIZED_DECEASED({ check_second, stats, patients }) {
 
   const negativeHospOut = -hospOut;
 
+  const respiratoryDelta = todayCritical - yesterdayCritical;
+
   return (
     <div className={check_second}>
       <Hospitalized
         title={'Hospitalizirani'}
         subtitle={'v EIT'}
-        hospitalized={hospNum}
+        hospitalized={formatNumber(hospNum)}
         translateText={'oseba'}
-        hospitalizedIn={hospIn}
-        hospitalizedOut={negativeHospOut}
-        icuNum={icuNum}
-        icuDelta={icuDelta}
+        hospitalizedIn={alwaysSignDisplay(hospIn)}
+        hospitalizedOut={alwaysSignDisplay(negativeHospOut)}
+        icuNum={formatNumber(icuNum)}
+        icuDelta={alwaysSignDisplay(icuDelta)}
       />
-      <OnRespiratory today={todayCritical} yesterday={yesterdayCritical} />
+      <OnRespiratory
+        today={todayCritical}
+        delta={alwaysSignDisplay(respiratoryDelta)}
+      />
       <Deceased
         title={'Preminuli'}
         subtitle={'skupaj '}
         translate={'oseba'}
-        deceased={deceased}
-        deceasedToDate={deceasedToDate}
+        deceased={alwaysSignDisplay(alwaysSignDisplay(deceased))}
+        deceasedToDate={formatNumber(deceasedToDate)}
       />
     </div>
   );

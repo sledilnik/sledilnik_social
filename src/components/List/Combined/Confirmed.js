@@ -1,14 +1,11 @@
 import React from 'react';
 
-import { Row, Text, LocaleNumber, Bold } from '../../shared/ui/New';
+import { Row } from '../../shared/ui/New';
 
 function Confirmed({ confirmed }) {
   return (
     <Row>
-      <Text>Skupaj </Text>
-      <Bold>
-        <LocaleNumber number={confirmed} />
-      </Bold>{' '}
+      Skupaj: {confirmed}
       potrjenih primerov
     </Row>
   );

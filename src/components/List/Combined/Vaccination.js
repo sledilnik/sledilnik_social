@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Row,
-  Text,
-  Bold,
-  LocaleNumberWithPlus,
-  LocaleNumber,
-  Brackets,
-} from '../../shared/ui/New';
+import { Row, Brackets } from '../../shared/ui/New';
 
 // TODO rename toDate -> vaccinated, today -> vaccinatedToday
 function Vaccination({ toDate, today }) {
@@ -14,14 +7,10 @@ function Vaccination({ toDate, today }) {
 
   return (
     <Row>
-      <Text>{title} </Text>
-      <Bold>
-        <LocaleNumber number={toDate} />
-      </Bold>{' '}
+      {title}
+      <span className="bold">{toDate}</span>{' '}
       <Brackets>
-        <Bold>
-          <LocaleNumberWithPlus number={today} />
-        </Bold>
+        <span className="bold">{today}</span>
       </Brackets>
     </Row>
   );

@@ -1,13 +1,11 @@
 import React from 'react';
 
-import {
-  Row,
-  Bold,
-  Brackets,
-  LocaleNumberWithPlus,
-  Text,
-} from '../../shared/ui/New';
+import { Row, Brackets } from '../../shared/ui/New';
 import DataTranslate from '../../shared/ui/DataTranslate';
+import {
+  formatNumber,
+  alwaysSignDisplay,
+} from '../../../utils/createLocaleNumberFormat';
 
 function InHospitals({ check_second, title, patients, perHospitalChanges }) {
   const InHospital = ({
@@ -18,23 +16,21 @@ function InHospitals({ check_second, title, patients, perHospitalChanges }) {
   }) => {
     return (
       <li key={hospShort}>
-        <Bold>{hospitalName}</Bold>:{' '}
+        <span className="bold">{hospitalName}</span>:{' '}
         <DataTranslate number={hosp.number} text={'oseba'} />{' '}
-        <Bold>
+        <span className="bold">
           <Brackets>
-            <LocaleNumberWithPlus number={hosp.in} />,{' '}
-            <LocaleNumberWithPlus number={-hosp.out} />
+            {hosp.in}, {hosp.out}
           </Brackets>
-        </Bold>
-        <Text>, EIT: </Text>
+        </span>
+        , EIT:
         <DataTranslate number={icu.number} text={'oseba'} />{' '}
-        <Bold>
+        <span className="bold">
           <Brackets>
-            <LocaleNumberWithPlus number={icu.in} />,{' '}
-            <LocaleNumberWithPlus number={-icu.out} />
+            {icu.in}, {icu.out}
           </Brackets>
-        </Bold>
-        <Text>.</Text>
+        </span>
+        .
       </li>
     );
   };
@@ -44,14 +40,14 @@ function InHospitals({ check_second, title, patients, perHospitalChanges }) {
 
   const createHospitalOutput = hosp => {
     const hospital = {
-      number: hosp[1].inHospital.today,
-      in: hosp[1].inHospital.in,
-      out: hosp[1].inHospital.out,
+      number: formatNumber(hosp[1].inHospital.today),
+      in: alwaysSignDisplay(hosp[1].inHospital.in),
+      out: alwaysSignDisplay(-hosp[1].inHospital.out),
     };
     const icu = {
-      number: hosp[1].icu.today,
-      in: hosp[1].icu.in,
-      out: hosp[1].icu.out,
+      number: formatNumber(hosp[1].icu.today),
+      in: alwaysSignDisplay(hosp[1].icu.in),
+      out: alwaysSignDisplay(-hosp[1].icu.out),
     };
 
     const noHospitalData = hosp[1].inHospital.today === undefined;

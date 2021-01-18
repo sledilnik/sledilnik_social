@@ -1,27 +1,17 @@
 import React from 'react';
 import Translate from '../../shared/ui/Translate';
 import DataTranslate from '../../shared/ui/DataTranslate';
-import {
-  Row,
-  Text,
-  Brackets,
-  LocaleNumberWithPlus,
-  Bold,
-} from '../../shared/ui/New';
+import { Row, Brackets } from '../../shared/ui/New';
 
-function OnRespiratory({ today, yesterday }) {
-  const delta = today - yesterday;
-
+function OnRespiratory({ today, delta }) {
   return (
     <Row>
-      <Text>Na respiratorju (intubirani) se </Text>
-      <Translate text={'zdravi'} number={today}></Translate>{' '}
+      Na respiratorju (intubirani) se{' '}
+      <Translate text={'zdravi'} number={today} />{' '}
       <DataTranslate number={today} text={'oseba'} />{' '}
-      <Bold>
-        <Brackets>
-          <LocaleNumberWithPlus number={delta} />
-        </Brackets>
-      </Bold>
+      <span className="bold">
+        <Brackets>{delta}</Brackets>
+      </span>
     </Row>
   );
 }

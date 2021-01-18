@@ -1,26 +1,18 @@
 import React from 'react';
 
-import {
-  Text,
-  Row,
-  Bold,
-  LocaleNumber,
-  LocaleNumberWithPlus,
-  Brackets,
-} from '../../shared/ui/New';
+import { Row, Brackets } from '../../shared/ui/New';
 
 // TODO params: isUndefined, isNull?
 function ActiveCasesRow({ casesActive, casesActiveIn, casesActiveOut }) {
   return (
     <Row>
-      <Text> Aktivni primeri: </Text>
-      <Bold>
-        <LocaleNumber number={casesActive} />{' '}
+      Aktivni primeri:{' '}
+      <span className="bold">
+        {casesActive}{' '}
         <Brackets>
-          <LocaleNumberWithPlus number={casesActiveIn} />,{' '}
-          <LocaleNumber number={-casesActiveOut} />
+          {casesActiveIn}, {-casesActiveOut}
         </Brackets>
-      </Bold>
+      </span>
     </Row>
   );
 }
