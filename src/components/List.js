@@ -104,31 +104,7 @@ const List = ({
   if (!stats || stats.length === 0)
     return <p>Napaka: API ne vrača podatkov, refresh page !!!</p>;
 
-  // prepare hospitalsDict
-  const hospitalsDict = prepareHospitalsDict(hospitalsList);
-
-  // prepare perHospitalChanges
-  const perHospitalChanges = getPerHospitalChanges(patients);
-  const perHospitalChangesWithLongName = findAndPushLongHospitalName(
-    perHospitalChanges,
-    hospitalsDict
-  );
-
-  /**
-   * checks if data is not updated for the current day; if certain conditions are met then sets variable which represent error css class
-   * TODO find better variable names?
-   * ? implement -"red" +"error"
-   * ? -summaryCheck(check_first) +???
-   * ? -patientsCheck(check_second) +???
-   * ? -statsCheck(check_third_age) +???
-   * ? -municipalitiesCheck(check_third_mun) +???
-   */
-  const {
-    check_first,
-    check_second,
-    check_third_age,
-    check_third_mun,
-  } = getChecks({ stats, municipalities, patients, summary });
+  const css = getChecks({ stats, municipalities, patients, summary });
 
   const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
 
@@ -151,15 +127,28 @@ const List = ({
   );
 
   // prepare data fot Combined
+
+  // prepare hospitalsDict
+  const hospitalsDict = prepareHospitalsDict(hospitalsList);
+
+  // prepare perHospitalChanges
+  const perHospitalChanges = getPerHospitalChanges(patients);
+  const perHospitalChangesWithLongName = findAndPushLongHospitalName(
+    perHospitalChanges,
+    hospitalsDict
+  );
   const statsTwoDaysAgo = stats.slice(-3, -2).pop();
   const combined = getCombinedData(statsYesterday, statsTwoDaysAgo);
+  combined.perHospitalChanges = perHospitalChangesWithLongName;
+  combined.patients = patients;
+  combined.municipalities = municipalities;
 
   return (
     <div className="List">
       <section className="tweet">
         <Intro post={1} introTodayDate={introTodayDate} />
         <TESTS_ACTIVE
-          check_first={check_first}
+          check_first={css.check_first}
           cases={cases}
           regTests={regTests}
           hagtTests={hagtTests}
@@ -169,7 +158,7 @@ const List = ({
       <section className="tweet">
         <Intro post={2} introTodayDate={introTodayDate} />
         <HOSPITALIZED_DECEASED
-          check_second={check_second}
+          check_second={css.check_second}
           hospitalized={hospitalized}
           onRespiratory={onRespiratory}
           deceased={deceased}
@@ -184,13 +173,7 @@ const List = ({
           testsActive={{ cases, regTests, hagtTests }}
           hospitalizedDeceased={{ hospitalized, onRespiratory, deceased }}
           combined={combined}
-          check_first={check_first}
-          check_second={check_second}
-          check_third_age={check_third_age}
-          check_third_mun={check_third_mun}
-          patients={patients}
-          municipalities={municipalities}
-          perHospitalChanges={perHospitalChangesWithLongName}
+          css={css}
         />
         <Outro />
       </section>
@@ -242,8 +225,7 @@ function createDateFromObject(obj = {}) {
 
 /**
  * paint red if data is not updated for the current day;
- * params <somethin>Check are used as className
- * TODO figure out if you can use date-fns
+ * variables <somethin>Check are used as className
  */
 function getChecks({ stats, municipalities, patients, summary }) {
   // data
