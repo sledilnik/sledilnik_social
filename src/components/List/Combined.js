@@ -19,22 +19,18 @@ function Combined({
   check_second,
   check_third_age,
   check_third_mun,
-  stats,
-  labTests,
-  summary,
+  combined,
   patients,
   municipalities,
   perHospitalChanges,
 }) {
-  const todayPerAge = stats[stats.length - 2].statePerAgeToDate;
-  const yesterdayPerAge = stats[stats.length - 3].statePerAgeToDate;
-
-  const vaccinationToDate =
-    stats[stats.length - 2].vaccination.administered.toDate;
-  const vaccinationToday =
-    stats[stats.length - 2].vaccination.administered.today;
-
-  const confirmedToDate = stats[stats.length - 2].cases.confirmedToDate;
+  const {
+    todayPerAge,
+    yesterdayPerAge,
+    vaccinationToDate,
+    vaccinationToday,
+    confirmedToDate,
+  } = combined;
 
   return (
     <>

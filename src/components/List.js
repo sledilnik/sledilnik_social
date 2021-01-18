@@ -75,6 +75,24 @@ function getHospitalizedDeceasedData(
   };
 }
 
+function getCombinedData(statsYesterday, statsTwoDaysAgo) {
+  const todayPerAge = statsYesterday.statePerAgeToDate;
+  const yesterdayPerAge = statsTwoDaysAgo.statePerAgeToDate;
+
+  const vaccinationToDate = statsYesterday.vaccination.administered.toDate;
+  const vaccinationToday = statsYesterday.vaccination.administered.today;
+
+  const confirmedToDate = statsYesterday.cases.confirmedToDate;
+
+  return {
+    todayPerAge,
+    yesterdayPerAge,
+    vaccinationToDate,
+    vaccinationToday,
+    confirmedToDate,
+  };
+}
+
 const List = ({
   stats,
   municipalities,
@@ -132,6 +150,10 @@ const List = ({
     patientsToday
   );
 
+  // prepare data fot Combined
+  const statsTwoDaysAgo = stats.slice(-3, -2).pop();
+  const combined = getCombinedData(statsYesterday, statsTwoDaysAgo);
+
   return (
     <div className="List">
       <section className="tweet">
@@ -161,13 +183,11 @@ const List = ({
         <Combined
           testsActive={{ cases, regTests, hagtTests }}
           hospitalizedDeceased={{ hospitalized, onRespiratory, deceased }}
+          combined={combined}
           check_first={check_first}
           check_second={check_second}
           check_third_age={check_third_age}
           check_third_mun={check_third_mun}
-          labTests={labTests}
-          summary={summary}
-          stats={stats}
           patients={patients}
           municipalities={municipalities}
           perHospitalChanges={perHospitalChangesWithLongName}
