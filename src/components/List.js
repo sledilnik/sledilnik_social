@@ -40,6 +40,41 @@ function getTestsActiveData(labData, active) {
   };
 }
 
+function getHospitalizedDeceasedData(
+  statsToday = {},
+  statsYesterday = {},
+  patientsToday = {}
+) {
+  const hospNum = statsToday.statePerTreatment.inHospital;
+  const hospIn = patientsToday.total.inHospital.in;
+  const hospOut = patientsToday.total.inHospital.out;
+  const icuNum = statsToday.statePerTreatment.inICU;
+  const todayICU = statsToday.statePerTreatment.inICU;
+  const yesterdayICU = statsYesterday.statePerTreatment.inICU;
+  const icuDelta = todayICU - yesterdayICU;
+  const hospitalized = {
+    hospNum,
+    hospIn,
+    hospOut: -hospOut,
+    icuNum,
+    icuDelta,
+  };
+
+  const todayCritical = statsToday.statePerTreatment.critical;
+  const yesterdayCritical = statsYesterday.statePerTreatment.critical;
+  const respiratoryDelta = todayCritical - yesterdayCritical;
+  const onRespiratory = { todayCritical, respiratoryDelta };
+
+  const { deceased: dead, deceasedToDate } = statsToday.statePerTreatment;
+  const deceased = { deceased: dead, deceasedToDate };
+
+  return {
+    hospitalized,
+    onRespiratory,
+    deceased,
+  };
+}
+
 const List = ({
   stats,
   municipalities,
@@ -88,6 +123,14 @@ const List = ({
   );
 
   // prepare data for HOSPITALIZED_DECEASED
+  const statsToday = stats.slice(-1).pop();
+  const statsYesterday = stats.slice(-2, -1).pop();
+  const patientsToday = patients.slice(-1).pop();
+  const { hospitalized, onRespiratory, deceased } = getHospitalizedDeceasedData(
+    statsToday,
+    statsYesterday,
+    patientsToday
+  );
 
   return (
     <div className="List">
@@ -105,6 +148,9 @@ const List = ({
         <Intro post={2} introTodayDate={introTodayDate} />
         <HOSPITALIZED_DECEASED
           check_second={check_second}
+          hospitalized={hospitalized}
+          onRespiratory={onRespiratory}
+          deceased={deceased}
           stats={stats}
           patients={patients}
         />
