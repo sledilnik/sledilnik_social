@@ -8,21 +8,10 @@ import {
   percentStyle,
 } from '../../utils/createLocaleNumberFormat';
 
-function TESTS_ACTIVE({ check_first, labTests, summary }) {
-  const { regular, hagt } = labTests[labTests.length - 1].data;
-  const casesActive = summary.casesActive.value;
-  const casesActiveIn = summary.casesActive.subValues.in;
-  const casesActiveOut = summary.casesActive.subValues.out;
-
-  const { today: regToday } = regular.positive;
-  const { today: regPerformed } = regular.performed;
-  const { today: hagtToday } = hagt.positive;
-  const { today: hagtPerformed } = hagt.performed;
-
-  const calcFraction = (numerator, denominator) => numerator / denominator;
-
-  const regFraction = calcFraction(regToday, regPerformed);
-  const hagtFraction = calcFraction(hagtToday, hagtPerformed);
+function TESTS_ACTIVE({ check_first, cases, regTests, hagtTests }) {
+  const { regToday, regPerformed, regFraction } = regTests;
+  const { hagtToday, hagtPerformed, hagtFraction } = hagtTests;
+  const { casesActive, casesActiveIn, casesActiveOut } = cases;
 
   return (
     <div className={check_first}>

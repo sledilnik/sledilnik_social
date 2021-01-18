@@ -12,6 +12,34 @@ import Combined from './List/Combined';
 import './List.css';
 import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 
+function getTestsActiveData(labTests, summary) {
+  const { regular, hagt } = labTests[labTests.length - 1].data;
+  const casesActive = summary.casesActive.value;
+  const casesActiveIn = summary.casesActive.subValues.in;
+  const casesActiveOut = summary.casesActive.subValues.out;
+
+  const cases = { casesActive, casesActiveIn, casesActiveOut };
+
+  const { today: regToday } = regular.positive;
+  const { today: regPerformed } = regular.performed;
+  const { today: hagtToday } = hagt.positive;
+  const { today: hagtPerformed } = hagt.performed;
+
+  const calcFraction = (numerator, denominator) => numerator / denominator;
+
+  const regFraction = calcFraction(regToday, regPerformed);
+  const hagtFraction = calcFraction(hagtToday, hagtPerformed);
+
+  const regTests = { regToday, regPerformed, regFraction };
+  const hagtTests = { hagtToday, hagtPerformed, hagtFraction };
+
+  return {
+    cases,
+    regTests,
+    hagtTests,
+  };
+}
+
 const List = props => {
   const { stats } = props;
   const { municipalities } = props;
@@ -51,14 +79,17 @@ const List = props => {
 
   const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
 
+  const { cases, regTests, hagtTests } = getTestsActiveData(labTests, summary);
+
   return (
     <div className="List">
       <section className="tweet">
         <Intro post={1} introTodayDate={introTodayDate} />
         <TESTS_ACTIVE
           check_first={check_first}
-          labTests={labTests}
-          summary={summary}
+          cases={cases}
+          regTests={regTests}
+          hagtTests={hagtTests}
         />
         <Outro />
       </section>
