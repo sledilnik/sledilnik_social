@@ -218,7 +218,7 @@ function formatToLocaleDateString(
 /**
  * date received is part of an object with properties: year, month, day
  */
-function createDateFromObject(obj = {}) {
+function getDate(obj = {}) {
   let { year, month, day } = obj;
   return new Date(year, month - 1, day);
 }
@@ -227,17 +227,19 @@ function createDateFromObject(obj = {}) {
  * paint red if data is not updated for the current day;
  * variables <somethin>Check are used as className
  */
-function getChecks({ stats, municipalities, patients, summary }) {
+function getChecks({ stats, municipalities, patients, summary, labTests }) {
   // data
   const patientsData = patients.slice(-1).pop();
   const statsData = stats.slice(-1).pop();
   const municipalitiesData = municipalities.slice(-1).pop();
+  const labTestsData = labTests.slice(-1).pop();
 
   // dates
-  const patientsDate = createDateFromObject(patientsData);
-  const statsDate = createDateFromObject(statsData);
-  const municipalitiesDate = createDateFromObject(municipalitiesData);
-  const summaryDate = createDateFromObject(summary.testsToday);
+  const patientsDate = getDate(patientsData);
+  const statsDate = getDate(statsData);
+  const municipalitiesDate = getDate(municipalitiesData);
+  const labTestsDate = getDate(labTestsData);
+  const summaryDate = getDate(summary.testsToday);
 
   // checks
   const patientsCheck = differenceInDays(new Date(), patientsDate) > 0;
@@ -251,6 +253,8 @@ function getChecks({ stats, municipalities, patients, summary }) {
   const municipalitiesCheck =
     differenceInDays(new Date(), municipalitiesDate) > 1;
 
+  const labTestsCheck = differenceInDays(new Date(), labTestsDate) > 0;
+
   const summaryCheck = differenceInDays(new Date(), summaryDate) === -1;
 
   return {
@@ -258,5 +262,6 @@ function getChecks({ stats, municipalities, patients, summary }) {
     check_second: patientsCheck ? 'red' : '',
     check_third_age: statsCheck ? 'red' : '',
     check_third_mun: municipalitiesCheck ? 'red' : '',
+    check_lab_tests: labTestsCheck ? 'red' : '',
   };
 }
