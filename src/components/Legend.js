@@ -101,6 +101,7 @@ function Legend({ municipalities, isLoading, css = {}, dates = {} }) {
             </ol>
           </li>
           <li>
+            {/* <TESTS_ACTIVE/> */}
             <span className="bold">Testi in aktivni primeri:</span>
             <ol style={{ padding: '8px 24px' }}>
               <li className={css.check_lab_tests}>
@@ -121,21 +122,24 @@ function Legend({ municipalities, isLoading, css = {}, dates = {} }) {
             </ol>
           </li>
           <li>
+            {/* <HOSPITALIZED_DECEASED/> */}
             <span className="bold">Hospitalizirani in preminuli:</span>
             <ol style={{ padding: '8px 24px' }}>
               <li className={css.check_patients}>
                 <span className="bold">Hospitalizirani: </span>
                 <i>stats: </i>
+                {dates.stats.toString()}, <i>patients: </i>
                 {dates.patients.toString()}
               </li>
               <li className={css.check_patients}>
                 <span className="bold">Na respiratorju: </span>
                 <i>stats: </i>
+                {dates.stats.toString()}, <i>patients: </i>
                 {dates.patients.toString()}
               </li>
               <li className={css.check_patients}>
                 <span className="bold">Preminuli: </span>
-                <i>stats: </i>
+                <i>patients: </i>
                 {dates.patients.toString()}
               </li>
             </ol>
@@ -143,26 +147,31 @@ function Legend({ municipalities, isLoading, css = {}, dates = {} }) {
           <li>
             <span className="bold">Kombiniran:</span>
             <ol style={{ padding: '8px 24px' }}>
+              {/* <Vaccination/> */}
               <li>
                 <span className="bold">Cepljeni: </span>
                 <i>stats: </i>
                 {dates.stats.toString()}{' '}
               </li>
+              {/* <Confirmed/> */}
               <li>
                 <span className="bold">Potrjeni primeri: </span>
-                <i>summary: </i>
-                {dates.summary.toString()}
+                <i>stats: </i>
+                {dates.stats.toString()}
               </li>
-              <li className={css.check_patients}>
+              {/* <PerAge/> */}
+              <li className={css.check_stats}>
                 <span className="bold">Po starosti: </span>
                 <i>stats: </i>
-                {dates.patients.toString()}{' '}
+                {dates.stats.toString()}{' '}
               </li>
+              {/* <InHospitals/> */}
               <li className={css.check_patients}>
                 <span className="bold">Po bonišnicah: </span>
-                <i>stats: </i>
+                <i>patients: </i>
                 {dates.patients.toString()}
               </li>
+              {/* <CITIES_SOCIAL_FRIENDLY/> */}
               <li className={css.check_municipalities}>
                 <span className="bold">Po krajih: </span>
                 <i>municipalities: </i>
