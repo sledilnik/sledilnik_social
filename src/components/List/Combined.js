@@ -16,7 +16,7 @@ function Combined({ testsActive, hospitalizedDeceased, combined, css }) {
   return (
     <>
       <TESTS_ACTIVE
-        check_first={css.check_first}
+        check_summary={css.check_summary}
         cases={testsActive.cases}
         regTests={testsActive.regTests}
         hagtTests={testsActive.hagtTests}
@@ -28,25 +28,25 @@ function Combined({ testsActive, hospitalizedDeceased, combined, css }) {
       <Confirmed confirmed={formatNumber(combined.confirmedToDate)} />
       <PerAge
         title={'Potrjeni primeri po starosti'}
-        check_third_age={css.check_third_age}
+        check_stats={css.check_stats}
         todayPerAge={combined.todayPerAge}
         yesterdayPerAge={combined.yesterdayPerAge}
       />
       <HOSPITALIZED_DECEASED
-        check_second={css.check_second}
+        check_patients={css.check_patients}
         hospitalized={hospitalizedDeceased.hospitalized}
         onRespiratory={hospitalizedDeceased.onRespiratory}
         deceased={hospitalizedDeceased.deceased}
       />
       <InHospitals
         title={'Stanje po bolnišnicah'}
-        check_second={css.check_second}
+        check_patients={css.check_patients}
         patients={combined.patients}
         perHospitalChanges={combined.perHospitalChanges}
       />
       <CITIES_SOCIAL_FRIENDLY
         title={'Po krajih'}
-        check_third_mun={css.check_third_mun}
+        check_municipalities={css.check_municipalities}
         municipalities={combined.municipalities}
       />
     </>

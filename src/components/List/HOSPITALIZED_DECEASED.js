@@ -8,7 +8,7 @@ import {
 } from '../../utils/createLocaleNumberFormat';
 
 function HOSPITALIZED_DECEASED({
-  check_second,
+  check_patients,
   hospitalized,
   onRespiratory,
   deceased,
@@ -17,7 +17,7 @@ function HOSPITALIZED_DECEASED({
     return '';
   }
   return (
-    <div className={check_second}>
+    <div className={check_patients}>
       <Hospitalized
         title={'Hospitalizirani'}
         subtitle={'v EIT'}

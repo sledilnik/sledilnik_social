@@ -104,7 +104,7 @@ const List = ({
   if (!stats || stats.length === 0)
     return <p>Napaka: API ne vrača podatkov, refresh page !!!</p>;
 
-  const css = getChecks({ stats, municipalities, patients, summary });
+  const css = getChecks({ stats, municipalities, patients, summary, labTests });
 
   const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
 
@@ -148,7 +148,8 @@ const List = ({
       <section className="tweet">
         <Intro post={1} introTodayDate={introTodayDate} />
         <TESTS_ACTIVE
-          check_first={css.check_first}
+          check_summary={css.check_summary}
+          check_lab_tests={css.check_lab_tests}
           cases={cases}
           regTests={regTests}
           hagtTests={hagtTests}
@@ -158,7 +159,7 @@ const List = ({
       <section className="tweet">
         <Intro post={2} introTodayDate={introTodayDate} />
         <HOSPITALIZED_DECEASED
-          check_second={css.check_second}
+          check_patients={css.check_patients}
           hospitalized={hospitalized}
           onRespiratory={onRespiratory}
           deceased={deceased}
@@ -255,13 +256,13 @@ function getChecks({ stats, municipalities, patients, summary, labTests }) {
 
   const labTestsCheck = differenceInDays(new Date(), labTestsDate) > 0;
 
-  const summaryCheck = differenceInDays(new Date(), summaryDate) === -1;
+  const summaryCheck = differenceInDays(new Date(), summaryDate) > 0;
 
   return {
-    check_first: summaryCheck ? 'red' : '',
-    check_second: patientsCheck ? 'red' : '',
-    check_third_age: statsCheck ? 'red' : '',
-    check_third_mun: municipalitiesCheck ? 'red' : '',
+    check_summary: summaryCheck ? 'red' : '',
+    check_patients: patientsCheck ? 'red' : '',
+    check_stats: statsCheck ? 'red' : '',
+    check_municipalities: municipalitiesCheck ? 'red' : '',
     check_lab_tests: labTestsCheck ? 'red' : '',
   };
 }

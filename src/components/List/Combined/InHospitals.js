@@ -7,7 +7,7 @@ import {
   alwaysSignDisplay,
 } from '../../../utils/createLocaleNumberFormat';
 
-function InHospitals({ check_second, title, patients, perHospitalChanges }) {
+function InHospitals({ check_patients, title, patients, perHospitalChanges }) {
   const InHospital = ({
     hospShort,
     hospitalName,
@@ -72,7 +72,7 @@ function InHospitals({ check_second, title, patients, perHospitalChanges }) {
     .map(createHospitalOutput);
 
   return (
-    <span className={check_second}>
+    <span className={check_patients}>
       <Row end={false}>{title}: </Row>
       <ul>{noPatientsData ? 'NI PODATKOV' : hospitalOutput}</ul>
     </span>

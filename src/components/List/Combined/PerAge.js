@@ -3,7 +3,7 @@ import React from 'react';
 import { Row, Brackets } from '../../shared/ui/New';
 import { formatNumber } from '../../../utils/createLocaleNumberFormat';
 
-function PerAge({ check_third_age, title, todayPerAge, yesterdayPerAge }) {
+function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
   const deltas = [];
 
   // TODO move logic to Combined, use map, make it better
@@ -29,7 +29,7 @@ function PerAge({ check_third_age, title, todayPerAge, yesterdayPerAge }) {
   }
 
   return (
-    <span className={check_third_age}>
+    <span className={check_stats}>
       <Row>
         {title}: {deltas}
       </Row>
