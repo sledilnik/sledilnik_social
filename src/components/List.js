@@ -68,6 +68,11 @@ const List = props => {
   //   stats[stats.length - 1].month
   // }.${stats[stats.length - 1].year}`;
 
+  const labTestsDate =
+    labTests[labTests.length - 1].year.toString() +
+    labTests[labTests.length - 1].month.toString() +
+    labTests[labTests.length - 1].day.toString();
+
   let introTodayDate =
     new Date().getDate().toString() +
     '.' +
@@ -80,8 +85,9 @@ const List = props => {
   var check_second = '';
   var check_third_age = '';
   var check_third_mun = '';
+  let check_lab_tests = '';
 
-  if (todayDate - summaryDate === -1) {
+  if (todayDate - summaryDate > 0) {
     check_first = 'red';
   }
   if (todayDate - patientsDate > 0) {
@@ -99,6 +105,10 @@ const List = props => {
     check_third_mun = 'red';
   }
 
+  if (todayDate - labTestsDate > 0) {
+    check_lab_tests = 'red';
+  }
+
   // render app
   return (
     <div className="List">
@@ -106,6 +116,7 @@ const List = props => {
         <Intro post={1} introTodayDate={introTodayDate} />
         <TESTS_ACTIVE
           check_first={check_first}
+          check_lab_tests={check_lab_tests}
           labTests={labTests}
           summary={summary}
         />
@@ -127,6 +138,7 @@ const List = props => {
           check_second={check_second}
           check_third_age={check_third_age}
           check_third_mun={check_third_mun}
+          check_lab_tests={check_lab_tests}
           labTests={labTests}
           summary={summary}
           stats={stats}

@@ -43,6 +43,7 @@ function Combined({
   check_second,
   check_third_age,
   check_third_mun,
+  check_lab_tests,
   stats,
   labTests,
   summary,
@@ -103,6 +104,7 @@ function Combined({
     <>
       <TESTS_ACTIVE
         check_first={check_first}
+        check_lab_tests={check_lab_tests}
         labTests={labTests}
         summary={summary}
       />

@@ -3,7 +3,7 @@ import DataRow from '../List/shared/DataRow';
 import EmbeddedNumberInOut from '../List/shared/EmbeddedNumberInOut';
 import DataPercentage from '../List/shared/DataPercentage';
 
-function TESTS_ACTIVE({ check_first, labTests, summary }) {
+function TESTS_ACTIVE({ check_first, check_lab_tests, labTests, summary }) {
   const { regular, hagt } = labTests[labTests.length - 1].data;
   const casesActive = summary.casesActive.value;
   const casesActiveIn = summary.casesActive.subValues.in;
@@ -24,27 +24,31 @@ function TESTS_ACTIVE({ check_first, labTests, summary }) {
   const { today: hagtPerformed } = hagt.performed;
 
   return (
-    <div className={check_first}>
-      <PercentageRow
-        title={'PCR'}
-        numPositive={regToday}
-        numPerformed={regPerformed}
-      />
-      <PercentageRow
-        title={'HAT'}
-        numPositive={hagtToday}
-        numPerformed={hagtPerformed}
-      />
-      <DataRow title={'Aktivni primeri'}>
-        <EmbeddedNumberInOut
-          number={casesActive}
-          numIn={casesActiveIn}
-          numOut={casesActiveOut}
-          suffix=" "
-          insideColons={true}
+    <div>
+      <section className={check_lab_tests}>
+        <PercentageRow
+          title={'PCR'}
+          numPositive={regToday}
+          numPerformed={regPerformed}
         />
-        .
-      </DataRow>
+        <PercentageRow
+          title={'HAT'}
+          numPositive={hagtToday}
+          numPerformed={hagtPerformed}
+        />
+      </section>
+      <section className={check_first}>
+        <DataRow title={'Aktivni primeri'}>
+          <EmbeddedNumberInOut
+            number={casesActive}
+            numIn={casesActiveIn}
+            numOut={casesActiveOut}
+            suffix=" "
+            insideColons={true}
+          />
+          .
+        </DataRow>
+      </section>
     </div>
   );
 }
