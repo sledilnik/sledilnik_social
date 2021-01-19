@@ -32,7 +32,7 @@ function TESTS_ACTIVE({
           percent={percentStyle(regFraction)}
         />
         <PercentageRow
-          title={'PCR'}
+          title={'HAT'}
           numerator={alwaysSignDisplay(hagtToday)}
           denominator={formatNumber(hagtPerformed)}
           percent={percentStyle(hagtFraction)}
