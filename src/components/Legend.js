@@ -69,9 +69,41 @@ function Legend({ municipalities, isLoading }) {
     );
   };
 
+  // TODO move style to css file, when done with html
+  // ? add data date?
   return (
     <div className="Legend">
       <h2 id="legenda">Legenda</h2>
+      <LegendSection title={'Osveženi podatki'}>
+        <ul style={{ listStyle: 'none' }}>
+          <li>
+            Testi & Aktivni primer:
+            <ol className="red" style={{ paddingLeft: '24px' }}>
+              <li>PCR</li>
+              <li>HAT</li>
+              <li>Aktivni primeri</li>
+            </ol>
+          </li>
+          <li>
+            Hospitalizirani in preminuli:
+            <ol className="red" style={{ paddingLeft: '24px' }}>
+              <li>Hospitalizirani</li>
+              <li>Intezivna nega - na respiratorju</li>
+              <li>Preminuli</li>
+            </ol>
+          </li>
+          <li>
+            Kombinirani
+            <ol className="red" style={{ paddingLeft: '24px' }}>
+              <li>Cepljeni</li>
+              <li>Potrjeni primeri</li>
+              <li>Potrjeni primeri po starosti</li>
+              <li>Po bonišnicah</li>
+              <li>Po krajih</li>
+            </ol>
+          </li>
+        </ul>
+      </LegendSection>
       <LegendSection
         title={'Trend rasti potrjenih primerov v posamezni občini'}
       >
