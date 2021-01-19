@@ -12,6 +12,7 @@ import Combined from './List/Combined';
 import './List.css';
 import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 
+// API paths: lab-tests, summary
 function getTestsActiveData(labData, active) {
   const { regular, hagt } = labData;
   const casesActive = active.value;
@@ -39,7 +40,7 @@ function getTestsActiveData(labData, active) {
     hagtTests,
   };
 }
-
+// API paths: stats, patients
 function getHospitalizedDeceasedData(
   statsToday = {},
   statsYesterday = {},
@@ -75,6 +76,7 @@ function getHospitalizedDeceasedData(
   };
 }
 
+// API paths: stats
 function getCombinedData(statsYesterday, statsTwoDaysAgo) {
   const todayPerAge = statsYesterday.statePerAgeToDate;
   const yesterdayPerAge = statsTwoDaysAgo.statePerAgeToDate;
@@ -109,6 +111,7 @@ const List = ({
   const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
 
   //prepare data for TESTS_ACTIVE
+  // use data fromAPI paths: summary, lab-tests
   const lastLabTests = labTests.slice(-1).pop().data;
   const { casesActive } = summary;
   const { cases, regTests, hagtTests } = getTestsActiveData(
@@ -117,6 +120,7 @@ const List = ({
   );
 
   // prepare data for HOSPITALIZED_DECEASED
+  // use data fromAPI paths: stats, patients
   const statsToday = stats.slice(-1).pop();
   const statsYesterday = stats.slice(-2, -1).pop();
   const patientsToday = patients.slice(-1).pop();
@@ -132,6 +136,7 @@ const List = ({
   const hospitalsDict = prepareHospitalsDict(hospitalsList);
 
   // prepare perHospitalChanges
+  // use data fromAPI paths: stats, patients, municipalities
   const perHospitalChanges = getPerHospitalChanges(patients);
   const perHospitalChangesWithLongName = findAndPushLongHospitalName(
     perHospitalChanges,
