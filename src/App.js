@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import List from './components/List';
+import List, {
+  getDate,
+  getLastUpdatedData,
+  getChecks,
+  formatToLocaleDateString,
+} from './components/List';
 import withListLoading from './components/withListLoading';
 import apiPathObject from './utils/apiPathObject';
 import Footer from './components/Footer';
@@ -54,6 +59,47 @@ function App() {
     // return () => clearTimeout(timer);
   }, []);
 
+  const getDatesAndCss = isLoading => {
+    if (isLoading || !stats) {
+      return;
+    }
+
+    const data = getLastUpdatedData({
+      stats,
+      patients,
+      municipalities,
+      labTests,
+    });
+    const statsDate = getDate(data.statsData);
+    const patientsDate = getDate(data.patientsData);
+    const municipalitiesDate = getDate(data.municipalitiesData);
+    const labTestsDate = getDate(data.labTestsData);
+    const summaryDate = getDate(summary.testsToday);
+
+    const dates = {
+      stats: formatToLocaleDateString(statsDate, 'E, d.M.yyyy'),
+      patients: formatToLocaleDateString(patientsDate, 'E, d.M.yyyy'),
+      municipalities: formatToLocaleDateString(
+        municipalitiesDate,
+        'E, d.M.yyyy'
+      ),
+      labTests: formatToLocaleDateString(labTestsDate, 'E, d.M.yyyy'),
+      summary: formatToLocaleDateString(summaryDate, 'E, d.M.yyyy'),
+    };
+
+    const css = getChecks({
+      stats,
+      municipalities,
+      patients,
+      summary,
+      labTests,
+    });
+
+    return { dates, css };
+  };
+
+  const legendData = getDatesAndCss(loading);
+
   return (
     <div className="App">
       {error ? console.log(error) : ''}
@@ -68,7 +114,12 @@ function App() {
           labTests={labTests}
           summary={summary}
         />
-        <Legend isLoading={loading} municipalities={municipalities} />
+        <Legend
+          isLoading={loading}
+          municipalities={municipalities}
+          dates={legendData?.dates}
+          css={legendData?.css}
+        />
       </main>
       <Footer />
     </div>

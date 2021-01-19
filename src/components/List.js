@@ -207,7 +207,7 @@ function findAndPushLongHospitalName(perHospitalChanges, hospitalsDict) {
 }
 
 // get date for Intro component
-function formatToLocaleDateString(
+export function formatToLocaleDateString(
   dateAsText = '',
   formatStr = 'd.M.yyyy',
   options = { locale: sl }
@@ -219,27 +219,49 @@ function formatToLocaleDateString(
 /**
  * date received is part of an object with properties: year, month, day
  */
-function getDate(obj = {}) {
+export function getDate(obj = {}) {
   let { year, month, day } = obj;
   return new Date(year, month - 1, day);
+}
+
+export function getLastUpdatedData({
+  stats,
+  municipalities,
+  patients,
+  labTests,
+}) {
+  return {
+    patientsData: patients.slice(-1).pop(),
+    statsData: stats.slice(-1).pop(),
+    municipalitiesData: municipalities.slice(-1).pop(),
+    labTestsData: labTests.slice(-1).pop(),
+  };
 }
 
 /**
  * paint red if data is not updated for the current day;
  * variables <somethin>Check are used as className
  */
-function getChecks({ stats, municipalities, patients, summary, labTests }) {
+export function getChecks({
+  stats,
+  municipalities,
+  patients,
+  summary,
+  labTests,
+}) {
   // data
-  const patientsData = patients.slice(-1).pop();
-  const statsData = stats.slice(-1).pop();
-  const municipalitiesData = municipalities.slice(-1).pop();
-  const labTestsData = labTests.slice(-1).pop();
+  const lastUpdatedData = getLastUpdatedData({
+    stats,
+    patients,
+    municipalities,
+    labTests,
+  });
 
   // dates
-  const patientsDate = getDate(patientsData);
-  const statsDate = getDate(statsData);
-  const municipalitiesDate = getDate(municipalitiesData);
-  const labTestsDate = getDate(labTestsData);
+  const patientsDate = getDate(lastUpdatedData.patientsData);
+  const statsDate = getDate(lastUpdatedData.statsData);
+  const municipalitiesDate = getDate(lastUpdatedData.municipalitiesData);
+  const labTestsDate = getDate(lastUpdatedData.labTestsData);
   const summaryDate = getDate(summary.testsToday);
 
   // checks
@@ -254,9 +276,9 @@ function getChecks({ stats, municipalities, patients, summary, labTests }) {
   const municipalitiesCheck =
     differenceInDays(new Date(), municipalitiesDate) > 1;
 
-  const labTestsCheck = differenceInDays(new Date(), labTestsDate) > 0;
+  const labTestsCheck = differenceInDays(new Date(), labTestsDate) > 1;
 
-  const summaryCheck = differenceInDays(new Date(), summaryDate) > 0;
+  const summaryCheck = differenceInDays(new Date(), summaryDate) > 1;
 
   return {
     check_summary: summaryCheck ? 'red' : '',

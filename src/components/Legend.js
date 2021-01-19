@@ -27,7 +27,7 @@ const municipalitiesTrend = [
   },
 ];
 
-function Legend({ municipalities, isLoading }) {
+function Legend({ municipalities, isLoading, css = {}, dates = {} }) {
   // should render different for each condition?
   if (isLoading || !municipalities) {
     return '';
@@ -77,29 +77,97 @@ function Legend({ municipalities, isLoading }) {
       <LegendSection title={'Osveženi podatki'}>
         <ul style={{ listStyle: 'none' }}>
           <li>
-            Testi & Aktivni primer:
-            <ol className="red" style={{ paddingLeft: '24px' }}>
-              <li>PCR</li>
-              <li>HAT</li>
-              <li>Aktivni primeri</li>
+            <span className="bold">API datumi:</span>
+            <ol style={{ padding: '8px 24px' }}>
+              <li className={css.check_stats}>
+                <span className="bold">stats:</span> {dates.stats.toString()}
+              </li>
+              <li className={css.check_summary}>
+                <span className="bold">summary:</span>{' '}
+                {dates.summary.toString()}
+              </li>
+              <li className={css.check_patients}>
+                <span className="bold">patients:</span>{' '}
+                {dates.patients.toString()}
+              </li>
+              <li className={css.check_municipalities}>
+                <span className="bold">municipalities:</span>{' '}
+                {dates.municipalities.toString()}
+              </li>
+              <li className={css.check_lab_tests}>
+                <span className="bold">lab-tests:</span>{' '}
+                {dates.labTests.toString()}
+              </li>
             </ol>
           </li>
           <li>
-            Hospitalizirani in preminuli:
-            <ol className="red" style={{ paddingLeft: '24px' }}>
-              <li>Hospitalizirani</li>
-              <li>Intezivna nega - na respiratorju</li>
-              <li>Preminuli</li>
+            <span className="bold">Testi in aktivni primeri:</span>
+            <ol style={{ padding: '8px 24px' }}>
+              <li className={css.check_lab_tests}>
+                <span className="bold">PCR: </span>
+                <i>lab-tests: </i>
+                {dates.labTests.toString()}
+              </li>
+              <li className={css.check_lab_tests}>
+                <span className="bold">HAT: </span>
+                <i>lab-tests: </i>
+                {dates.labTests.toString()}
+              </li>
+              <li className={css.check_summary}>
+                <span className="bold">Aktivni primeri: </span>
+                <i>summary: </i>
+                {dates.summary.toString()}
+              </li>
             </ol>
           </li>
           <li>
-            Kombinirani
-            <ol className="red" style={{ paddingLeft: '24px' }}>
-              <li>Cepljeni</li>
-              <li>Potrjeni primeri</li>
-              <li>Potrjeni primeri po starosti</li>
-              <li>Po bonišnicah</li>
-              <li>Po krajih</li>
+            <span className="bold">Hospitalizirani in preminuli:</span>
+            <ol style={{ padding: '8px 24px' }}>
+              <li className={css.check_patients}>
+                <span className="bold">Hospitalizirani: </span>
+                <i>stats: </i>
+                {dates.patients.toString()}
+              </li>
+              <li className={css.check_patients}>
+                <span className="bold">Na respiratorju: </span>
+                <i>stats: </i>
+                {dates.patients.toString()}
+              </li>
+              <li className={css.check_patients}>
+                <span className="bold">Preminuli: </span>
+                <i>stats: </i>
+                {dates.patients.toString()}
+              </li>
+            </ol>
+          </li>
+          <li>
+            <span className="bold">Kombiniran:</span>
+            <ol style={{ padding: '8px 24px' }}>
+              <li>
+                <span className="bold">Cepljeni: </span>
+                <i>stats: </i>
+                {dates.stats.toString()}{' '}
+              </li>
+              <li>
+                <span className="bold">Potrjeni primeri: </span>
+                <i>summary: </i>
+                {dates.summary.toString()}
+              </li>
+              <li className={css.check_patients}>
+                <span className="bold">Po starosti: </span>
+                <i>stats: </i>
+                {dates.patients.toString()}{' '}
+              </li>
+              <li className={css.check_patients}>
+                <span className="bold">Po bonišnicah: </span>
+                <i>stats: </i>
+                {dates.patients.toString()}
+              </li>
+              <li className={css.check_municipalities}>
+                <span className="bold">Po krajih: </span>
+                <i>municipalities: </i>
+                {dates.municipalities.toString()}
+              </li>
             </ol>
           </li>
         </ul>
