@@ -80,10 +80,10 @@ const getRegions = data => {
     .reverse();
 };
 
-const createCalculatedRegions = arr => {
+const createCalculatedRegions = perDayRegions => {
   let index = 1;
-  const obj = arr.reduce((acc, value) => {
-    acc['d' + index] = calc_regions(value);
+  const obj = perDayRegions.reduce((acc, regions) => {
+    acc['d' + index] = calc_regions(regions);
     index++;
     return acc;
   }, {});
@@ -91,12 +91,13 @@ const createCalculatedRegions = arr => {
 };
 
 const Municipalities = props => {
-  const regionsArray = getRegions([...props.data]).slice(0, 16); //
-  const calculatedRegions = createCalculatedRegions([...regionsArray]);
+  const perDayRegions = getRegions([...props.data]).slice(0, 16); // one day too much
+  // TODO we could skip calculatedPerDayRegions and calc regions even earlier in getRegions
+  const calculatedPerDayRegions = createCalculatedRegions([...perDayRegions]);
 
   const difference_since_yesterday = _.assignWith(
-    { ...calculatedRegions.d1 },
-    { ...calculatedRegions.d2 },
+    { ...calculatedPerDayRegions.d1 },
+    { ...calculatedPerDayRegions.d2 },
     (today, yesterday) => today - yesterday
   );
 
@@ -122,7 +123,7 @@ const Municipalities = props => {
     const outputData = towns
       .map(town => {
         // prepare data to calculate trend
-        const deltas = Object.entries(calculatedRegions)
+        const deltas = Object.entries(calculatedPerDayRegions)
           .map(([day, regionData], index, entries) => {
             if (day === 'd16') {
               return null; // last value; can not subtract
@@ -144,13 +145,13 @@ const Municipalities = props => {
           (Math.log(y1) + 3 * Math.log(y3) - 4 * Math.log(y2)) / 8;
         const trend = oneTrendArgIsUndefined ? 'no' : calcTrend(y1, y2, y3);
 
-        // set output
+        // set icon
         const upDown =
-          props.showTrend === 'y'
-            ? setPlatformFriendlyIcon(props.icons)(trend)
-            : `<i>${
-                Math.round((trend + Number.EPSILON) * 100000) / 100000
-              }</i> `;
+          props.showTrend === 'y' ? (
+            setPlatformFriendlyIcon(props.icons)(trend)
+          ) : (
+            <i>{Math.round((trend + Number.EPSILON) * 100000) / 100000}</i>
+          );
 
         return [town, upDown];
       })
@@ -164,24 +165,20 @@ const Municipalities = props => {
       );
 
     // generate HTML output
-    let outputLabel = '';
-    for (var k = 0; k < outputData[0].length; k++) {
-      outputLabel = outputLabel.concat(outputData[0][k]);
-      outputLabel = outputLabel.concat(' ');
-      outputLabel = outputLabel.concat(
-        outputData[1][k] === '' ? '' : outputData[1][k]
-      ); // remove NaN that reside in an array due to y1-y3 being 0
-      if (k < outputData[0].length - 1) {
-        outputLabel = outputLabel.concat(', ');
-      }
-    }
-    outputLabel = outputLabel.concat(`<strong>&nbsp;+${count}<br></strong>`);
+    const outputLabelJaka = outputData[0].map((town, index) => {
+      const upDown = outputData[1][index];
+      return (
+        <span key={index + ' ' + town}>
+          {town} {upDown}
+          {index !== outputData[0].length && ', '}
+        </span>
+      );
+    });
 
-    // TODO Lists do not contain only <li> elements and script supporting elements (<script> and <template>)
     return (
-      <div key={count}>
-        <span dangerouslySetInnerHTML={{ __html: outputLabel }}></span>
-      </div>
+      <li key={count + '-' + { towns }}>
+        {outputLabelJaka} <span className="bold">+{count}</span>
+      </li>
     );
   }).reverse();
 
