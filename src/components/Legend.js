@@ -77,6 +77,9 @@ function Legend({ municipalities, isLoading, css = {}, dates = {} }) {
       <LegendSection title={'Osveženi podatki'}>
         <ul style={{ listStyle: 'none' }}>
           <li>
+            <span className="bold">Danes: {dates.today.toString()}</span>
+          </li>
+          <li>
             <span className="bold">API datumi:</span>
             <ol style={{ padding: '8px 24px' }}>
               <li className={css.check_stats}>

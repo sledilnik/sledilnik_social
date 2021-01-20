@@ -77,6 +77,7 @@ function App() {
     const summaryDate = getDate(summary.testsToday);
 
     const dates = {
+      today: formatToLocaleDateString(new Date(), 'E, d.M.yyyy'),
       stats: formatToLocaleDateString(statsDate, 'E, d.M.yyyy'),
       patients: formatToLocaleDateString(patientsDate, 'E, d.M.yyyy'),
       municipalities: formatToLocaleDateString(
