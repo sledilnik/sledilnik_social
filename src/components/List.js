@@ -7,10 +7,10 @@ import differenceInDays from 'date-fns/differenceInDays';
 import Intro from './shared/ui/Intro';
 import Outro from './shared/ui/Outro';
 import TESTS_ACTIVE from './List/TESTS_ACTIVE';
+import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 import Combined from './List/Combined';
 
 import './List.css';
-import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 
 // API paths: lab-tests, summary
 function getTestsActiveData(labData, active) {
@@ -131,8 +131,7 @@ const List = ({
   );
 
   // prepare data fot Combined
-
-  // prepare hospitalsDict
+  // {code: 'xxx', name: 'yyy', uri: 'zzz} -> [['xxx', 'zzz]] [[<code>,<name>]]
   const hospitalsDict = prepareHospitalsDict(hospitalsList);
 
   // prepare perHospitalChanges
@@ -197,12 +196,15 @@ function prepareHospitalsDict(hospitalsList) {
 }
 
 // prepare perHospitalChanges
+// -> [["ukclj", {care: {...}, critical: {..}, deceased: {...},deceasedCare: {...}, icu: {...}, inHospital: {...}, niv: {...} }],...]
+// properties of interest icu & inHospital
 function getPerHospitalChanges(patients) {
   const patientsData = patients.slice(-1).pop();
   const patientsDataIsNotUndefined = !isUndefined(patientsData);
   return patientsDataIsNotUndefined && Object.entries(patientsData.facilities);
 }
 
+// -> [["ukclj", {...}, "UKC Ljubljana"],... ]
 function findAndPushLongHospitalName(perHospitalChanges, hospitalsDict) {
   return perHospitalChanges.map(hospital => {
     const hospitalLongName = hospitalsDict.filter(
@@ -212,7 +214,6 @@ function findAndPushLongHospitalName(perHospitalChanges, hospitalsDict) {
   });
 }
 
-// get date for Intro component
 export function formatToLocaleDateString(
   dateAsText = '',
   formatStr = 'd.M.yyyy',
@@ -222,14 +223,13 @@ export function formatToLocaleDateString(
   return format(date, formatStr, options);
 }
 
-/**
- * date received is part of an object with properties: year, month, day
- */
+// date received is part of an object with properties: year, month, day
 export function getDate(obj = {}) {
   let { year, month, day } = obj;
   return new Date(year, month - 1, day);
 }
 
+// extract last item in array form API data
 export function getLastUpdatedData({
   stats,
   municipalities,
