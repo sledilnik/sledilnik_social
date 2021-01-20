@@ -17,15 +17,20 @@ function Combined({ testsActive, hospitalizedDeceased, combined, css }) {
     <>
       <TESTS_ACTIVE
         check_summary={css.check_summary}
+        check_lab_tests={css.check_lab_tests}
         cases={testsActive.cases}
         regTests={testsActive.regTests}
         hagtTests={testsActive.hagtTests}
       />
       <Vaccination
+        check_stats={css.check_stats}
         toDate={formatNumber(combined.vaccinationToDate)}
         today={alwaysSignDisplay(combined.vaccinationToday)}
       />
-      <Confirmed confirmed={formatNumber(combined.confirmedToDate)} />
+      <Confirmed
+        check_stats={css.check_stats}
+        confirmed={formatNumber(combined.confirmedToDate)}
+      />
       <PerAge
         title={'Potrjeni primeri po starosti'}
         check_stats={css.check_stats}
