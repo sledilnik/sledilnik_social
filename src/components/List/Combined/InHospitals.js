@@ -34,22 +34,22 @@ function InHospitals({ check_patients, title, patients, perHospitalChanges }) {
     (b[1].inHospital.today || 0) - (a[1].inHospital.today || 0);
 
   const createHospitalOutput = hosp => {
-    const hospital = hosp[1];
+    const { inHospital, icu } = hosp[1];
 
-    const { inHospital, icu } = hospital;
+    // we want to display property 'out' as negative number
+    const negHospOut = -inHospital.out;
+    const negIcuOut = -icu.out;
 
     const formattedInHospital = {
       number: isNaN(inHospital.today) ? '-' : formatNumber(inHospital.today),
       in: isNaN(inHospital.in) ? '-' : alwaysSignDisplay(inHospital.in),
-      out: isNaN(inHospital.out) ? '-' : alwaysSignDisplay(-inHospital.out),
+      out: isNaN(negHospOut) ? '-' : alwaysSignDisplay(negHospOut),
     };
     const foramttedIcu = {
       number: isNaN(icu.today) ? '-' : formatNumber(icu.today),
       in: isNaN(icu.in) ? '-' : alwaysSignDisplay(icu.in),
-      out: isNaN(icu.out) ? '-' : alwaysSignDisplay(-icu.out),
+      out: isNaN(negIcuOut) ? '-' : alwaysSignDisplay(negIcuOut),
     };
-
-    console.log({ hospital: inHospital, icu });
 
     const noHospitalData = hosp[1].inHospital.today === undefined;
 
@@ -66,7 +66,8 @@ function InHospitals({ check_patients, title, patients, perHospitalChanges }) {
     );
   };
 
-  const noPatientsData = patients[patients.length - 1] === undefined;
+  // TODO we can check in parent component
+  const noPatientsData = patients.slice(-1)[0] === undefined;
 
   const hospitalOutput = perHospitalChanges
     .sort(sortDescByPatients)
