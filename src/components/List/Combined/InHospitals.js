@@ -7,12 +7,7 @@ import {
   alwaysSignDisplay,
 } from '../../../utils/createLocaleNumberFormat';
 
-function InHospital({
-  hospShort,
-  hospitalName,
-  hosp = { number: 0, in: 0, out: 0 },
-  icu = { number: 0, in: 0, out: 0 },
-}) {
+function InHospital({ hospShort, hospitalName, hosp, icu }) {
   return (
     <li key={hospShort}>
       <span className="bold">{hospitalName}</span>:{' '}
