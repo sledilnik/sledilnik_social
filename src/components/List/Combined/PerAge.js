@@ -4,20 +4,15 @@ import { Row, Brackets, NoData } from '../../shared/ui/New';
 import { formatNumber } from '../../../utils/createLocaleNumberFormat';
 
 function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
-  const deltas = [];
-
-  // TODO move logic to Combined, use map, make it better
-  for (let i = 0; i < 10; i++) {
-    const { ageFrom, ageTo } = todayPerAge[i];
+  // TODO move logic to Combined?
+  const deltas = todayPerAge.map((item, i) => {
+    const { ageFrom, ageTo } = item;
     const ageRange = `${ageFrom}${ageTo ? `-${ageTo}` : '+'}`;
-    const key = `${i}_${ageRange}`;
-    const today = todayPerAge[i].allToDate;
+    const today = item.allToDate;
     const yesterday = yesterdayPerAge[i].allToDate;
-
     const delta = today - yesterday;
-    console.log({ isNaN: isNaN(delta), delta });
-    const _delta = (
-      <span key={key}>
+    return (
+      <span key={`${i}_${ageRange}`}>
         {' '}
         {ageRange}{' '}
         <span className="bold">
@@ -26,8 +21,7 @@ function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
         {i !== 9 ? ',' : ''}
       </span>
     );
-    deltas.push(_delta);
-  }
+  });
 
   const noData = deltas.some(delta => !isNaN(delta));
 
