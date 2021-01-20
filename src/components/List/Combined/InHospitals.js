@@ -39,16 +39,22 @@ function InHospitals({ check_patients, title, patients, perHospitalChanges }) {
     (b[1].inHospital.today || 0) - (a[1].inHospital.today || 0);
 
   const createHospitalOutput = hosp => {
-    const hospital = {
-      number: formatNumber(hosp[1].inHospital.today),
-      in: alwaysSignDisplay(hosp[1].inHospital.in),
-      out: alwaysSignDisplay(-hosp[1].inHospital.out),
+    const hospital = hosp[1];
+
+    const { inHospital, icu } = hospital;
+
+    const formattedInHospital = {
+      number: isNaN(inHospital.today) ? '-' : formatNumber(inHospital.today),
+      in: isNaN(inHospital.in) ? '-' : alwaysSignDisplay(inHospital.in),
+      out: isNaN(inHospital.out) ? '-' : alwaysSignDisplay(-inHospital.out),
     };
-    const icu = {
-      number: formatNumber(hosp[1].icu.today),
-      in: alwaysSignDisplay(hosp[1].icu.in),
-      out: alwaysSignDisplay(-hosp[1].icu.out),
+    const foramttedIcu = {
+      number: isNaN(icu.today) ? '-' : formatNumber(icu.today),
+      in: isNaN(icu.in) ? '-' : alwaysSignDisplay(icu.in),
+      out: isNaN(icu.out) ? '-' : alwaysSignDisplay(-icu.out),
     };
+
+    console.log({ hospital: inHospital, icu });
 
     const noHospitalData = hosp[1].inHospital.today === undefined;
 
@@ -59,8 +65,8 @@ function InHospitals({ check_patients, title, patients, perHospitalChanges }) {
         key={hosp[0]}
         hospShort={hosp[0]}
         hospitalName={hosp[2]}
-        hosp={{ ...hospital }}
-        icu={{ ...icu }}
+        hosp={{ ...formattedInHospital }}
+        icu={{ ...foramttedIcu }}
       />
     );
   };
