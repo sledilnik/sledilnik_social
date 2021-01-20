@@ -77,15 +77,12 @@ function App() {
     const summaryDate = getDate(summary.casesActive); // change here, change in List.getChecks
 
     const dates = {
-      today: formatToLocaleDateString(new Date(), 'E, d.M.yyyy'),
-      stats: formatToLocaleDateString(statsDate, 'E, d.M.yyyy'),
-      patients: formatToLocaleDateString(patientsDate, 'E, d.M.yyyy'),
-      municipalities: formatToLocaleDateString(
-        municipalitiesDate,
-        'E, d.M.yyyy'
-      ),
-      labTests: formatToLocaleDateString(labTestsDate, 'E, d.M.yyyy'),
-      summary: formatToLocaleDateString(summaryDate, 'E, d.M.yyyy'),
+      today: formatToLocaleDateString(new Date(), 'd.M.yyyy'),
+      stats: formatToLocaleDateString(statsDate, 'd.M.yyyy'),
+      patients: formatToLocaleDateString(patientsDate, 'd.M.yyyy'),
+      municipalities: formatToLocaleDateString(municipalitiesDate, 'd.M.yyyy'),
+      labTests: formatToLocaleDateString(labTestsDate, 'd.M.yyyy'),
+      summary: formatToLocaleDateString(summaryDate, 'd.M.yyyy'),
     };
 
     const css = getChecks({
