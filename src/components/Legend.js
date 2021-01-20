@@ -126,17 +126,17 @@ function Legend({
             <ol style={{ padding: '8px 24px' }}>
               <li className={css.patients}>
                 <span className="bold">Hospitalizirani: </span>
-                {dates.stats.toString()} {paths.stats.pathname},{' '}
-                {dates.patients.toString()} {paths.patients.pathname}
+                {dates.stats.toString()} path: {paths.stats.pathname},{' '}
+                {dates.patients.toString()} path: {paths.patients.pathname}
               </li>
               <li className={css.patients}>
                 <span className="bold">Na respiratorju: </span>
-                {dates.stats.toString()} {paths.stats.pathname},{' '}
-                {dates.patients.toString()} {paths.patients.pathname}
+                {dates.stats.toString()} path: {paths.stats.pathname},{' '}
+                {dates.patients.toString()} path: {paths.patients.pathname}
               </li>
               <li className={css.patients}>
                 <span className="bold">Preminuli: </span>
-                {dates.patients.toString()} {paths.patients.pathname}
+                {dates.patients.toString()} path: {paths.patients.pathname}
               </li>
             </ol>
           </li>
@@ -146,28 +146,27 @@ function Legend({
               {/* <Vaccination/> */}
               <li className={css.stats}>
                 <span className="bold">Cepljeni: </span>
-                {dates.stats.toString()} {paths.stats.pathname}
+                {dates.stats.toString()} path: {paths.stats.pathname}
               </li>
               {/* <Confirmed/> */}
               <li className={css.stats}>
                 <span className="bold">Potrjeni primeri: </span>
-                {dates.stats.toString()} {paths.stats.pathname}
+                {dates.stats.toString()} path: {paths.stats.pathname}
               </li>
               {/* <PerAge/> */}
               <li className={css.stats}>
                 <span className="bold">Po starosti: </span>
-                {dates.stats.toString()} {paths.stats.pathname}
+                {dates.stats.toString()} path: {paths.stats.pathname}
               </li>
               {/* <InHospitals/> */}
               <li className={css.patients}>
                 <span className="bold">Po bonišnicah: </span>
-                {dates.patients.toString()} {paths.patients.pathname}
+                {dates.patients.toString()} path: {paths.patients.pathname}
               </li>
               {/* <CITIES_SOCIAL_FRIENDLY/> */}
               <li className={css.municipalities}>
                 <span className="bold">Po krajih: </span>
-                <i>municipalities: </i>
-                {dates.municipalities.toString()}{' '}
+                {dates.municipalities.toString()} path:{' '}
                 {paths.municipalities.pathname}
               </li>
             </ol>
