@@ -39,13 +39,12 @@ export const isOneArgumentUndefined = (values = {}) => {
   return result;
 };
 
-// TODO implement
-export const NoData = ({ text, html = { tag: 'span', classes: '' } }) => {
-  if (html.tag === 'span') {
-    return <span className={html.classes}>{text}</span>;
+export const NoData = ({ children, html = { tag: 'span', classes: '' } }) => {
+  if (html.tag === 'span' || !html.tag) {
+    return <span className={html.classes}>{children}</span>;
   }
   if (html.tag === 'p') {
-    return <Row className={html.classes}>{text}</Row>;
+    return <Row className={html.classes}>{children}</Row>;
   }
-  return;
+  return null;
 };
