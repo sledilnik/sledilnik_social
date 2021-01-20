@@ -19,7 +19,7 @@ function getTestsActiveData(labData, active) {
   const casesActiveIn = active.subValues.in;
   const casesActiveOut = active.subValues.out;
 
-  const cases = { casesActive, casesActiveIn, casesActiveOut };
+  const cases = { casesActive, casesActiveIn, casesActiveOut: -casesActiveOut };
 
   const { today: regToday } = regular.positive;
   const { today: regPerformed } = regular.performed;

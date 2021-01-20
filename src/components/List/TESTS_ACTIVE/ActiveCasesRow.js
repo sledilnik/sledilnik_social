@@ -4,13 +4,14 @@ import { Row, Brackets } from '../../shared/ui/New';
 
 // TODO params: isUndefined, isNull?
 function ActiveCasesRow({ casesActive, casesActiveIn, casesActiveOut }) {
+  console.log({ casesActive, casesActiveIn, casesActiveOut });
   return (
     <Row>
       Aktivni primeri:{' '}
       <span className="bold">
         {casesActive}{' '}
         <Brackets>
-          {casesActiveIn}, {-casesActiveOut}
+          {casesActiveIn}, {casesActiveOut}
         </Brackets>
       </span>
     </Row>
