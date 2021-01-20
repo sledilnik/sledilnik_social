@@ -143,6 +143,7 @@ const List = ({
     hospitalsDict
   );
   const statsTwoDaysAgo = stats.slice(-3, -2).pop();
+  // todo rename getCOmbined  partial?
   const combined = getCombinedData(statsYesterday, statsTwoDaysAgo);
   combined.perHospitalChanges = perHospitalChangesWithLongName;
   combined.patients = patients;
