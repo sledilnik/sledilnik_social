@@ -82,7 +82,11 @@ function Legend({
     }
     return (
       <li key={`${key}-${index}`} className={value[0]}>
-        <span className="bold">{value[2].pathname}:</span> {value[1]}
+        <span className="bold">
+          {value[2].pathname}
+          {key === 'summary' ? '.casesActive' : ''}:
+        </span>{' '}
+        {value[1]}
       </li>
     );
   });
@@ -115,7 +119,6 @@ function Legend({
               </li>
               <li className={css.summary}>
                 <span className="bold">Aktivni primeri: </span>
-                <i>summary: </i>
                 {dates.summary.toString()} path: {paths.summary.pathname}
               </li>
             </ol>
