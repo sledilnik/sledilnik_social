@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Row, Brackets } from '../../shared/ui/New';
+import { Row, Brackets, NoData } from '../../shared/ui/New';
 import { formatNumber } from '../../../utils/createLocaleNumberFormat';
 
 function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
@@ -28,10 +28,17 @@ function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
     deltas.push(_delta);
   }
 
+  const noData = deltas.some(delta => !(delta instanceof Number));
+
   return (
     <span className={check_stats}>
       <Row>
-        {title}: {deltas}
+        {title}:{' '}
+        {noData ? (
+          <NoData html={{ classes: 'bold' }}>ni podatka</NoData>
+        ) : (
+          deltas
+        )}
       </Row>
     </span>
   );
