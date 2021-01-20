@@ -7,34 +7,34 @@ import {
   alwaysSignDisplay,
 } from '../../../utils/createLocaleNumberFormat';
 
-function InHospitals({ check_patients, title, patients, perHospitalChanges }) {
-  const InHospital = ({
-    hospShort,
-    hospitalName,
-    hosp = { number: 0, in: 0, out: 0 },
-    icu = { number: 0, in: 0, out: 0 },
-  }) => {
-    return (
-      <li key={hospShort}>
-        <span className="bold">{hospitalName}</span>:{' '}
-        <DataTranslate number={hosp.number} text={'oseba'} />{' '}
-        <span className="bold">
-          <Brackets>
-            {hosp.in}, {hosp.out}
-          </Brackets>
-        </span>
-        , EIT:
-        <DataTranslate number={icu.number} text={'oseba'} />{' '}
-        <span className="bold">
-          <Brackets>
-            {icu.in}, {icu.out}
-          </Brackets>
-        </span>
-        .
-      </li>
-    );
-  };
+function InHospital({
+  hospShort,
+  hospitalName,
+  hosp = { number: 0, in: 0, out: 0 },
+  icu = { number: 0, in: 0, out: 0 },
+}) {
+  return (
+    <li key={hospShort}>
+      <span className="bold">{hospitalName}</span>:{' '}
+      <DataTranslate number={hosp.number} text={'oseba'} />{' '}
+      <span className="bold">
+        <Brackets>
+          {hosp.in}, {hosp.out}
+        </Brackets>
+      </span>
+      , EIT:
+      <DataTranslate number={icu.number} text={'oseba'} />{' '}
+      <span className="bold">
+        <Brackets>
+          {icu.in}, {icu.out}
+        </Brackets>
+      </span>
+      .
+    </li>
+  );
+}
 
+function InHospitals({ check_patients, title, patients, perHospitalChanges }) {
   const sortDescByPatients = (a, b) =>
     (b[1].inHospital.today || 0) - (a[1].inHospital.today || 0);
 
