@@ -148,13 +148,13 @@ function Legend({ municipalities, isLoading, css = {}, dates = {} }) {
             <span className="bold">Kombiniran:</span>
             <ol style={{ padding: '8px 24px' }}>
               {/* <Vaccination/> */}
-              <li>
+              <li className={css.check_stats}>
                 <span className="bold">Cepljeni: </span>
                 <i>stats: </i>
                 {dates.stats.toString()}{' '}
               </li>
               {/* <Confirmed/> */}
-              <li>
+              <li className={css.check_stats}>
                 <span className="bold">Potrjeni primeri: </span>
                 <i>stats: </i>
                 {dates.stats.toString()}
