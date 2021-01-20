@@ -74,7 +74,7 @@ function App() {
     const patientsDate = getDate(data.patientsData);
     const municipalitiesDate = getDate(data.municipalitiesData);
     const labTestsDate = getDate(data.labTestsData);
-    const summaryDate = getDate(summary.testsToday);
+    const summaryDate = getDate(summary.casesActive); // change here, change in List.getChecks
 
     const dates = {
       today: formatToLocaleDateString(new Date(), 'E, d.M.yyyy'),

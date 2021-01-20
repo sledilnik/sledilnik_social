@@ -268,7 +268,7 @@ export function getChecks({
   const statsDate = getDate(lastUpdatedData.statsData);
   const municipalitiesDate = getDate(lastUpdatedData.municipalitiesData);
   const labTestsDate = getDate(lastUpdatedData.labTestsData);
-  const summaryDate = getDate(summary.testsToday);
+  const summaryDate = getDate(summary.casesActive); // before labTests
 
   // checks
   const patientsCheck = differenceInDays(new Date(), patientsDate) > 0;
