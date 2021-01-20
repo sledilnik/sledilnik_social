@@ -15,12 +15,13 @@ function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
     const yesterday = yesterdayPerAge[i].allToDate;
 
     const delta = today - yesterday;
+    console.log({ isNaN: isNaN(delta), delta });
     const _delta = (
       <span key={key}>
         {' '}
         {ageRange}{' '}
         <span className="bold">
-          <Brackets>{formatNumber(delta)}</Brackets>
+          <Brackets>{isNaN(delta) ? '-' : formatNumber(delta)}</Brackets>
         </span>
         {i !== 9 ? ',' : ''}
       </span>
@@ -28,17 +29,16 @@ function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
     deltas.push(_delta);
   }
 
-  const noData = deltas.some(delta => !(delta instanceof Number));
+  const noData = deltas.some(delta => !isNaN(delta));
 
   return (
     <span className={check_stats}>
       <Row>
         {title}:{' '}
-        {noData ? (
-          <NoData html={{ classes: 'bold' }}>ni podatka</NoData>
-        ) : (
-          deltas
-        )}
+        {noData && (
+          <NoData html={{ classes: 'bold' }}>manjkajoči podatki: </NoData>
+        )}{' '}
+        {deltas}
       </Row>
     </span>
   );
