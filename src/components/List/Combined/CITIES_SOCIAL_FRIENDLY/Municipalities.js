@@ -153,23 +153,24 @@ const Municipalities = props => {
             <i>{Math.round((trend + Number.EPSILON) * 100000) / 100000}</i>
           );
 
-        return [town, upDown];
+        return [town, upDown, trend];
       })
       .reduce(
         (outputData, town_upDown) => {
           outputData[0].push(town_upDown[0]);
           outputData[1].push(town_upDown[1]);
+          outputData[2].push(town_upDown[2]);
           return outputData;
         },
-        [[], []]
+        [[], [], []]
       );
-
     // generate HTML output
     const outputLabelJaka = outputData[0].map((town, index) => {
+      const trend = outputData[2][index];
       const upDown = outputData[1][index];
       return (
         <span key={index + ' ' + town}>
-          {town} {upDown}
+          {town} {trend !== 'no' && upDown}
           {index !== outputData[0].length && ', '}
         </span>
       );
