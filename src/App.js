@@ -96,10 +96,37 @@ function App() {
       labTests,
     });
 
-    return { dates, css };
+    return {
+      dates,
+      css: {
+        stats: css.check_stats,
+        patients: css.check_patients,
+        labTests: css.check_lab_tests,
+        municipalities: css.check_municipalities,
+        summary: css.check_summary,
+      },
+    };
   };
 
-  const legendData = getDatesAndCss(loading);
+  const paths = {
+    stats: apiPathObject.statsPath,
+    patients: apiPathObject.patientsPath,
+    labTests: apiPathObject.lab_testsPath,
+    municipalities: apiPathObject.municipalitiesPath,
+    summary: apiPathObject.summaryPath,
+  };
+
+  const datesAndCss = getDatesAndCss(loading);
+
+  const refreshData =
+    datesAndCss &&
+    paths &&
+    [datesAndCss?.css, datesAndCss?.dates, paths].reduce((acc, obj) => {
+      for (const [key, value] of Object.entries(obj)) {
+        acc[key] = acc[key] ? [...acc[key], value] : [value];
+      }
+      return acc;
+    }, {});
 
   return (
     <div className="App">
@@ -118,8 +145,10 @@ function App() {
         <Legend
           isLoading={loading}
           municipalities={municipalities}
-          dates={legendData?.dates}
-          css={legendData?.css}
+          dates={datesAndCss?.dates}
+          css={datesAndCss?.css}
+          paths={paths}
+          refreshData={refreshData}
         />
       </main>
       <Footer />
