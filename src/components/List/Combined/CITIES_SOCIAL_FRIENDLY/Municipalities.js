@@ -82,8 +82,8 @@ const createCalculatedRegions = perDayRegions => {
   return obj;
 };
 
-const Municipalities = props => {
-  const perDayRegions = props.data
+const Municipalities = ({ data, showTrend = 'y', icons = '' }) => {
+  const perDayRegions = data
     .map(item => item.regions)
     .reverse()
     .slice(0, 16); // one day too much
@@ -142,8 +142,8 @@ const Municipalities = props => {
 
         // set icon
         const upDown =
-          props.showTrend === 'y' ? (
-            setPlatformFriendlyIcon(props.icons)(trend)
+          showTrend === 'y' ? (
+            setPlatformFriendlyIcon(icons)(trend)
           ) : (
             <i>{Math.round((trend + Number.EPSILON) * 100000) / 100000}</i>
           );
