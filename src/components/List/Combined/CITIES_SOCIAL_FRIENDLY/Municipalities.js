@@ -119,11 +119,11 @@ const Municipalities = props => {
       .map(town => {
         // prepare data to calculate trend
         const deltas = Object.entries(calculatedPerDayRegions)
-          .map(([day, regionData], index, entries) => {
+          .map(([day, regionData], index, days) => {
             if (day === 'd16') {
               return null; // last value; can not subtract
             }
-            const regionDataDayBefore = entries[index + 1][1];
+            const regionDataDayBefore = days[index + 1][1];
             return regionData[town] - regionDataDayBefore[town];
           })
           .filter(item => item !== null);
