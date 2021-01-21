@@ -56,7 +56,6 @@ function getHospitalizedDeceasedData(
   const hospNum = statsToday.statePerTreatment.inHospital;
   const hospIn = patientsToday.total.inHospital.in;
   const hospOut = patientsToday.total.inHospital.out;
-  const icuNum = statsToday.statePerTreatment.inICU;
   const todayICU = statsToday.statePerTreatment.inICU;
   const yesterdayICU = statsYesterday.statePerTreatment.inICU;
   const icuDelta = todayICU - yesterdayICU;
@@ -64,7 +63,7 @@ function getHospitalizedDeceasedData(
     hospNum,
     hospIn,
     hospOut: -hospOut,
-    icuNum,
+    icuNum: todayICU,
     icuDelta,
   };
 
