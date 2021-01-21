@@ -27,7 +27,14 @@ const municipalitiesTrend = [
   },
 ];
 
-function Legend({ municipalities, isLoading }) {
+function Legend({
+  municipalities,
+  isLoading,
+  css = {},
+  dates = {},
+  paths = {},
+  refreshData = {},
+}) {
   // should render different for each condition?
   if (isLoading || !municipalities) {
     return '';
@@ -69,9 +76,106 @@ function Legend({ municipalities, isLoading }) {
     );
   };
 
+  const apiDates = Object.entries(refreshData).map(([key, value], index) => {
+    if (key === 'today') {
+      return '';
+    }
+    return (
+      <li key={`${key}-${index}`} className={value[0]}>
+        <span className="bold">
+          {value[2].pathname}
+          {key === 'summary' ? '.casesActive' : ''}:
+        </span>{' '}
+        {value[1]}
+      </li>
+    );
+  });
+
+  // TODO move style to css file, when done with html
+  // ? add data date?
   return (
     <div className="Legend">
       <h2 id="legenda">Legenda</h2>
+      <LegendSection title={'Osveženi podatki'}>
+        <ul style={{ listStyle: 'none' }}>
+          <li>
+            <span className="bold">Danes: {dates.today.toString()}</span>
+          </li>
+          <li>
+            <span className="bold">API datumi:</span>
+            <ol style={{ padding: '8px 24px' }}>{apiDates}</ol>
+          </li>
+          <li>
+            {/* <TESTS_ACTIVE/> */}
+            <span className="bold">Testi in aktivni primeri:</span>
+            <ol style={{ padding: '8px 24px' }}>
+              <li className={css.labTests}>
+                <span className="bold">PCR: </span>
+                {dates.labTests.toString()} path: {paths.labTests.pathname}
+              </li>
+              <li className={css.labTests}>
+                <span className="bold">HAT: </span>
+                {dates.labTests.toString()} path: {paths.labTests.pathname}
+              </li>
+              <li className={css.summary}>
+                <span className="bold">Aktivni primeri: </span>
+                {dates.summary.toString()} path: {paths.summary.pathname}
+              </li>
+            </ol>
+          </li>
+          <li>
+            {/* <HOSPITALIZED_DECEASED/> */}
+            <span className="bold">Hospitalizirani in preminuli:</span>
+            <ol style={{ padding: '8px 24px' }}>
+              <li className={css.patients}>
+                <span className="bold">Hospitalizirani: </span>
+                {dates.stats.toString()} path: {paths.stats.pathname},{' '}
+                {dates.patients.toString()} path: {paths.patients.pathname}
+              </li>
+              <li className={css.patients}>
+                <span className="bold">Na respiratorju: </span>
+                {dates.stats.toString()} path: {paths.stats.pathname},{' '}
+                {dates.patients.toString()} path: {paths.patients.pathname}
+              </li>
+              <li className={css.patients}>
+                <span className="bold">Preminuli: </span>
+                {dates.patients.toString()} path: {paths.patients.pathname}
+              </li>
+            </ol>
+          </li>
+          <li>
+            <span className="bold">Kombiniran:</span>
+            <ol style={{ padding: '8px 24px' }}>
+              {/* <Vaccination/> */}
+              <li className={css.stats}>
+                <span className="bold">Cepljeni: </span>
+                {dates.stats.toString()} path: {paths.stats.pathname}
+              </li>
+              {/* <Confirmed/> */}
+              <li className={css.stats}>
+                <span className="bold">Potrjeni primeri: </span>
+                {dates.stats.toString()} path: {paths.stats.pathname}
+              </li>
+              {/* <PerAge/> */}
+              <li className={css.stats}>
+                <span className="bold">Po starosti: </span>
+                {dates.stats.toString()} path: {paths.stats.pathname}
+              </li>
+              {/* <InHospitals/> */}
+              <li className={css.patients}>
+                <span className="bold">Po bonišnicah: </span>
+                {dates.patients.toString()} path: {paths.patients.pathname}
+              </li>
+              {/* <CITIES_SOCIAL_FRIENDLY/> */}
+              <li className={css.municipalities}>
+                <span className="bold">Po krajih: </span>
+                {dates.municipalities.toString()} path:{' '}
+                {paths.municipalities.pathname}
+              </li>
+            </ol>
+          </li>
+        </ul>
+      </LegendSection>
       <LegendSection
         title={'Trend rasti potrjenih primerov v posamezni občini'}
       >

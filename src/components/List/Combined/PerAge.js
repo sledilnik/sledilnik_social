@@ -1,37 +1,37 @@
 import React from 'react';
 
-import { Row, Text, Brackets, Bold, LocaleNumber } from '../../shared/ui/New';
+import { Row, Brackets, NoData } from '../../shared/ui/New';
+import { formatNumber } from '../../../utils/createLocaleNumberFormat';
 
-function PerAge({ check_third_age, title, todayPerAge, yesterdayPerAge }) {
-  const deltas = [];
-
-  for (let i = 0; i < 10; i++) {
-    const { ageFrom, ageTo } = todayPerAge[i];
+function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
+  // TODO move logic to Combined?
+  const deltas = todayPerAge.map((item, i) => {
+    const { ageFrom, ageTo } = item;
     const ageRange = `${ageFrom}${ageTo ? `-${ageTo}` : '+'}`;
-    const key = `${i}_${ageRange}`;
-    const today = todayPerAge[i].allToDate;
+    const today = item.allToDate;
     const yesterday = yesterdayPerAge[i].allToDate;
-
     const delta = today - yesterday;
-    const _delta = (
-      <span key={key}>
+    return (
+      <span key={`${i}_${ageRange}`}>
         {' '}
         {ageRange}{' '}
-        <Bold>
-          <Brackets>
-            <LocaleNumber number={delta} />
-          </Brackets>
-        </Bold>
+        <span className="bold">
+          <Brackets>{isNaN(delta) ? '-' : formatNumber(delta)}</Brackets>
+        </span>
         {i !== 9 ? ',' : ''}
       </span>
     );
-    deltas.push(_delta);
-  }
+  });
+
+  const noData = deltas.some(delta => !isNaN(delta));
 
   return (
-    <span className={check_third_age}>
+    <span className={check_stats}>
       <Row>
-        <Text>{title}: </Text>
+        {title}:{' '}
+        {noData && (
+          <NoData html={{ classes: 'bold' }}>manjkajoči podatki: </NoData>
+        )}{' '}
         {deltas}
       </Row>
     </span>

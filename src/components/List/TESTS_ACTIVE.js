@@ -2,53 +2,50 @@ import React from 'react';
 
 import PercentageRow from './TESTS_ACTIVE/PercentageRow';
 import ActiveCasesRow from './TESTS_ACTIVE/ActiveCasesRow';
+import {
+  alwaysSignDisplay,
+  formatNumber,
+  percentStyle,
+} from '../../utils/createLocaleNumberFormat';
 
-function TESTS_ACTIVE({ check_first, labTests, summary }) {
-  const { regular, hagt } = labTests[labTests.length - 1].data;
-  const casesActive = summary.casesActive.value;
-  const casesActiveIn = summary.casesActive.subValues.in;
-  const casesActiveOut = summary.casesActive.subValues.out;
-
-  const { today: regToday } = regular.positive;
-  const { today: regPerformed } = regular.performed;
-  const { today: hagtToday } = hagt.positive;
-  const { today: hagtPerformed } = hagt.performed;
-
-  const calcFraction = (numerator, denominator) => numerator / denominator;
-  const calcPercentage = value => value * 100;
-  const getPercentage = (numerator, denominator) => {
-    const canNotCalc = isNaN(numerator) || isNaN(denominator);
-    if (canNotCalc) {
-      return ' - ';
-    }
-
-    const fraction = calcFraction(numerator, denominator);
-    return calcPercentage(fraction);
-  };
-
-  const regPercentage = getPercentage(regToday, regPerformed);
-  const hagtPercentage = getPercentage(hagtToday, hagtPerformed);
+function TESTS_ACTIVE({
+  check_summary,
+  check_lab_tests,
+  cases,
+  regTests,
+  hagtTests,
+}) {
+  if (regTests === undefined) {
+    return 'no regTests';
+  }
+  const { regToday, regPerformed, regFraction } = regTests;
+  const { hagtToday, hagtPerformed, hagtFraction } = hagtTests;
+  const { casesActive, casesActiveIn, casesActiveOut } = cases;
 
   return (
-    <div className={check_first}>
-      <PercentageRow
-        title={'PCR'}
-        numerator={regToday}
-        denominator={regPerformed}
-        percent={regPercentage}
-      />
-      <PercentageRow
-        title={'PCR'}
-        numerator={hagtToday}
-        denominator={hagtPerformed}
-        percent={hagtPercentage}
-      />
-      <ActiveCasesRow
-        title={'Aktivni primeri'}
-        casesActive={casesActive}
-        casesActiveIn={casesActiveIn}
-        casesActiveOut={casesActiveOut}
-      />
+    <div>
+      <section className={check_lab_tests}>
+        <PercentageRow
+          title={'PCR'}
+          numerator={alwaysSignDisplay(regToday)}
+          denominator={formatNumber(regPerformed)}
+          percent={percentStyle(regFraction)}
+        />
+        <PercentageRow
+          title={'HAT'}
+          numerator={alwaysSignDisplay(hagtToday)}
+          denominator={formatNumber(hagtPerformed)}
+          percent={percentStyle(hagtFraction)}
+        />
+      </section>
+      <section className={check_summary}>
+        <ActiveCasesRow
+          title={'Aktivni primeri'}
+          casesActive={formatNumber(casesActive)}
+          casesActiveIn={alwaysSignDisplay(casesActiveIn)}
+          casesActiveOut={alwaysSignDisplay(casesActiveOut)}
+        />
+      </section>
     </div>
   );
 }

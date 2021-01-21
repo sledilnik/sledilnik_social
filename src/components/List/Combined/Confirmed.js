@@ -1,16 +1,10 @@
 import React from 'react';
 
-import { Row, Text, LocaleNumber, Bold } from '../../shared/ui/New';
+import { Row } from '../../shared/ui/New';
 
-function Confirmed({ confirmed }) {
+function Confirmed({ confirmed, check_stats }) {
   return (
-    <Row>
-      <Text>Skupaj </Text>
-      <Bold>
-        <LocaleNumber number={confirmed} />
-      </Bold>{' '}
-      potrjenih primerov
-    </Row>
+    <Row className={check_stats}>Skupaj: {confirmed} potrjenih primerov</Row>
   );
 }
 

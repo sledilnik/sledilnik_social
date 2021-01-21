@@ -7,59 +7,52 @@ import PerAge from './Combined/PerAge';
 import InHospitals from './Combined/InHospitals';
 import Vaccination from './Combined/Vaccination';
 import Confirmed from './Combined/Confirmed';
+import {
+  formatNumber,
+  alwaysSignDisplay,
+} from './../../utils/createLocaleNumberFormat';
 
-function Combined({
-  check_first,
-  check_second,
-  check_third_age,
-  check_third_mun,
-  stats,
-  labTests,
-  summary,
-  patients,
-  municipalities,
-  perHospitalChanges,
-}) {
-  const todayPerAge = stats[stats.length - 2].statePerAgeToDate;
-  const yesterdayPerAge = stats[stats.length - 3].statePerAgeToDate;
-
-  const vaccinationToDate =
-    stats[stats.length - 2].vaccination.administered.toDate;
-  const vaccinationToday =
-    stats[stats.length - 2].vaccination.administered.today;
-
-  const confirmedToDate = stats[stats.length - 2].cases.confirmedToDate;
-
+function Combined({ testsActive, hospitalizedDeceased, combined, css }) {
   return (
     <>
       <TESTS_ACTIVE
-        check_first={check_first}
-        labTests={labTests}
-        summary={summary}
+        check_summary={css.check_summary}
+        check_lab_tests={css.check_lab_tests}
+        cases={testsActive.cases}
+        regTests={testsActive.regTests}
+        hagtTests={testsActive.hagtTests}
       />
-      <Vaccination toDate={vaccinationToDate} today={vaccinationToday} />
-      <Confirmed confirmed={confirmedToDate} />
+      <Vaccination
+        check_stats={css.check_stats}
+        toDate={formatNumber(combined.vaccinationToDate)}
+        today={alwaysSignDisplay(combined.vaccinationToday)}
+      />
+      <Confirmed
+        check_stats={css.check_stats}
+        confirmed={formatNumber(combined.confirmedToDate)}
+      />
       <PerAge
         title={'Potrjeni primeri po starosti'}
-        check_third_age={check_third_age}
-        todayPerAge={todayPerAge}
-        yesterdayPerAge={yesterdayPerAge}
+        check_stats={css.check_stats}
+        todayPerAge={combined.todayPerAge}
+        yesterdayPerAge={combined.yesterdayPerAge}
       />
       <HOSPITALIZED_DECEASED
-        check_second={check_second}
-        stats={stats}
-        patients={patients}
+        check_patients={css.check_patients}
+        hospitalized={hospitalizedDeceased.hospitalized}
+        onRespiratory={hospitalizedDeceased.onRespiratory}
+        deceased={hospitalizedDeceased.deceased}
       />
       <InHospitals
         title={'Stanje po bolnišnicah'}
-        check_second={check_second}
-        patients={patients}
-        perHospitalChanges={perHospitalChanges}
+        check_patients={css.check_patients}
+        patients={combined.patients}
+        perHospitalChanges={combined.perHospitalChanges}
       />
       <CITIES_SOCIAL_FRIENDLY
         title={'Po krajih'}
-        check_third_mun={check_third_mun}
-        municipalities={municipalities}
+        check_municipalities={css.check_municipalities}
+        municipalities={combined.municipalities}
       />
     </>
   );

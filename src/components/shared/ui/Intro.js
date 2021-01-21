@@ -1,19 +1,22 @@
 import React from 'react';
 
 import './Intro.css';
-import { Bold, Text, Emoji } from './New';
+import { Emoji } from './New';
+
+const mainComponentsNames = [
+  'TESTS_ACTIVE',
+  'HOSPITALIZED_DECEASED',
+  'Combined',
+];
 
 const Intro = ({ post, introTodayDate }) => {
+  const postsCount = mainComponentsNames.length;
   return (
     <h2 className="Intro text">
-      <Bold>
-        <Text>Status #COVID19 </Text>
-        <Emoji emoji={'🇸🇮'} ariaLabel={'flag'} />
-        <Text>
-          {' '}
-          {post}/3 {introTodayDate}
-        </Text>
-      </Bold>
+      <span className="bold">
+        Status #COVID19 <Emoji emoji={'🇸🇮'} ariaLabel={'flag'} /> {post}/
+        {postsCount} {introTodayDate}
+      </span>
     </h2>
   );
 };

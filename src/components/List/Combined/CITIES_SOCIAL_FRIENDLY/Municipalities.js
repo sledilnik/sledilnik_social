@@ -72,62 +72,27 @@ const setPlatformFriendlyIcon = (iconsVersion = 'FB') => trend => {
   return selectedIcons[iconKey];
 };
 
-const Municipalities = props => {
-  // set 16d for calculating 15d difference
-  const today = _.nth(props.data, -1);
-  const yesterday = _.nth(props.data, -2);
-  const d3 = _.nth(props.data, -3); // extended for calculation trends
-  const d4 = _.nth(props.data, -4);
-  const d5 = _.nth(props.data, -5);
-  const d6 = _.nth(props.data, -6);
-  const d7 = _.nth(props.data, -7);
-  const d8 = _.nth(props.data, -8);
-  const d9 = _.nth(props.data, -9);
-  const d10 = _.nth(props.data, -10);
-  const d11 = _.nth(props.data, -11);
-  const d12 = _.nth(props.data, -12);
-  const d13 = _.nth(props.data, -13);
-  const d14 = _.nth(props.data, -14);
-  const d15 = _.nth(props.data, -15);
-  const d16 = _.nth(props.data, -16);
+const createCalculatedRegions = perDayRegions => {
+  let index = 1;
+  const obj = perDayRegions.reduce((acc, regions) => {
+    acc['d' + index] = calc_regions(regions);
+    index++;
+    return acc;
+  }, {});
+  return obj;
+};
 
-  const mun_today = today.regions;
-  const mun_yesterday = yesterday.regions;
-  const mun_d3 = d3.regions; // extended for calculation trends
-  const mun_d4 = d4.regions;
-  const mun_d5 = d5.regions;
-  const mun_d6 = d6.regions;
-  const mun_d7 = d7.regions;
-  const mun_d8 = d8.regions;
-  const mun_d9 = d9.regions;
-  const mun_d10 = d10.regions;
-  const mun_d11 = d11.regions;
-  const mun_d12 = d12.regions;
-  const mun_d13 = d13.regions;
-  const mun_d14 = d14.regions;
-  const mun_d15 = d15.regions;
-  const mun_d16 = d16.regions;
-
-  const all_numbers_today = calc_regions(mun_today);
-  const all_numbers_yesterday = calc_regions(mun_yesterday);
-  const all_numbers_d3 = calc_regions(mun_d3); // extended for calculation trends
-  const all_numbers_d4 = calc_regions(mun_d4);
-  const all_numbers_d5 = calc_regions(mun_d5);
-  const all_numbers_d6 = calc_regions(mun_d6);
-  const all_numbers_d7 = calc_regions(mun_d7);
-  const all_numbers_d8 = calc_regions(mun_d8);
-  const all_numbers_d9 = calc_regions(mun_d9);
-  const all_numbers_d10 = calc_regions(mun_d10);
-  const all_numbers_d11 = calc_regions(mun_d11);
-  const all_numbers_d12 = calc_regions(mun_d12);
-  const all_numbers_d13 = calc_regions(mun_d13);
-  const all_numbers_d14 = calc_regions(mun_d14);
-  const all_numbers_d15 = calc_regions(mun_d15);
-  const all_numbers_d16 = calc_regions(mun_d16);
+const Municipalities = ({ data, showTrend = 'y', icons = '' }) => {
+  const perDayRegions = data
+    .map(item => item.regions)
+    .reverse()
+    .slice(0, 16); // one day too much
+  // TODO we could skip calculatedPerDayRegions and calc regions even earlier in getRegions
+  const calculatedPerDayRegions = createCalculatedRegions([...perDayRegions]);
 
   const difference_since_yesterday = _.assignWith(
-    all_numbers_today,
-    all_numbers_yesterday,
+    { ...calculatedPerDayRegions.d1 },
+    { ...calculatedPerDayRegions.d2 },
     (today, yesterday) => today - yesterday
   );
 
@@ -149,83 +114,67 @@ const Municipalities = props => {
   const display_values = _.map(difference_as_array, (towns, count) => {
     // if there is a single town for a specific number of new cases, calculate 7-d trend
 
-    let trend = 0;
-    let upDown = '';
-    let outputTowns = [];
-    let outputTrends = [];
-
     // fetch 7-d data for trend
-    for (let j = 0; j < towns.length; j++) {
-      let townsDeltas = [
-        all_numbers_today[towns[j]],
-        all_numbers_yesterday[towns[j]] - all_numbers_d3[towns[j]],
-        all_numbers_d3[towns[j]] - all_numbers_d4[towns[j]],
-        all_numbers_d4[towns[j]] - all_numbers_d5[towns[j]],
-        all_numbers_d5[towns[j]] - all_numbers_d6[towns[j]],
-        all_numbers_d6[towns[j]] - all_numbers_d7[towns[j]],
-        all_numbers_d7[towns[j]] - all_numbers_d8[towns[j]],
-        all_numbers_d8[towns[j]] - all_numbers_d9[towns[j]],
-        all_numbers_d9[towns[j]] - all_numbers_d10[towns[j]],
-        all_numbers_d10[towns[j]] - all_numbers_d11[towns[j]],
-        all_numbers_d11[towns[j]] - all_numbers_d12[towns[j]],
-        all_numbers_d12[towns[j]] - all_numbers_d13[towns[j]],
-        all_numbers_d13[towns[j]] - all_numbers_d14[towns[j]],
-        all_numbers_d14[towns[j]] - all_numbers_d15[towns[j]],
-        all_numbers_d15[towns[j]] - all_numbers_d16[towns[j]],
-      ];
+    const outputData = towns
+      .map(town => {
+        // prepare data to calculate trend
+        const deltas = Object.entries(calculatedPerDayRegions)
+          .map(([day, regionData], index, days) => {
+            if (day === 'd16') {
+              return null; // last value; can not subtract
+            }
+            const regionDataDayBefore = days[index + 1][1];
+            return regionData[town] - regionDataDayBefore[town];
+          })
+          .filter(item => item !== null);
 
-      // calculate trend for every municipality
-      let y1 = 0;
-      for (let i = 8; i < 15; i++) {
-        y1 += townsDeltas[i];
-      }
-      let y2 = 0;
-      for (let i = 4; i < 11; i++) {
-        y2 += townsDeltas[i];
-      }
-      let y3 = 0;
-      for (let i = 0; i < 7; i++) {
-        y3 += townsDeltas[i];
-      }
+        // prepare params to calculate trend
+        const addValue = (acc, value) => acc + value;
+        const y3 = deltas.slice(0, 7).reduce(addValue, 0);
+        const y2 = deltas.slice(4, 11).reduce(addValue, 0);
+        const y1 = deltas.slice(8, 15).reduce(addValue, 0);
 
-      if (y1 === 0 || y2 === 0 || y3 === 0) {
-        trend = 'no';
-      } else {
-        trend = (Math.log(y1) + 3 * Math.log(y3) - 4 * Math.log(y2)) / 8;
-      }
+        // calculate trend
+        const oneTrendArgIsUndefined = y1 === 0 || y2 === 0 || y3 === 0;
+        const calcTrend = (y1, y2, y3) =>
+          (Math.log(y1) + 3 * Math.log(y3) - 4 * Math.log(y2)) / 8;
+        const trend = oneTrendArgIsUndefined ? 'no' : calcTrend(y1, y2, y3);
 
-      if (props.showTrend === 'y') {
-        // plot FB/TW friendly icons
-        upDown = setPlatformFriendlyIcon(props.icons)(trend);
-      } else {
-        upDown = `<i>${
-          Math.round((trend + Number.EPSILON) * 100000) / 100000
-        }</i> `;
-      }
+        // set icon
+        const upDown =
+          showTrend === 'y' ? (
+            setPlatformFriendlyIcon(icons)(trend)
+          ) : (
+            <i>{Math.round((trend + Number.EPSILON) * 100000) / 100000}</i>
+          );
 
-      outputTowns.push(towns[j]);
-      outputTrends.push(upDown);
-    }
-
+        return [town, upDown, trend];
+      })
+      .reduce(
+        (outputData, town_upDown) => {
+          outputData[0].push(town_upDown[0]);
+          outputData[1].push(town_upDown[1]);
+          outputData[2].push(town_upDown[2]);
+          return outputData;
+        },
+        [[], [], []]
+      );
     // generate HTML output
-    let outputLabel = '';
-    for (var k = 0; k < outputTowns.length; k++) {
-      outputLabel = outputLabel.concat(outputTowns[k]);
-      outputLabel = outputLabel.concat(' ');
-      outputLabel = outputLabel.concat(
-        outputTrends[k] === '' ? '' : outputTrends[k]
-      ); // remove NaN that reside in an array due to y1-y3 being 0
-      if (k < outputTowns.length - 1) {
-        outputLabel = outputLabel.concat(', ');
-      }
-    }
-    outputLabel = outputLabel.concat(`<strong>&nbsp;+${count}<br></strong>`);
+    const outputLabelJaka = outputData[0].map((town, index) => {
+      const trend = outputData[2][index];
+      const upDown = outputData[1][index];
+      return (
+        <span key={index + ' ' + town}>
+          {town} {trend !== 'no' && upDown}
+          {index !== outputData[0].length - 1 && ', '}
+        </span>
+      );
+    });
 
-    // TODO Lists do not contain only <li> elements and script supporting elements (<script> and <template>)
     return (
-      <div key={count}>
-        <span dangerouslySetInnerHTML={{ __html: outputLabel }}></span>
-      </div>
+      <li key={count + '-' + { towns }}>
+        {outputLabelJaka} <span className="bold">+{count}</span>
+      </li>
     );
   }).reverse();
 

@@ -1,29 +1,27 @@
 import React from 'react';
-import {
-  Row,
-  Text,
-  Bold,
-  LocaleNumberWithPlus,
-  LocaleNumber,
-  Brackets,
-} from '../../shared/ui/New';
+import { Row, Brackets, NoData } from '../../shared/ui/New';
 
 // TODO rename toDate -> vaccinated, today -> vaccinatedToday
-function Vaccination({ toDate, today }) {
+function Vaccination({ toDate, today, check_stats }) {
   const title = 'Število cepljenih oseb';
 
+  const noData = !isNaN(today) || !isNaN(toDate);
+
   return (
-    <Row>
-      <Text>{title} </Text>
-      <Bold>
-        <LocaleNumber number={toDate} />
-      </Bold>{' '}
-      <Brackets>
-        <Bold>
-          <LocaleNumberWithPlus number={today} />
-        </Bold>
-      </Brackets>
-    </Row>
+    <>
+      {noData ? (
+        <Row className={check_stats}>
+          {title}: <span className="bold">{toDate}</span>{' '}
+          <Brackets>
+            <span className="bold">{today}</span>
+          </Brackets>
+        </Row>
+      ) : (
+        <NoData className="text" html={{ tag: 'p', classes: 'bold red' }}>
+          Ni vseh podatkov za cepljene osebe
+        </NoData>
+      )}
+    </>
   );
 }
 
