@@ -72,14 +72,6 @@ const setPlatformFriendlyIcon = (iconsVersion = 'FB') => trend => {
   return selectedIcons[iconKey];
 };
 
-const getRegions = data => {
-  return data
-    .map(item => {
-      return item.regions;
-    })
-    .reverse();
-};
-
 const createCalculatedRegions = perDayRegions => {
   let index = 1;
   const obj = perDayRegions.reduce((acc, regions) => {
@@ -91,7 +83,10 @@ const createCalculatedRegions = perDayRegions => {
 };
 
 const Municipalities = props => {
-  const perDayRegions = getRegions([...props.data]).slice(0, 16); // one day too much
+  const perDayRegions = props.data
+    .map(item => item.regions)
+    .reverse()
+    .slice(0, 16); // one day too much
   // TODO we could skip calculatedPerDayRegions and calc regions even earlier in getRegions
   const calculatedPerDayRegions = createCalculatedRegions([...perDayRegions]);
 
