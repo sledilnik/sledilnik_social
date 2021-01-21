@@ -25,20 +25,6 @@ export const Row = ({
 
 export const Brackets = ({ children }) => <>({children})</>;
 
-// TODO implement
-export const isOneArgumentUndefined = (values = {}) => {
-  const isUndefined = value => value === undefined;
-  let result = false;
-  for (const [key, value] of Object.entries(values)) {
-    const valueIsUndefined = isUndefined(value);
-    if (valueIsUndefined) {
-      console.warn(`Argument: ${key} is undefined!`);
-      result = true;
-    }
-  }
-  return result;
-};
-
 export const NoData = ({ children, html = { tag: 'span', classes: '' } }) => {
   if (html.tag === 'span' || !html.tag) {
     return <span className={html.classes}>{children}</span>;
