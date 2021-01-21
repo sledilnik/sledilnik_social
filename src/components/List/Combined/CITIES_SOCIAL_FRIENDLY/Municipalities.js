@@ -171,7 +171,7 @@ const Municipalities = props => {
       return (
         <span key={index + ' ' + town}>
           {town} {trend !== 'no' && upDown}
-          {index !== outputData[0].length && ', '}
+          {index !== outputData[0].length - 1 && ', '}
         </span>
       );
     });
