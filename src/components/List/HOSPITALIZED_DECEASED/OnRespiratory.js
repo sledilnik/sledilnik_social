@@ -1,16 +1,24 @@
 import React from 'react';
-import Translate from '../../shared/ui/Translate';
-import DataTranslate from '../../shared/ui/DataTranslate';
 import { Row, Brackets } from '../../shared/ui/New';
 
-function OnRespiratory({ today, delta }) {
+function OnRespiratory({
+  title,
+  todayCritical,
+  criticalDelta,
+  todayNiv,
+  nivDelta,
+}) {
+  // Na respiratorju: 144, neinvazivno: 12 (-1), intubirani: 132 (-2)
   return (
     <Row>
-      Na respiratorju (intubirani) se{' '}
-      <Translate text={'zdravi'} number={today} />{' '}
-      <DataTranslate number={today} text={'oseba'} />{' '}
+      {title}: <span className="bold">{todayCritical + todayNiv}</span>,
+      neinvazivno: <span className="bold">{todayNiv}</span>{' '}
       <span className="bold">
-        <Brackets>{delta}</Brackets>
+        <Brackets>{nivDelta}</Brackets>
+      </span>
+      , intubirani: <span className="bold">{todayCritical}</span>{' '}
+      <span className="bold">
+        <Brackets>{criticalDelta}</Brackets>
       </span>
     </Row>
   );

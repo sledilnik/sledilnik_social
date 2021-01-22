@@ -29,8 +29,11 @@ function HOSPITALIZED_DECEASED({
         icuDelta={alwaysSignDisplay(hospitalized.icuDelta)}
       />
       <OnRespiratory
-        today={onRespiratory.todayCritical}
-        delta={alwaysSignDisplay(onRespiratory.respiratoryDelta)}
+        title={'Na respiratorju'}
+        todayCritical={onRespiratory.todayCritical}
+        criticalDelta={alwaysSignDisplay(onRespiratory.respiratoryDelta)}
+        todayNiv={onRespiratory.todayNiv}
+        nivDelta={alwaysSignDisplay(onRespiratory.nivDelta)}
       />
       <Deceased
         title={'Preminuli'}
