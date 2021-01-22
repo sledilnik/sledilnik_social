@@ -41,9 +41,9 @@ function HOSPITALIZED_DECEASED({
       />
       <InCare
         title={'Negovalne bolnišnice'}
-        careNum={formatNumber(inCare?.careNum)}
-        careIn={alwaysSignDisplay(inCare?.careIn)}
-        careOut={alwaysSignDisplay(inCare?.careOut)}
+        careNum={!isNaN(inCare?.careNum) && formatNumber(inCare?.careNum)}
+        careIn={!isNaN(inCare?.careIn) && alwaysSignDisplay(inCare?.careIn)}
+        careOut={!isNaN(inCare?.careOut) && alwaysSignDisplay(inCare?.careOut)}
       />
       <Deceased
         title={'Preminuli'}
