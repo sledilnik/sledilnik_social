@@ -77,7 +77,15 @@ function getHospitalizedDeceasedData(
   const todayNiv = patientsToday.total.niv.today;
   const yesterdayNiv = patientsYesterday.total.niv.today;
   const nivDelta = todayNiv - yesterdayNiv;
-  const onRespiratory = { todayCritical, respiratoryDelta, todayNiv, nivDelta };
+
+  const respiratoryTotal = todayNiv + todayCritical;
+  const onRespiratory = {
+    respiratoryTotal,
+    todayCritical,
+    respiratoryDelta,
+    todayNiv,
+    nivDelta,
+  };
 
   // <InCare/>
   const { today: careNum, in: careIn, out: careOut } = patientsToday.total.care;

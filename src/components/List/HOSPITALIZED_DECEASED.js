@@ -30,6 +30,7 @@ function HOSPITALIZED_DECEASED({
       />
       <OnRespiratory
         title={'Na respiratorju'}
+        respiratoryTotal={formatNumber(onRespiratory.respiratoryTotal)}
         todayCritical={onRespiratory.todayCritical}
         criticalDelta={alwaysSignDisplay(onRespiratory.respiratoryDelta)}
         todayNiv={onRespiratory.todayNiv}
