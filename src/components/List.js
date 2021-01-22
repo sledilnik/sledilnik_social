@@ -52,6 +52,7 @@ function getHospitalizedDeceasedData(
   patientsToday = {},
   patientsYesterday = {}
 ) {
+  // <Hospitalized/>
   const {
     today: hospNum,
     in: hospIn,
@@ -68,14 +69,21 @@ function getHospitalizedDeceasedData(
     icuDelta,
   };
 
+  // <OnRespiratory/>
   const todayCritical = patientsToday.total.critical.today;
   const yesterdayCritical = patientsYesterday.total.critical.today;
   const respiratoryDelta = todayCritical - yesterdayCritical;
-  const onRespiratory = { todayCritical, respiratoryDelta };
 
+  const todayNiv = patientsToday.total.critical.today;
+  const yesterdayNiv = patientsYesterday.total.critical.today;
+  const nivDelta = todayNiv - yesterdayNiv;
+  const onRespiratory = { todayCritical, respiratoryDelta, todayNiv, nivDelta };
+
+  // <InCare/>
   const { today: careNum, in: careIn, out: careOut } = patientsToday.total.care;
   const inCare = { careNum, careIn, careOut: -careOut };
 
+  // <Deceased/>
   // TODO rename deceased properties -> use today and toDate
   const { today: dead, toDate: deceasedToDate } = patientsToday.total.deceased;
   const deceased = { deceased: dead, deceasedToDate };
