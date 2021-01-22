@@ -6,16 +6,20 @@ import {
   formatNumber,
   alwaysSignDisplay,
 } from '../../utils/createLocaleNumberFormat';
+import InCare from './HOSPITALIZED_DECEASED/InCare';
 
 function HOSPITALIZED_DECEASED({
   check_patients,
   hospitalized,
   onRespiratory,
+  inCare,
   deceased,
 }) {
-  if (!hospitalized) {
+  if (!hospitalized || !inCare) {
     return '';
   }
+
+  console.log(inCare);
   return (
     <div className={check_patients}>
       <Hospitalized
@@ -35,6 +39,12 @@ function HOSPITALIZED_DECEASED({
         criticalDelta={alwaysSignDisplay(onRespiratory.respiratoryDelta)}
         todayNiv={formatNumber(onRespiratory.todayNiv)}
         nivDelta={alwaysSignDisplay(onRespiratory.nivDelta)}
+      />
+      <InCare
+        title={'Negovalne bolnišnice'}
+        careNum={formatNumber(inCare.careNum)}
+        careIn={alwaysSignDisplay(inCare.careIn)}
+        careOut={alwaysSignDisplay(inCare.careOut)}
       />
       <Deceased
         title={'Preminuli'}
