@@ -73,6 +73,9 @@ function getHospitalizedDeceasedData(
   const respiratoryDelta = todayCritical - yesterdayCritical;
   const onRespiratory = { todayCritical, respiratoryDelta };
 
+  const { today: careNum, in: careIn, out: careOut } = patientsToday.total.care;
+  const inCare = { careNum, careIn, careOut: -careOut };
+
   // TODO rename deceased properties -> use today and toDate
   const { today: dead, toDate: deceasedToDate } = patientsToday.total.deceased;
   const deceased = { deceased: dead, deceasedToDate };
@@ -80,6 +83,7 @@ function getHospitalizedDeceasedData(
   return {
     hospitalized,
     onRespiratory,
+    inCare,
     deceased,
   };
 }
@@ -133,10 +137,12 @@ const List = ({
   const statsYesterday = stats.slice(-2, -1).pop();
   const patientsToday = patients.slice(-1).pop();
   const patientsYesterday = patients.slice(-2, -1).pop();
-  const { hospitalized, onRespiratory, deceased } = getHospitalizedDeceasedData(
-    patientsToday,
-    patientsYesterday
-  );
+  const {
+    hospitalized,
+    onRespiratory,
+    inCare,
+    deceased,
+  } = getHospitalizedDeceasedData(patientsToday, patientsYesterday);
 
   // prepare data fot Combined
   // {code: 'xxx', name: 'yyy', uri: 'zzz} -> [['xxx', 'zzz]] [[<code>,<name>]]
