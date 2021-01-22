@@ -91,7 +91,7 @@ function Legend({
     );
   });
 
-  // TODO move style to css file, when done with html
+  // TODO move inline style to css file, when done with html
   // ? add data date?
   return (
     <div className="Legend">
@@ -125,21 +125,24 @@ function Legend({
           </li>
           <li>
             {/* <HOSPITALIZED_DECEASED/> */}
-            <span className="bold">Hospitalizirani in preminuli:</span>
-            <ol style={{ padding: '8px 24px' }}>
-              <li className={css.patients}>
-                <span className="bold">Hospitalizirani: </span>
-                {dates.stats.toString()} path: {paths.stats.pathname},{' '}
-                {dates.patients.toString()} path: {paths.patients.pathname}
+            <span className="bold">
+              Hospitalizirani, negovani in preminuli:
+            </span>{' '}
+            <span className={css.patients}>
+              date: {dates.patients.toString()} path: {paths.patients.pathname}
+            </span>
+            <ol className={css.patients} style={{ padding: '8px 24px' }}>
+              <li>
+                <span className="bold">Hospitalizirani</span>
               </li>
-              <li className={css.patients}>
-                <span className="bold">Na respiratorju: </span>
-                {dates.stats.toString()} path: {paths.stats.pathname},{' '}
-                {dates.patients.toString()} path: {paths.patients.pathname}
+              <li>
+                <span className="bold">Na respiratorju</span>
               </li>
-              <li className={css.patients}>
-                <span className="bold">Preminuli: </span>
-                {dates.patients.toString()} path: {paths.patients.pathname}
+              <li>
+                <span className="bold">Negovalne bolnišnice</span>
+              </li>
+              <li>
+                <span className="bold">Preminuli</span>
               </li>
             </ol>
           </li>
