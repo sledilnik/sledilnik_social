@@ -1,8 +1,5 @@
 import { addDays } from 'date-fns';
 
-const daysBefore = 18; // to calculate trends we need data for 18 days
-const dateFrom = addDays(new Date(), -daysBefore).toISOString();
-
 const BASE_API_URL = 'https://api.sledilnik.org';
 const baseURL = new URL(BASE_API_URL);
 
@@ -11,11 +8,17 @@ const baseURL = new URL(BASE_API_URL);
 // in case path has underscore, add key <noReplace> with truthy value
 // example: path_with_underscore: {params: {...}, noReplace: true}
 const pathsParamsObject = {
-  stats: { params: { from: dateFrom } },
-  patients: { params: { from: dateFrom } },
-  municipalities: { params: { from: dateFrom } },
+  stats: { params: { from: addDays(new Date(), -3).toISOString() } },
+  patients: {
+    params: { from: addDays(new Date(), -2).toISOString() },
+  },
+  municipalities: {
+    params: { from: addDays(new Date(), -17).toISOString() },
+  },
   hospitals_list: { params: {} },
-  lab_tests: { params: { from: dateFrom } },
+  lab_tests: {
+    params: { from: addDays(new Date(), -2).toISOString() }, // only for 2 days
+  },
   summary: { params: {} },
 };
 
