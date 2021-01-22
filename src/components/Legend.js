@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Legend.css';
 import Municipalities from './List/Combined/CITIES_SOCIAL_FRIENDLY/Municipalities';
-import { Arrow } from './shared/ui/New';
+import { Arrow, Emoji } from './shared/ui/New';
 
 const municipalitiesTrend = [
   {
@@ -92,13 +92,19 @@ function Legend({
     );
   });
 
-  const PathDate = ({ title, path }) => (
-    <li className={css[path]}>
-      <span className="bold">{title}: </span>
-      <span className="bold">{paths[path].pathname}</span> <Arrow />{' '}
-      <span className="bold">{dates[path].toString()}</span>
-    </li>
-  );
+  const PathDate = ({ title, path }) => {
+    const markOk = <Emoji emoji={'✅'} ariaLabel="check mark" />;
+    const markFail = <Emoji emoji={'❌'} ariaLabel="cross mark" />;
+    // css[path] = '' || 'red'
+    return (
+      <li className={css[path]}>
+        {css[path] ? markFail : markOk} <span className="bold">{title}: </span>
+        <span className={css[path] && 'bold'}>{paths[path].pathname}</span>{' '}
+        <Arrow />{' '}
+        <span className={css[path] && 'bold'}>{dates[path].toString()}</span>
+      </li>
+    );
+  };
 
   // TODO move inline style to css file, when done with html
   // ? add data date?
