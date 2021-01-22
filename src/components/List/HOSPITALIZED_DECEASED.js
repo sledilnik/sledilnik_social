@@ -19,7 +19,6 @@ function HOSPITALIZED_DECEASED({
     return '';
   }
 
-  console.log(inCare);
   return (
     <div className={check_patients}>
       <Hospitalized

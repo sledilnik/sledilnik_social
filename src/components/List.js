@@ -90,7 +90,6 @@ function getHospitalizedDeceasedData(
   // <InCare/>
   const { today: careNum, in: careIn, out: careOut } = patientsToday.total.care;
   const inCare = { careNum, careIn, careOut: -careOut };
-  console.log({ inCare });
 
   // <Deceased/>
   // TODO rename deceased properties -> use today and toDate

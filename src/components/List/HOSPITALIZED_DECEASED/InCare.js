@@ -2,7 +2,6 @@ import React from 'react';
 import { Row, Brackets } from '../../shared/ui/New';
 
 function InCare({ title, careNum, careIn, careOut }) {
-  console.log({ title, careNum, careIn, careOut });
   // -> Negovalne bolnišnice: 103 (+3, -1)
   return (
     <Row>
