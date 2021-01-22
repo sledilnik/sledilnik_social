@@ -41,6 +41,7 @@ function Combined({ testsActive, hospitalizedDeceased, combined, css }) {
         check_patients={css.check_patients}
         hospitalized={hospitalizedDeceased.hospitalized}
         onRespiratory={hospitalizedDeceased.onRespiratory}
+        inCare={hospitalizedDeceased.inCare}
         deceased={hospitalizedDeceased.deceased}
       />
       <InHospitals

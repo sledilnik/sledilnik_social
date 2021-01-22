@@ -210,7 +210,12 @@ const List = ({
         <Intro post={3} introTodayDate={introTodayDate} />
         <Combined
           testsActive={{ cases, regTests, hagtTests }}
-          hospitalizedDeceased={{ hospitalized, onRespiratory, deceased }}
+          hospitalizedDeceased={{
+            hospitalized,
+            onRespiratory,
+            inCare,
+            deceased,
+          }}
           combined={combined}
           css={css}
         />
