@@ -74,8 +74,8 @@ function getHospitalizedDeceasedData(
   const yesterdayCritical = patientsYesterday.total.critical.today;
   const respiratoryDelta = todayCritical - yesterdayCritical;
 
-  const todayNiv = patientsToday.total.critical.today;
-  const yesterdayNiv = patientsYesterday.total.critical.today;
+  const todayNiv = patientsToday.total.niv.today;
+  const yesterdayNiv = patientsYesterday.total.niv.today;
   const nivDelta = todayNiv - yesterdayNiv;
   const onRespiratory = { todayCritical, respiratoryDelta, todayNiv, nivDelta };
 
