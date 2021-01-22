@@ -2,6 +2,7 @@ import React from 'react';
 
 import './Legend.css';
 import Municipalities from './List/Combined/CITIES_SOCIAL_FRIENDLY/Municipalities';
+import { Arrow, Emoji } from './shared/ui/New';
 
 const municipalitiesTrend = [
   {
@@ -91,7 +92,21 @@ function Legend({
     );
   });
 
-  // TODO move style to css file, when done with html
+  const PathDate = ({ title, path }) => {
+    const markOk = <Emoji emoji={'✅'} ariaLabel="check mark" />;
+    const markFail = <Emoji emoji={'❌'} ariaLabel="cross mark" />;
+    // css[path] = '' || 'red'
+    return (
+      <li className={css[path]}>
+        {css[path] ? markFail : markOk} <span className="bold">{title}: </span>
+        <span className={css[path] && 'bold'}>{paths[path].pathname}</span>{' '}
+        <Arrow />{' '}
+        <span className={css[path] && 'bold'}>{dates[path].toString()}</span>
+      </li>
+    );
+  };
+
+  // TODO move inline style to css file, when done with html
   // ? add data date?
   return (
     <div className="Legend">
@@ -109,69 +124,36 @@ function Legend({
             {/* <TESTS_ACTIVE/> */}
             <span className="bold">Testi in aktivni primeri:</span>
             <ol style={{ padding: '8px 24px' }}>
-              <li className={css.labTests}>
-                <span className="bold">PCR: </span>
-                {dates.labTests.toString()} path: {paths.labTests.pathname}
-              </li>
-              <li className={css.labTests}>
-                <span className="bold">HAT: </span>
-                {dates.labTests.toString()} path: {paths.labTests.pathname}
-              </li>
-              <li className={css.summary}>
-                <span className="bold">Aktivni primeri: </span>
-                {dates.summary.toString()} path: {paths.summary.pathname}
-              </li>
+              <PathDate title={'PCR'} path={'labTests'} />
+              <PathDate title={'HAT'} path={'labTests'} />
+              <PathDate title={'Aktivni primeri'} path={'summary'} />
             </ol>
           </li>
           <li>
             {/* <HOSPITALIZED_DECEASED/> */}
-            <span className="bold">Hospitalizirani in preminuli:</span>
-            <ol style={{ padding: '8px 24px' }}>
-              <li className={css.patients}>
-                <span className="bold">Hospitalizirani: </span>
-                {dates.stats.toString()} path: {paths.stats.pathname},{' '}
-                {dates.patients.toString()} path: {paths.patients.pathname}
-              </li>
-              <li className={css.patients}>
-                <span className="bold">Na respiratorju: </span>
-                {dates.stats.toString()} path: {paths.stats.pathname},{' '}
-                {dates.patients.toString()} path: {paths.patients.pathname}
-              </li>
-              <li className={css.patients}>
-                <span className="bold">Preminuli: </span>
-                {dates.patients.toString()} path: {paths.patients.pathname}
-              </li>
+            <span className="bold">
+              Hospitalizirani, negovani in preminuli:
+            </span>{' '}
+            <ol className={css.patients} style={{ padding: '8px 24px' }}>
+              <PathDate title={'Hospitalizirani'} path={'patients'} />
+              <PathDate title={'Na respiratorju'} path={'patients'} />
+              <PathDate title={'Negovalne bolnišnice'} path={'patients'} />
+              <PathDate title={'Preminuli'} path={'patients'} />
             </ol>
           </li>
           <li>
             <span className="bold">Kombiniran:</span>
             <ol style={{ padding: '8px 24px' }}>
               {/* <Vaccination/> */}
-              <li className={css.stats}>
-                <span className="bold">Cepljeni: </span>
-                {dates.stats.toString()} path: {paths.stats.pathname}
-              </li>
+              <PathDate title={'Cepljeni'} path={'stats'} />
               {/* <Confirmed/> */}
-              <li className={css.stats}>
-                <span className="bold">Potrjeni primeri: </span>
-                {dates.stats.toString()} path: {paths.stats.pathname}
-              </li>
+              <PathDate title={'Potrjeni primeri'} path={'stats'} />
               {/* <PerAge/> */}
-              <li className={css.stats}>
-                <span className="bold">Po starosti: </span>
-                {dates.stats.toString()} path: {paths.stats.pathname}
-              </li>
+              <PathDate title={'Po starosti'} path={'stats'} />
               {/* <InHospitals/> */}
-              <li className={css.patients}>
-                <span className="bold">Po bonišnicah: </span>
-                {dates.patients.toString()} path: {paths.patients.pathname}
-              </li>
+              <PathDate title={'Po bonišnicah'} path={'patients'} />
               {/* <CITIES_SOCIAL_FRIENDLY/> */}
-              <li className={css.municipalities}>
-                <span className="bold">Po krajih: </span>
-                {dates.municipalities.toString()} path:{' '}
-                {paths.municipalities.pathname}
-              </li>
+              <PathDate title={'Po krajih'} path={'municipalities'} />
             </ol>
           </li>
         </ul>

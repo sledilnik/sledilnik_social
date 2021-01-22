@@ -4,8 +4,8 @@ import { Row, Brackets } from '../../shared/ui/New';
 import DataTranslate from '../../shared/ui/DataTranslate';
 import {
   formatNumber,
-  alwaysSignDisplay,
-} from '../../../utils/createLocaleNumberFormat';
+  formatNumberWithSign,
+} from '../../../utils/formatNumber';
 
 function InHospital({ hospShort, hospitalName, hosp, icu }) {
   return (
@@ -42,13 +42,13 @@ function InHospitals({ check_patients, title, patients, perHospitalChanges }) {
 
     const formattedInHospital = {
       number: isNaN(inHospital.today) ? '-' : formatNumber(inHospital.today),
-      in: isNaN(inHospital.in) ? '-' : alwaysSignDisplay(inHospital.in),
-      out: isNaN(negHospOut) ? '-' : alwaysSignDisplay(negHospOut),
+      in: isNaN(inHospital.in) ? '-' : formatNumberWithSign(inHospital.in),
+      out: isNaN(negHospOut) ? '-' : formatNumberWithSign(negHospOut),
     };
     const foramttedIcu = {
       number: isNaN(icu.today) ? '-' : formatNumber(icu.today),
-      in: isNaN(icu.in) ? '-' : alwaysSignDisplay(icu.in),
-      out: isNaN(negIcuOut) ? '-' : alwaysSignDisplay(negIcuOut),
+      in: isNaN(icu.in) ? '-' : formatNumberWithSign(icu.in),
+      out: isNaN(negIcuOut) ? '-' : formatNumberWithSign(negIcuOut),
     };
 
     const noHospitalData = hosp[1].inHospital.today === undefined;

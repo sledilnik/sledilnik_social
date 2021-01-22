@@ -49,15 +49,17 @@ function getTestsActiveData(labData, active) {
 }
 // API paths: stats, patients
 function getHospitalizedDeceasedData(
-  statsToday = {},
-  statsYesterday = {},
-  patientsToday = {}
+  patientsToday = {},
+  patientsYesterday = {}
 ) {
-  const hospNum = statsToday.statePerTreatment.inHospital;
-  const hospIn = patientsToday.total.inHospital.in;
-  const hospOut = patientsToday.total.inHospital.out;
-  const todayICU = statsToday.statePerTreatment.inICU;
-  const yesterdayICU = statsYesterday.statePerTreatment.inICU;
+  // <Hospitalized/>
+  const {
+    today: hospNum,
+    in: hospIn,
+    out: hospOut,
+  } = patientsToday.total.inHospital;
+  const todayICU = patientsToday.total.icu.today;
+  const yesterdayICU = patientsYesterday.total.icu.today;
   const icuDelta = todayICU - yesterdayICU;
   const hospitalized = {
     hospNum,
@@ -67,17 +69,37 @@ function getHospitalizedDeceasedData(
     icuDelta,
   };
 
-  const todayCritical = statsToday.statePerTreatment.critical;
-  const yesterdayCritical = statsYesterday.statePerTreatment.critical;
+  // <OnRespiratory/>
+  const todayCritical = patientsToday.total.critical.today;
+  const yesterdayCritical = patientsYesterday.total.critical.today;
   const respiratoryDelta = todayCritical - yesterdayCritical;
-  const onRespiratory = { todayCritical, respiratoryDelta };
 
-  const { deceased: dead, deceasedToDate } = statsToday.statePerTreatment;
+  const todayNiv = patientsToday.total.niv.today;
+  const yesterdayNiv = patientsYesterday.total.niv.today;
+  const nivDelta = todayNiv - yesterdayNiv;
+
+  const respiratoryTotal = todayNiv + todayCritical;
+  const onRespiratory = {
+    respiratoryTotal,
+    todayCritical,
+    respiratoryDelta,
+    todayNiv,
+    nivDelta,
+  };
+
+  // <InCare/>
+  const { today: careNum, in: careIn, out: careOut } = patientsToday.total.care;
+  const inCare = { careNum, careIn, careOut: -careOut };
+
+  // <Deceased/>
+  // TODO rename deceased properties -> use today and toDate
+  const { today: dead, toDate: deceasedToDate } = patientsToday.total.deceased;
   const deceased = { deceased: dead, deceasedToDate };
 
   return {
     hospitalized,
     onRespiratory,
+    inCare,
     deceased,
   };
 }
@@ -127,14 +149,16 @@ const List = ({
 
   // prepare data for HOSPITALIZED_DECEASED
   // use data fromAPI paths: stats, patients
-  const statsToday = stats.slice(-1).pop();
+  // TODO remove stats
   const statsYesterday = stats.slice(-2, -1).pop();
   const patientsToday = patients.slice(-1).pop();
-  const { hospitalized, onRespiratory, deceased } = getHospitalizedDeceasedData(
-    statsToday,
-    statsYesterday,
-    patientsToday
-  );
+  const patientsYesterday = patients.slice(-2, -1).pop();
+  const {
+    hospitalized,
+    onRespiratory,
+    inCare,
+    deceased,
+  } = getHospitalizedDeceasedData(patientsToday, patientsYesterday);
 
   // prepare data fot Combined
   // {code: 'xxx', name: 'yyy', uri: 'zzz} -> [['xxx', 'zzz]] [[<code>,<name>]]
@@ -175,6 +199,7 @@ const List = ({
           check_patients={css.check_patients}
           hospitalized={hospitalized}
           onRespiratory={onRespiratory}
+          inCare={inCare}
           deceased={deceased}
           stats={stats}
           patients={patients}
@@ -185,7 +210,12 @@ const List = ({
         <Intro post={3} introTodayDate={introTodayDate} />
         <Combined
           testsActive={{ cases, regTests, hagtTests }}
-          hospitalizedDeceased={{ hospitalized, onRespiratory, deceased }}
+          hospitalizedDeceased={{
+            hospitalized,
+            onRespiratory,
+            inCare,
+            deceased,
+          }}
           combined={combined}
           css={css}
         />

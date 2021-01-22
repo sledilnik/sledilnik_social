@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Row, Brackets, NoData } from '../../shared/ui/New';
-import { formatNumber } from '../../../utils/createLocaleNumberFormat';
+import { formatNumber } from '../../../utils/formatNumber';
 
 function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
   // TODO move logic to Combined?

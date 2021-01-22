@@ -49,22 +49,28 @@ Component: `<HOSPITALIZED_DECEASED/>`:
 1. Hospitalized `<Hospitalized/>`:
 
    - Today:
-     - `/stats.statePerTreatment`
-       - `.inHospital`
-       - `.inICU`
      - `/patients.total.inHospital`
+       - `.today`
        - `.in`
-       - `.out`
+       - `.put`
+     - `/patients.total.icu.today`
    - Yesterday:
-     - `/stats.statePerTreatment.inICU`
+     - `/patients.total.icu.today`
 
 2. On respiratory `<OnRespiratory/>`:
    - Today & Yesterday:
-     - `/stats.statePerTreatment.critical`
-3. Deceased `<Deceased/>`:
-   - `/stats.statePerTreatment`
-     - `.deceased`
-     - `deceasedToDate`
+     - `/patients.total.critical.today`
+     - `/patients.total.niv.today`
+3. InCare `<InCare/>`:
+   - Today:
+     - `/patients.total.care`
+       `.today`
+       `.in`
+       `.out`
+4. Deceased `<Deceased/>`:
+   - `/patients.total.deceased`
+     - `.today`
+     - `.toDate`
 
 Combined `<Combined/>`
 
