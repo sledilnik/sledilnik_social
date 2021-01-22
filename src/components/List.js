@@ -13,13 +13,6 @@ import Combined from './List/Combined';
 import './List.css';
 
 // API paths: lab-tests, summary
-// ? ditch api call api/summary and use stats?
-/**
- * Aktivni: current(+ new, -old)
- * current = cases.active(t)
- * new = cases.confirmedToday(t)
- * old = cases.active(t-1) - cases.active(t) + cases.confirmedToday(t)
- */
 function getTestsActiveData(labData, active) {
   const { regular, hagt } = labData;
   const casesActive = active.value;
