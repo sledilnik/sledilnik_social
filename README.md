@@ -64,9 +64,9 @@ Component: `<HOSPITALIZED_DECEASED/>`:
 3. InCare `<InCare/>`:
    - Today:
      - `/patients.total.care`
-       `.today`
-       `.in`
-       `.out`
+       - `.today`
+       - `.in`
+       - `.out`
 4. Deceased `<Deceased/>`:
    - `/patients.total.deceased`
      - `.today`
