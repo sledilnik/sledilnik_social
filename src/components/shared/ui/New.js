@@ -23,6 +23,7 @@ export const Row = ({
   );
 };
 
+// ? change to span
 export const Brackets = ({ children }) => <>({children})</>;
 
 export const NoData = ({ children, html = { tag: 'span', classes: '' } }) => {
