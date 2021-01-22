@@ -15,7 +15,7 @@ function HOSPITALIZED_DECEASED({
   inCare,
   deceased,
 }) {
-  if (!hospitalized || !inCare) {
+  if (!hospitalized) {
     return '';
   }
 
@@ -41,9 +41,9 @@ function HOSPITALIZED_DECEASED({
       />
       <InCare
         title={'Negovalne bolnišnice'}
-        careNum={formatNumber(inCare.careNum)}
-        careIn={alwaysSignDisplay(inCare.careIn)}
-        careOut={alwaysSignDisplay(inCare.careOut)}
+        careNum={formatNumber(inCare?.careNum)}
+        careIn={alwaysSignDisplay(inCare?.careIn)}
+        careOut={alwaysSignDisplay(inCare?.careOut)}
       />
       <Deceased
         title={'Preminuli'}
