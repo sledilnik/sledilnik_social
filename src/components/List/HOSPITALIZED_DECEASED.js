@@ -31,9 +31,9 @@ function HOSPITALIZED_DECEASED({
       <OnRespiratory
         title={'Na respiratorju'}
         respiratoryTotal={formatNumber(onRespiratory.respiratoryTotal)}
-        todayCritical={onRespiratory.todayCritical}
+        todayCritical={formatNumber(onRespiratory.todayCritical)}
         criticalDelta={alwaysSignDisplay(onRespiratory.respiratoryDelta)}
-        todayNiv={onRespiratory.todayNiv}
+        todayNiv={formatNumber(onRespiratory.todayNiv)}
         nivDelta={alwaysSignDisplay(onRespiratory.nivDelta)}
       />
       <Deceased
