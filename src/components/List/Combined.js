@@ -7,10 +7,7 @@ import PerAge from './Combined/PerAge';
 import InHospitals from './Combined/InHospitals';
 import Vaccination from './Combined/Vaccination';
 import Confirmed from './Combined/Confirmed';
-import {
-  formatNumber,
-  alwaysSignDisplay,
-} from './../../utils/createLocaleNumberFormat';
+import { formatNumber, formatNumberWithSign } from './../../utils/formatNumber';
 
 function Combined({ testsActive, hospitalizedDeceased, combined, css }) {
   return (
@@ -25,7 +22,7 @@ function Combined({ testsActive, hospitalizedDeceased, combined, css }) {
       <Vaccination
         check_stats={css.check_stats}
         toDate={formatNumber(combined.vaccinationToDate)}
-        today={alwaysSignDisplay(combined.vaccinationToday)}
+        today={formatNumberWithSign(combined.vaccinationToday)}
       />
       <Confirmed
         check_stats={css.check_stats}

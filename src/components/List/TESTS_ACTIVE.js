@@ -3,10 +3,10 @@ import React from 'react';
 import PercentageRow from './TESTS_ACTIVE/PercentageRow';
 import ActiveCasesRow from './TESTS_ACTIVE/ActiveCasesRow';
 import {
-  alwaysSignDisplay,
+  formatNumberWithSign,
   formatNumber,
-  percentStyle,
-} from '../../utils/createLocaleNumberFormat';
+  formatPercentage,
+} from '../../utils/formatNumber';
 
 function TESTS_ACTIVE({
   check_summary,
@@ -27,23 +27,23 @@ function TESTS_ACTIVE({
       <section className={check_lab_tests}>
         <PercentageRow
           title={'PCR'}
-          numerator={alwaysSignDisplay(regToday)}
+          numerator={formatNumberWithSign(regToday)}
           denominator={formatNumber(regPerformed)}
-          percent={percentStyle(regFraction)}
+          percent={formatPercentage(regFraction)}
         />
         <PercentageRow
           title={'HAT'}
-          numerator={alwaysSignDisplay(hagtToday)}
+          numerator={formatNumberWithSign(hagtToday)}
           denominator={formatNumber(hagtPerformed)}
-          percent={percentStyle(hagtFraction)}
+          percent={formatPercentage(hagtFraction)}
         />
       </section>
       <section className={check_summary}>
         <ActiveCasesRow
           title={'Aktivni primeri'}
           casesActive={formatNumber(casesActive)}
-          casesActiveIn={alwaysSignDisplay(casesActiveIn)}
-          casesActiveOut={alwaysSignDisplay(casesActiveOut)}
+          casesActiveIn={formatNumberWithSign(casesActiveIn)}
+          casesActiveOut={formatNumberWithSign(casesActiveOut)}
         />
       </section>
     </div>
