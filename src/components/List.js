@@ -131,8 +131,8 @@ const List = ({
   summary,
   hospitalsList,
 }) => {
-  if (!stats || stats.length === 0)
-    return <p>Napaka: API ne vrača podatkov, refresh page !!!</p>;
+  // if (!stats || stats.length === 0)
+  //   return <p>Napaka: API ne vrača podatkov, refresh page !!!</p>;
 
   const css = getChecks({ stats, municipalities, patients, summary, labTests });
 

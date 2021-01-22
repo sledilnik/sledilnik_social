@@ -6,22 +6,23 @@ import List, {
   getChecks,
   formatToLocaleDateString,
 } from './components/List';
-import withListLoading from './components/withListLoading';
 import apiPathObject from './utils/apiPathObject';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Legend from './components/Legend';
+import Modal from './components/shared/Modal';
+import Backdrop from './components/shared/Backdrop';
+import Loader from './components/shared/Loader';
 
 function App() {
-  const ListLoading = withListLoading(List);
   const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState(null);
   const [patients, setPatients] = useState(null);
   const [municipalities, setMunicipalities] = useState(null);
   const [hospitalsList, setHospitalsList] = useState(null);
   const [error, setError] = useState(false);
-  const [labTests, setLabTests] = useState(false);
-  const [summary, setSummary] = useState(false);
+  const [labTests, setLabTests] = useState(null);
+  const [summary, setSummary] = useState(null);
 
   useEffect(() => {
     async function fetchData(url, setState) {
@@ -62,32 +63,44 @@ function App() {
   // Legend props
   const allDataExists =
     !loading && stats && patients && municipalities && labTests && summary;
+
   const legendProps =
     allDataExists &&
     getLegendData({ stats, patients, municipalities, labTests, summary });
+
+  const WaitToLoad = (
+    <Modal>
+      <Backdrop className="backdrop-loader">
+        <Loader />
+      </Backdrop>
+    </Modal>
+  );
 
   return (
     <div className="App">
       {error ? console.log(error) : ''}
       <Header />
       <main className="main">
-        <ListLoading
-          isLoading={loading}
-          stats={stats}
-          municipalities={municipalities}
-          patients={patients}
-          hospitalsList={hospitalsList}
-          labTests={labTests}
-          summary={summary}
-        />
-        <Legend
-          isLoading={loading}
-          municipalities={municipalities}
-          dates={legendProps?.dates}
-          css={legendProps?.css}
-          paths={legendProps?.paths}
-          refreshData={legendProps?.refreshData}
-        />
+        {!allDataExists && WaitToLoad}
+        {allDataExists && (
+          <List
+            stats={stats}
+            municipalities={municipalities}
+            patients={patients}
+            hospitalsList={hospitalsList}
+            labTests={labTests}
+            summary={summary}
+          />
+        )}
+        {allDataExists && (
+          <Legend
+            municipalities={municipalities}
+            dates={legendProps?.dates}
+            css={legendProps?.css}
+            paths={legendProps?.paths}
+            refreshData={legendProps?.refreshData}
+          />
+        )}
       </main>
       <Footer />
     </div>

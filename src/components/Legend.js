@@ -30,17 +30,11 @@ const municipalitiesTrend = [
 
 function Legend({
   municipalities,
-  isLoading,
   css = {},
   dates = {},
   paths = {},
   refreshData = {},
 }) {
-  // should render different for each condition?
-  if (isLoading || !municipalities) {
-    return '';
-  }
-
   const LegendSection = ({ title, children }) => (
     <section className="legend-section">
       <h3 className="bold legend-section-title">{title}:</h3>
