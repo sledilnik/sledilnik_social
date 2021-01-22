@@ -49,15 +49,16 @@ function getTestsActiveData(labData, active) {
 }
 // API paths: stats, patients
 function getHospitalizedDeceasedData(
-  statsToday = {},
-  statsYesterday = {},
-  patientsToday = {}
+  patientsToday = {},
+  patientsYesterday = {}
 ) {
-  const hospNum = statsToday.statePerTreatment.inHospital;
-  const hospIn = patientsToday.total.inHospital.in;
-  const hospOut = patientsToday.total.inHospital.out;
-  const todayICU = statsToday.statePerTreatment.inICU;
-  const yesterdayICU = statsYesterday.statePerTreatment.inICU;
+  const {
+    today: hospNum,
+    in: hospIn,
+    out: hospOut,
+  } = patientsToday.total.inHospital;
+  const todayICU = patientsToday.total.icu.today;
+  const yesterdayICU = patientsYesterday.total.icu.today;
   const icuDelta = todayICU - yesterdayICU;
   const hospitalized = {
     hospNum,
@@ -67,12 +68,13 @@ function getHospitalizedDeceasedData(
     icuDelta,
   };
 
-  const todayCritical = statsToday.statePerTreatment.critical;
-  const yesterdayCritical = statsYesterday.statePerTreatment.critical;
+  const todayCritical = patientsToday.total.critical.today;
+  const yesterdayCritical = patientsYesterday.total.critical.today;
   const respiratoryDelta = todayCritical - yesterdayCritical;
   const onRespiratory = { todayCritical, respiratoryDelta };
 
-  const { deceased: dead, deceasedToDate } = statsToday.statePerTreatment;
+  // TODO rename deceased properties -> use today and toDate
+  const { today: dead, toDate: deceasedToDate } = patientsToday.total.deceased;
   const deceased = { deceased: dead, deceasedToDate };
 
   return {
@@ -127,13 +129,13 @@ const List = ({
 
   // prepare data for HOSPITALIZED_DECEASED
   // use data fromAPI paths: stats, patients
-  const statsToday = stats.slice(-1).pop();
+  // TODO remove stats
   const statsYesterday = stats.slice(-2, -1).pop();
   const patientsToday = patients.slice(-1).pop();
+  const patientsYesterday = patients.slice(-2, -1).pop();
   const { hospitalized, onRespiratory, deceased } = getHospitalizedDeceasedData(
-    statsToday,
-    statsYesterday,
-    patientsToday
+    patientsToday,
+    patientsYesterday
   );
 
   // prepare data fot Combined
