@@ -178,4 +178,10 @@ function Legend({
   );
 }
 
-export default Legend;
+function withLegendLoading(Component) {
+  return function WihLoadingComponent({ isLoading, ...props }) {
+    if (!isLoading) return <Component {...props} />;
+    return null;
+  };
+}
+export default withLegendLoading(Legend);

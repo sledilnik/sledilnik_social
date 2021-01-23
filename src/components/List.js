@@ -11,6 +11,9 @@ import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 import Combined from './List/Combined';
 
 import './List.css';
+import Modal from './shared/Modal';
+import Backdrop from './shared/Backdrop';
+import Loader from './shared/Loader';
 
 // API paths: lab-tests, summary
 function getTestsActiveData(labTests, summary) {
@@ -142,9 +145,6 @@ const List = ({
   summary,
   hospitalsList,
 }) => {
-  if (!stats || stats.length === 0)
-    return <p>Napaka: API ne vrača podatkov, refresh page !!!</p>;
-
   const css = getChecks({ stats, municipalities, patients, summary, labTests });
 
   const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
@@ -202,7 +202,21 @@ const List = ({
     </div>
   );
 };
-export default List;
+
+function withListLoading(Component) {
+  return function WihLoadingComponent({ isLoading, ...props }) {
+    if (!isLoading) return <Component {...props} />;
+    return (
+      <Modal>
+        <Backdrop className="backdrop-loader">
+          <Loader />
+        </Backdrop>
+      </Modal>
+    );
+  };
+}
+
+export default withListLoading(List);
 
 const isUndefined = val => val === undefined;
 

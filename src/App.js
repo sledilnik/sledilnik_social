@@ -6,22 +6,20 @@ import List, {
   getChecks,
   formatToLocaleDateString,
 } from './components/List';
-import withListLoading from './components/withListLoading';
 import apiPathObject from './utils/apiPathObject';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Legend from './components/Legend';
 
 function App() {
-  const ListLoading = withListLoading(List);
   const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState(null);
   const [patients, setPatients] = useState(null);
   const [municipalities, setMunicipalities] = useState(null);
   const [hospitalsList, setHospitalsList] = useState(null);
   const [error, setError] = useState(false);
-  const [labTests, setLabTests] = useState(false);
-  const [summary, setSummary] = useState(false);
+  const [labTests, setLabTests] = useState(null);
+  const [summary, setSummary] = useState(null);
 
   useEffect(() => {
     async function fetchData(url, setState) {
@@ -61,7 +59,15 @@ function App() {
 
   // Legend props
   const allDataExists =
-    !loading && stats && patients && municipalities && labTests && summary;
+    !loading &&
+    stats !== null &&
+    patients !== null &&
+    municipalities !== null &&
+    labTests !== null &&
+    summary !== null &&
+    hospitalsList !== null;
+
+  console.log({ allDataExists });
   const legendProps =
     allDataExists &&
     getLegendData({ stats, patients, municipalities, labTests, summary });
@@ -71,8 +77,8 @@ function App() {
       {error ? console.log(error) : ''}
       <Header />
       <main className="main">
-        <ListLoading
-          isLoading={loading}
+        <List
+          isLoading={!allDataExists}
           stats={stats}
           municipalities={municipalities}
           patients={patients}
@@ -81,7 +87,7 @@ function App() {
           summary={summary}
         />
         <Legend
-          isLoading={loading}
+          isLoading={!allDataExists}
           municipalities={municipalities}
           dates={legendProps?.dates}
           css={legendProps?.css}
