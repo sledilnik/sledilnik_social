@@ -22,10 +22,6 @@ function Combined({ testsActive, hospitalizedDeceased, combined, css }) {
       <Vaccination
         check_stats={css.check_stats}
         toDate={formatNumber(combined.vaccinationToDate)}
-        today={
-          !isNaN(combined.vaccinationToday) &&
-          formatNumberWithSign(combined.vaccinationToday)
-        }
       />
       <Confirmed
         check_stats={css.check_stats}
