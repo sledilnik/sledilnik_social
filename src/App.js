@@ -10,52 +10,49 @@ import apiPathObject from './utils/apiPathObject';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Legend from './components/Legend';
+import useFetch from './hooks/useFetch';
+import { addDays } from 'date-fns';
+
+const BASE_API_URL = 'https://api.sledilnik.org';
 
 function App() {
-  const [loading, setLoading] = useState(false);
-  const [stats, setStats] = useState(null);
-  const [patients, setPatients] = useState(null);
-  const [municipalities, setMunicipalities] = useState(null);
-  const [hospitalsList, setHospitalsList] = useState(null);
-  const [error, setError] = useState(false);
-  const [labTests, setLabTests] = useState(null);
-  const [summary, setSummary] = useState(null);
+  const statsHook = useFetch(BASE_API_URL + '/api/stats', {
+    from: addDays(new Date(), -4).toISOString(),
+  });
+  const patientsHook = useFetch(BASE_API_URL + '/api/patients', {
+    from: addDays(new Date(), -3).toISOString(),
+  });
+  const munHook = useFetch(BASE_API_URL + '/api/municipalities', {
+    from: addDays(new Date(), -18).toISOString(),
+  });
+  const hospListHook = useFetch(BASE_API_URL + '/api/hospitals-list');
+  const labTestsHook = useFetch(BASE_API_URL + '/api/lab-tests', {
+    from: addDays(new Date(), -3).toISOString(),
+  });
+  const summaryHook = useFetch(BASE_API_URL + '/api/summary');
 
-  useEffect(() => {
-    async function fetchData(url, setState) {
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-        setState(data);
-      } catch (error) {
-        setError(true);
-      }
-    }
+  const stats = statsHook.data;
+  const patients = patientsHook.data;
+  const municipalities = munHook.data;
+  const hospitalsList = hospListHook.data;
+  const labTests = labTestsHook.data;
+  const summary = summaryHook.data;
 
-    setLoading(true);
-    // const timer = setTimeout(() => { // timer
-    const {
-      statsPath,
-      patientsPath,
-      municipalitiesPath,
-      hospitals_listPath,
-      lab_testsPath,
-      summaryPath,
-    } = apiPathObject;
+  const loading =
+    statsHook.isLoading ||
+    patientsHook.isLoading ||
+    munHook.isLoading ||
+    hospListHook.isLoading ||
+    labTestsHook.isLoading ||
+    summaryHook.isLoading;
 
-    Promise.all([
-      fetchData(statsPath, setStats),
-      fetchData(patientsPath, setPatients),
-      fetchData(municipalitiesPath, setMunicipalities),
-      fetchData(hospitals_listPath, setHospitalsList),
-      fetchData(lab_testsPath, setLabTests),
-      fetchData(summaryPath, setSummary),
-    ])
-      .catch(() => setError(true))
-      .finally(() => setLoading(false)); // show data
-    // }, 800);
-    // return () => clearTimeout(timer);
-  }, []);
+  const error =
+    statsHook.hasError ||
+    patientsHook.hasError ||
+    munHook.hasError ||
+    hospListHook.hasError ||
+    labTestsHook.hasError ||
+    summaryHook.hasError;
 
   // Legend props
   const allDataExists =
@@ -67,7 +64,6 @@ function App() {
     summary !== null &&
     hospitalsList !== null;
 
-  console.log({ allDataExists });
   const legendProps =
     allDataExists &&
     getLegendData({ stats, patients, municipalities, labTests, summary });
