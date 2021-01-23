@@ -8,16 +8,16 @@ const baseURL = new URL(BASE_API_URL);
 // in case path has underscore, add key <noReplace> with truthy value
 // example: path_with_underscore: {params: {...}, noReplace: true}
 const pathsParamsObject = {
-  stats: { params: { from: addDays(new Date(), -3).toISOString() } },
+  stats: { params: { from: addDays(new Date(), -4).toISOString() } },
   patients: {
-    params: { from: addDays(new Date(), -2).toISOString() },
+    params: { from: addDays(new Date(), -3).toISOString() },
   },
   municipalities: {
-    params: { from: addDays(new Date(), -17).toISOString() },
+    params: { from: addDays(new Date(), -18).toISOString() },
   },
   hospitals_list: { params: {} },
   lab_tests: {
-    params: { from: addDays(new Date(), -2).toISOString() }, // only for 2 days
+    params: { from: addDays(new Date(), -3).toISOString() }, // only for 2 days
   },
   summary: { params: {} },
 };
