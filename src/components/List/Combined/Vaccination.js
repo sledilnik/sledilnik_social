@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Brackets, NoData } from '../../shared/ui/New';
+import { Row, NoData } from '../../shared/ui/New';
 
 // TODO rename toDate -> vaccinated, today -> vaccinatedToday
 function Vaccination({ toDate, check_stats }) {
