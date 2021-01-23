@@ -7,7 +7,7 @@ import PerAge from './Combined/PerAge';
 import InHospitals from './Combined/InHospitals';
 import Vaccination from './Combined/Vaccination';
 import Confirmed from './Combined/Confirmed';
-import { formatNumber, formatNumberWithSign } from './../../utils/formatNumber';
+import { formatNumber } from './../../utils/formatNumber';
 
 function Combined({ testsActive, hospitalizedDeceased, combined, css }) {
   return (
