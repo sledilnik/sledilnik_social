@@ -6,7 +6,7 @@ const Outro = () => {
   const emojis = '💨🏠,😷,🙎↔️↔️🙎‍♂️🙎↔️↔️🙎 + 👐🧼🚿 + #OstaniZdrav 📲 & 🤞';
 
   const EmojisRow = () => (
-    <Row noArrow={true}>
+    <Row noArrow={true} end={false}>
       <Emoji emoji={emojis} ariaLabel="emojis"></Emoji>
     </Row>
   );
@@ -43,7 +43,7 @@ const Outro = () => {
 
   // TODO edit css .spark-link
   const SparkRow = () => (
-    <Row noArrow={true}>
+    <Row noArrow={true} end={false}>
       <Spark />{' '}
       <Link
         text="SPARK"
