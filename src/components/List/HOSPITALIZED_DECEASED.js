@@ -9,7 +9,7 @@ import InCare from './HOSPITALIZED_DECEASED/InCare';
 import { getDate } from './../List';
 
 function HOSPITALIZED_DECEASED({
-  check_patients,
+  css,
   hospitalized,
   onRespiratory,
   inCare,
@@ -20,7 +20,7 @@ function HOSPITALIZED_DECEASED({
   }
 
   return (
-    <div className={check_patients}>
+    <div className={css.check_patients}>
       <Hospitalized
         title={'Hospitalizirani'}
         subtitle={'v EIT'}
