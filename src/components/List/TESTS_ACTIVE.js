@@ -10,12 +10,8 @@ import {
   formatPercentage,
 } from '../../utils/formatNumber';
 
-function TESTS_ACTIVE({
-  css = { check_lab_tests: '', check_summary: '' },
-  cases,
-  regTests,
-  hagtTests,
-}) {
+function TESTS_ACTIVE({ css, cases, regTests, hagtTests }) {
+  console.log(css);
   const { regToday, regPerformed, regFraction } = regTests;
   const { hagtToday, hagtPerformed, hagtFraction } = hagtTests;
   const { casesActive, casesActiveIn, casesActiveOut } = cases;
@@ -75,10 +71,10 @@ export default withTestsActiveHOC(TESTS_ACTIVE);
 
 // API paths: lab-tests, summary
 function getTestsActiveData(labTests, summary) {
-  const labTestsToday = labTests.slice(-1).pop().data;
+  const labTestsToday = labTests.slice(-1).pop();
   const { casesActive: active } = summary;
 
-  const { regular, hagt } = labTestsToday;
+  const { regular, hagt } = labTestsToday.data;
   const casesActive = active.value;
   const casesActiveIn = active.subValues.in;
   const casesActiveOut = active.subValues.out;
@@ -100,7 +96,7 @@ function getTestsActiveData(labTests, summary) {
 
   // CSS
   const labTestsDate = getDate(labTestsToday);
-  const summaryDate = getDate(casesActive); // before labTests
+  const summaryDate = getDate(active); // before labTests
 
   const labTestsCheck = differenceInDays(new Date(), labTestsDate) > 1;
   const summaryCheck = differenceInDays(new Date(), summaryDate) > 1;
