@@ -77,8 +77,8 @@ const getLabTestsData = labTests => {
   const { today: regPerformed } = regular.performed;
   const { today: hagtToday } = hagt.positive;
   const { today: hagtPerformed } = hagt.performed;
-  const calcFraction = (numerator, denominator) => numerator / denominator;
 
+  const calcFraction = (numerator, denominator) => numerator / denominator;
   const regFraction = calcFraction(regToday, regPerformed);
   const hagtFraction = calcFraction(hagtToday, hagtPerformed);
 
@@ -105,18 +105,18 @@ const getActiveData = summary => {
   }
 
   // Data
-  const { casesActive: active } = summary;
-  const casesActive = active.value;
-  const casesActiveIn = active.subValues.in;
-  const casesActiveOut = active.subValues.out;
+  // ? should I revert, leave or rename component's props
+  const { casesActive } = summary;
+  const { value, subValues } = casesActive;
+  const { in: casesIn, out } = subValues;
   const cases = {
-    casesActive,
-    casesActiveIn,
-    casesActiveOut: -casesActiveOut,
+    casesActive: value,
+    casesActiveIn: casesIn,
+    casesActiveOut: -out,
   };
 
   // CSS
-  const summaryDate = getDate(active);
+  const summaryDate = getDate(casesActive);
   const summaryCheck = differenceInDays(new Date(), summaryDate) > 1;
 
   return { cases, css: { check_summary: summaryCheck ? 'red' : '' } };
