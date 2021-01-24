@@ -1,22 +1,15 @@
 import React from 'react';
-import { Row, NoData } from '../../shared/ui/New';
+import { Row } from '../../shared/ui/New';
 
 // TODO rename toDate -> vaccinated, today -> vaccinatedToday
-function Vaccination({ toDate, check_stats }) {
+function Vaccination({ toDate, toDate2, check_stats }) {
   const title = 'Število cepljenih oseb';
 
   return (
-    <>
-      {toDate ? (
-        <Row className={check_stats}>
-          {title}: <span className="bold">{toDate}</span>{' '}
-        </Row>
-      ) : (
-        <NoData className="text" html={{ tag: 'p', classes: 'bold red' }}>
-          Ni vseh podatkov za cepljene osebe
-        </NoData>
-      )}
-    </>
+    <Row className={check_stats}>
+      {title}: 1: <span className="bold">{toDate}</span>, 2:{' '}
+      <span className="bold">{toDate2}</span>
+    </Row>
   );
 }
 

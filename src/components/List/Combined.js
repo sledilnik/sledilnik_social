@@ -24,6 +24,7 @@ function Combined({
       <Vaccination
         check_stats={combined.css.check_stats}
         toDate={formatNumber(combined.vaccinationToDate)}
+        toDate2={formatNumber(combined.vaccination2ToDate)}
       />
       <Confirmed
         check_stats={combined.css.check_stats}
@@ -127,6 +128,7 @@ function getCombinedData(stats, hospitalsList, patients, municipalities) {
   const yesterdayPerAge = statsTwoDaysAgo.statePerAgeToDate;
 
   const vaccinationToDate = statsYesterday.vaccination.administered.toDate;
+  const vaccination2ToDate = statsYesterday.vaccination.administered2nd.toDate;
 
   const confirmedToDate = statsYesterday.cases.confirmedToDate;
 
@@ -164,6 +166,7 @@ function getCombinedData(stats, hospitalsList, patients, municipalities) {
     todayPerAge,
     yesterdayPerAge,
     vaccinationToDate,
+    vaccination2ToDate,
     confirmedToDate,
     perHospitalChanges: perHospitalChangesWithLongName,
     css: {
