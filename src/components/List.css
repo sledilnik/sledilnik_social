@@ -7,7 +7,7 @@
   margin: 1em 0;
 }
 
-.tweet {
+.post {
   margin: 8px 0;
   padding: 8px 16px;
   background-color: var(--white);
@@ -16,7 +16,7 @@
   border-radius: 6px;
 }
 
-.tweet > span > ul {
+.post > span > ul {
   margin: 0 0 0 2em;
 }
 

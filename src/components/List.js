@@ -24,17 +24,17 @@ const List = ({
 
   return (
     <div className="List">
-      <section className="tweet">
+      <section className="post">
         <Intro post={1} introTodayDate={introTodayDate} />
         <TESTS_ACTIVE labTestsHook={labTestsHook} summaryHook={summaryHook} />
         <Outro />
       </section>
-      <section className="tweet">
+      <section className="post">
         <Intro post={2} introTodayDate={introTodayDate} />
         <HOSPITALIZED_DECEASED patientsHook={patientsHook} />
         <Outro />
       </section>
-      <section className="tweet">
+      <section className="post">
         <Intro post={3} introTodayDate={introTodayDate} />
         <Combined
           statsHook={statsHook}
