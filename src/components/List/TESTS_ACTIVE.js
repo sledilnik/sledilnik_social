@@ -9,36 +9,52 @@ import {
   formatNumber,
   formatPercentage,
 } from '../../utils/formatNumber';
+import { Row } from '../shared/ui/New';
 
 function TESTS_ACTIVE({ css, cases, regTests, hagtTests }) {
-  console.log(css);
-  const { regToday, regPerformed, regFraction } = regTests;
-  const { hagtToday, hagtPerformed, hagtFraction } = hagtTests;
-  const { casesActive, casesActiveIn, casesActiveOut } = cases;
+  const { regToday, regPerformed, regFraction } =
+    regTests !== undefined && regTests;
+  const { hagtToday, hagtPerformed, hagtFraction } =
+    hagtTests !== undefined && hagtTests;
+  const { casesActive, casesActiveIn, casesActiveOut } =
+    cases !== undefined && cases;
 
   return (
     <div>
-      <section className={css.check_lab_tests}>
-        <PercentageRow
-          title={'PCR'}
-          numerator={formatNumberWithSign(regToday)}
-          denominator={formatNumber(regPerformed)}
-          percent={formatPercentage(regFraction)}
-        />
-        <PercentageRow
-          title={'HAT'}
-          numerator={formatNumberWithSign(hagtToday)}
-          denominator={formatNumber(hagtPerformed)}
-          percent={formatPercentage(hagtFraction)}
-        />
+      <section className={css?.check_lab_tests}>
+        {regToday ? (
+          <PercentageRow
+            title={'PCR'}
+            numerator={formatNumberWithSign(regToday)}
+            denominator={formatNumber(regPerformed)}
+            percent={formatPercentage(regFraction)}
+          />
+        ) : (
+          <Row>PCR: LOADING...</Row>
+        )}
+
+        {hagtToday ? (
+          <PercentageRow
+            title={'HAT'}
+            numerator={formatNumberWithSign(hagtToday)}
+            denominator={formatNumber(hagtPerformed)}
+            percent={formatPercentage(hagtFraction)}
+          />
+        ) : (
+          <Row>HAT: LOADING...</Row>
+        )}
       </section>
-      <section className={css.check_summary}>
-        <ActiveCasesRow
-          title={'Aktivni primeri'}
-          casesActive={formatNumber(casesActive)}
-          casesActiveIn={formatNumberWithSign(casesActiveIn)}
-          casesActiveOut={formatNumberWithSign(casesActiveOut)}
-        />
+      <section className={css?.check_summary}>
+        {casesActive ? (
+          <ActiveCasesRow
+            title={'Aktivni primeri'}
+            casesActive={formatNumber(casesActive)}
+            casesActiveIn={formatNumberWithSign(casesActiveIn)}
+            casesActiveOut={formatNumberWithSign(casesActiveOut)}
+          />
+        ) : (
+          <Row>Aktivni primeri: LOADING...</Row>
+        )}
       </section>
     </div>
   );
@@ -46,23 +62,10 @@ function TESTS_ACTIVE({ css, cases, regTests, hagtTests }) {
 
 function withTestsActiveHOC(Component) {
   return ({ labTestsHook, summaryHook, ...props }) => {
-    const isLoading = labTestsHook.isLoading || summaryHook.isLoading;
-    if (isLoading) {
-      return <p>TESTS_ACTIVE is loading....</p>;
-    }
-
-    if (labTestsHook.data === null) {
-      return <p>TESTS_ACTIVE is loading....</p>;
-    }
-    if (summaryHook.data === null) {
-      return <p>TESTS_ACTIVE is loading....</p>;
-    }
-
     const data = {
       ...getTestsActiveData(labTestsHook.data, summaryHook.data),
       ...props,
     };
-
     return <Component {...data} />;
   };
 }
@@ -72,6 +75,14 @@ export default withTestsActiveHOC(TESTS_ACTIVE);
 // API paths: lab-tests, summary
 function getTestsActiveData(labTests, summary) {
   const getLabTestsData = labTests => {
+    if (labTests === null) {
+      return {
+        regTests: null,
+        hagtTests: null,
+        css: null,
+      };
+    }
+
     const labTestsToday = labTests.slice(-1).pop();
     const { regular, hagt } = labTestsToday.data;
 
@@ -98,6 +109,12 @@ function getTestsActiveData(labTests, summary) {
   };
 
   const getActiveData = summary => {
+    if (summary === null) {
+      return {
+        cases: null,
+        css: null,
+      };
+    }
     const { casesActive: active } = summary;
 
     const casesActive = active.value;
@@ -118,8 +135,8 @@ function getTestsActiveData(labTests, summary) {
   };
 
   const { regTests, hagtTests, css: labTestsCss } =
-    labTests && getLabTestsData(labTests);
-  const { cases, css: activeCss } = summary && getActiveData(summary);
+    labTests !== null && getLabTestsData(labTests);
+  const { cases, css: activeCss } = summary !== null && getActiveData(summary);
 
   return {
     cases,
