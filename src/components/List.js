@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './List.css';
+
 import format from 'date-fns/format';
 import { sl } from 'date-fns/locale';
 import differenceInDays from 'date-fns/differenceInDays';
@@ -10,17 +12,12 @@ import TESTS_ACTIVE from './List/TESTS_ACTIVE';
 import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 import Combined from './List/Combined';
 
-import './List.css';
-import Modal from './shared/Modal';
-import Backdrop from './shared/Backdrop';
-import Loader from './shared/Loader';
-
 // API paths: lab-tests, summary
 function getTestsActiveData(labTests, summary) {
-  const labTestsData = labTests.slice(-1).pop().data;
+  const labTestsToday = labTests.slice(-1).pop().data;
   const { casesActive: active } = summary;
 
-  const { regular, hagt } = labTestsData;
+  const { regular, hagt } = labTestsToday;
   const casesActive = active.value;
   const casesActiveIn = active.subValues.in;
   const casesActiveOut = active.subValues.out;
@@ -40,10 +37,21 @@ function getTestsActiveData(labTests, summary) {
   const regTests = { regToday, regPerformed, regFraction };
   const hagtTests = { hagtToday, hagtPerformed, hagtFraction };
 
+  // CSS
+  const labTestsDate = getDate(labTestsToday);
+  const summaryDate = getDate(casesActive); // before labTests
+
+  const labTestsCheck = differenceInDays(new Date(), labTestsDate) > 1;
+  const summaryCheck = differenceInDays(new Date(), summaryDate) > 1;
+
   return {
     cases,
     regTests,
     hagtTests,
+    css: {
+      check_summary: summaryCheck ? 'red' : '',
+      check_lab_tests: labTestsCheck ? 'red' : '',
+    },
   };
 }
 // API paths: stats, patients
@@ -95,11 +103,16 @@ function getHospitalizedDeceasedData(patients) {
   const { today: dead, toDate: deceasedToDate } = patientsToday.total.deceased;
   const deceased = { deceased: dead, deceasedToDate };
 
+  // CSS
+  const patientsDate = getDate(patientsToday);
+  const patientsCheck = differenceInDays(new Date(), patientsDate) > 0;
+
   return {
     hospitalized,
     onRespiratory,
     inCare,
     deceased,
+    css: { check_patients: patientsCheck ? 'red' : '' },
   };
 }
 
@@ -126,6 +139,24 @@ function getCombinedData(stats, hospitalsList, patients, municipalities) {
     hospitalsDict
   );
 
+  // CSS
+  const statsToday = stats.slice(-1).pop();
+  const patientsToday = patients.slice(-1).pop();
+  const municipalitiesToday = municipalities.slice(-1).pop();
+  const patientsDate = getDate(patientsToday);
+  const statsDate = getDate(statsToday);
+  const municipalitiesDate = getDate(municipalitiesToday);
+  const patientsCheck = differenceInDays(new Date(), patientsDate) > 0;
+
+  const isPerAgeDataUndefined = isUndefined(
+    statsYesterday.statePerAgeToDate[0].allToDate
+  );
+  const statsCheck =
+    isPerAgeDataUndefined || differenceInDays(new Date(), statsDate) > 0;
+
+  const municipalitiesCheck =
+    differenceInDays(new Date(), municipalitiesDate) > 1;
+
   return {
     todayPerAge,
     yesterdayPerAge,
@@ -134,34 +165,69 @@ function getCombinedData(stats, hospitalsList, patients, municipalities) {
     perHospitalChanges: perHospitalChangesWithLongName,
     patients,
     municipalities,
+    css: {
+      check_patients: patientsCheck ? 'red' : '',
+      check_stats: statsCheck ? 'red' : '',
+      check_municipalities: municipalitiesCheck ? 'red' : '',
+    },
   };
 }
 
 const List = ({
   stats,
-  municipalities,
   patients,
+  municipalities,
+  hospitalsList,
   labTests,
   summary,
-  hospitalsList,
 }) => {
-  const css = getChecks({ stats, municipalities, patients, summary, labTests });
+  // const cssLoading =
+  //   props?.statsHook?.isLoading ||
+  //   props?.patientsHook?.isLoading ||
+  //   props?.municipalitiesHook?.isLoading ||
+  //   props?.labTestsHook?.isLoading ||
+  //   props?.summaryHook?.isLoading;
+
+  const css =
+    stats.data &&
+    municipalities.data &&
+    patients.data &&
+    summary.data &&
+    labTests.data &&
+    getChecks({
+      stats: stats.data,
+      municipalities: municipalities.data,
+      patients: patients.data,
+      summary: summary.data,
+      labTests: labTests.data,
+    });
 
   const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
 
   // use data from API paths: summary, lab-tests
-  const testsActive = getTestsActiveData(labTests, summary);
+  const testsActive =
+    labTests.data &&
+    summary.data &&
+    getTestsActiveData(labTests.data, summary.data);
 
   // use data from API paths: patients
-  const hospitalizedDeceased = getHospitalizedDeceasedData(patients);
+  const hospitalizedDeceased =
+    patients.data && getHospitalizedDeceasedData(patients.data);
 
   // use data from Api paths: stats, hosptalis-list, patients, municipalities
-  const combined = getCombinedData(
-    stats,
-    hospitalsList,
-    patients,
-    municipalities
-  );
+  const combined =
+    stats.data &&
+    municipalities.data &&
+    patients.data &&
+    hospitalsList.data &&
+    getCombinedData(
+      stats.data,
+      hospitalsList.data,
+      patients.data,
+      municipalities.data
+    );
+
+  // const testActiveLoading =
 
   return (
     <div className="List">
@@ -203,20 +269,13 @@ const List = ({
   );
 };
 
-function withListLoading(Component) {
-  return function WihLoadingComponent({ isLoading, ...props }) {
-    if (!isLoading) return <Component {...props} />;
-    return (
-      <Modal>
-        <Backdrop className="backdrop-loader">
-          <Loader />
-        </Backdrop>
-      </Modal>
-    );
+function withListHOC(Component) {
+  return ({ ...props }) => {
+    return <Component {...props} />;
   };
 }
 
-export default withListLoading(List);
+export default withListHOC(List);
 
 const isUndefined = val => val === undefined;
 
@@ -285,6 +344,7 @@ export function getChecks({
   summary,
   labTests,
 }) {
+  console.log({ stats, municipalities, patients, summary, labTests });
   // data
   const lastUpdatedData = getLastUpdatedData({
     stats,

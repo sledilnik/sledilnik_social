@@ -22,10 +22,10 @@ function App() {
   const patientsHook = useFetch(BASE_API_URL + '/api/patients', {
     from: addDays(new Date(), -3).toISOString(),
   });
-  const munHook = useFetch(BASE_API_URL + '/api/municipalities', {
+  const municipalitiesHook = useFetch(BASE_API_URL + '/api/municipalities', {
     from: addDays(new Date(), -18).toISOString(),
   });
-  const hospListHook = useFetch(BASE_API_URL + '/api/hospitals-list');
+  const hospitalsListHook = useFetch(BASE_API_URL + '/api/hospitals-list');
   const labTestsHook = useFetch(BASE_API_URL + '/api/lab-tests', {
     from: addDays(new Date(), -3).toISOString(),
   });
@@ -33,24 +33,24 @@ function App() {
 
   const stats = statsHook.data;
   const patients = patientsHook.data;
-  const municipalities = munHook.data;
-  const hospitalsList = hospListHook.data;
+  const municipalities = municipalitiesHook.data;
+  const hospitalsList = hospitalsListHook.data;
   const labTests = labTestsHook.data;
   const summary = summaryHook.data;
 
   const loading =
     statsHook.isLoading ||
     patientsHook.isLoading ||
-    munHook.isLoading ||
-    hospListHook.isLoading ||
+    municipalitiesHook.isLoading ||
+    hospitalsListHook.isLoading ||
     labTestsHook.isLoading ||
     summaryHook.isLoading;
 
   const error =
     statsHook.hasError ||
     patientsHook.hasError ||
-    munHook.hasError ||
-    hospListHook.hasError ||
+    municipalitiesHook.hasError ||
+    hospitalsListHook.hasError ||
     labTestsHook.hasError ||
     summaryHook.hasError;
 
@@ -74,13 +74,13 @@ function App() {
       <Header />
       <main className="main">
         <List
-          isLoading={!allDataExists}
-          stats={stats}
-          municipalities={municipalities}
-          patients={patients}
-          hospitalsList={hospitalsList}
-          labTests={labTests}
-          summary={summary}
+          // isLoading={!allDataExists}
+          stats={statsHook}
+          municipalities={municipalitiesHook}
+          patients={patientsHook}
+          hospitalsList={hospitalsListHook}
+          labTests={labTestsHook}
+          summary={summaryHook}
         />
         <Legend
           isLoading={!allDataExists}
