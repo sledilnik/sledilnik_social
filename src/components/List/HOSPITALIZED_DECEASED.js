@@ -7,6 +7,7 @@ import { formatNumber, formatNumberWithSign } from '../../utils/formatNumber';
 import InCare from './HOSPITALIZED_DECEASED/InCare';
 
 import { getDate } from './../List';
+import { Row } from '../shared/ui/New';
 
 function HOSPITALIZED_DECEASED({
   css,
@@ -15,61 +16,67 @@ function HOSPITALIZED_DECEASED({
   inCare,
   deceased,
 }) {
-  if (!hospitalized) {
-    return '';
-  }
-
   return (
-    <div className={css.check_patients}>
-      <Hospitalized
-        title={'Hospitalizirani'}
-        subtitle={'v EIT'}
-        hospitalized={formatNumber(hospitalized.hospNum)}
-        translateText={'oseba'}
-        hospitalizedIn={formatNumberWithSign(hospitalized.hospIn)}
-        hospitalizedOut={formatNumberWithSign(hospitalized.hospOut)}
-        icuNum={formatNumber(hospitalized.icuNum)}
-        icuDelta={formatNumberWithSign(hospitalized.icuDelta)}
-      />
-      <OnRespiratory
-        title={'Na respiratorju'}
-        respiratoryTotal={formatNumber(onRespiratory.respiratoryTotal)}
-        todayCritical={formatNumber(onRespiratory.todayCritical)}
-        criticalDelta={formatNumberWithSign(onRespiratory.respiratoryDelta)}
-        todayNiv={formatNumber(onRespiratory.todayNiv)}
-        nivDelta={formatNumberWithSign(onRespiratory.nivDelta)}
-      />
-      <InCare
-        title={'Negovalne bolnišnice'}
-        careNum={!isNaN(inCare?.careNum) && formatNumber(inCare?.careNum)}
-        careIn={!isNaN(inCare?.careIn) && formatNumberWithSign(inCare?.careIn)}
-        careOut={
-          !isNaN(inCare?.careOut) && formatNumberWithSign(inCare?.careOut)
-        }
-      />
-      <Deceased
-        title={'Preminuli'}
-        subtitle={'skupaj '}
-        translate={'oseba'}
-        deceased={formatNumberWithSign(formatNumberWithSign(deceased.deceased))}
-        deceasedToDate={formatNumber(deceased.deceasedToDate)}
-      />
+    <div className={css?.check_patients}>
+      {hospitalized ? (
+        <Hospitalized
+          title={'Hospitalizirani'}
+          subtitle={'v EIT'}
+          hospitalized={formatNumber(hospitalized.hospNum)}
+          translateText={'oseba'}
+          hospitalizedIn={formatNumberWithSign(hospitalized.hospIn)}
+          hospitalizedOut={formatNumberWithSign(hospitalized.hospOut)}
+          icuNum={formatNumber(hospitalized.icuNum)}
+          icuDelta={formatNumberWithSign(hospitalized.icuDelta)}
+        />
+      ) : (
+        <Row>Hospitalizirani: LOADING...</Row>
+      )}
+      {onRespiratory ? (
+        <OnRespiratory
+          title={'Na respiratorju'}
+          respiratoryTotal={formatNumber(onRespiratory.respiratoryTotal)}
+          todayCritical={formatNumber(onRespiratory.todayCritical)}
+          criticalDelta={formatNumberWithSign(onRespiratory.respiratoryDelta)}
+          todayNiv={formatNumber(onRespiratory.todayNiv)}
+          nivDelta={formatNumberWithSign(onRespiratory.nivDelta)}
+        />
+      ) : (
+        <Row>Na respiratorju: LOADING...</Row>
+      )}
+      {inCare ? (
+        <InCare
+          title={'Negovalne bolnišnice'}
+          careNum={!isNaN(inCare?.careNum) && formatNumber(inCare?.careNum)}
+          careIn={
+            !isNaN(inCare?.careIn) && formatNumberWithSign(inCare?.careIn)
+          }
+          careOut={
+            !isNaN(inCare?.careOut) && formatNumberWithSign(inCare?.careOut)
+          }
+        />
+      ) : (
+        <Row>Negovalne bolnišnice: LOADING...</Row>
+      )}
+      {deceased ? (
+        <Deceased
+          title={'Preminuli'}
+          subtitle={'skupaj '}
+          translate={'oseba'}
+          deceased={formatNumberWithSign(
+            formatNumberWithSign(deceased.deceased)
+          )}
+          deceasedToDate={formatNumber(deceased.deceasedToDate)}
+        />
+      ) : (
+        <Row>Preminuli: LOADING...</Row>
+      )}
     </div>
   );
 }
 
 function withHospitalizedDeceasedHOC(Component) {
   return ({ patientsHook, ...props }) => {
-    const isLoading = patientsHook.isLoading;
-
-    if (isLoading) {
-      return <p>HOSPITALIZED_DECEASED is loading....</p>;
-    }
-
-    if (patientsHook.data === null) {
-      return <p>HOSPITALIZED_DECEASED is loading....</p>;
-    }
-
     const data = {
       ...getHospitalizedDeceasedData(patientsHook.data),
       ...props,
@@ -83,6 +90,16 @@ export default withHospitalizedDeceasedHOC(HOSPITALIZED_DECEASED);
 
 // API paths: stats, patients
 function getHospitalizedDeceasedData(patients) {
+  if (patients === null) {
+    return {
+      hospitalized: null,
+      onRespiratory: null,
+      inCare: null,
+      deceased: null,
+      css: null,
+    };
+  }
+
   const patientsToday = patients.slice(-1).pop();
   const patientsYesterday = patients.slice(-2, -1).pop();
 
