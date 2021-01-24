@@ -71,43 +71,63 @@ export default withTestsActiveHOC(TESTS_ACTIVE);
 
 // API paths: lab-tests, summary
 function getTestsActiveData(labTests, summary) {
-  const labTestsToday = labTests.slice(-1).pop();
-  const { casesActive: active } = summary;
+  const getLabTestsData = labTests => {
+    const labTestsToday = labTests.slice(-1).pop();
+    const { regular, hagt } = labTestsToday.data;
 
-  const { regular, hagt } = labTestsToday.data;
-  const casesActive = active.value;
-  const casesActiveIn = active.subValues.in;
-  const casesActiveOut = active.subValues.out;
+    const { today: regToday } = regular.positive;
+    const { today: regPerformed } = regular.performed;
+    const { today: hagtToday } = hagt.positive;
+    const { today: hagtPerformed } = hagt.performed;
+    const calcFraction = (numerator, denominator) => numerator / denominator;
 
-  const cases = { casesActive, casesActiveIn, casesActiveOut: -casesActiveOut };
+    const regFraction = calcFraction(regToday, regPerformed);
+    const hagtFraction = calcFraction(hagtToday, hagtPerformed);
 
-  const { today: regToday } = regular.positive;
-  const { today: regPerformed } = regular.performed;
-  const { today: hagtToday } = hagt.positive;
-  const { today: hagtPerformed } = hagt.performed;
+    const regTests = { regToday, regPerformed, regFraction };
+    const hagtTests = { hagtToday, hagtPerformed, hagtFraction };
 
-  const calcFraction = (numerator, denominator) => numerator / denominator;
+    const labTestsDate = getDate(labTestsToday);
+    const labTestsCheck = differenceInDays(new Date(), labTestsDate) > 1;
 
-  const regFraction = calcFraction(regToday, regPerformed);
-  const hagtFraction = calcFraction(hagtToday, hagtPerformed);
+    return {
+      regTests,
+      hagtTests,
+      css: { check_lab_tests: labTestsCheck ? 'red' : '' },
+    };
+  };
 
-  const regTests = { regToday, regPerformed, regFraction };
-  const hagtTests = { hagtToday, hagtPerformed, hagtFraction };
+  const getActiveData = summary => {
+    const { casesActive: active } = summary;
 
-  // CSS
-  const labTestsDate = getDate(labTestsToday);
-  const summaryDate = getDate(active); // before labTests
+    const casesActive = active.value;
+    const casesActiveIn = active.subValues.in;
+    const casesActiveOut = active.subValues.out;
 
-  const labTestsCheck = differenceInDays(new Date(), labTestsDate) > 1;
-  const summaryCheck = differenceInDays(new Date(), summaryDate) > 1;
+    const cases = {
+      casesActive,
+      casesActiveIn,
+      casesActiveOut: -casesActiveOut,
+    };
+
+    // CSS
+    const summaryDate = getDate(active); // before labTests
+    const summaryCheck = differenceInDays(new Date(), summaryDate) > 1;
+
+    return { cases, css: { check_summary: summaryCheck ? 'red' : '' } };
+  };
+
+  const { regTests, hagtTests, css: labTestsCss } =
+    labTests && getLabTestsData(labTests);
+  const { cases, css: activeCss } = summary && getActiveData(summary);
 
   return {
     cases,
     regTests,
     hagtTests,
     css: {
-      check_summary: summaryCheck ? 'red' : '',
-      check_lab_tests: labTestsCheck ? 'red' : '',
+      check_summary: activeCss?.check_summary,
+      check_lab_tests: labTestsCss?.check_lab_tests,
     },
   };
 }
