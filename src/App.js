@@ -75,21 +75,21 @@ function App() {
       <main className="main">
         <List
           // isLoading={!allDataExists}
-          stats={statsHook}
-          municipalities={municipalitiesHook}
-          patients={patientsHook}
-          hospitalsList={hospitalsListHook}
-          labTests={labTestsHook}
-          summary={summaryHook}
+          statsHook={statsHook}
+          municipalitiesHook={municipalitiesHook}
+          patientsHook={patientsHook}
+          hospitalsListHook={hospitalsListHook}
+          labTestsHook={labTestsHook}
+          summaryHook={summaryHook}
         />
-        <Legend
+        {/* <Legend
           isLoading={!allDataExists}
           municipalities={municipalities}
           dates={legendProps?.dates}
           css={legendProps?.css}
           paths={legendProps?.paths}
           refreshData={legendProps?.refreshData}
-        />
+        /> */}
       </main>
       <Footer />
     </div>

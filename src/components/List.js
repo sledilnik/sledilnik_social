@@ -12,256 +12,37 @@ import TESTS_ACTIVE from './List/TESTS_ACTIVE';
 import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 import Combined from './List/Combined';
 
-// API paths: lab-tests, summary
-function getTestsActiveData(labTests, summary) {
-  const labTestsToday = labTests.slice(-1).pop().data;
-  const { casesActive: active } = summary;
-
-  const { regular, hagt } = labTestsToday;
-  const casesActive = active.value;
-  const casesActiveIn = active.subValues.in;
-  const casesActiveOut = active.subValues.out;
-
-  const cases = { casesActive, casesActiveIn, casesActiveOut: -casesActiveOut };
-
-  const { today: regToday } = regular.positive;
-  const { today: regPerformed } = regular.performed;
-  const { today: hagtToday } = hagt.positive;
-  const { today: hagtPerformed } = hagt.performed;
-
-  const calcFraction = (numerator, denominator) => numerator / denominator;
-
-  const regFraction = calcFraction(regToday, regPerformed);
-  const hagtFraction = calcFraction(hagtToday, hagtPerformed);
-
-  const regTests = { regToday, regPerformed, regFraction };
-  const hagtTests = { hagtToday, hagtPerformed, hagtFraction };
-
-  // CSS
-  const labTestsDate = getDate(labTestsToday);
-  const summaryDate = getDate(casesActive); // before labTests
-
-  const labTestsCheck = differenceInDays(new Date(), labTestsDate) > 1;
-  const summaryCheck = differenceInDays(new Date(), summaryDate) > 1;
-
-  return {
-    cases,
-    regTests,
-    hagtTests,
-    css: {
-      check_summary: summaryCheck ? 'red' : '',
-      check_lab_tests: labTestsCheck ? 'red' : '',
-    },
-  };
-}
-// API paths: stats, patients
-function getHospitalizedDeceasedData(patients) {
-  const patientsToday = patients.slice(-1).pop();
-  const patientsYesterday = patients.slice(-2, -1).pop();
-
-  // <Hospitalized/>
-  const {
-    today: hospNum,
-    in: hospIn,
-    out: hospOut,
-  } = patientsToday.total.inHospital;
-  const todayICU = patientsToday.total.icu.today;
-  const yesterdayICU = patientsYesterday.total.icu.today;
-  const icuDelta = todayICU - yesterdayICU;
-  const hospitalized = {
-    hospNum,
-    hospIn,
-    hospOut: -hospOut,
-    icuNum: todayICU,
-    icuDelta,
-  };
-
-  // <OnRespiratory/>
-  const todayCritical = patientsToday.total.critical.today;
-  const yesterdayCritical = patientsYesterday.total.critical.today;
-  const respiratoryDelta = todayCritical - yesterdayCritical;
-
-  const todayNiv = patientsToday.total.niv.today;
-  const yesterdayNiv = patientsYesterday.total.niv.today;
-  const nivDelta = todayNiv - yesterdayNiv;
-
-  const respiratoryTotal = todayNiv + todayCritical;
-  const onRespiratory = {
-    respiratoryTotal,
-    todayCritical,
-    respiratoryDelta,
-    todayNiv,
-    nivDelta,
-  };
-
-  // <InCare/>
-  const { today: careNum, in: careIn, out: careOut } = patientsToday.total.care;
-  const inCare = { careNum, careIn, careOut: -careOut };
-
-  // <Deceased/>
-  // TODO rename deceased properties -> use today and toDate
-  const { today: dead, toDate: deceasedToDate } = patientsToday.total.deceased;
-  const deceased = { deceased: dead, deceasedToDate };
-
-  // CSS
-  const patientsDate = getDate(patientsToday);
-  const patientsCheck = differenceInDays(new Date(), patientsDate) > 0;
-
-  return {
-    hospitalized,
-    onRespiratory,
-    inCare,
-    deceased,
-    css: { check_patients: patientsCheck ? 'red' : '' },
-  };
-}
-
-// API paths: stats
-function getCombinedData(stats, hospitalsList, patients, municipalities) {
-  const statsYesterday = stats.slice(-2, -1).pop();
-  const statsTwoDaysAgo = stats.slice(-3, -2).pop();
-  const todayPerAge = statsYesterday.statePerAgeToDate;
-  const yesterdayPerAge = statsTwoDaysAgo.statePerAgeToDate;
-
-  const vaccinationToDate = statsYesterday.vaccination.administered.toDate;
-
-  const confirmedToDate = statsYesterday.cases.confirmedToDate;
-
-  // prepare data fot Combined
-  // {code: 'xxx', name: 'yyy', uri: 'zzz} -> [['xxx', 'zzz]] [[<code>,<name>]]
-  const hospitalsDict = prepareHospitalsDict(hospitalsList);
-
-  // prepare perHospitalChanges
-  // use data fromAPI paths: stats, patients, municipalities
-  const perHospitalChanges = getPerHospitalChanges(patients);
-  const perHospitalChangesWithLongName = findAndPushLongHospitalName(
-    perHospitalChanges,
-    hospitalsDict
-  );
-
-  // CSS
-  const statsToday = stats.slice(-1).pop();
-  const patientsToday = patients.slice(-1).pop();
-  const municipalitiesToday = municipalities.slice(-1).pop();
-  const patientsDate = getDate(patientsToday);
-  const statsDate = getDate(statsToday);
-  const municipalitiesDate = getDate(municipalitiesToday);
-  const patientsCheck = differenceInDays(new Date(), patientsDate) > 0;
-
-  const isPerAgeDataUndefined = isUndefined(
-    statsYesterday.statePerAgeToDate[0].allToDate
-  );
-  const statsCheck =
-    isPerAgeDataUndefined || differenceInDays(new Date(), statsDate) > 0;
-
-  const municipalitiesCheck =
-    differenceInDays(new Date(), municipalitiesDate) > 1;
-
-  return {
-    todayPerAge,
-    yesterdayPerAge,
-    vaccinationToDate,
-    confirmedToDate,
-    perHospitalChanges: perHospitalChangesWithLongName,
-    patients,
-    municipalities,
-    css: {
-      check_patients: patientsCheck ? 'red' : '',
-      check_stats: statsCheck ? 'red' : '',
-      check_municipalities: municipalitiesCheck ? 'red' : '',
-    },
-  };
-}
-
 const List = ({
-  stats,
-  patients,
-  municipalities,
-  hospitalsList,
-  labTests,
-  summary,
+  statsHook,
+  patientsHook,
+  municipalitiesHook,
+  hospitalsListHook,
+  labTestsHook,
+  summaryHook,
 }) => {
-  // const cssLoading =
-  //   props?.statsHook?.isLoading ||
-  //   props?.patientsHook?.isLoading ||
-  //   props?.municipalitiesHook?.isLoading ||
-  //   props?.labTestsHook?.isLoading ||
-  //   props?.summaryHook?.isLoading;
-
-  const css =
-    stats.data &&
-    municipalities.data &&
-    patients.data &&
-    summary.data &&
-    labTests.data &&
-    getChecks({
-      stats: stats.data,
-      municipalities: municipalities.data,
-      patients: patients.data,
-      summary: summary.data,
-      labTests: labTests.data,
-    });
-
   const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
-
-  // use data from API paths: summary, lab-tests
-  const testsActive =
-    labTests.data &&
-    summary.data &&
-    getTestsActiveData(labTests.data, summary.data);
-
-  // use data from API paths: patients
-  const hospitalizedDeceased =
-    patients.data && getHospitalizedDeceasedData(patients.data);
-
-  // use data from Api paths: stats, hosptalis-list, patients, municipalities
-  const combined =
-    stats.data &&
-    municipalities.data &&
-    patients.data &&
-    hospitalsList.data &&
-    getCombinedData(
-      stats.data,
-      hospitalsList.data,
-      patients.data,
-      municipalities.data
-    );
-
-  // const testActiveLoading =
 
   return (
     <div className="List">
       <section className="tweet">
         <Intro post={1} introTodayDate={introTodayDate} />
-        <TESTS_ACTIVE
-          check_summary={css.check_summary}
-          check_lab_tests={css.check_lab_tests}
-          cases={testsActive.cases}
-          regTests={testsActive.regTests}
-          hagtTests={testsActive.hagtTests}
-        />
+        <TESTS_ACTIVE labTestsHook={labTestsHook} summaryHook={summaryHook} />
         <Outro />
       </section>
       <section className="tweet">
         <Intro post={2} introTodayDate={introTodayDate} />
-        <HOSPITALIZED_DECEASED
-          check_patients={css.check_patients}
-          hospitalized={hospitalizedDeceased.hospitalized}
-          onRespiratory={hospitalizedDeceased.onRespiratory}
-          inCare={hospitalizedDeceased.inCare}
-          deceased={hospitalizedDeceased.deceased}
-          stats={stats}
-          patients={patients}
-        />
+        <HOSPITALIZED_DECEASED patientsHook={patientsHook} />
         <Outro />
       </section>
       <section className="tweet">
         <Intro post={3} introTodayDate={introTodayDate} />
         <Combined
-          testsActive={testsActive}
-          hospitalizedDeceased={hospitalizedDeceased}
-          combined={combined}
-          css={css}
+          statsHook={statsHook}
+          summaryHook={summaryHook}
+          patientsHook={patientsHook}
+          labTestsHook={labTestsHook}
+          municipalitiesHook={municipalitiesHook}
+          hospitalsListHook={hospitalsListHook}
         />
         <Outro />
       </section>
@@ -276,32 +57,6 @@ function withListHOC(Component) {
 }
 
 export default withListHOC(List);
-
-const isUndefined = val => val === undefined;
-
-// prepare hospitalsDict
-function prepareHospitalsDict(hospitalsList) {
-  return hospitalsList.map(hospital => [hospital.code, hospital.name]);
-}
-
-// prepare perHospitalChanges
-// -> [["ukclj", {care: {...}, critical: {..}, deceased: {...},deceasedCare: {...}, icu: {...}, inHospital: {...}, niv: {...} }],...]
-// properties of interest icu & inHospital
-function getPerHospitalChanges(patients) {
-  const patientsData = patients.slice(-1).pop();
-  const patientsDataIsNotUndefined = !isUndefined(patientsData);
-  return patientsDataIsNotUndefined && Object.entries(patientsData.facilities);
-}
-
-// -> [["ukclj", {...}, "UKC Ljubljana"],... ]
-function findAndPushLongHospitalName(perHospitalChanges, hospitalsDict) {
-  return perHospitalChanges.map(hospital => {
-    const hospitalLongName = hospitalsDict.filter(
-      item => hospital[0] === item[0]
-    )[0][1];
-    return [...hospital, hospitalLongName];
-  });
-}
 
 export function formatToLocaleDateString(
   dateAsText = '',
@@ -344,7 +99,7 @@ export function getChecks({
   summary,
   labTests,
 }) {
-  console.log({ stats, municipalities, patients, summary, labTests });
+  const isUndefined = val => val === undefined;
   // data
   const lastUpdatedData = getLastUpdatedData({
     stats,
@@ -384,3 +139,61 @@ export function getChecks({
     check_lab_tests: labTestsCheck ? 'red' : '',
   };
 }
+
+//  // use data from API paths: summary, lab-tests
+//   const testsActive =
+//     labTests.data &&
+//     summary.data &&
+//     getTestsActiveData(labTests.data, summary.data);
+
+//   // use data from API paths: patients
+//   const hospitalizedDeceased =
+//     patients.data && getHospitalizedDeceasedData(patients.data);
+
+//   // use data from Api paths: stats, hosptalis-list, patients, municipalities
+//   const combined =
+//     stats.data &&
+//     municipalities.data &&
+//     patients.data &&
+//     hospitalsList.data &&
+//     getCombinedData(
+//       stats.data,
+//       hospitalsList.data,
+//       patients.data,
+//       municipalities.data
+//     );
+
+// <section className="tweet">
+//         <Intro post={1} introTodayDate={introTodayDate} />
+//         <TESTS_ACTIVE
+//           check_summary={css.check_summary}
+//           check_lab_tests={css.check_lab_tests}
+//           cases={testsActive.cases}
+//           regTests={testsActive.regTests}
+//           hagtTests={testsActive.hagtTests}
+//         />
+//         <Outro />
+//       </section>
+//       <section className="tweet">
+//         <Intro post={2} introTodayDate={introTodayDate} />
+//         <HOSPITALIZED_DECEASED
+//           check_patients={css.check_patients}
+//           hospitalized={hospitalizedDeceased.hospitalized}
+//           onRespiratory={hospitalizedDeceased.onRespiratory}
+//           inCare={hospitalizedDeceased.inCare}
+//           deceased={hospitalizedDeceased.deceased}
+//           stats={stats}
+//           patients={patients}
+//         />
+//         <Outro />
+//       </section>
+//       <section className="tweet">
+//         <Intro post={3} introTodayDate={introTodayDate} />
+//         <Combined
+//           testsActive={testsActive}
+//           hospitalizedDeceased={hospitalizedDeceased}
+//           combined={combined}
+//           css={css}
+//         />
+//         <Outro />
+//   </section>
