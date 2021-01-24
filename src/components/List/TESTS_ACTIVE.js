@@ -60,6 +60,7 @@ function TESTS_ACTIVE({ css, cases, regTests, hagtTests }) {
   );
 }
 
+// API path: lab-tests
 const getLabTestsData = labTests => {
   if (labTests === null) {
     return {
@@ -96,6 +97,7 @@ const getLabTestsData = labTests => {
   };
 };
 
+// API path: summary
 const getActiveData = summary => {
   if (summary === null) {
     return {
