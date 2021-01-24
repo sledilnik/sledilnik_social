@@ -22,6 +22,7 @@ function Combined({ testsActive, hospitalizedDeceased, combined, css }) {
       <Vaccination
         check_stats={css.check_stats}
         toDate={formatNumber(combined.vaccinationToDate)}
+        toDate2={formatNumber(combined.vaccination2ToDate)}
       />
       <Confirmed
         check_stats={css.check_stats}

@@ -103,7 +103,7 @@ function getCombinedData(statsYesterday, statsTwoDaysAgo) {
   const yesterdayPerAge = statsTwoDaysAgo.statePerAgeToDate;
 
   const vaccinationToDate = statsYesterday.vaccination.administered.toDate;
-  // const vaccinationToday = statsYesterday.vaccination.administered.today;
+  const vaccination2ToDate = statsYesterday.vaccination.administered2nd.toDate;
 
   const confirmedToDate = statsYesterday.cases.confirmedToDate;
 
@@ -111,7 +111,7 @@ function getCombinedData(statsYesterday, statsTwoDaysAgo) {
     todayPerAge,
     yesterdayPerAge,
     vaccinationToDate,
-    // vaccinationToday,
+    vaccination2ToDate,
     confirmedToDate,
   };
 }
