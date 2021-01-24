@@ -136,7 +136,6 @@ function withTestsActiveHOC(Component) {
       css: { ...labTestsCss, ...activeCss },
       ...props,
     };
-    console.log(data);
     return <Component {...data} />;
   };
 }
