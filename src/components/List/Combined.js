@@ -11,13 +11,7 @@ import { formatNumber } from './../../utils/formatNumber';
 import { getDate } from '../List';
 import { differenceInDays } from 'date-fns';
 
-function Combined({
-  labTestsHook,
-  summaryHook,
-  patientsHook,
-  combined,
-  ...props
-}) {
+function Combined({ labTestsHook, summaryHook, patientsHook, combined }) {
   return (
     <>
       <TESTS_ACTIVE labTestsHook={labTestsHook} summaryHook={summaryHook} />
@@ -120,7 +114,7 @@ function withCombinedHOC(Component) {
 
 export default withCombinedHOC(Combined);
 
-// API paths: stats
+// API paths: stats, patients, municipalities
 function getCombinedData(stats, hospitalsList, patients, municipalities) {
   const statsYesterday = stats.slice(-2, -1).pop();
   const statsTwoDaysAgo = stats.slice(-3, -2).pop();
