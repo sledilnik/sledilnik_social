@@ -1,17 +1,17 @@
 import React from 'react';
+import { addDays } from 'date-fns';
+import differenceInDays from 'date-fns/differenceInDays';
+
 import './App.css';
-import List, {
-  getDate,
-  getLastUpdatedData,
-  getChecks,
-  formatToLocaleDateString,
-} from './components/List';
+
+import List from './components/List';
 import apiPathObject from './utils/apiPathObject';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Legend from './components/Legend';
 import useFetch from './hooks/useFetch';
-import { addDays } from 'date-fns';
+
+import { getDate, formatToLocaleDateString } from './utils/dates';
 
 const BASE_API_URL = 'https://api.sledilnik.org';
 
@@ -164,4 +164,55 @@ function getDates(allData = {}) {
   };
 
   return dates;
+}
+
+function getLastUpdatedData({ stats, municipalities, patients, labTests }) {
+  return {
+    patientsData: patients.slice(-1).pop(),
+    statsData: stats.slice(-1).pop(),
+    municipalitiesData: municipalities.slice(-1).pop(),
+    labTestsData: labTests.slice(-1).pop(),
+  };
+}
+
+function getChecks({ stats, municipalities, patients, summary, labTests }) {
+  const isUndefined = val => val === undefined;
+  // data
+  const lastUpdatedData = getLastUpdatedData({
+    stats,
+    patients,
+    municipalities,
+    labTests,
+  });
+
+  // dates
+  const patientsDate = getDate(lastUpdatedData.patientsData);
+  const statsDate = getDate(lastUpdatedData.statsData);
+  const municipalitiesDate = getDate(lastUpdatedData.municipalitiesData);
+  const labTestsDate = getDate(lastUpdatedData.labTestsData);
+  const summaryDate = getDate(summary.casesActive); // before labTests
+
+  // checks
+  const patientsCheck = differenceInDays(new Date(), patientsDate) > 0;
+
+  const isPerAgeDataUndefined = isUndefined(
+    stats.slice(-2, -1).pop().statePerAgeToDate[0].allToDate
+  );
+  const statsCheck =
+    isPerAgeDataUndefined || differenceInDays(new Date(), statsDate) > 0;
+
+  const municipalitiesCheck =
+    differenceInDays(new Date(), municipalitiesDate) > 1;
+
+  const labTestsCheck = differenceInDays(new Date(), labTestsDate) > 1;
+
+  const summaryCheck = differenceInDays(new Date(), summaryDate) > 1;
+
+  return {
+    check_summary: summaryCheck ? 'red' : '',
+    check_patients: patientsCheck ? 'red' : '',
+    check_stats: statsCheck ? 'red' : '',
+    check_municipalities: municipalitiesCheck ? 'red' : '',
+    check_lab_tests: labTestsCheck ? 'red' : '',
+  };
 }

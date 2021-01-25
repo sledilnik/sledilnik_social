@@ -1,15 +1,16 @@
 import React from 'react';
-import { getDate } from '../List';
 import { differenceInDays } from 'date-fns';
 
 import PercentageRow from './TESTS_ACTIVE/PercentageRow';
 import ActiveCasesRow from './TESTS_ACTIVE/ActiveCasesRow';
+import { Row } from '../shared/ui/New';
+
 import {
   formatNumberWithSign,
   formatNumber,
   formatPercentage,
 } from '../../utils/formatNumber';
-import { Row } from '../shared/ui/New';
+import { getDate } from '../../utils/dates';
 
 function TESTS_ACTIVE({ css, cases, regTests, hagtTests }) {
   const { regToday, regPerformed, regFraction } =

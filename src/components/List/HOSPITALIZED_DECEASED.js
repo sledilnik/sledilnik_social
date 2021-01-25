@@ -1,13 +1,14 @@
 import React from 'react';
-import { differenceInDays } from 'date-fns';
+import differenceInDays from 'date-fns/differenceInDays';
+
 import Hospitalized from './HOSPITALIZED_DECEASED/Hospitalized';
 import OnRespiratory from './HOSPITALIZED_DECEASED/OnRespiratory';
 import Deceased from './HOSPITALIZED_DECEASED/Deceased';
-import { formatNumber, formatNumberWithSign } from '../../utils/formatNumber';
 import InCare from './HOSPITALIZED_DECEASED/InCare';
-
-import { getDate } from './../List';
 import { Row } from '../shared/ui/New';
+
+import { formatNumber, formatNumberWithSign } from '../../utils/formatNumber';
+import { getDate } from '../../utils/dates';
 
 function HOSPITALIZED_DECEASED({
   css,

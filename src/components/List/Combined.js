@@ -1,4 +1,5 @@
 import React from 'react';
+import differenceInDays from 'date-fns/differenceInDays';
 
 import TESTS_ACTIVE from './TESTS_ACTIVE';
 import HOSPITALIZED_DECEASED from './HOSPITALIZED_DECEASED';
@@ -7,10 +8,10 @@ import PerAge from './Combined/PerAge';
 import InHospitals from './Combined/InHospitals';
 import Vaccination from './Combined/Vaccination';
 import Confirmed from './Combined/Confirmed';
-import { formatNumber } from './../../utils/formatNumber';
-import { getDate } from '../List';
-import { differenceInDays } from 'date-fns';
 import { Row } from '../shared/ui/New';
+
+import { formatNumber } from './../../utils/formatNumber';
+import { getDate } from '../../utils/dates';
 
 function Combined({ labTestsHook, summaryHook, patientsHook, combined }) {
   const vaccinationShow =
