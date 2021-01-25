@@ -11,7 +11,7 @@
   margin: 1em 0;
 }
 
-.legend-section :not(:first-of-type) {
+.legend-section p:not(:first-of-type) {
   font-size: 0.95em;
 }
 

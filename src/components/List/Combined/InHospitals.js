@@ -1,51 +1,54 @@
 import React from 'react';
 
-import DataRow from '../shared/DataRow';
-import DataTranslateInOut from '../shared/DataTranslateInOut';
+import { Row, Brackets } from '../../shared/ui/New';
+import DataTranslate from '../../shared/ui/DataTranslate';
+import {
+  formatNumber,
+  formatNumberWithSign,
+} from '../../../utils/formatNumber';
 
-function InHospitals({ check_second, patients, perHospitalChanges }) {
-  const InHospital = ({
-    hospShort,
-    hospitalName,
-    hosp = { number: 0, in: 0, out: 0 },
-    icu = { number: 0, in: 0, out: 0 },
-  }) => {
-    return (
-      <li key={hospShort}>
-        <span className="bold">{hospitalName}</span>:{' '}
-        <DataTranslateInOut
-          number={hosp.number}
-          text={'oseba'}
-          numIn={hosp.in}
-          numOut={hosp.out}
-          insideColons={true}
-        />
-        , EIT{' '}
-        <DataTranslateInOut
-          number={icu.number}
-          text={'oseba'}
-          numIn={icu.in}
-          numOut={icu.out}
-          insideColons={true}
-        />
-        .
-      </li>
-    );
-  };
+function InHospital({ hospShort, hospitalName, hosp, icu }) {
+  return (
+    <li key={hospShort}>
+      <span className="bold">{hospitalName}</span>:{' '}
+      <DataTranslate number={hosp.number} text={'oseba'} />{' '}
+      <span className="bold">
+        <Brackets>
+          {hosp.in}, {hosp.out}
+        </Brackets>
+      </span>
+      , EIT:
+      <DataTranslate number={icu.number} text={'oseba'} />{' '}
+      <span className="bold">
+        <Brackets>
+          {icu.in}, {icu.out}
+        </Brackets>
+      </span>
+      .
+    </li>
+  );
+}
 
+function InHospitals({ check_patients, title, patients, perHospitalChanges }) {
   const sortDescByPatients = (a, b) =>
     (b[1].inHospital.today || 0) - (a[1].inHospital.today || 0);
 
   const createHospitalOutput = hosp => {
-    const hospital = {
-      number: hosp[1].inHospital.today,
-      in: hosp[1].inHospital.in,
-      out: hosp[1].inHospital.out,
+    const { inHospital, icu } = hosp[1];
+
+    // we want to display property 'out' as negative number
+    const negHospOut = -inHospital.out;
+    const negIcuOut = -icu.out;
+
+    const formattedInHospital = {
+      number: isNaN(inHospital.today) ? '-' : formatNumber(inHospital.today),
+      in: isNaN(inHospital.in) ? '-' : formatNumberWithSign(inHospital.in),
+      out: isNaN(negHospOut) ? '-' : formatNumberWithSign(negHospOut),
     };
-    const icu = {
-      number: hosp[1].icu.today,
-      in: hosp[1].icu.in,
-      out: hosp[1].icu.out,
+    const foramttedIcu = {
+      number: isNaN(icu.today) ? '-' : formatNumber(icu.today),
+      in: isNaN(icu.in) ? '-' : formatNumberWithSign(icu.in),
+      out: isNaN(negIcuOut) ? '-' : formatNumberWithSign(negIcuOut),
     };
 
     const noHospitalData = hosp[1].inHospital.today === undefined;
@@ -57,21 +60,22 @@ function InHospitals({ check_second, patients, perHospitalChanges }) {
         key={hosp[0]}
         hospShort={hosp[0]}
         hospitalName={hosp[2]}
-        hosp={{ ...hospital }}
-        icu={{ ...icu }}
+        hosp={{ ...formattedInHospital }}
+        icu={{ ...foramttedIcu }}
       />
     );
   };
 
-  const noPatientsData = patients[patients.length - 1] === undefined;
+  // TODO we can check in parent component
+  const noPatientsData = patients.slice(-1)[0] === undefined;
 
   const hospitalOutput = perHospitalChanges
     .sort(sortDescByPatients)
     .map(createHospitalOutput);
 
   return (
-    <span className={check_second}>
-      <DataRow title={'Stanje po bolnišnicah'} />
+    <span className={check_patients}>
+      <Row end={false}>{title}: </Row>
       <ul>{noPatientsData ? 'NI PODATKOV' : hospitalOutput}</ul>
     </span>
   );

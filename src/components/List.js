@@ -1,120 +1,199 @@
 import React from 'react';
-import Intro from './List/Intro';
-import Outro from './shared/Outro';
-import TESTS_ACTIVE from './shared/TESTS_ACTIVE';
-import HOSPITALIZED_DECEASED from './shared/HOSPITALIZED_DECEASED';
+
+import format from 'date-fns/format';
+import { sl } from 'date-fns/locale';
+import differenceInDays from 'date-fns/differenceInDays';
+
+import Intro from './shared/ui/Intro';
+import Outro from './shared/ui/Outro';
+import TESTS_ACTIVE from './List/TESTS_ACTIVE';
+import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 import Combined from './List/Combined';
 
 import './List.css';
 
-const List = props => {
-  const { stats } = props;
-  const { municipalities } = props;
-  const { patients } = props;
-  const { labTests } = props;
-  const { summary } = props;
+// API paths: lab-tests, summary
+function getTestsActiveData(labData, active) {
+  const { regular, hagt } = labData;
+  const casesActive = active.value;
+  const casesActiveIn = active.subValues.in;
+  const casesActiveOut = active.subValues.out;
 
+  const cases = { casesActive, casesActiveIn, casesActiveOut: -casesActiveOut };
+
+  const { today: regToday } = regular.positive;
+  const { today: regPerformed } = regular.performed;
+  const { today: hagtToday } = hagt.positive;
+  const { today: hagtPerformed } = hagt.performed;
+
+  const calcFraction = (numerator, denominator) => numerator / denominator;
+
+  const regFraction = calcFraction(regToday, regPerformed);
+  const hagtFraction = calcFraction(hagtToday, hagtPerformed);
+
+  const regTests = { regToday, regPerformed, regFraction };
+  const hagtTests = { hagtToday, hagtPerformed, hagtFraction };
+
+  return {
+    cases,
+    regTests,
+    hagtTests,
+  };
+}
+// API paths: stats, patients
+function getHospitalizedDeceasedData(
+  patientsToday = {},
+  patientsYesterday = {}
+) {
+  // <Hospitalized/>
+  const {
+    today: hospNum,
+    in: hospIn,
+    out: hospOut,
+  } = patientsToday.total.inHospital;
+  const todayICU = patientsToday.total.icu.today;
+  const yesterdayICU = patientsYesterday.total.icu.today;
+  const icuDelta = todayICU - yesterdayICU;
+  const hospitalized = {
+    hospNum,
+    hospIn,
+    hospOut: -hospOut,
+    icuNum: todayICU,
+    icuDelta,
+  };
+
+  // <OnRespiratory/>
+  const todayCritical = patientsToday.total.critical.today;
+  const yesterdayCritical = patientsYesterday.total.critical.today;
+  const respiratoryDelta = todayCritical - yesterdayCritical;
+
+  const todayNiv = patientsToday.total.niv.today;
+  const yesterdayNiv = patientsYesterday.total.niv.today;
+  const nivDelta = todayNiv - yesterdayNiv;
+
+  const respiratoryTotal = todayNiv + todayCritical;
+  const onRespiratory = {
+    respiratoryTotal,
+    todayCritical,
+    respiratoryDelta,
+    todayNiv,
+    nivDelta,
+  };
+
+  // <InCare/>
+  const { today: careNum, in: careIn, out: careOut } = patientsToday.total.care;
+  const inCare = { careNum, careIn, careOut: -careOut };
+
+  // <Deceased/>
+  // TODO rename deceased properties -> use today and toDate
+  const { today: dead, toDate: deceasedToDate } = patientsToday.total.deceased;
+  const deceased = { deceased: dead, deceasedToDate };
+
+  return {
+    hospitalized,
+    onRespiratory,
+    inCare,
+    deceased,
+  };
+}
+
+// API paths: stats
+function getCombinedData(statsYesterday, statsTwoDaysAgo) {
+  const todayPerAge = statsYesterday.statePerAgeToDate;
+  const yesterdayPerAge = statsTwoDaysAgo.statePerAgeToDate;
+
+  const vaccinationToDate = statsYesterday.vaccination.administered.toDate;
+  const vaccination2ToDate = statsYesterday.vaccination.administered2nd.toDate;
+
+  const confirmedToDate = statsYesterday.cases.confirmedToDate;
+
+  return {
+    todayPerAge,
+    yesterdayPerAge,
+    vaccinationToDate,
+    vaccination2ToDate,
+    confirmedToDate,
+  };
+}
+
+const List = ({
+  stats,
+  municipalities,
+  patients,
+  labTests,
+  summary,
+  hospitalsList,
+}) => {
   if (!stats || stats.length === 0)
     return <p>Napaka: API ne vrača podatkov, refresh page !!!</p>;
 
-  // prepare hospitalsDict
-  const { hospitalsList } = props;
-  let hospitalsDict = [];
-  for (let i = 0; i < hospitalsList.length; i++) {
-    hospitalsDict.push([hospitalsList[i].code, hospitalsList[i].name]);
-  }
+  const css = getChecks({ stats, municipalities, patients, summary, labTests });
+
+  const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
+
+  //prepare data for TESTS_ACTIVE
+  // use data fromAPI paths: summary, lab-tests
+  const lastLabTests = labTests.slice(-1).pop().data;
+  const { casesActive } = summary;
+  const { cases, regTests, hagtTests } = getTestsActiveData(
+    lastLabTests,
+    casesActive
+  );
+
+  // prepare data for HOSPITALIZED_DECEASED
+  // use data fromAPI paths: stats, patients
+  // TODO remove stats
+  const statsYesterday = stats.slice(-2, -1).pop();
+  const patientsToday = patients.slice(-1).pop();
+  const patientsYesterday = patients.slice(-2, -1).pop();
+  const {
+    hospitalized,
+    onRespiratory,
+    inCare,
+    deceased,
+  } = getHospitalizedDeceasedData(patientsToday, patientsYesterday);
+
+  // prepare data fot Combined
+  // {code: 'xxx', name: 'yyy', uri: 'zzz} -> [['xxx', 'zzz]] [[<code>,<name>]]
+  const hospitalsDict = prepareHospitalsDict(hospitalsList);
 
   // prepare perHospitalChanges
-
-  const perHospitalChanges =
-    patients[patients.length - 1] === undefined
-      ? 'NI PODATKOV'
-      : Object.entries(patients[patients.length - 1].facilities);
-  for (let i = 0; i < perHospitalChanges.length; i++) {
-    for (let j = 0; j < hospitalsDict.length; j++) {
-      if (perHospitalChanges[i][0] === hospitalsDict[j][0]) {
-        perHospitalChanges[i].push(hospitalsDict[j][1]);
-      }
-    }
-  }
-
-  // const datestamps
-  const todayDate = parseInt(
-    new Date().getFullYear().toString() +
-      (new Date().getMonth() + 1).toString() +
-      new Date().getDate().toString()
+  // use data fromAPI paths: stats, patients, municipalities
+  const perHospitalChanges = getPerHospitalChanges(patients);
+  const perHospitalChangesWithLongName = findAndPushLongHospitalName(
+    perHospitalChanges,
+    hospitalsDict
   );
+  const statsTwoDaysAgo = stats.slice(-3, -2).pop();
+  // todo rename getCOmbined  partial?
+  const combined = {
+    ...getCombinedData(statsYesterday, statsTwoDaysAgo),
+    perHospitalChanges: perHospitalChangesWithLongName,
+    patients,
+    municipalities,
+  };
 
-  const patientsDate =
-    patients[patients.length - 1].year.toString() +
-    patients[patients.length - 1].month.toString() +
-    patients[patients.length - 1].day.toString();
-  const statsDate =
-    stats[stats.length - 1].year.toString() +
-    stats[stats.length - 1].month.toString() +
-    stats[stats.length - 1].day.toString();
-  const municipalitiesDate = parseInt(
-    municipalities[municipalities.length - 1].year.toString() +
-      municipalities[municipalities.length - 1].month.toString() +
-      municipalities[municipalities.length - 1].day.toString()
-  );
-  const summaryDate =
-    summary.testsToday.year.toString() +
-    summary.testsToday.month.toString() +
-    summary.testsToday.day.toString();
-  //const patientsCheck = patients[patients.length -1].year.toString()+patients[patients.length -1].month.toString()+patients[patients.length -1].day.toString();
-
-  // let introTodayDate = `${stats[stats.length - 1].day}.${
-  //   stats[stats.length - 1].month
-  // }.${stats[stats.length - 1].year}`;
-
-  let introTodayDate =
-    new Date().getDate().toString() +
-    '.' +
-    (new Date().getMonth() + 1).toString() +
-    '.' +
-    new Date().getFullYear().toString();
-
-  // paint red if data is not updated for the current day
-  var check_first = '';
-  var check_second = '';
-  var check_third_age = '';
-  var check_third_mun = '';
-
-  if (todayDate - summaryDate === -1) {
-    check_first = 'red';
-  }
-  if (todayDate - patientsDate > 0) {
-    check_second = 'red';
-  }
-  if (
-    stats[stats.length - 2].statePerAgeToDate[0].allToDate === undefined ||
-    todayDate - statsDate > 0
-  ) {
-    check_third_age = 'red';
-  }
-  if (true) {
-  }
-  if (todayDate - municipalitiesDate > 1) {
-    check_third_mun = 'red';
-  }
-
-  // render app
   return (
     <div className="List">
       <section className="tweet">
         <Intro post={1} introTodayDate={introTodayDate} />
         <TESTS_ACTIVE
-          check_first={check_first}
-          labTests={labTests}
-          summary={summary}
+          check_summary={css.check_summary}
+          check_lab_tests={css.check_lab_tests}
+          cases={cases}
+          regTests={regTests}
+          hagtTests={hagtTests}
         />
         <Outro />
       </section>
       <section className="tweet">
         <Intro post={2} introTodayDate={introTodayDate} />
         <HOSPITALIZED_DECEASED
-          check_second={check_second}
+          check_patients={css.check_patients}
+          hospitalized={hospitalized}
+          onRespiratory={onRespiratory}
+          inCare={inCare}
+          deceased={deceased}
           stats={stats}
           patients={patients}
         />
@@ -123,16 +202,15 @@ const List = props => {
       <section className="tweet">
         <Intro post={3} introTodayDate={introTodayDate} />
         <Combined
-          check_first={check_first}
-          check_second={check_second}
-          check_third_age={check_third_age}
-          check_third_mun={check_third_mun}
-          labTests={labTests}
-          summary={summary}
-          stats={stats}
-          patients={patients}
-          municipalities={municipalities}
-          perHospitalChanges={perHospitalChanges}
+          testsActive={{ cases, regTests, hagtTests }}
+          hospitalizedDeceased={{
+            hospitalized,
+            onRespiratory,
+            inCare,
+            deceased,
+          }}
+          combined={combined}
+          css={css}
         />
         <Outro />
       </section>
@@ -140,3 +218,110 @@ const List = props => {
   );
 };
 export default List;
+
+const isUndefined = val => val === undefined;
+
+// prepare hospitalsDict
+function prepareHospitalsDict(hospitalsList) {
+  return hospitalsList.map(hospital => [hospital.code, hospital.name]);
+}
+
+// prepare perHospitalChanges
+// -> [["ukclj", {care: {...}, critical: {..}, deceased: {...},deceasedCare: {...}, icu: {...}, inHospital: {...}, niv: {...} }],...]
+// properties of interest icu & inHospital
+function getPerHospitalChanges(patients) {
+  const patientsData = patients.slice(-1).pop();
+  const patientsDataIsNotUndefined = !isUndefined(patientsData);
+  return patientsDataIsNotUndefined && Object.entries(patientsData.facilities);
+}
+
+// -> [["ukclj", {...}, "UKC Ljubljana"],... ]
+function findAndPushLongHospitalName(perHospitalChanges, hospitalsDict) {
+  return perHospitalChanges.map(hospital => {
+    const hospitalLongName = hospitalsDict.filter(
+      item => hospital[0] === item[0]
+    )[0][1];
+    return [...hospital, hospitalLongName];
+  });
+}
+
+export function formatToLocaleDateString(
+  dateAsText = '',
+  formatStr = 'd.M.yyyy',
+  options = { locale: sl }
+) {
+  const date = new Date(dateAsText);
+  return format(date, formatStr, options);
+}
+
+// date received is part of an object with properties: year, month, day
+export function getDate(obj = {}) {
+  let { year, month, day } = obj;
+  return new Date(year, month - 1, day);
+}
+
+// extract last item in array form API data
+export function getLastUpdatedData({
+  stats,
+  municipalities,
+  patients,
+  labTests,
+}) {
+  return {
+    patientsData: patients.slice(-1).pop(),
+    statsData: stats.slice(-1).pop(),
+    municipalitiesData: municipalities.slice(-1).pop(),
+    labTestsData: labTests.slice(-1).pop(),
+  };
+}
+
+/**
+ * paint red if data is not updated for the current day;
+ * variables <somethin>Check are used as className
+ */
+export function getChecks({
+  stats,
+  municipalities,
+  patients,
+  summary,
+  labTests,
+}) {
+  // data
+  const lastUpdatedData = getLastUpdatedData({
+    stats,
+    patients,
+    municipalities,
+    labTests,
+  });
+
+  // dates
+  const patientsDate = getDate(lastUpdatedData.patientsData);
+  const statsDate = getDate(lastUpdatedData.statsData);
+  const municipalitiesDate = getDate(lastUpdatedData.municipalitiesData);
+  const labTestsDate = getDate(lastUpdatedData.labTestsData);
+  const summaryDate = getDate(summary.casesActive); // before labTests
+
+  // checks
+  const patientsCheck = differenceInDays(new Date(), patientsDate) > 0;
+
+  const isPerAgeDataUndefined = isUndefined(
+    stats.slice(-2, -1).pop().statePerAgeToDate[0].allToDate
+  );
+  const statsCheck =
+    isPerAgeDataUndefined || differenceInDays(new Date(), statsDate) > 0;
+
+  const municipalitiesCheck =
+    differenceInDays(new Date(), municipalitiesDate) > 1;
+
+  const labTestsCheck = differenceInDays(new Date(), labTestsDate) > 1;
+
+  const summaryCheck = differenceInDays(new Date(), summaryDate) > 1;
+
+  return {
+    check_summary: summaryCheck ? 'red' : '',
+    check_patients: patientsCheck ? 'red' : '',
+    check_stats: statsCheck ? 'red' : '',
+    check_municipalities: municipalitiesCheck ? 'red' : '',
+    check_lab_tests: labTestsCheck ? 'red' : '',
+  };
+}

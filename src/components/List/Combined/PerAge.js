@@ -1,30 +1,39 @@
 import React from 'react';
-import Delta from '../shared/Delta';
-import DataRow from '../shared/DataRow';
 
-function PerAge({ check_third_age, todayPerAge, yesterdayPerAge }) {
-  const deltas = [];
+import { Row, Brackets, NoData } from '../../shared/ui/New';
+import { formatNumber } from '../../../utils/formatNumber';
 
-  for (let i = 0; i < 10; i++) {
-    const { ageFrom, ageTo } = todayPerAge[i];
+function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
+  // TODO move logic to Combined?
+  const deltas = todayPerAge.map((item, i) => {
+    const { ageFrom, ageTo } = item;
     const ageRange = `${ageFrom}${ageTo ? `-${ageTo}` : '+'}`;
-    const key = `${i}_${ageRange}`;
-    const today = todayPerAge[i].allToDate;
+    const today = item.allToDate;
     const yesterday = yesterdayPerAge[i].allToDate;
-    const _delta = (
-      <span key={key}>
+    const delta = today - yesterday;
+    return (
+      <span key={`${i}_${ageRange}`}>
         {' '}
         {ageRange}{' '}
-        <Delta today={today} yesterday={yesterday} insideColons={true} />
+        <span className="bold">
+          <Brackets>{isNaN(delta) ? '-' : formatNumber(delta)}</Brackets>
+        </span>
         {i !== 9 ? ',' : ''}
       </span>
     );
-    deltas.push(_delta);
-  }
+  });
+
+  const noData = deltas.some(delta => !isNaN(delta));
 
   return (
-    <span className={check_third_age}>
-      <DataRow title={'Potrjeni primeri po starosti'}> {deltas}.</DataRow>
+    <span className={check_stats}>
+      <Row>
+        {title}:{' '}
+        {noData && (
+          <NoData html={{ classes: 'bold' }}>manjkajoči podatki: </NoData>
+        )}{' '}
+        {deltas}
+      </Row>
     </span>
   );
 }
