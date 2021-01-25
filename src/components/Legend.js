@@ -10,7 +10,7 @@ import { getDate, formatToLocaleDateString } from '../utils/dates';
 const municipalitiesTrend = [
   {
     description: 'Trend potrjenih primerov v občini pada.',
-    icon: { symbol: '⤵', attr: { role: 'img', ariaLabel: 'up' } }, // down?
+    icon: { symbol: '⤵', attr: { role: 'img', ariaLabel: 'down' } },
   },
   {
     description:
@@ -19,7 +19,7 @@ const municipalitiesTrend = [
   },
   {
     description: 'Trend potrjenih primerov v občini raste.',
-    icon: { symbol: '⤴', attr: { role: 'img', ariaLabel: 'down' } }, // up?
+    icon: { symbol: '⤴', attr: { role: 'img', ariaLabel: 'up' } },
   },
   {
     description:
@@ -33,17 +33,11 @@ const municipalitiesTrend = [
 
 function Legend({
   municipalities,
-  isLoading,
   css = {},
   dates = {},
   paths = {},
   refreshData = {},
 }) {
-  // should render different for each condition?
-  if (isLoading || !municipalities) {
-    return '';
-  }
-
   const LegendSection = ({ title, children }) => (
     <section className="legend-section">
       <h3 className="bold legend-section-title">{title}:</h3>
@@ -109,8 +103,12 @@ function Legend({
     );
   };
 
+  /**
+   * TODO split into two components <RefreshData/> & <RatioTrends/>
+   * RefereshData needs paths: stats, municipalities, patients, lab-tests, summary
+   * RatioTrends needs path: municipalities
+   */
   // TODO move inline style to css file, when done with html
-  // ? add data date?
   return (
     <div className="Legend">
       <h2 id="legenda">Legenda</h2>
@@ -211,7 +209,9 @@ function withLegendHOC(Component) {
       allDataExists &&
       getLegendData({ stats, patients, municipalities, labTests, summary });
 
-    if (!allDataExists) return <Component {...legendProps} />;
+    if (legendProps) {
+      return <Component {...legendProps} />;
+    }
     return null;
   };
 }
@@ -257,7 +257,13 @@ function getLegendData(
       return acc;
     }, {});
 
-  return { dates, css, paths, refreshData };
+  return {
+    dates,
+    css,
+    paths,
+    refreshData,
+    municipalities: allData.municipalities,
+  };
 }
 
 function getDates(allData = {}) {
