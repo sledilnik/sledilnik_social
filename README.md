@@ -80,7 +80,6 @@ Combined `<Combined/>`
    - Yesterday:
      - `/stats.vaccination.administrated.toDate`
      - `/stats.vaccination.administrated2nd.toDate`
-
 3. Comfirmed `<Comfirmed/>`
    - Yesterday:
      - `/stats.vaccination.cases.confirmedToDate`

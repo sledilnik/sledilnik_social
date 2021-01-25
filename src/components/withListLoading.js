@@ -3,7 +3,7 @@ import Modal from './shared/Modal';
 import Backdrop from './shared/Backdrop';
 import Loader from './shared/Loader';
 
-function WithListLoading(Component) {
+function withListLoading(Component) {
   return function WihLoadingComponent({ isLoading, ...props }) {
     if (!isLoading) return <Component {...props} />;
     return (
@@ -15,4 +15,5 @@ function WithListLoading(Component) {
     );
   };
 }
-export default WithListLoading;
+
+export default withListLoading;
