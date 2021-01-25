@@ -11,13 +11,13 @@ function OnRespiratory({
 }) {
   // -> Na respiratorju: 144, neinvazivno: 12 (-1), intubirani: 132 (-2)
   return (
-    <Row end={false}>
-      {title}:<span className="bold">{respiratoryTotal}</span>, intubirani:
+    <Row>
+      {title}: <span className="bold">{respiratoryTotal}</span>, intubirani:{' '}
       <span className="bold">{todayCritical}</span>
       <span className="bold">
         <Brackets>{criticalDelta}</Brackets>
       </span>
-      , neinvazivno:<span className="bold">{todayNiv}</span>{' '}
+      , neinvazivno: <span className="bold">{todayNiv}</span>{' '}
       <span className="bold">
         <Brackets>{nivDelta}</Brackets>
       </span>

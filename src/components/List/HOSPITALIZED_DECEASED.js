@@ -22,7 +22,6 @@ function HOSPITALIZED_DECEASED({
         title={'Hospitalizirani'}
         subtitle={'EIT'}
         hospitalized={formatNumber(hospitalized.hospNum)}
-        translateText={'oseba'}
         hospitalizedIn={formatNumberWithSign(hospitalized.hospIn)}
         hospitalizedOut={formatNumberWithSign(hospitalized.hospOut)}
         icuNum={formatNumber(hospitalized.icuNum)}
@@ -47,7 +46,6 @@ function HOSPITALIZED_DECEASED({
       <Deceased
         title={'Preminuli'}
         subtitle={'skupaj'}
-        translate={'oseba'}
         deceased={formatNumberWithSign(formatNumberWithSign(deceased.deceased))}
         deceasedToDate={formatNumber(deceased.deceasedToDate)}
       />
