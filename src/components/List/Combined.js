@@ -10,38 +10,65 @@ import Confirmed from './Combined/Confirmed';
 import { formatNumber } from './../../utils/formatNumber';
 import { getDate } from '../List';
 import { differenceInDays } from 'date-fns';
+import { Row } from '../shared/ui/New';
 
 function Combined({ labTestsHook, summaryHook, patientsHook, combined }) {
+  const vaccinationShow =
+    combined.vaccinationToDate && combined.vaccination2ToDate;
+  const comfirmedShow = combined.confirmedToDate;
+  const perAgeShow = combined.todayPerAge && combined.yesterdayPerAge;
+  const inHospitalsShow = combined.patients && combined.perHospitalChanges;
+  const citiesShow = combined.municipalities;
   return (
     <>
       <TESTS_ACTIVE labTestsHook={labTestsHook} summaryHook={summaryHook} />
-      <Vaccination
-        check_stats={combined.css.check_stats}
-        toDate={formatNumber(combined.vaccinationToDate)}
-        toDate2={formatNumber(combined.vaccination2ToDate)}
-      />
-      <Confirmed
-        check_stats={combined.css.check_stats}
-        confirmed={formatNumber(combined.confirmedToDate)}
-      />
-      <PerAge
-        title={'Potrjeni primeri po starosti'}
-        check_stats={combined.css.check_stats}
-        todayPerAge={combined.todayPerAge}
-        yesterdayPerAge={combined.yesterdayPerAge}
-      />
+      {vaccinationShow ? (
+        <Vaccination
+          check_stats={combined.css.check_stats}
+          toDate={formatNumber(combined.vaccinationToDate)}
+          toDate2={formatNumber(combined.vaccination2ToDate)}
+        />
+      ) : (
+        <Row>VACCINATION: LOADING...</Row>
+      )}
+      {comfirmedShow ? (
+        <Confirmed
+          check_stats={combined.css.check_stats}
+          confirmed={formatNumber(combined.confirmedToDate)}
+        />
+      ) : (
+        <Row>COMFIRMED: LOADING...</Row>
+      )}
+      {perAgeShow ? (
+        <PerAge
+          title={'Potrjeni primeri po starosti'}
+          check_stats={combined.css.check_stats}
+          todayPerAge={combined.todayPerAge}
+          yesterdayPerAge={combined.yesterdayPerAge}
+        />
+      ) : (
+        <Row>PerAge: LOADING...</Row>
+      )}
       <HOSPITALIZED_DECEASED patientsHook={patientsHook} />
-      <InHospitals
-        title={'Stanje po bolnišnicah'}
-        check_patients={combined.css.check_patients}
-        patients={combined.patients}
-        perHospitalChanges={combined.perHospitalChanges}
-      />
-      <CITIES_SOCIAL_FRIENDLY
-        title={'Po krajih'}
-        check_municipalities={combined.css.check_municipalities}
-        municipalities={combined.municipalities}
-      />
+      {inHospitalsShow ? (
+        <InHospitals
+          title={'Stanje po bolnišnicah'}
+          check_patients={combined.css.check_patients}
+          patients={combined.patients}
+          perHospitalChanges={combined.perHospitalChanges}
+        />
+      ) : (
+        <Row>InHospitals: LOADING...</Row>
+      )}
+      {citiesShow ? (
+        <CITIES_SOCIAL_FRIENDLY
+          title={'Po krajih'}
+          check_municipalities={combined.css.check_municipalities}
+          municipalities={combined.municipalities}
+        />
+      ) : (
+        <Row>CITIES: LOADING...</Row>
+      )}
     </>
   );
 }
@@ -56,48 +83,39 @@ function withCombinedHOC(Component) {
     hospitalsListHook,
     ...props
   }) => {
-    const { isLoading } =
-      statsHook.isLoading ||
-      patientsHook.isLoading ||
-      municipalitiesHook.isLoading ||
-      hospitalsListHook.isLoading ||
-      summaryHook.isLoading ||
-      labTestsHook.isLoading;
+    const {
+      todayPerAge,
+      yesterdayPerAge,
+      vaccinationToDate,
+      vaccination2ToDate,
+      confirmedToDate,
+      css: statsCss,
+    } = statsHook.data !== null && getStatsData(statsHook.data);
 
-    if (isLoading) {
-      return <p>Combined is loading....</p>;
-    }
-    if (statsHook.data === null) {
-      return <p>Combined is loading....</p>;
-    }
-    if (patientsHook.data === null) {
-      return <p>Combined is loading....</p>;
-    }
-    if (municipalitiesHook.data === null) {
-      return <p>Combined is loading....</p>;
-    }
-    if (hospitalsListHook.data === null) {
-      return <p>Combined is loading....</p>;
-    }
-    if (summaryHook.data === null) {
-      return <p>Combined is loading....</p>;
-    }
-    if (labTestsHook.data === null) {
-      return <p>Combined is loading....</p>;
-    }
+    const { perHospitalChanges, css: patientsCss } =
+      hospitalsListHook.data !== null &&
+      patientsHook.data !== null &&
+      getInHospitalsData(hospitalsListHook.data, patientsHook.data);
 
-    const patients = patientsHook.data;
-    const municipalities = municipalitiesHook.data;
+    const { css: municipalitiesCss } =
+      municipalitiesHook.data !== null &&
+      getMunicipalitiesCss(municipalitiesHook.data);
 
     const combined = {
-      ...getCombinedData(
-        statsHook.data,
-        hospitalsListHook.data,
-        patientsHook.data,
-        municipalitiesHook.data
-      ),
-      patients,
-      municipalities,
+      todayPerAge,
+      yesterdayPerAge,
+      vaccinationToDate,
+      vaccination2ToDate,
+      confirmedToDate,
+      perHospitalChanges,
+      css: {
+        ...statsCss,
+        ...patientsCss,
+        ...municipalitiesCss,
+      },
+
+      patients: patientsHook.data,
+      municipalities: municipalitiesHook.data,
     };
 
     const data = {
@@ -114,8 +132,17 @@ function withCombinedHOC(Component) {
 
 export default withCombinedHOC(Combined);
 
-// API paths: stats, patients, municipalities
-function getCombinedData(stats, hospitalsList, patients, municipalities) {
+const getStatsData = stats => {
+  if (stats === null) {
+    return {
+      todayPerAge: null,
+      yesterdayPerAge: null,
+      vaccinationToDate: null,
+      vaccination2ToDate: null,
+      confirmedToDate: null,
+      css: null,
+    };
+  }
   const statsYesterday = stats.slice(-2, -1).pop();
   const statsTwoDaysAgo = stats.slice(-3, -2).pop();
   const todayPerAge = statsYesterday.statePerAgeToDate;
@@ -126,35 +153,14 @@ function getCombinedData(stats, hospitalsList, patients, municipalities) {
 
   const confirmedToDate = statsYesterday.cases.confirmedToDate;
 
-  // prepare data fot Combined
-  // {code: 'xxx', name: 'yyy', uri: 'zzz} -> [['xxx', 'zzz]] [[<code>,<name>]]
-  const hospitalsDict = prepareHospitalsDict(hospitalsList);
-
-  // prepare perHospitalChanges
-  // use data fromAPI paths: stats, patients, municipalities
-  const perHospitalChanges = getPerHospitalChanges(patients);
-  const perHospitalChangesWithLongName = findAndPushLongHospitalName(
-    perHospitalChanges,
-    hospitalsDict
-  );
-
   // CSS
   const statsToday = stats.slice(-1).pop();
-  const patientsToday = patients.slice(-1).pop();
-  const municipalitiesToday = municipalities.slice(-1).pop();
-  const patientsDate = getDate(patientsToday);
   const statsDate = getDate(statsToday);
-  const municipalitiesDate = getDate(municipalitiesToday);
-  const patientsCheck = differenceInDays(new Date(), patientsDate) > 0;
-
   const isPerAgeDataUndefined = isUndefined(
     statsYesterday.statePerAgeToDate[0].allToDate
   );
   const statsCheck =
     isPerAgeDataUndefined || differenceInDays(new Date(), statsDate) > 0;
-
-  const municipalitiesCheck =
-    differenceInDays(new Date(), municipalitiesDate) > 1;
 
   return {
     todayPerAge,
@@ -162,12 +168,55 @@ function getCombinedData(stats, hospitalsList, patients, municipalities) {
     vaccinationToDate,
     vaccination2ToDate,
     confirmedToDate,
+    css: { check_stats: statsCheck ? 'red' : '' },
+  };
+};
+
+const getInHospitalsData = (hospitalsList, patients) => {
+  if (hospitalsList === null || patients === null) {
+    return {
+      perHospitalChanges: null,
+      css: {
+        check_patients: null,
+      },
+    };
+  }
+
+  // {code: 'xxx', name: 'yyy', uri: 'zzz} -> [['xxx', 'zzz]] [[<code>,<name>]]
+  const hospitalsDict = prepareHospitalsDict(hospitalsList);
+
+  // prepare perHospitalChanges
+  const perHospitalChanges = getPerHospitalChanges(patients);
+  const perHospitalChangesWithLongName = findAndPushLongHospitalName(
+    perHospitalChanges,
+    hospitalsDict
+  );
+
+  // CSS
+  const patientsToday = patients.slice(-1).pop();
+  const patientsDate = getDate(patientsToday);
+  const patientsCheck = differenceInDays(new Date(), patientsDate) > 0;
+
+  return {
     perHospitalChanges: perHospitalChangesWithLongName,
     css: {
       check_patients: patientsCheck ? 'red' : '',
-      check_stats: statsCheck ? 'red' : '',
-      check_municipalities: municipalitiesCheck ? 'red' : '',
     },
+  };
+};
+
+function getMunicipalitiesCss(municipalities) {
+  if (municipalities === null) {
+    return { css: { check_municipalities: null } };
+  }
+  const municipalitiesToday = municipalities.slice(-1).pop();
+  const municipalitiesDate = getDate(municipalitiesToday);
+
+  const municipalitiesCheck =
+    differenceInDays(new Date(), municipalitiesDate) > 1;
+
+  return {
+    css: { check_municipalities: municipalitiesCheck ? 'red' : '' },
   };
 }
 
