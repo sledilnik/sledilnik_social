@@ -14,8 +14,15 @@ import { formatNumber } from './../../utils/formatNumber';
 import { getDate } from '../../utils/dates';
 
 function Combined({ labTestsHook, summaryHook, patientsHook, combined }) {
-  const vaccinationShow =
-    combined.vaccinationToDate && combined.vaccination2ToDate;
+  const vac1 = combined.vaccinationToDate
+    ? formatNumber(combined.vaccinationToDate)
+    : '-';
+  const vac2 = combined.vaccination2ToDate
+    ? formatNumber(combined.vaccination2ToDate)
+    : '-';
+
+  const vaccinationShow = vac1 && vac2;
+
   const confirmedShow = combined.confirmedToDate;
   const perAgeShow = combined.todayPerAge && combined.yesterdayPerAge;
   const inHospitalsShow = combined.patients && combined.perHospitalChanges;
@@ -26,8 +33,8 @@ function Combined({ labTestsHook, summaryHook, patientsHook, combined }) {
       {vaccinationShow ? (
         <Vaccination
           check_stats={combined.css.check_stats}
-          toDate={formatNumber(combined.vaccinationToDate)}
-          toDate2={formatNumber(combined.vaccination2ToDate)}
+          toDate={vac1}
+          toDate2={vac2}
         />
       ) : (
         <Row>VACCINATION: LOADING...</Row>
@@ -149,6 +156,7 @@ const getStatsData = stats => {
   const todayPerAge = statsYesterday.statePerAgeToDate;
   const yesterdayPerAge = statsTwoDaysAgo.statePerAgeToDate;
 
+  //
   const vaccinationToDate = statsYesterday.vaccination.administered.toDate;
   const vaccination2ToDate = statsYesterday.vaccination.administered2nd.toDate;
 
