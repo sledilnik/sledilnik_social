@@ -1,36 +1,6 @@
 import React from 'react';
 import Municipalities from '../List/Combined/CITIES_SOCIAL_FRIENDLY/Municipalities';
-
-const trendsLegendDict = [
-  {
-    description: 'Trend potrjenih primerov v občini pada.',
-    icon: { symbol: '⤵', attr: { role: 'img', ariaLabel: 'down' } },
-  },
-  {
-    description:
-      'Ni sprememb v trendu potrjenih primerov (trend v območju -0,03 do +0,03).',
-    icon: { symbol: '➖', attr: { role: 'img', ariaLabel: 'neutral' } },
-  },
-  {
-    description: 'Trend potrjenih primerov v občini raste.',
-    icon: { symbol: '⤴', attr: { role: 'img', ariaLabel: 'up' } },
-  },
-  {
-    description:
-      'Trenda ni mogoče izračunati (ena od vrednosti y1, y2, y3 je enaka 0).',
-    icon: {
-      symbol: 'brez',
-      attr: { role: 'img', ariaLabel: 'no symbol' },
-    },
-  },
-];
-
-const LegendSection = ({ title, children }) => (
-  <section className="legend-section">
-    <h3 className="bold legend-section-title">{title}:</h3>
-    {children}
-  </section>
-);
+import trendsLegendDict from '../../trendsLegendDict';
 
 const LegendTable = ({ data = [{}] }) => {
   const tableBody = data.map(({ description, icon }, i) => {
