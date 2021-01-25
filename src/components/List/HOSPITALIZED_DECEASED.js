@@ -20,7 +20,7 @@ function HOSPITALIZED_DECEASED({
     <div className={check_patients}>
       <Hospitalized
         title={'Hospitalizirani'}
-        subtitle={'v EIT'}
+        subtitle={'EIT'}
         hospitalized={formatNumber(hospitalized.hospNum)}
         translateText={'oseba'}
         hospitalizedIn={formatNumberWithSign(hospitalized.hospIn)}
@@ -46,7 +46,7 @@ function HOSPITALIZED_DECEASED({
       />
       <Deceased
         title={'Preminuli'}
-        subtitle={'skupaj '}
+        subtitle={'skupaj'}
         translate={'oseba'}
         deceased={formatNumberWithSign(formatNumberWithSign(deceased.deceased))}
         deceasedToDate={formatNumber(deceased.deceasedToDate)}

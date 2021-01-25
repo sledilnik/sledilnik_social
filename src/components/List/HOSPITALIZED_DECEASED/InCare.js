@@ -8,20 +8,16 @@ function InCare({ title, careNum, careIn, careOut }) {
 
   // -> Negovalne bolnišnice: 103 (+3, -1)
   return (
-    <Row className={noData && 'red'}>
-      {title}:{' '}
-      {noData ? (
-        <NoData html={{ classes: 'bold' }}>ni vseh podatkov</NoData>
-      ) : (
-        <>
-          <span className="bold">{careNum}</span>{' '}
-          <span className="bold">
-            <Brackets>
-              {careIn}, {careOut}
-            </Brackets>
-          </span>
-        </>
-      )}
+    <Row end={false} className={noData && 'red'}>
+      {title}:
+      <>
+        <span className="bold">{careNum}</span>
+        <span className="bold">
+          <Brackets>
+            {careIn},{careOut}
+          </Brackets>
+        </span>
+      </>
     </Row>
   );
 }

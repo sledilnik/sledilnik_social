@@ -14,16 +14,16 @@ function Hospitalized({
   icuDelta,
 }) {
   return (
-    <Row>
-      {title}:
-      <DataTranslate number={hospitalized} text={translateText} />{' '}
+    <Row end={false}>
+      {title}:<span className="bold">{hospitalized}</span>
+      {/* <DataTranslate number={hospitalized} text={translateText} />{' '} */}
       <span className="bold">
         <Brackets>
-          {hospitalizedIn}, {hospitalizedOut}
+          {hospitalizedIn},{hospitalizedOut}
         </Brackets>
       </span>
-      , {subtitle}:
-      <DataTranslate number={icuNum} text={translateText} />{' '}
+      , {subtitle}:<span className="bold">{icuNum}</span>
+      {/* <DataTranslate number={icuNum} text={translateText} />{' '} */}
       <span className="bold">
         <Brackets>{icuDelta}</Brackets>
       </span>

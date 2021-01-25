@@ -4,9 +4,8 @@ import Translate from '../../shared/ui/Translate';
 
 function Deceased({ title, subtitle, translate, deceased, deceasedToDate }) {
   return (
-    <Row>
-      {title}: <span className="bold">{deceased} </span>
-      <Translate text={translate} number={deceased} />, {subtitle}:{' '}
+    <Row end={false}>
+      {title}:<span className="bold">{deceased}</span>, {subtitle}:
       <span className="bold">{deceasedToDate}</span>
     </Row>
   );
