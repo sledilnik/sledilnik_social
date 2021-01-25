@@ -1,6 +1,7 @@
 import React from 'react';
 import Municipalities from '../List/Combined/CITIES_SOCIAL_FRIENDLY/Municipalities';
 import trendsLegendDict from '../../trendsLegendDict';
+import { LegendSection } from '../Legend';
 
 const LegendTable = ({ data = [{}] }) => {
   const tableBody = data.map(({ description, icon }, i) => {
