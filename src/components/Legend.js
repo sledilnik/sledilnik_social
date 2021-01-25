@@ -7,6 +7,13 @@ import { getDate, formatToLocaleDateString } from '../utils/dates';
 import RatioTrends from './Legend/RatioTrends';
 import PathsDates from './Legend/PathsDates';
 
+export const LegendSection = ({ title, children }) => (
+  <section className="legend-section">
+    <h3 className="bold legend-section-title">{title}:</h3>
+    {children}
+  </section>
+);
+
 function Legend({ pathsDatesData, municipalitiesHook }) {
   // TODO move inline style to css file, when done with html
   return (
