@@ -86,7 +86,6 @@ function PathsDates({ css = {}, dates = {}, paths = {}, refreshData = {} }) {
 
 function withPathsDatesHOC(Component) {
   return ({ ...props }) => {
-    console.log('withPathDatesHOC: ', props);
     if (props.css === undefined) {
       return null;
     }
