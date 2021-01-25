@@ -76,6 +76,7 @@ Combined `<Combined/>`
 
 1. [Test and active cases](####Test-and-active-cases)
 2. Vaccination `<Vaccination/>`
+
    - Yesterday:
      - `/stats.vaccination.administrated.toDate`
      - `/stats.vaccination.administrated2nd.toDate`

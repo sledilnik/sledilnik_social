@@ -8,6 +8,7 @@ import TESTS_ACTIVE from './List/TESTS_ACTIVE';
 import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 import Combined from './List/Combined';
 
+
 import { formatToLocaleDateString } from '../utils/dates';
 
 const List = ({
