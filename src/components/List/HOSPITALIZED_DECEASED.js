@@ -22,9 +22,8 @@ function HOSPITALIZED_DECEASED({
       {hospitalized ? (
         <Hospitalized
           title={'Hospitalizirani'}
-          subtitle={'v EIT'}
+          subtitle={'EIT'}
           hospitalized={formatNumber(hospitalized.hospNum)}
-          translateText={'oseba'}
           hospitalizedIn={formatNumberWithSign(hospitalized.hospIn)}
           hospitalizedOut={formatNumberWithSign(hospitalized.hospOut)}
           icuNum={formatNumber(hospitalized.icuNum)}

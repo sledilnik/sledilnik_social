@@ -1,13 +1,11 @@
 import React from 'react';
 
-import DataTranslate from '../../shared/ui/DataTranslate';
 import { Row, Brackets } from '../../shared/ui/New';
 
 function Hospitalized({
   title,
   subtitle,
   hospitalized,
-  translateText,
   hospitalizedIn,
   hospitalizedOut,
   icuNum,
@@ -15,15 +13,13 @@ function Hospitalized({
 }) {
   return (
     <Row>
-      {title}:
-      <DataTranslate number={hospitalized} text={translateText} />{' '}
+      {title}: <span className="bold">{hospitalized}</span>{' '}
       <span className="bold">
         <Brackets>
           {hospitalizedIn}, {hospitalizedOut}
         </Brackets>
       </span>
-      , {subtitle}:
-      <DataTranslate number={icuNum} text={translateText} />{' '}
+      , {subtitle}: <span className="bold">{icuNum}</span>{' '}
       <span className="bold">
         <Brackets>{icuDelta}</Brackets>
       </span>
