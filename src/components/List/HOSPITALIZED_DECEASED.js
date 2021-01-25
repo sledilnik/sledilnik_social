@@ -62,7 +62,6 @@ function HOSPITALIZED_DECEASED({
         <Deceased
           title={'Preminuli'}
           subtitle={'skupaj '}
-          translate={'oseba'}
           deceased={formatNumberWithSign(
             formatNumberWithSign(deceased.deceased)
           )}
