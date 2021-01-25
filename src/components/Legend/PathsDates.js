@@ -1,12 +1,6 @@
 import React from 'react';
 import { Emoji, Arrow } from '../shared/ui/New';
-
-const LegendSection = ({ title, children }) => (
-  <section className="legend-section">
-    <h3 className="bold legend-section-title">{title}:</h3>
-    {children}
-  </section>
-);
+import { LegendSection } from '../Legend';
 
 function PathsDates({ css = {}, dates = {}, paths = {}, refreshData = {} }) {
   const apiDates = Object.entries(refreshData).map(([key, value], index) => {
