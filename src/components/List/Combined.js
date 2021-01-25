@@ -15,7 +15,7 @@ import { Row } from '../shared/ui/New';
 function Combined({ labTestsHook, summaryHook, patientsHook, combined }) {
   const vaccinationShow =
     combined.vaccinationToDate && combined.vaccination2ToDate;
-  const comfirmedShow = combined.confirmedToDate;
+  const confirmedShow = combined.confirmedToDate;
   const perAgeShow = combined.todayPerAge && combined.yesterdayPerAge;
   const inHospitalsShow = combined.patients && combined.perHospitalChanges;
   const citiesShow = combined.municipalities;
@@ -31,13 +31,13 @@ function Combined({ labTestsHook, summaryHook, patientsHook, combined }) {
       ) : (
         <Row>VACCINATION: LOADING...</Row>
       )}
-      {comfirmedShow ? (
+      {confirmedShow ? (
         <Confirmed
           check_stats={combined.css.check_stats}
           confirmed={formatNumber(combined.confirmedToDate)}
         />
       ) : (
-        <Row>COMFIRMED: LOADING...</Row>
+        <Row>CONFIRMED: LOADING...</Row>
       )}
       {perAgeShow ? (
         <PerAge
