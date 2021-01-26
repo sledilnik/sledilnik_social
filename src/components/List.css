@@ -35,22 +35,6 @@ textarea {
   display: flex;
 }
 
-.text-area-btn-container > .btn {
-  padding: 0 8px;
-  font-size: 11px;
-  color: var(--white);
-  background-color: var(--green);
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.text-area-btn-container > .btn:focus {
-  outline: none;
-  color: var(--green);
-  background-color: var(--white);
-}
-
 .twitter-hashtag-button {
   margin: 0 8px;
 }
