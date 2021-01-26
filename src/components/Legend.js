@@ -56,12 +56,13 @@ function withLegendHOC(Component) {
       summary !== null &&
       hospitalsList !== null;
 
-    const pathsDateData =
+    // ? move logic to <PathsDates/>
+    const pathsDatesData =
       allDataExists &&
       getPathsDatesData({ stats, patients, municipalities, labTests, summary });
 
     const legendProps = {
-      pathsDateData,
+      pathsDatesData,
       municipalitiesHook: props.municipalitiesHook,
     };
 
