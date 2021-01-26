@@ -16,6 +16,7 @@
   border-radius: 6px;
 }
 
+.post > div > span > ul,
 .post > span > ul {
   margin: 0 0 0 2em;
 }
