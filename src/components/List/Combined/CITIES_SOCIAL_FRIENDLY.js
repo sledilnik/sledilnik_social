@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Municipalities from './CITIES_SOCIAL_FRIENDLY/Municipalities';
-import Outro from '../../shared/ui/Outro';
 import { Row } from '../../shared/ui/New';
 
 function CITIES_SOCIAL_FRIENDLY({
@@ -9,6 +8,8 @@ function CITIES_SOCIAL_FRIENDLY({
   title,
   municipalities,
 }) {
+  const [icons, setIcons] = useState('FB');
+
   const munVer = iconsVersion => (
     <>
       <Row end={false}>{title}: </Row>
@@ -22,12 +23,31 @@ function CITIES_SOCIAL_FRIENDLY({
     </>
   );
 
+  const clickHandler = event => {
+    const { target } = event;
+
+    if (icons === 'FB') {
+      setIcons('TW');
+      target.innerHTML = 'Show facebook icons';
+      return;
+    }
+    if (icons === 'TW') {
+      setIcons('FB');
+      target.innerHTML = 'Show twitter icons';
+      return;
+    }
+  };
+
   return (
-    <span className={check_municipalities}>
-      {munVer('FB')}
-      <Outro />
-      {munVer('TW')}
-    </span>
+    <div className="cities">
+      <button
+        onClick={clickHandler}
+        style={{ marginTop: '1em', userSelect: 'none' }}
+      >
+        Show twitter icons
+      </button>
+      <span className={check_municipalities}>{munVer(icons)}</span>
+    </div>
   );
 }
 

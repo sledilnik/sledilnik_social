@@ -16,6 +16,7 @@
   border-radius: 6px;
 }
 
+.post > div > span > ul,
 .post > span > ul {
   margin: 0 0 0 2em;
 }
@@ -28,6 +29,30 @@ textarea {
   border: 1px solid #999999;
   margin: 5px 0;
   padding: 3px;
+}
+
+.text-area-btn-container {
+  display: flex;
+}
+
+.text-area-btn-container > .btn {
+  padding: 0 8px;
+  font-size: 11px;
+  color: var(--white);
+  background-color: var(--green);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.text-area-btn-container > .btn:focus {
+  outline: none;
+  color: var(--green);
+  background-color: var(--white);
+}
+
+.twitter-hashtag-button {
+  margin: 0 8px;
 }
 
 @media only screen and (min-width: 576px) {
