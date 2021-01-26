@@ -37,12 +37,23 @@ const List = ({
     <div className="List">
       <div style={{ display: 'block' }}>
         <label htmlFor="copy" id="copy-label">
-          Remove consecutive new lines & Copy
+          Odstrani odvečne vrstice, označi in kopiraj.
         </label>
         <div className="textwrapper">
-          <textarea cols="2" rows="10" id="copy" />
+          <textarea cols="50" rows="10" id="copy" />
         </div>
-        <button onClick={clickHandler}>OK</button>
+        <div className="text-area-btn-container">
+          <button className="btn" onClick={clickHandler}>
+            V odložišče
+          </button>
+          <a
+            href="https://twitter.com/intent/tweet?button_hashtag=COVID19&ref_src=twsrc%5Etfw"
+            className="twitter-hashtag-button"
+            data-show-count="false"
+          >
+            Tweet #COVID19
+          </a>
+        </div>
       </div>
       <section className="post">
         <Intro post={1} introTodayDate={introTodayDate} />
