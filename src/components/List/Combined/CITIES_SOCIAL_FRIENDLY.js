@@ -41,6 +41,7 @@ function CITIES_SOCIAL_FRIENDLY({
   return (
     <div className="cities">
       <button
+        className="btn"
         onClick={clickHandler}
         style={{ marginTop: '1em', userSelect: 'none' }}
       >

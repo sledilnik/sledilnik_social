@@ -37,7 +37,7 @@ const List = ({
     <div className="List">
       <div style={{ display: 'block' }}>
         <label htmlFor="copy" id="copy-label">
-          Odstrani odvečne vrstice, označi in kopiraj.
+          Odstrani odvečne vrstice, označi in prenese v odložišče.
         </label>
         <div className="textwrapper">
           <textarea cols="50" rows="10" id="copy" />
