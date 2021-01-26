@@ -35,7 +35,7 @@ function withLegendHOC(Component) {
     const stats = props.statsHook.data;
     const patients = props.patientsHook.data;
     const municipalities = props.municipalitiesHook.data;
-    const hospitalsList = props.hospitalsListHook.data;
+    // const hospitalsList = props.hospitalsListHook.data;
     const labTests = props.labTestsHook.data;
     const summary = props.summaryHook.data;
 
@@ -43,7 +43,6 @@ function withLegendHOC(Component) {
       props.statsHook.isLoading ||
       props.patientsHook.isLoading ||
       props.municipalitiesHook.isLoading ||
-      props.hospitalsListHook.isLoading ||
       props.labTestsHook.isLoading ||
       props.summaryHook.isLoading;
 
@@ -53,8 +52,7 @@ function withLegendHOC(Component) {
       patients !== null &&
       municipalities !== null &&
       labTests !== null &&
-      summary !== null &&
-      hospitalsList !== null;
+      summary !== null;
 
     // ? move logic to <PathsDates/>
     const pathsDatesData =

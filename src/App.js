@@ -52,7 +52,6 @@ function App() {
           statsHook={statsHook}
           municipalitiesHook={municipalitiesHook}
           patientsHook={patientsHook}
-          hospitalsListHook={hospitalsListHook}
           labTestsHook={labTestsHook}
           summaryHook={summaryHook}
         />
