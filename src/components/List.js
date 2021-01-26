@@ -173,8 +173,30 @@ const List = ({
     municipalities,
   };
 
+  const clickHandler = () => {
+    /* Get the text field */
+    const copyText = document.getElementById('copy');
+    copyText.value = copyText.value.replace(/(\r\n|\r|\n){2,}/g, '\n');
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+    /* Copy the text inside the text field */
+    document.execCommand('copy');
+  };
+
   return (
     <div className="List">
+      <div style={{ display: 'block' }}>
+        <label htmlFor="copy" id="copy-label">
+          Remove consecutive new lines & Copy
+        </label>
+        <div className="textwrapper">
+          <textarea cols="2" rows="10" id="copy" />
+        </div>
+        <button onClick={clickHandler}>OK</button>
+      </div>
       <section className="tweet">
         <Intro post={1} introTodayDate={introTodayDate} />
         <TESTS_ACTIVE
