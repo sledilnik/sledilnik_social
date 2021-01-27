@@ -3,7 +3,8 @@ import sledilnikLogo from '../../../assets/sledilnik-logo.svg';
 import { Row, Emoji } from '../ui/New';
 
 const Outro = () => {
-  const emojis = '💨🏠,😷,🙎↔️↔️🙎‍♂️🙎↔️↔️🙎 + 👐🧼🚿 + #OstaniZdrav 📲 & 🤞';
+  const emojis =
+    '💨🏠,😷,🙎↔️↔️🙎‍♂️ + 👐🧼🚿 + #ObvestiSvojeStike + #OstaniZdrav 📲 & 🤞';
 
   const EmojisRow = () => (
     <Row noArrow={true} end={false}>
