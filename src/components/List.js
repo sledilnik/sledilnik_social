@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './List.css';
 
@@ -18,29 +18,32 @@ const List = ({
   labTestsHook,
   summaryHook,
 }) => {
+  const [length, setLength] = useState(0);
   const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
 
   const clickHandler = () => {
-    /* Get the text field */
     const copyText = document.getElementById('copy');
     copyText.value = copyText.value.replace(/(\r\n|\r|\n){2,}/g, '\n');
 
-    /* Select the text field */
     copyText.select();
     copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
-    /* Copy the text inside the text field */
     document.execCommand('copy');
+  };
+
+  const changeHandler = event => {
+    setLength(event.target.value.length);
   };
 
   return (
     <div className="List">
-      <div style={{ display: 'block' }}>
+      <div style={{ display: 'block', fontSize: '0.9em' }}>
         <label htmlFor="copy" id="copy-label">
           Odstrani odvečne vrstice, označi in prenese v odložišče.
-        </label>
+        </label>{' '}
+        <p style={{ margin: '0.5em 0' }}>Število znakov: {length}</p>
         <div className="textwrapper">
-          <textarea cols="50" rows="10" id="copy" />
+          <textarea cols="50" rows="10" id="copy" onChange={changeHandler} />
         </div>
         <div className="text-area-btn-container">
           <button className="btn" onClick={clickHandler}>
