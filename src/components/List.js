@@ -12,6 +12,7 @@ import { formatToLocaleDateString } from '../utils/dates';
 
 const TrimNewLines = () => {
   const [length, setLength] = useState(0);
+  const [show, setShow] = useState(false);
   const clickHandler = () => {
     const copyText = document.getElementById('copy');
     copyText.value = copyText.value.replace(/(\r\n|\r|\n){2,}/g, '\n');
@@ -25,28 +26,38 @@ const TrimNewLines = () => {
   const changeHandler = event => {
     setLength(event.target.value.length);
   };
+  const showHideHandler = event => {
+    setShow(prev => !prev);
+  };
 
   return (
-    <div style={{ display: 'block', fontSize: '0.9em' }}>
+    <div className="trim-new-lines-container" style={{ fontSize: '0.9em' }}>
       <label htmlFor="copy" id="copy-label">
         Odstrani odvečne vrstice, označi in prenese v odložišče.
       </label>{' '}
-      <p style={{ margin: '0.5em 0' }}>Število znakov: {length}</p>
-      <div className="textwrapper">
-        <textarea cols="50" rows="10" id="copy" onChange={changeHandler} />
-      </div>
-      <div className="text-area-btn-container">
-        <button className="btn" onClick={clickHandler}>
-          V odložišče
-        </button>
-        <a
-          href="https://twitter.com/intent/tweet?button_hashtag=COVID19&ref_src=twsrc%5Etfw"
-          className="twitter-hashtag-button"
-          data-show-count="false"
-        >
-          Tweet #COVID19
-        </a>
-      </div>
+      <button className="btn" onClick={showHideHandler}>
+        {show ? 'Skrij' : 'Pokaži'}
+      </button>
+      {show && (
+        <div style={{ display: 'block' }}>
+          <p style={{ margin: '0.5em 0' }}>Število znakov: {length}</p>
+          <div className="textwrapper">
+            <textarea cols="50" rows="10" id="copy" onChange={changeHandler} />
+          </div>
+          <div className="text-area-btn-container">
+            <button className="btn" onClick={clickHandler}>
+              V odložišče
+            </button>
+            <a
+              href="https://twitter.com/intent/tweet?button_hashtag=COVID19&ref_src=twsrc%5Etfw"
+              className="twitter-hashtag-button"
+              data-show-count="false"
+            >
+              Tweet #COVID19
+            </a>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
