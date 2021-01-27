@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './List.css';
 
@@ -13,6 +13,18 @@ import { formatToLocaleDateString } from '../utils/dates';
 const TrimNewLines = () => {
   const [length, setLength] = useState(0);
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://platform.twitter.com/widgets.js';
+    script.async = true;
+    script.charset = 'utf-8';
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, [show]);
+
   const clickHandler = () => {
     const copyText = document.getElementById('copy');
     copyText.value = copyText.value.replace(/(\r\n|\r|\n){2,}/g, '\n');
