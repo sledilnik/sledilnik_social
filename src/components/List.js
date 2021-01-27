@@ -23,12 +23,8 @@ const TrimNewLines = () => {
     document.execCommand('copy');
   };
 
-  const changeHandler = event => {
-    setLength(event.target.value.length);
-  };
-  const showHideHandler = event => {
-    setShow(prev => !prev);
-  };
+  const changeHandler = event => setLength(event.target.value.length);
+  const showHideHandler = () => setShow(prev => !prev);
 
   return (
     <div className="trim-new-lines-container" style={{ fontSize: '0.9em' }}>
