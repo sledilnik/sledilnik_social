@@ -26,15 +26,13 @@ function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
   const noData = deltas.some(delta => !isNaN(delta));
 
   return (
-    <span className={check_stats}>
-      <Row>
-        {title}:{' '}
-        {noData && (
-          <NoData html={{ classes: 'bold' }}>manjkajoči podatki: </NoData>
-        )}{' '}
-        {deltas}
-      </Row>
-    </span>
+    <Row className={check_stats}>
+      {title}:{' '}
+      {noData && (
+        <NoData html={{ classes: 'bold' }}>manjkajoči podatki: </NoData>
+      )}{' '}
+      {deltas}
+    </Row>
   );
 }
 

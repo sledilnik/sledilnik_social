@@ -74,10 +74,10 @@ function InHospitals({ check_patients, title, patients, perHospitalChanges }) {
     .map(createHospitalOutput);
 
   return (
-    <span className={check_patients}>
-      <Row end={false}>{title}: </Row>
+    <div className={check_patients}>
+      <Row end={false}>{title}:</Row>
       <ul>{noPatientsData ? 'NI PODATKOV' : hospitalOutput}</ul>
-    </span>
+    </div>
   );
 }
 
