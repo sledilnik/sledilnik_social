@@ -57,28 +57,24 @@ const getIconOrTrend = (icons, trend, showTrend) =>
     </i>
   );
 
-const Municipalities = ({ data, showTrend = 'y', icons = '' }) => {
-  const display = data.map((townsByDiff, index) => {
-    const sameDiffTownsLabel = Object.entries(townsByDiff).map(
-      ([count, towns]) => {
-        return towns.map(town => {
-          const icon = getIconOrTrend(icons, town.trend, showTrend);
-
-          return (
-            <span key={town.key}>
-              {town.name} {icon}{' '}
-              {town.next ? (
-                ', '
-              ) : (
-                <span className="bold"> {formatNumberWithSign(count)}</span>
-              )}
-            </span>
-          );
-        });
-      }
-    );
-    return <li key={`${index}-${{ icons }}`}>{sameDiffTownsLabel}</li>;
-  });
+const Municipalities = ({ data = new Map(), showTrend = 'y', icons = '' }) => {
+  const display = [];
+  for (const [count, townsByDiff] of data) {
+    const sameDiffTownsLabel = townsByDiff.map(town => {
+      const icon = getIconOrTrend(icons, town.trend, showTrend);
+      return (
+        <span key={town.key}>
+          {town.name} {icon}{' '}
+          {town.next ? (
+            ', '
+          ) : (
+            <span className="bold"> {formatNumberWithSign(count)}</span>
+          )}
+        </span>
+      );
+    });
+    display.push(<li key={`${count}-${{ icons }}`}>{sameDiffTownsLabel}</li>);
+  }
 
   return display;
 };
@@ -88,7 +84,6 @@ const MunicipalitiesLookup = _.keyBy(MunicipalitiesDict, 'name');
 
 const calc_regions = regions => {
   const region_names = Object.keys(regions);
-
   const result = region_names.reduce((region_box, region) => {
     const towns = Object.keys(regions[region]);
     const region_numbers_today = towns.reduce((town_box, town) => {
@@ -182,24 +177,25 @@ function withListHOC(Component) {
       return [town, trend];
     };
 
-    const data = _.map(townsByDifference, (towns, count) => {
-      const townsLabelData = towns
-        .map(getTownTrend(calculatedPerDayRegions))
-        .reduce((acc, townWithTrend, index) => {
-          // townWithTrend = ["Murska Sobota",  -0.031660708691416684];
-          const town = townWithTrend[0];
-          const trend = townWithTrend[1];
-          const townLabel = {
-            key: count + '-' + town,
-            name: town,
-            trend,
-            next: index !== towns.length - 1,
-          };
-          acc.push(townLabel);
-          return acc;
-        }, []);
-      return { [count]: townsLabelData };
-    }).reverse();
+    const data = Object.entries(townsByDifference)
+      .reverse()
+      .reduce((acc1, [count, towns]) => {
+        const townsLabelData = towns
+          .map(getTownTrend(calculatedPerDayRegions))
+          .reduce((acc, townWithTrend, index) => {
+            // townWithTrend = ["Murska Sobota",  -0.031660708691416684];
+            const townLabel = {
+              key: `${count}-${townWithTrend[0]}`,
+              name: townWithTrend[0],
+              trend: townWithTrend[1],
+              next: index !== towns.length - 1,
+            };
+            acc.push(townLabel);
+            return acc;
+          }, []);
+        acc1.set(count, townsLabelData);
+        return acc1;
+      }, new Map());
 
     const newProps = {
       data,
