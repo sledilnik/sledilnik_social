@@ -57,3 +57,29 @@
 .municipalities {
   list-style-type: none;
 }
+
+.skeleton {
+  background: var(--bcg-header-clr);
+  border-radius: 10px;
+  opacity: 0.2;
+  animation: anim-skeleton 3s alternate infinite;
+  line-height: 1.35;
+}
+
+@keyframes anim-skeleton {
+  0% {
+    opacity: 0.2;
+  }
+  25% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}

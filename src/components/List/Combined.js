@@ -8,7 +8,7 @@ import PerAge from './Combined/PerAge';
 import InHospitals from './Combined/InHospitals';
 import Vaccination from './Combined/Vaccination';
 import Confirmed from './Combined/Confirmed';
-import { Row } from '../shared/ui/New';
+import { RowSkeleton } from '../shared/ui/New';
 
 import { formatNumber } from './../../utils/formatNumber';
 import { getDate } from '../../utils/dates';
@@ -37,7 +37,7 @@ function Combined({ labTestsHook, summaryHook, patientsHook, combined }) {
           toDate2={vac2}
         />
       ) : (
-        <Row>VACCINATION: LOADING...</Row>
+        <RowSkeleton />
       )}
       {confirmedShow ? (
         <Confirmed
@@ -45,7 +45,7 @@ function Combined({ labTestsHook, summaryHook, patientsHook, combined }) {
           confirmed={formatNumber(combined.confirmedToDate)}
         />
       ) : (
-        <Row>CONFIRMED: LOADING...</Row>
+        <RowSkeleton />
       )}
       {perAgeShow ? (
         <PerAge
@@ -55,7 +55,7 @@ function Combined({ labTestsHook, summaryHook, patientsHook, combined }) {
           yesterdayPerAge={combined.yesterdayPerAge}
         />
       ) : (
-        <Row>PerAge: LOADING...</Row>
+        <RowSkeleton />
       )}
       <HOSPITALIZED_DECEASED patientsHook={patientsHook} />
       {inHospitalsShow ? (
@@ -66,7 +66,7 @@ function Combined({ labTestsHook, summaryHook, patientsHook, combined }) {
           perHospitalChanges={combined.perHospitalChanges}
         />
       ) : (
-        <Row>InHospitals: LOADING...</Row>
+        <RowSkeleton />
       )}
       {citiesShow ? (
         <CITIES_SOCIAL_FRIENDLY
@@ -75,7 +75,7 @@ function Combined({ labTestsHook, summaryHook, patientsHook, combined }) {
           municipalities={combined.municipalities}
         />
       ) : (
-        <Row>CITIES: LOADING...</Row>
+        <RowSkeleton />
       )}
     </>
   );

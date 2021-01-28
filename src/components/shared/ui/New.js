@@ -35,3 +35,5 @@ export const NoData = ({ children, html = { tag: 'span', classes: '' } }) => {
   }
   return null;
 };
+
+export const RowSkeleton = () => <Row className="skeleton" noArrow={true} />;

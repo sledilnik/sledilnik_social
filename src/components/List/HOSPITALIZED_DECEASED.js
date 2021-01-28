@@ -5,7 +5,7 @@ import Hospitalized from './HOSPITALIZED_DECEASED/Hospitalized';
 import OnRespiratory from './HOSPITALIZED_DECEASED/OnRespiratory';
 import Deceased from './HOSPITALIZED_DECEASED/Deceased';
 import InCare from './HOSPITALIZED_DECEASED/InCare';
-import { Row } from '../shared/ui/New';
+import { RowSkeleton } from '../shared/ui/New';
 
 import { formatNumber, formatNumberWithSign } from '../../utils/formatNumber';
 import { getDate } from '../../utils/dates';
@@ -30,7 +30,7 @@ function HOSPITALIZED_DECEASED({
           icuDelta={formatNumberWithSign(hospitalized.icuDelta)}
         />
       ) : (
-        <Row>Hospitalizirani: LOADING...</Row>
+        <RowSkeleton />
       )}
       {onRespiratory ? (
         <OnRespiratory
@@ -42,7 +42,7 @@ function HOSPITALIZED_DECEASED({
           nivDelta={formatNumberWithSign(onRespiratory.nivDelta)}
         />
       ) : (
-        <Row>Na respiratorju: LOADING...</Row>
+        <RowSkeleton />
       )}
       {inCare ? (
         <InCare
@@ -56,7 +56,7 @@ function HOSPITALIZED_DECEASED({
           }
         />
       ) : (
-        <Row>Negovalne bolnišnice: LOADING...</Row>
+        <RowSkeleton />
       )}
       {deceased ? (
         <Deceased
@@ -68,7 +68,7 @@ function HOSPITALIZED_DECEASED({
           deceasedToDate={formatNumber(deceased.deceasedToDate)}
         />
       ) : (
-        <Row>Preminuli: LOADING...</Row>
+        <RowSkeleton />
       )}
     </div>
   );
