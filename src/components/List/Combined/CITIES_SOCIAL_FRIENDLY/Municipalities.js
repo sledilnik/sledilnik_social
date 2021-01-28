@@ -112,7 +112,7 @@ const createCalculatedRegions = perDayRegions => {
   return obj;
 };
 
-function withListHOC(Component) {
+function withMunicipalitiesHOC(Component) {
   return ({ ...props }) => {
     const perDayRegions = props.data
       .map(item => item.regions)
@@ -207,4 +207,4 @@ function withListHOC(Component) {
   };
 }
 
-export default withListHOC(Municipalities);
+export default withMunicipalitiesHOC(Municipalities);
