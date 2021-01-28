@@ -1,6 +1,87 @@
 import React from 'react';
 import _ from 'lodash';
 import MunicipalitiesDict from '../../../../MunicipalitiesDict';
+import { formatNumberWithSign } from './../../../../utils/formatNumber';
+
+// platform friendly icons
+const FB_ICONS = {
+  down: '⤵',
+  up: '⤴',
+  no: '',
+  between: '➖',
+  dots: '...',
+};
+
+const TW_ICONS = {
+  down: '📉 ',
+  up: '📈 ',
+  no: '',
+  between: '➖ ',
+  dots: '... ',
+};
+
+const ICONS = {
+  FB: FB_ICONS,
+  TW: TW_ICONS,
+};
+
+const setPlatformFriendlyIcon = (iconsVersion = 'FB', trend) => {
+  const selectedIcons = ICONS[iconsVersion];
+  const getIconKey = trend => {
+    if (trend < -0.03) {
+      return 'down';
+    }
+    if (trend > 0.03) {
+      return 'up';
+    }
+    if (trend === 'no') {
+      return 'no';
+    }
+    if (trend >= -0.03 || trend <= 0.03) {
+      return 'between';
+    }
+    return 'dots';
+  };
+
+  const iconKey = getIconKey(trend);
+
+  return selectedIcons[iconKey];
+};
+
+const getIconOrTrend = (icons, trend, showTrend) =>
+  showTrend === 'y' ? (
+    setPlatformFriendlyIcon(icons, trend)
+  ) : (
+    <i>
+      {trend !== 'no' && Math.round((trend + Number.EPSILON) * 100000) / 100000}
+    </i>
+  );
+
+const Municipalities = ({ data, showTrend = 'y', icons = '' }) => {
+  const display = data.map((townsByDiff, index) => {
+    const sameDiffTownsLabel = Object.entries(townsByDiff).map(
+      ([count, towns]) => {
+        return towns.map(town => {
+          const icon = getIconOrTrend(icons, town.trend, showTrend);
+
+          return (
+            <span key={town.key}>
+              {town.name} {icon}{' '}
+              {town.next ? (
+                ', '
+              ) : (
+                <span className="bold"> {formatNumberWithSign(count)}</span>
+              )}
+            </span>
+          );
+        });
+      }
+    );
+    return <li key={`${index}-${{ icons }}`}>{sameDiffTownsLabel}</li>;
+  });
+
+  return display;
+};
 
 // { name: x, translation: X} becomes { x: { name: x, translation: X }}
 const MunicipalitiesLookup = _.keyBy(MunicipalitiesDict, 'name');
@@ -26,52 +107,6 @@ const calc_regions = regions => {
   return result;
 };
 
-// platform friendly icons
-const FB_ICONS = {
-  down: '⤵ ',
-  up: '⤴ ',
-  no: '',
-  between: '➖ ',
-  dots: '... ',
-};
-
-const TW_ICONS = {
-  down: '📉 ',
-  up: '📈 ',
-  no: '',
-  between: '➖ ',
-  dots: '... ',
-};
-
-const ICONS = {
-  FB: FB_ICONS,
-  TW: TW_ICONS,
-};
-
-function getIconKey(trend) {
-  if (trend < -0.03) {
-    return 'down';
-  }
-  if (trend > 0.03) {
-    return 'up';
-  }
-  if (trend === 'no') {
-    return 'no';
-  }
-  if (trend >= -0.03 || trend <= 0.03) {
-    return 'between';
-  }
-  return 'dots';
-}
-
-const setPlatformFriendlyIcon = (iconsVersion = 'FB', trend) => {
-  const selectedIcons = ICONS[iconsVersion];
-
-  const iconKey = getIconKey(trend);
-
-  return selectedIcons[iconKey];
-};
-
 const createCalculatedRegions = perDayRegions => {
   let index = 1;
   const obj = perDayRegions.reduce((acc, regions) => {
@@ -82,34 +117,13 @@ const createCalculatedRegions = perDayRegions => {
   return obj;
 };
 
-const Municipalities = ({ data, showTrend = 'y', icons = '' }) => {
-  const display = data.map((townsByDiff, index) => {
-    const outputLabel = Object.entries(townsByDiff).map(([count, towns]) => {
-      return towns.map(town => {
-        const icon =
-          showTrend === 'y' ? ICONS[icons][town.upDown] : <i>{town.trend}</i>;
-
-        return (
-          <span key={town.key}>
-            {town.town} {town.trend !== 'no' && icon}
-            {town.next ? ', ' : <span className="bold"> +{count}</span>}
-          </span>
-        );
-      });
-    });
-    return <li key={index + '-' + { towns: townsByDiff }}>{outputLabel}</li>;
-  });
-
-  return display;
-};
-
 function withListHOC(Component) {
   return ({ ...props }) => {
     const perDayRegions = props.data
       .map(item => item.regions)
       .reverse()
-      .slice(0, 16); // one day too much
-    // TODO we could skip calculatedPerDayRegions and calc regions even earlier in getRegions
+      .slice(0, 16);
+    // ? we could skip calculatedPerDayRegions and calc regions even earlier
     const calculatedPerDayRegions = createCalculatedRegions([...perDayRegions]);
 
     const difference_since_yesterday = _.assignWith(
@@ -165,40 +179,26 @@ function withListHOC(Component) {
         item => item !== null
       );
       const trend = getTrend(deltas);
-      const upDown = getIconKey(trend); // ? can we skip this and mo
-      return [town, upDown, trend];
+      return [town, trend];
     };
 
     const data = _.map(townsByDifference, (towns, count) => {
-      const outputData = towns
+      const townsLabelData = towns
         .map(getTownTrend(calculatedPerDayRegions))
-        .reduce(
-          (acc, town_upDown) => {
-            // town_upDown = ["Murska Sobota", "down", -0.031660708691416684];
-            acc[0].push(town_upDown[0]);
-            acc[1].push(town_upDown[1]);
-            acc[2].push(town_upDown[2]);
-            return acc;
-          },
-          [[], [], []]
-        );
-
-      const outputLabel = outputData[0].map((town, index) => {
-        let trend = outputData[2][index];
-        trend =
-          trend !== 'no' &&
-          Math.round((trend + Number.EPSILON) * 100000) / 100000;
-        const upDown = outputData[1][index];
-        return {
-          key: index + '-' + town,
-          town,
-          trend: trend !== 'no' && trend,
-          upDown,
-          next: index !== outputData[0].length - 1,
-        };
-      });
-
-      return { [count]: outputLabel };
+        .reduce((acc, townWithTrend, index) => {
+          // townWithTrend = ["Murska Sobota",  -0.031660708691416684];
+          const town = townWithTrend[0];
+          const trend = townWithTrend[1];
+          const townLabel = {
+            key: count + '-' + town,
+            name: town,
+            trend,
+            next: index !== towns.length - 1,
+          };
+          acc.push(townLabel);
+          return acc;
+        }, []);
+      return { [count]: townsLabelData };
     }).reverse();
 
     const newProps = {
