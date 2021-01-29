@@ -3,8 +3,6 @@ import { differenceInDays } from 'date-fns';
 
 import PercentageRow from './TESTS_ACTIVE/PercentageRow';
 import ActiveCasesRow from './TESTS_ACTIVE/ActiveCasesRow';
-import { RowSkeleton } from '../shared/ui/New';
-import Error from './../shared/Error';
 
 import {
   formatNumberWithSign,
@@ -12,6 +10,7 @@ import {
   formatPercentage,
 } from '../../utils/formatNumber';
 import { getDate } from '../../utils/dates';
+import Error from '../shared/Error';
 
 function TESTS_ACTIVE({ css, cases, regTests, hagtTests, errors }) {
   const { regToday, regPerformed, regFraction } =
@@ -21,53 +20,36 @@ function TESTS_ACTIVE({ css, cases, regTests, hagtTests, errors }) {
   const { casesActive, casesActiveIn, casesActiveOut } =
     cases !== undefined && cases;
 
-  const { labTests, summary } = errors;
-
   return (
     <div>
-      {labTests.hasError ? (
-        <Error>Nekaj je narobe. Prosim, poizkusite kasneje!</Error>
-      ) : (
-        <section className={css?.check_lab_tests}>
-          {regToday ? (
-            <PercentageRow
-              title={'PCR'}
-              numerator={formatNumberWithSign(regToday)}
-              denominator={formatNumber(regPerformed)}
-              percent={formatPercentage(regFraction)}
-            />
-          ) : (
-            <RowSkeleton />
-          )}
-
-          {hagtToday ? (
-            <PercentageRow
-              title={'HAT'}
-              numerator={formatNumberWithSign(hagtToday)}
-              denominator={formatNumber(hagtPerformed)}
-              percent={formatPercentage(hagtFraction)}
-            />
-          ) : (
-            <RowSkeleton />
-          )}
-        </section>
-      )}
-      {summary.hasError ? (
-        <Error>Nekaj je narobe. Prosim, poizkusite kasneje!</Error>
-      ) : (
-        <section className={css?.check_summary}>
-          {casesActive ? (
-            <ActiveCasesRow
-              title={'Aktivni primeri'}
-              casesActive={formatNumber(casesActive)}
-              casesActiveIn={formatNumberWithSign(casesActiveIn)}
-              casesActiveOut={formatNumberWithSign(casesActiveOut)}
-            />
-          ) : (
-            <RowSkeleton />
-          )}
-        </section>
-      )}
+      <section className={css?.check_lab_tests}>
+        <Error hasData={!!regToday} hasError={errors.labTests}>
+          <PercentageRow
+            title={'PCR'}
+            numerator={formatNumberWithSign(regToday)}
+            denominator={formatNumber(regPerformed)}
+            percent={formatPercentage(regFraction)}
+          />
+        </Error>
+        <Error hasData={!!hagtToday} hasError={errors.labTests}>
+          <PercentageRow
+            title={'HAT'}
+            numerator={formatNumberWithSign(hagtToday)}
+            denominator={formatNumber(hagtPerformed)}
+            percent={formatPercentage(hagtFraction)}
+          />
+        </Error>
+      </section>
+      <section className={css?.check_summary}>
+        <Error hasData={!!casesActive} hasError={errors.summary}>
+          <ActiveCasesRow
+            title={'Aktivni primeri'}
+            casesActive={formatNumber(casesActive)}
+            casesActiveIn={formatNumberWithSign(casesActiveIn)}
+            casesActiveOut={formatNumberWithSign(casesActiveOut)}
+          />
+        </Error>
+      </section>
     </div>
   );
 }
@@ -144,14 +126,8 @@ function withTestsActiveHOC(Component) {
       summaryHook.data !== null && getActiveData(summaryHook.data);
 
     const errors = {
-      labTests: {
-        hasError: labTestsHook.hasError,
-        errorMessage: labTestsHook.errorMessage,
-      },
-      summary: {
-        hasError: summaryHook.hasError,
-        errorMessage: summaryHook.errorMessage,
-      },
+      labTests: labTestsHook.hasError,
+      summary: summaryHook.hasError,
     };
 
     const data = {

@@ -37,3 +37,8 @@ export const NoData = ({ children, html = { tag: 'span', classes: '' } }) => {
 };
 
 export const RowSkeleton = () => <Row className="skeleton" noArrow={true} />;
+export const RowError = () => (
+  <Row className="bold" punctuationMark="!">
+    Nekaj je narobe. Prosim, poizkusite kasneje
+  </Row>
+);
