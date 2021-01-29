@@ -27,17 +27,8 @@ function App() {
   const labTestsHook = useFetch(LAB_TESTS_URL, { from: getISODateFrom(-3) });
   const summaryHook = useFetch(SUMMARY_URL);
 
-  const error =
-    statsHook.hasError ||
-    patientsHook.hasError ||
-    municipalitiesHook.hasError ||
-    hospitalsListHook.hasError ||
-    labTestsHook.hasError ||
-    summaryHook.hasError;
-
   return (
     <div className="App">
-      {error ? console.log(error) : ''}
       <Header />
       <main className="main">
         <List
