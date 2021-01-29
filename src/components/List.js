@@ -20,6 +20,7 @@ const TrimNewLines = () => {
     script.async = true;
     script.charset = 'utf-8';
     document.body.appendChild(script);
+    !show && setLength(0);
     return () => {
       document.body.removeChild(script);
     };
