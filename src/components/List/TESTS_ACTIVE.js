@@ -3,7 +3,7 @@ import { differenceInDays } from 'date-fns';
 
 import PercentageRow from './TESTS_ACTIVE/PercentageRow';
 import ActiveCasesRow from './TESTS_ACTIVE/ActiveCasesRow';
-import { Row } from '../shared/ui/New';
+import { RowSkeleton } from '../shared/ui/New';
 
 import {
   formatNumberWithSign,
@@ -31,7 +31,7 @@ function TESTS_ACTIVE({ css, cases, regTests, hagtTests }) {
             percent={formatPercentage(regFraction)}
           />
         ) : (
-          <Row>PCR: LOADING...</Row>
+          <RowSkeleton />
         )}
 
         {hagtToday ? (
@@ -42,7 +42,7 @@ function TESTS_ACTIVE({ css, cases, regTests, hagtTests }) {
             percent={formatPercentage(hagtFraction)}
           />
         ) : (
-          <Row>HAT: LOADING...</Row>
+          <RowSkeleton />
         )}
       </section>
       <section className={css?.check_summary}>
@@ -54,7 +54,7 @@ function TESTS_ACTIVE({ css, cases, regTests, hagtTests }) {
             casesActiveOut={formatNumberWithSign(casesActiveOut)}
           />
         ) : (
-          <Row>Aktivni primeri: LOADING...</Row>
+          <RowSkeleton />
         )}
       </section>
     </div>

@@ -1,13 +1,89 @@
 import React from 'react';
 import _ from 'lodash';
 import MunicipalitiesDict from '../../../../MunicipalitiesDict';
+import { formatNumberWithSign } from './../../../../utils/formatNumber';
+
+// platform friendly icons
+const FB_ICONS = {
+  down: '⤵',
+  up: '⤴',
+  no: '',
+  between: '➖',
+  dots: '...',
+};
+
+const TW_ICONS = {
+  down: '📉 ',
+  up: '📈 ',
+  no: '',
+  between: '➖ ',
+  dots: '... ',
+};
+
+const ICONS = {
+  FB: FB_ICONS,
+  TW: TW_ICONS,
+};
+
+const setPlatformFriendlyIcon = (iconsVersion = 'FB', trend) => {
+  const selectedIcons = ICONS[iconsVersion];
+  const getIconKey = trend => {
+    if (trend < -0.03) {
+      return 'down';
+    }
+    if (trend > 0.03) {
+      return 'up';
+    }
+    if (trend === 'no') {
+      return 'no';
+    }
+    if (trend >= -0.03 || trend <= 0.03) {
+      return 'between';
+    }
+    return 'dots';
+  };
+
+  const iconKey = getIconKey(trend);
+
+  return selectedIcons[iconKey];
+};
+
+const getIconOrTrend = (icons, trend, showTrend) =>
+  showTrend === 'y' ? (
+    setPlatformFriendlyIcon(icons, trend)
+  ) : (
+    <i>
+      {trend !== 'no' && Math.round((trend + Number.EPSILON) * 100000) / 100000}
+    </i>
+  );
+
+const Municipalities = ({ data = new Map(), showTrend = 'y', icons = '' }) => {
+  const display = [];
+  for (const [count, townsByDiff] of data) {
+    const sameDiffTownsLabel = townsByDiff.map(town => {
+      const icon = getIconOrTrend(icons, town.trend, showTrend);
+      return (
+        <span key={town.key}>
+          {town.name} {icon}{' '}
+          {town.next ? (
+            ', '
+          ) : (
+            <span className="bold"> {formatNumberWithSign(count)}</span>
+          )}
+        </span>
+      );
+    });
+    display.push(<li key={`${count}-${{ icons }}`}>{sameDiffTownsLabel}</li>);
+  }
+
+  return display;
+};
 
 // { name: x, translation: X} becomes { x: { name: x, translation: X }}
 const MunicipalitiesLookup = _.keyBy(MunicipalitiesDict, 'name');
 
 const calc_regions = regions => {
   const region_names = Object.keys(regions);
-
   const result = region_names.reduce((region_box, region) => {
     const towns = Object.keys(regions[region]);
     const region_numbers_today = towns.reduce((town_box, town) => {
@@ -26,52 +102,6 @@ const calc_regions = regions => {
   return result;
 };
 
-// platform friendly icons
-const FB_ICONS = {
-  down: '⤵ ',
-  up: '⤴ ',
-  no: '',
-  between: '➖ ',
-  dots: '... ',
-};
-
-const TW_ICONS = {
-  down: '📉 ',
-  up: '📈 ',
-  no: '',
-  between: '➖ ',
-  dots: '... ',
-};
-
-const ICONS = {
-  FB: FB_ICONS,
-  TW: TW_ICONS,
-};
-
-const setPlatformFriendlyIcon = (iconsVersion = 'FB') => trend => {
-  const selectedIcons = ICONS[iconsVersion];
-
-  function getIconKey(trend) {
-    if (trend < -0.03) {
-      return 'down';
-    }
-    if (trend > 0.03) {
-      return 'up';
-    }
-    if (trend === 'no') {
-      return 'no';
-    }
-    if (trend >= -0.03 || trend <= 0.03) {
-      return 'between';
-    }
-    return 'dots';
-  }
-
-  const iconKey = getIconKey(trend);
-
-  return selectedIcons[iconKey];
-};
-
 const createCalculatedRegions = perDayRegions => {
   let index = 1;
   const obj = perDayRegions.reduce((acc, regions) => {
@@ -82,103 +112,99 @@ const createCalculatedRegions = perDayRegions => {
   return obj;
 };
 
-const Municipalities = ({ data, showTrend = 'y', icons = '' }) => {
-  const perDayRegions = data
-    .map(item => item.regions)
-    .reverse()
-    .slice(0, 16); // one day too much
-  // TODO we could skip calculatedPerDayRegions and calc regions even earlier in getRegions
-  const calculatedPerDayRegions = createCalculatedRegions([...perDayRegions]);
+function withMunicipalitiesHOC(Component) {
+  return ({ ...props }) => {
+    const perDayRegions = props.data
+      .map(item => item.regions)
+      .reverse()
+      .slice(0, 16);
+    // ? we could skip calculatedPerDayRegions and calc regions even earlier
+    const calculatedPerDayRegions = createCalculatedRegions([...perDayRegions]);
 
-  const difference_since_yesterday = _.assignWith(
-    { ...calculatedPerDayRegions.d1 },
-    { ...calculatedPerDayRegions.d2 },
-    (today, yesterday) => today - yesterday
-  );
-
-  const difference_as_array = _.toPairs(difference_since_yesterday) // { ljubljana: 10, maribor: 8 } becomes [['ljubljana', 10], ['maribor', 8]]
-    .sort((a, b) => b[1] - a[1])
-    .reverse()
-    .reduce((acc, [town, count]) => {
-      if (count < 1) {
-        return acc;
-      }
-      if (acc[count]) {
-        acc[count].push(town);
-      } else {
-        acc[count] = [town];
-      }
-      return acc;
-    }, {});
-
-  const display_values = _.map(difference_as_array, (towns, count) => {
-    // if there is a single town for a specific number of new cases, calculate 7-d trend
-
-    // fetch 7-d data for trend
-    const outputData = towns
-      .map(town => {
-        // prepare data to calculate trend
-        const deltas = Object.entries(calculatedPerDayRegions)
-          .map(([day, regionData], index, days) => {
-            if (day === 'd16') {
-              return null; // last value; can not subtract
-            }
-            const regionDataDayBefore = days[index + 1][1];
-            return regionData[town] - regionDataDayBefore[town];
-          })
-          .filter(item => item !== null);
-
-        // prepare params to calculate trend
-        const addValue = (acc, value) => acc + value;
-        const y3 = deltas.slice(0, 7).reduce(addValue, 0);
-        const y2 = deltas.slice(4, 11).reduce(addValue, 0);
-        const y1 = deltas.slice(8, 15).reduce(addValue, 0);
-
-        // calculate trend
-        const oneTrendArgIsUndefined = y1 === 0 || y2 === 0 || y3 === 0;
-        const calcTrend = (y1, y2, y3) =>
-          (Math.log(y1) + 3 * Math.log(y3) - 4 * Math.log(y2)) / 8;
-        const trend = oneTrendArgIsUndefined ? 'no' : calcTrend(y1, y2, y3);
-
-        // set icon
-        const upDown =
-          showTrend === 'y' ? (
-            setPlatformFriendlyIcon(icons)(trend)
-          ) : (
-            <i>{Math.round((trend + Number.EPSILON) * 100000) / 100000}</i>
-          );
-
-        return [town, upDown, trend];
-      })
-      .reduce(
-        (outputData, town_upDown) => {
-          outputData[0].push(town_upDown[0]);
-          outputData[1].push(town_upDown[1]);
-          outputData[2].push(town_upDown[2]);
-          return outputData;
-        },
-        [[], [], []]
-      );
-    // generate HTML output
-    const outputLabelJaka = outputData[0].map((town, index) => {
-      const trend = outputData[2][index];
-      const upDown = outputData[1][index];
-      return (
-        <span key={index + ' ' + town}>
-          {town} {trend !== 'no' && upDown}
-          {index !== outputData[0].length - 1 && ', '}
-        </span>
-      );
-    });
-
-    return (
-      <li key={count + '-' + { towns }}>
-        {outputLabelJaka} <span className="bold">+{count}</span>
-      </li>
+    const difference_since_yesterday = _.assignWith(
+      { ...calculatedPerDayRegions.d1 },
+      { ...calculatedPerDayRegions.d2 },
+      (today, yesterday) => today - yesterday
     );
-  }).reverse();
 
-  return display_values;
-};
+    const townsByDifference = _.toPairs(difference_since_yesterday) // { ljubljana: 10, maribor: 8 } becomes [['ljubljana', 10], ['maribor', 8]]
+      .sort((a, b) => b[1] - a[1])
+      .reverse()
+      .reduce((acc, [town, count]) => {
+        if (count < 1) {
+          return acc;
+        }
+        if (acc[count]) {
+          acc[count].push(town);
+        } else {
+          acc[count] = [town];
+        }
+        return acc;
+      }, {});
 
-export default Municipalities;
+    const getTrend = deltas => {
+      // prepare params to calculate trend
+      const addValue = (acc, value) => acc + value;
+      const y3 = deltas.slice(0, 7).reduce(addValue, 0);
+      const y2 = deltas.slice(4, 11).reduce(addValue, 0);
+      const y1 = deltas.slice(8, 15).reduce(addValue, 0);
+
+      // calculate trend
+      const oneTrendArgIsUndefined = y1 === 0 || y2 === 0 || y3 === 0;
+      const calcTrend = (y1, y2, y3) =>
+        (Math.log(y1) + 3 * Math.log(y3) - 4 * Math.log(y2)) / 8;
+      const trend = oneTrendArgIsUndefined ? 'no' : calcTrend(y1, y2, y3);
+      return trend;
+    };
+
+    const getDeltas = (town, calculatedPerDayRegions) =>
+      Object.entries(calculatedPerDayRegions).map(
+        ([day, regionData], index, days) => {
+          if (day === 'd16') {
+            return null; // last value; can not subtract
+          }
+          const regionDataDayBefore = days[index + 1][1];
+          return regionData[town] - regionDataDayBefore[town];
+        }
+      );
+
+    const getTownTrend = calculatedPerDayRegions => town => {
+      // prepare data to calculate trend
+      const deltas = getDeltas(town, calculatedPerDayRegions).filter(
+        item => item !== null
+      );
+      const trend = getTrend(deltas);
+      return [town, trend];
+    };
+
+    const data = Object.entries(townsByDifference)
+      .reverse()
+      .reduce((acc1, [count, towns]) => {
+        const townsLabelData = towns
+          .map(getTownTrend(calculatedPerDayRegions))
+          .reduce((acc, townWithTrend, index) => {
+            // townWithTrend = ["Murska Sobota",  -0.031660708691416684];
+            const townLabel = {
+              key: `${count}-${townWithTrend[0]}`,
+              name: townWithTrend[0],
+              trend: townWithTrend[1],
+              next: index !== towns.length - 1,
+            };
+            acc.push(townLabel);
+            return acc;
+          }, []);
+        acc1.set(count, townsLabelData);
+        return acc1;
+      }, new Map());
+
+    const newProps = {
+      data,
+      showTrend: props.showTrend,
+      icons: props.icons,
+    };
+
+    return <Component {...newProps} />;
+  };
+}
+
+export default withMunicipalitiesHOC(Municipalities);
