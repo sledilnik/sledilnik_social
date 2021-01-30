@@ -158,8 +158,8 @@ function getPathsDatesData(
 
   // TODO find better name
   const refreshData =
-    dates & css &&
-    paths &&
+    !!dates & !!css &&
+    !!paths &&
     [css, dates, paths].reduce((acc, obj) => {
       for (const [key, value] of Object.entries(obj)) {
         acc[key] = acc[key] ? [...acc[key], value] : [value];
