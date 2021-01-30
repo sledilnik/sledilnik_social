@@ -9,23 +9,17 @@ import Header from './components/Header';
 import Legend from './components/Legend';
 import useFetch from './hooks/useFetch';
 
-const BASE_API_URL = 'https://api.sledilnik.org';
-const STATS_URL = `${BASE_API_URL}/api/stats`;
-const PATIENTS_URL = `${BASE_API_URL}/api/patients`;
-const MUN_URL = `${BASE_API_URL}/api/municipalities`;
-const HOSPITALS_LIST_URL = `${BASE_API_URL}/api/hospitals-list`;
-const LAB_TESTS_URL = `${BASE_API_URL}/api/lab-tests`;
-const SUMMARY_URL = `${BASE_API_URL}/api/summary`;
+import url from './urlDict';
 
 function App() {
   const getISODateFrom = num => addDays(new Date(), num).toISOString();
 
-  const statsHook = useFetch(STATS_URL, { from: getISODateFrom(-4) });
-  const patientsHook = useFetch(PATIENTS_URL, { from: getISODateFrom(-3) });
-  const municipalitiesHook = useFetch(MUN_URL, { from: getISODateFrom(-18) });
-  const hospitalsListHook = useFetch(HOSPITALS_LIST_URL);
-  const labTestsHook = useFetch(LAB_TESTS_URL, { from: getISODateFrom(-3) });
-  const summaryHook = useFetch(SUMMARY_URL);
+  const statsHook = useFetch(url.STATS, { from: getISODateFrom(-4) });
+  const patientsHook = useFetch(url.PATIENTS, { from: getISODateFrom(-3) });
+  const municipalitiesHook = useFetch(url.MUN, { from: getISODateFrom(-18) });
+  const hospitalsListHook = useFetch(url.HOSPITALS_LIST);
+  const labTestsHook = useFetch(url.LAB_TESTS, { from: getISODateFrom(-3) });
+  const summaryHook = useFetch(url.SUMMARY);
 
   return (
     <div className="App">
