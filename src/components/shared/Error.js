@@ -7,6 +7,9 @@ function Error({ children }) {
 
 function withErrorHOC(Component) {
   return ({ hasError, hasData, children, props }) => {
+    if (!hasData && !hasError) {
+      return <RowSkeleton />;
+    }
     if (hasError) {
       return <RowError />;
     }
