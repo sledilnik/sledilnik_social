@@ -8,12 +8,18 @@ import PerAge from './Combined/PerAge';
 import InHospitals from './Combined/InHospitals';
 import Vaccination from './Combined/Vaccination';
 import Confirmed from './Combined/Confirmed';
-import { RowSkeleton } from '../shared/ui/New';
 
 import { formatNumber } from './../../utils/formatNumber';
 import { getDate } from '../../utils/dates';
+import Error from '../shared/Error';
 
-function Combined({ labTestsHook, summaryHook, patientsHook, combined }) {
+function Combined({
+  labTestsHook,
+  summaryHook,
+  patientsHook,
+  combined,
+  errors,
+}) {
   const vac1 = combined.vaccinationToDate
     ? formatNumber(combined.vaccinationToDate)
     : '-';
@@ -21,62 +27,52 @@ function Combined({ labTestsHook, summaryHook, patientsHook, combined }) {
     ? formatNumber(combined.vaccination2ToDate)
     : '-';
 
-  const vaccinationShow = vac1 && vac2;
-
-  const confirmedShow = combined.confirmedToDate;
-  const perAgeShow = combined.todayPerAge && combined.yesterdayPerAge;
-  const inHospitalsShow = combined.patients && combined.perHospitalChanges;
-  const citiesShow = combined.municipalities;
   return (
     <>
       <TESTS_ACTIVE labTestsHook={labTestsHook} summaryHook={summaryHook} />
-      {vaccinationShow ? (
+      <Error hasData={!!combined?.vaccinationToDate} hasError={errors.stats}>
         <Vaccination
           check_stats={combined.css.check_stats}
           toDate={vac1}
           toDate2={vac2}
         />
-      ) : (
-        <RowSkeleton />
-      )}
-      {confirmedShow ? (
+      </Error>
+      <Error hasData={!!combined?.confirmedToDate} hasError={errors.stats}>
         <Confirmed
           check_stats={combined.css.check_stats}
           confirmed={formatNumber(combined.confirmedToDate)}
         />
-      ) : (
-        <RowSkeleton />
-      )}
-      {perAgeShow ? (
+      </Error>
+      <Error hasData={!!combined?.todayPerAge} hasError={errors.stats}>
         <PerAge
           title={'Potrjeni primeri po starosti'}
           check_stats={combined.css.check_stats}
           todayPerAge={combined.todayPerAge}
           yesterdayPerAge={combined.yesterdayPerAge}
         />
-      ) : (
-        <RowSkeleton />
-      )}
+      </Error>
       <HOSPITALIZED_DECEASED patientsHook={patientsHook} />
-      {inHospitalsShow ? (
+      <Error
+        hasData={!!combined?.patients && !!combined?.perHospitalChanges}
+        hasError={errors.patients || errors.hospitalsList}
+      >
         <InHospitals
           title={'Stanje po bolnišnicah'}
           check_patients={combined.css.check_patients}
           patients={combined.patients}
           perHospitalChanges={combined.perHospitalChanges}
         />
-      ) : (
-        <RowSkeleton />
-      )}
-      {citiesShow ? (
+      </Error>
+      <Error
+        hasData={!!combined?.municipalities}
+        hasError={errors.municipalities}
+      >
         <CITIES_SOCIAL_FRIENDLY
           title={'Po krajih'}
           check_municipalities={combined.css.check_municipalities}
           municipalities={combined.municipalities}
         />
-      ) : (
-        <RowSkeleton />
-      )}
+      </Error>
     </>
   );
 }
@@ -109,6 +105,13 @@ function withCombinedHOC(Component) {
       municipalitiesHook.data !== null &&
       getMunicipalitiesCss(municipalitiesHook.data);
 
+    const errors = {
+      stats: statsHook.hasError,
+      patients: patientsHook.hasError,
+      hospitalsList: hospitalsListHook.hasError,
+      municipalities: municipalitiesHook.hasError,
+    };
+
     const combined = {
       todayPerAge,
       yesterdayPerAge,
@@ -131,6 +134,7 @@ function withCombinedHOC(Component) {
       labTestsHook,
       summaryHook,
       patientsHook,
+      errors,
       ...props,
     };
 
