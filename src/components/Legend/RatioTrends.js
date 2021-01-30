@@ -2,6 +2,7 @@ import React from 'react';
 import Municipalities from '../List/Combined/CITIES_SOCIAL_FRIENDLY/Municipalities';
 import trendsLegendDict from '../../trendsLegendDict';
 import { LegendSection } from '../Legend';
+import Error from '../shared/Error';
 
 const LegendTable = ({ data = [{}] }) => {
   const tableBody = data.map(({ description, icon }, i) => {
@@ -32,9 +33,9 @@ const LegendTable = ({ data = [{}] }) => {
   );
 };
 
-function RatioTrends({ municipalities }) {
+function RatioTrends({ municipalities, errors }) {
   return (
-    <>
+    <Error hasData={!!municipalities} hasError={errors.municipalities}>
       <LegendSection
         title={'Trend rasti potrjenih primerov v posamezni občini'}
       >
@@ -51,18 +52,17 @@ function RatioTrends({ municipalities }) {
           <Municipalities data={municipalities} showTrend="n"></Municipalities>
         </ul>
       </LegendSection>
-    </>
+    </Error>
   );
 }
 
 function withRatioTrendsHOC(Component) {
   return ({ municipalitiesHook, ...props }) => {
-    if (municipalitiesHook.isLoading || municipalitiesHook.data === null) {
-      return null;
-    }
+    const errors = { municipalities: municipalitiesHook.hasError };
 
     const data = {
       municipalities: municipalitiesHook.data,
+      errors,
       ...props,
     };
 
