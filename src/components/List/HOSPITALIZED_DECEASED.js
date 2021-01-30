@@ -5,10 +5,10 @@ import Hospitalized from './HOSPITALIZED_DECEASED/Hospitalized';
 import OnRespiratory from './HOSPITALIZED_DECEASED/OnRespiratory';
 import Deceased from './HOSPITALIZED_DECEASED/Deceased';
 import InCare from './HOSPITALIZED_DECEASED/InCare';
-import { RowSkeleton } from '../shared/ui/New';
 
 import { formatNumber, formatNumberWithSign } from '../../utils/formatNumber';
 import { getDate } from '../../utils/dates';
+import Error from '../shared/Error';
 
 function HOSPITALIZED_DECEASED({
   css,
@@ -16,68 +16,61 @@ function HOSPITALIZED_DECEASED({
   onRespiratory,
   inCare,
   deceased,
+  errors,
 }) {
   return (
     <div className={css?.check_patients}>
-      {hospitalized ? (
+      <Error hasError={errors.patients} hasData={!!hospitalized}>
         <Hospitalized
           title={'Hospitalizirani'}
           subtitle={'EIT'}
-          hospitalized={formatNumber(hospitalized.hospNum)}
-          hospitalizedIn={formatNumberWithSign(hospitalized.hospIn)}
-          hospitalizedOut={formatNumberWithSign(hospitalized.hospOut)}
-          icuNum={formatNumber(hospitalized.icuNum)}
-          icuDelta={formatNumberWithSign(hospitalized.icuDelta)}
+          hospitalized={formatNumber(hospitalized?.hospNum)}
+          hospitalizedIn={formatNumberWithSign(hospitalized?.hospIn)}
+          hospitalizedOut={formatNumberWithSign(hospitalized?.hospOut)}
+          icuNum={formatNumber(hospitalized?.icuNum)}
+          icuDelta={formatNumberWithSign(hospitalized?.icuDelta)}
         />
-      ) : (
-        <RowSkeleton />
-      )}
-      {onRespiratory ? (
+      </Error>
+      <Error hasError={errors.patients} hasData={!!onRespiratory}>
         <OnRespiratory
           title={'Na respiratorju'}
-          respiratoryTotal={formatNumber(onRespiratory.respiratoryTotal)}
-          todayCritical={formatNumber(onRespiratory.todayCritical)}
-          criticalDelta={formatNumberWithSign(onRespiratory.respiratoryDelta)}
-          todayNiv={formatNumber(onRespiratory.todayNiv)}
-          nivDelta={formatNumberWithSign(onRespiratory.nivDelta)}
+          respiratoryTotal={formatNumber(onRespiratory?.respiratoryTotal)}
+          todayCritical={formatNumber(onRespiratory?.todayCritical)}
+          criticalDelta={formatNumberWithSign(onRespiratory?.respiratoryDelta)}
+          todayNiv={formatNumber(onRespiratory?.todayNiv)}
+          nivDelta={formatNumberWithSign(onRespiratory?.nivDelta)}
         />
-      ) : (
-        <RowSkeleton />
-      )}
-      {inCare ? (
+      </Error>
+      <Error hasError={errors.patients} hasData={!!inCare}>
         <InCare
           title={'Negovalne bolnišnice'}
-          careNum={!isNaN(inCare?.careNum) && formatNumber(inCare?.careNum)}
-          careIn={
-            !isNaN(inCare?.careIn) && formatNumberWithSign(inCare?.careIn)
-          }
+          careNum={!isNaN(inCare?.careNum) && formatNumber(inCare.careNum)}
+          careIn={!isNaN(inCare?.careIn) && formatNumberWithSign(inCare.careIn)}
           careOut={
-            !isNaN(inCare?.careOut) && formatNumberWithSign(inCare?.careOut)
+            !isNaN(inCare?.careOut) && formatNumberWithSign(inCare.careOut)
           }
         />
-      ) : (
-        <RowSkeleton />
-      )}
-      {deceased ? (
+      </Error>
+      <Error hasError={errors.patients} hasData={!!deceased}>
         <Deceased
           title={'Preminuli'}
           subtitle={'skupaj '}
           deceased={formatNumberWithSign(
-            formatNumberWithSign(deceased.deceased)
+            formatNumberWithSign(deceased?.deceased)
           )}
-          deceasedToDate={formatNumber(deceased.deceasedToDate)}
+          deceasedToDate={formatNumber(deceased?.deceasedToDate)}
         />
-      ) : (
-        <RowSkeleton />
-      )}
+      </Error>
     </div>
   );
 }
 
 function withHospitalizedDeceasedHOC(Component) {
   return ({ patientsHook, ...props }) => {
+    const errors = { patients: patientsHook.hasError };
     const data = {
       ...getHospitalizedDeceasedData(patientsHook.data),
+      errors,
       ...props,
     };
 
