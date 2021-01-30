@@ -30,7 +30,7 @@ function Combined({
   return (
     <>
       <TESTS_ACTIVE labTestsHook={labTestsHook} summaryHook={summaryHook} />
-      <Error hasData={!!combined?.vaccinationToDate} hasError={errors.stats}>
+      <Error hasData={!!vac1} hasError={errors.stats}>
         <Vaccination
           check_stats={combined.css.check_stats}
           toDate={vac1}
