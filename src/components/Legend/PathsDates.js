@@ -5,20 +5,15 @@ import { LegendSection } from '../Legend';
 import { getDate, formatToLocaleDateString } from '../../utils/dates';
 import url from '../../urlDict';
 
-function PathsDates({ css = {}, dates = {}, paths = {}, refreshData = {} }) {
-  console.log({ x: { paths, css, dates }, refreshData });
-
-  const apiDates = Object.entries(refreshData).map(([key, value], index) => {
-    if (key === 'today') {
-      return '';
-    }
+function PathsDates({ css = {}, dates = {}, paths = {} }) {
+  const apiDates = Object.keys(css).map((key, index) => {
     return (
-      <li key={`${key}-${index}`} className={value[0]}>
+      <li key={`${key}-${index}`} className={css[key]}>
         <span className="bold">
-          {value[2]}
+          {paths[key]}
           {key === 'summary' ? '.casesActive' : ''}:
         </span>{' '}
-        {value[1]}
+        {dates[key]}
       </li>
     );
   });
@@ -124,7 +119,7 @@ function withPathsDatesHOC(Component) {
       return <RowError />;
     }
 
-    const compareDiff = {
+    const compareDateDiffDict = {
       stats: 0,
       patients: 0,
       labTests: 1,
@@ -132,12 +127,12 @@ function withPathsDatesHOC(Component) {
       summary: 1,
     };
 
-    const { dates, css, paths } = Object.keys(compareDiff).reduce(
+    const { dates, css, paths } = Object.keys(compareDateDiffDict).reduce(
       (acc, key) => {
         let pathKey = key.toUpperCase();
-        pathKey = pathKey === 'MUNICIPALITIES' ? 'MUN' : pathKey;
+        pathKey = pathKey === 'MUNICIPALITIES' ? 'MUN' : pathKey; // ? refactor urlDict?
         pathKey = pathKey === 'LABTESTS' ? 'LAB_TESTS' : pathKey;
-        acc.paths[key] = url[pathKey];
+        acc.paths[key] = url[pathKey].replace('https://api.sledilnik.org', '');
 
         const data =
           key === 'summary'
@@ -147,12 +142,12 @@ function withPathsDatesHOC(Component) {
         acc.dates[key] = formatToLocaleDateString(date);
 
         /**
-         * ? have to check if this condition is still needed
+         * ? have to check if this condition is still needed it is still used in Combined
          *   const isPerAgeDataUndefined = isUndefined(stats.slice(-2, -1).pop().statePerAgeToDate[0].allToDate);
          * const statsCheck = isPerAgeDataUndefined || differenceInDays(new Date(), statsDate) > 0;
          */
         const check =
-          date && differenceInDays(new Date(), date) > compareDiff[key]
+          date && differenceInDays(new Date(), date) > compareDateDiffDict[key]
             ? 'red'
             : '';
         acc.css[key] = check;
@@ -162,19 +157,10 @@ function withPathsDatesHOC(Component) {
       { paths: {}, css: {}, dates: {} }
     );
 
-    const refreshData = [css, dates, paths].reduce((acc, obj) => {
-      for (const [key, value] of Object.entries(obj)) {
-        acc[key] = acc[key] ? [...acc[key], value] : [value];
-      }
-      return acc;
-    }, {});
-
     const pathsDatesData = {
       dates,
       css,
       paths,
-      municipalities: hooksObj.data.municipalities.slice(-1).pop(),
-      refreshData,
     };
 
     return <Component {...pathsDatesData} />;
