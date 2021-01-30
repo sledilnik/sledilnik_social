@@ -15,7 +15,6 @@ export const LegendSection = ({ title, children }) => (
 );
 
 function Legend({ pathsDatesData, municipalitiesHook }) {
-  // TODO move inline style to css file, when done with html
   return (
     <div className="Legend">
       <h2 id="legenda">Legenda</h2>
