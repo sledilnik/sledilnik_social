@@ -42,13 +42,11 @@ const Outro = () => {
     />
   );
 
-  // TODO edit css .spark-link
   const SparkRow = () => (
     <Row noArrow={true} end={false}>
       <Spark />{' '}
       <Link
         text="SPARK"
-        className="spark-link"
         href="https://covid-spark.info"
         target="_blank"
         rel="noopener noreferrer"

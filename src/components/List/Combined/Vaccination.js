@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Emoji } from '../../shared/ui/New';
 
-// TODO rename toDate -> vaccinated, today -> vaccinatedToday
+// ? rename toDate -> vaccinated, today -> vaccinatedToday
 function Vaccination({ toDate, toDate2, check_stats }) {
   const title = 'Cepljenih oseb';
 

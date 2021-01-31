@@ -135,7 +135,7 @@ function getHospitalizedDeceasedData(patients) {
   const inCare = { careNum, careIn, careOut: -careOut };
 
   // <Deceased/>
-  // TODO rename deceased properties -> use today and toDate
+  // ? rename deceased properties -> use today and toDate
   const { today: dead, toDate: deceasedToDate } = patientsToday.total.deceased;
   const deceased = { deceased: dead, deceasedToDate };
 
