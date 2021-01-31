@@ -12,7 +12,7 @@ function PathsDates({
   errors = {},
   isLoading = {},
 }) {
-  const apiDates = Object.keys(css).map((path, index) => {
+  const apiPathsDates = Object.keys(css).map((path, index) => {
     if (isLoading[path]) {
       return (
         <span key={`${index}-${path}`}>
@@ -73,7 +73,7 @@ function PathsDates({
           </li>
           <li>
             <span className="bold">API datumi:</span>
-            <ol style={{ padding: '8px 24px' }}>{apiDates}</ol>
+            <ol style={{ padding: '8px 24px' }}>{apiPathsDates}</ol>
           </li>
           <li>
             {/* <TESTS_ACTIVE/> */}
