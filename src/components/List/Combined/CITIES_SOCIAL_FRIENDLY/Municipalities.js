@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useMemo } from 'react';
 import _ from 'lodash';
 import MunicipalitiesDict from '../../../../MunicipalitiesDict';
 import { formatNumberWithSign } from './../../../../utils/formatNumber';
@@ -58,7 +58,7 @@ const getIconOrTrend = (icons, trend, showTrend) =>
   );
 
 const Municipalities = ({ data = new Map(), showTrend = 'y', icons = '' }) => {
-  const memoDisplay = useCallback(() => {
+  const memoDisplay = useMemo(() => {
     const display = [];
     for (const [count, townsByDiff] of data) {
       const sameDiffTownsLabel = townsByDiff.map(town => {
