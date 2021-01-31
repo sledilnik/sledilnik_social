@@ -1,34 +1,64 @@
 import React from 'react';
 import differenceInDays from 'date-fns/differenceInDays';
-import { Emoji, Arrow, RowSkeleton, RowError } from '../shared/ui/New';
+import { Emoji, Arrow, RowSkeleton } from '../shared/ui/New';
 import { LegendSection } from '../Legend';
 import { getDate, formatToLocaleDateString } from '../../utils/dates';
 import url from '../../urlDict';
 
-function PathsDates({ css = {}, dates = {}, paths = {} }) {
-  const apiDates = Object.keys(css).map((key, index) => {
+function PathsDates({
+  css = {},
+  dates = {},
+  paths = {},
+  errors = {},
+  isLoading = {},
+}) {
+  const apiDates = Object.keys(css).map((path, index) => {
+    if (isLoading[path]) {
+      return (
+        <span key={`${index}-${path}`}>
+          <RowSkeleton />;
+        </span>
+      );
+    }
+    const hasError = errors[path];
+    const red = hasError || css[path] ? 'red' : '';
     return (
-      <li key={`${key}-${index}`} className={css[key]}>
+      <li key={`${path}-${index}`} className={red}>
         <span className="bold">
-          {paths[key]}
-          {key === 'summary' ? '.casesActive' : ''}:
+          {paths[path]}
+          {path === 'summary' ? '.casesActive' : ''}:
         </span>{' '}
-        {dates[key]}
+        {hasError ? (
+          <span>Napaka pri pridobivanju podatkov!</span>
+        ) : (
+          dates[path]
+        )}
       </li>
     );
   });
 
   const PathDate = ({ title, path }) => {
+    if (isLoading[path]) {
+      return <RowSkeleton />;
+    }
+    const hasError = errors[path];
+    const red = hasError || css[path] ? 'red' : '';
+
     const markOk = <Emoji emoji={'✅'} ariaLabel="check mark" />;
     const markFail = <Emoji emoji={'❌'} ariaLabel="cross mark" />;
     // css[path] = '' || 'red'
     return (
-      <li className={css[path]}>
-        {css[path] ? markFail : markOk} <span className="bold">{title}: </span>
+      <li className={red}>
+        {css[path] || hasError ? markFail : markOk}{' '}
+        <span className="bold">{title}: </span>
         <span className={css[path] && 'bold'}>
           {paths[path]}
         </span> <Arrow />{' '}
-        <span className={css[path] && 'bold'}>{dates[path].toString()}</span>
+        {hasError ? (
+          <span>Napaka pri pridobivanju podatkov!</span>
+        ) : (
+          <span className={css[path] && 'bold'}>{dates[path]}</span>
+        )}
       </li>
     );
   };
@@ -101,24 +131,6 @@ function withPathsDatesHOC(Component) {
       { isLoading: {}, data: {}, errors: {} }
     );
 
-    const isLoading = Object.values(hooksObj.isLoading).some(item => item);
-    const hasError = Object.values(hooksObj.errors).some(item => item);
-    const allDataExists = Object.values(hooksObj.data).every(
-      item => item !== null
-    );
-
-    if (!isLoading && !hasError && !allDataExists) {
-      return <RowSkeleton />;
-    }
-
-    if (isLoading) {
-      return <RowSkeleton />;
-    }
-
-    if (hasError) {
-      return <RowError />;
-    }
-
     const compareDateDiffDict = {
       stats: 0,
       patients: 0,
@@ -127,25 +139,33 @@ function withPathsDatesHOC(Component) {
       summary: 1,
     };
 
-    const { dates, css, paths } = Object.keys(compareDateDiffDict).reduce(
+    const newProps = Object.keys(compareDateDiffDict).reduce(
       (acc, key) => {
+        const { errors, data: pathsData, isLoading: pathsIsLoading } = hooksObj;
+        acc.errors[key] = errors[key];
+        acc.isLoading[key] = pathsIsLoading[key];
+
         let pathKey = key.toUpperCase();
-        pathKey = pathKey === 'MUNICIPALITIES' ? 'MUN' : pathKey; // ? refactor urlDict?
+        pathKey = pathKey === 'MUNICIPALITIES' ? 'MUN' : pathKey; // ? refactor urlDict
         pathKey = pathKey === 'LABTESTS' ? 'LAB_TESTS' : pathKey;
         acc.paths[key] = url[pathKey].replace('https://api.sledilnik.org', '');
 
+        const pathData = pathsData[key];
+        if (pathData === null) {
+          acc.dates[key] = null;
+          acc.css[key] = null;
+          return acc;
+        }
+
         const data =
-          key === 'summary'
-            ? hooksObj.data[key].casesActive
-            : hooksObj.data[key].slice(-1).pop();
+          key === 'summary' ? pathData.casesActive : pathData.slice(-1).pop();
         const date = getDate(data);
         acc.dates[key] = formatToLocaleDateString(date);
 
-        /**
-         * ? have to check if this condition is still needed it is still used in Combined
-         *   const isPerAgeDataUndefined = isUndefined(stats.slice(-2, -1).pop().statePerAgeToDate[0].allToDate);
-         * const statsCheck = isPerAgeDataUndefined || differenceInDays(new Date(), statsDate) > 0;
-         */
+        // ? have to check if this condition is still needed; it is still used in Combined
+        //  const isPerAgeDataUndefined = isUndefined(stats.slice(-2, -1).pop().statePerAgeToDate[0].allToDate);
+        //  const statsCheck = isPerAgeDataUndefined || differenceInDays(new Date(), statsDate) > 0;
+
         const check =
           date && differenceInDays(new Date(), date) > compareDateDiffDict[key]
             ? 'red'
@@ -154,16 +174,10 @@ function withPathsDatesHOC(Component) {
 
         return acc;
       },
-      { paths: {}, css: {}, dates: {} }
+      { paths: {}, css: {}, dates: {}, errors: {}, isLoading: {} }
     );
 
-    const pathsDatesData = {
-      dates,
-      css,
-      paths,
-    };
-
-    return <Component {...pathsDatesData} />;
+    return <Component {...newProps} />;
   };
 }
 export default withPathsDatesHOC(PathsDates);
