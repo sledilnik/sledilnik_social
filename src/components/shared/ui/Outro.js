@@ -28,11 +28,13 @@ const Outro = () => {
     );
   };
 
-  const Logo = (
-    { className, src = '', alt = 'logo' },
+  const Logo = ({
+    className,
+    src = '',
+    alt = 'logo',
     width = '48',
-    height = '48'
-  ) => (
+    height = '48',
+  }) => (
     <img
       src={src}
       alt={alt}
