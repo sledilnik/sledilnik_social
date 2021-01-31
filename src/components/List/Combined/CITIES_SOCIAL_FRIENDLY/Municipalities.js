@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import _ from 'lodash';
 import MunicipalitiesDict from '../../../../MunicipalitiesDict';
 import { formatNumberWithSign } from './../../../../utils/formatNumber';
@@ -58,25 +58,28 @@ const getIconOrTrend = (icons, trend, showTrend) =>
   );
 
 const Municipalities = ({ data = new Map(), showTrend = 'y', icons = '' }) => {
-  const display = [];
-  for (const [count, townsByDiff] of data) {
-    const sameDiffTownsLabel = townsByDiff.map(town => {
-      const icon = getIconOrTrend(icons, town.trend, showTrend);
-      return (
-        <span key={town.key}>
-          {town.name} {icon}{' '}
-          {town.next ? (
-            ', '
-          ) : (
-            <span className="bold"> {formatNumberWithSign(count)}</span>
-          )}
-        </span>
-      );
-    });
-    display.push(<li key={`${count}-${{ icons }}`}>{sameDiffTownsLabel}</li>);
-  }
+  const memoDisplay = useCallback(() => {
+    const display = [];
+    for (const [count, townsByDiff] of data) {
+      const sameDiffTownsLabel = townsByDiff.map(town => {
+        const icon = getIconOrTrend(icons, town.trend, showTrend);
+        return (
+          <span key={town.key}>
+            {town.name} {icon}{' '}
+            {town.next ? (
+              ', '
+            ) : (
+              <span className="bold"> {formatNumberWithSign(count)}</span>
+            )}
+          </span>
+        );
+      });
+      display.push(<li key={`${count}-${{ icons }}`}>{sameDiffTownsLabel}</li>);
+    }
 
-  return display;
+    return display;
+  }, [data, icons, showTrend]);
+  return memoDisplay;
 };
 
 // { name: x, translation: X} becomes { x: { name: x, translation: X }}
