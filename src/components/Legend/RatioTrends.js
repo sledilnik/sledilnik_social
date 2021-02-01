@@ -3,6 +3,7 @@ import Municipalities from '../List/Combined/CITIES_SOCIAL_FRIENDLY/Municipaliti
 import trendsLegendDict from '../../trendsLegendDict';
 import { LegendSection } from '../Legend';
 import Error from '../shared/Error';
+import { Row } from '../shared/ui/New';
 
 const LegendTable = ({ data = [{}] }) => {
   const tableBody = data.map(({ description, icon }, i) => {
@@ -53,7 +54,12 @@ function RatioTrends({ municipalities, errors }) {
         <button className="btn" onClick={() => setShow(prev => !prev)}>
           {show ? 'Skrij' : 'Pokaži'}
         </button>
-        {show && <ul className="municipalities">{munVer}</ul>}
+        {show && (
+          <>
+            <Row end={false}>Po krajih: </Row>
+            <ul className="municipalities">{munVer}</ul>
+          </>
+        )}
       </LegendSection>
     </Error>
   );
