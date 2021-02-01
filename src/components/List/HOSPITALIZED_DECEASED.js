@@ -33,7 +33,7 @@ function HOSPITALIZED_DECEASED({
       </Error>
       <Error hasError={errors.patients} hasData={!!onRespiratory}>
         <OnRespiratory
-          title={'Na respiratorju'}
+          title={'Respirator'}
           respiratoryTotal={formatNumber(onRespiratory?.respiratoryTotal)}
           todayCritical={formatNumber(onRespiratory?.todayCritical)}
           criticalDelta={formatNumberWithSign(onRespiratory?.respiratoryDelta)}
@@ -43,7 +43,7 @@ function HOSPITALIZED_DECEASED({
       </Error>
       <Error hasError={errors.patients} hasData={!!inCare}>
         <InCare
-          title={'Negovalne bolnišnice'}
+          title={'Negovalne b.'}
           careNum={!isNaN(inCare?.careNum) && formatNumber(inCare.careNum)}
           careIn={!isNaN(inCare?.careIn) && formatNumberWithSign(inCare.careIn)}
           careOut={
@@ -53,8 +53,8 @@ function HOSPITALIZED_DECEASED({
       </Error>
       <Error hasError={errors.patients} hasData={!!deceased}>
         <Deceased
-          title={'Preminuli'}
-          subtitle={'skupaj '}
+          title={'Umrli'}
+          subtitle={'skupaj'}
           deceased={formatNumberWithSign(
             formatNumberWithSign(deceased?.deceased)
           )}

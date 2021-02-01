@@ -17,7 +17,7 @@ function OnRespiratory({
       <span className="bold">
         <Brackets>{criticalDelta}</Brackets>
       </span>
-      , neinvazivno: <span className="bold">{todayNiv}</span>{' '}
+      , neinvazivno: <span className="bold">{todayNiv}</span>
       <span className="bold">
         <Brackets>{nivDelta}</Brackets>
       </span>

@@ -13,13 +13,13 @@ function Hospitalized({
 }) {
   return (
     <Row>
-      {title}: <span className="bold">{hospitalized}</span>{' '}
+      {title}: <span className="bold">{hospitalized}</span>
       <span className="bold">
         <Brackets>
           {hospitalizedIn}, {hospitalizedOut}
         </Brackets>
       </span>
-      , {subtitle}: <span className="bold">{icuNum}</span>{' '}
+      , {subtitle}: <span className="bold">{icuNum}</span>
       <span className="bold">
         <Brackets>{icuDelta}</Brackets>
       </span>

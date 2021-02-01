@@ -9,7 +9,7 @@ function InCare({ title, careNum, careIn, careOut }) {
   // -> Negovalne bolnišnice: 103 (+3, -1)
   return (
     <Row className={noData && 'red'}>
-      {title}: <span className="bold">{careNum}</span>{' '}
+      {title}: <span className="bold">{careNum}</span>
       <span className="bold">
         <Brackets>
           {careIn}, {careOut}
