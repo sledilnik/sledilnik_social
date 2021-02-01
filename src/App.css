@@ -29,14 +29,14 @@
   padding: 4px 8px;
   font-size: 11px;
   color: var(--white);
-  background-color: var(--green);
-  border: solid 1px var(--green);
+  background-color: var(--green-dark);
+  border: solid 1px var(--green-dark);
   border-radius: 3px;
   cursor: pointer;
   user-select: none;
   outline: none;
   transition: all 1s ease-in-out;
-  opacity: 0.7;
+  opacity: 0.85;
 }
 
 .btn:hover {
@@ -45,7 +45,7 @@
 
 .btn:focus {
   opacity: 1;
-  color: var(--green);
+  color: var(--green-dark);
   background-color: var(--white);
 }
 
