@@ -66,52 +66,37 @@ function PathsDates({
   const today = formatToLocaleDateString(new Date());
   return (
     <>
-      <LegendSection title={'Osveženi podatki'}>
-        <ul style={{ listStyle: 'none' }}>
-          <li>
-            <span className="bold">Danes: {today}</span>
-          </li>
-          <li>
-            <span className="bold">API datumi:</span>
-            <ol style={{ padding: '8px 24px' }}>{apiPathsDates}</ol>
-          </li>
-          <li>
-            {/* <TESTS_ACTIVE/> */}
-            <span className="bold">Testi in aktivni primeri:</span>
-            <ol style={{ padding: '8px 24px' }}>
-              <PathDate title={'PCR'} path={'labTests'} />
-              <PathDate title={'HAT'} path={'labTests'} />
-              <PathDate title={'Aktivni primeri'} path={'summary'} />
-            </ol>
-          </li>
-          <li>
-            {/* <HOSPITALIZED_DECEASED/> */}
-            <span className="bold">
-              Hospitalizirani, negovani in preminuli:
-            </span>{' '}
-            <ol className={css.patients} style={{ padding: '8px 24px' }}>
-              <PathDate title={'Hospitalizirani'} path={'patients'} />
-              <PathDate title={'Na respiratorju'} path={'patients'} />
-              <PathDate title={'Negovalne bolnišnice'} path={'patients'} />
-              <PathDate title={'Preminuli'} path={'patients'} />
-            </ol>
-          </li>
-          <li>
-            <span className="bold">Kombiniran:</span>
-            <ol style={{ padding: '8px 24px' }}>
-              {/* <Vaccination/> */}
-              <PathDate title={'Cepljeni'} path={'stats'} />
-              {/* <Confirmed/> */}
-              <PathDate title={'Potrjeni primeri'} path={'stats'} />
-              {/* <PerAge/> */}
-              <PathDate title={'Po starosti'} path={'stats'} />
-              {/* <InHospitals/> */}
-              <PathDate title={'Po bonišnicah'} path={'patients'} />
-              {/* <CITIES_SOCIAL_FRIENDLY/> */}
-              <PathDate title={'Po krajih'} path={'municipalities'} />
-            </ol>
-          </li>
-        </ul>
+      <LegendSection title={'API datumi'}>
+        <h4 className="bold">Danes: {today}</h4>
+        <ol style={{ padding: '8px 24px' }}>{apiPathsDates}</ol>
+        {/* <TESTS_ACTIVE/> */}
+        <h4 className="bold">Testi in aktivni primeri:</h4>
+        <ol style={{ padding: '8px 24px' }}>
+          <PathDate title={'PCR'} path={'labTests'} />
+          <PathDate title={'HAT'} path={'labTests'} />
+          <PathDate title={'Aktivni primeri'} path={'summary'} />
+        </ol>
+        {/* <HOSPITALIZED_DECEASED/> */}
+        <h4 className="bold">Hospitalizirani, negovani in preminuli:</h4>{' '}
+        <ol className={css.patients} style={{ padding: '8px 24px' }}>
+          <PathDate title={'Hospitalizirani'} path={'patients'} />
+          <PathDate title={'Na respiratorju'} path={'patients'} />
+          <PathDate title={'Negovalne bolnišnice'} path={'patients'} />
+          <PathDate title={'Preminuli'} path={'patients'} />
+        </ol>
+        <h4 className="bold">Kombiniran:</h4>
+        <ol style={{ padding: '8px 24px' }}>
+          {/* <Vaccination/> */}
+          <PathDate title={'Cepljeni'} path={'stats'} />
+          {/* <Confirmed/> */}
+          <PathDate title={'Potrjeni primeri'} path={'stats'} />
+          {/* <PerAge/> */}
+          <PathDate title={'Po starosti'} path={'stats'} />
+          {/* <InHospitals/> */}
+          <PathDate title={'Po bonišnicah'} path={'patients'} />
+          {/* <CITIES_SOCIAL_FRIENDLY/> */}
+          <PathDate title={'Po krajih'} path={'municipalities'} />
+        </ol>
       </LegendSection>
     </>
   );
