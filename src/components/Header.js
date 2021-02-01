@@ -87,14 +87,10 @@ function Header() {
           ver 0.1.0
         </a>
       </nav>
-      {open ? (
-        <Backdrop
-          className="backdrop-sidebar"
-          onClick={onCloseHandler}
-        ></Backdrop>
-      ) : (
-        ''
-      )}
+      <Backdrop
+        className="backdrop-sidebar"
+        onClick={onCloseHandler}
+      ></Backdrop>
     </header>
   );
 }
