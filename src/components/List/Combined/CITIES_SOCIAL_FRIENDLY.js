@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 
 import Municipalities from './CITIES_SOCIAL_FRIENDLY/Municipalities';
 import { Row } from '../../shared/ui/New';
@@ -10,18 +10,19 @@ function CITIES_SOCIAL_FRIENDLY({
 }) {
   const [icons, setIcons] = useState('FB');
 
-  const munVer = iconsVersion => (
-    <>
-      <Row end={false}>{title}: </Row>
-      <ul className="municipalities">
-        <Municipalities
-          data={municipalities}
-          showTrend="y"
-          icons={iconsVersion}
-        ></Municipalities>
-      </ul>
-    </>
-  );
+  const munVer = useMemo(() => {
+    return (
+      <>
+        <ul className="municipalities">
+          <Municipalities
+            data={municipalities}
+            showTrend="y"
+            icons={icons}
+          ></Municipalities>
+        </ul>
+      </>
+    );
+  }, [icons, municipalities]);
 
   const clickHandler = event => {
     const { target } = event;
@@ -39,7 +40,7 @@ function CITIES_SOCIAL_FRIENDLY({
   };
 
   return (
-    <div className="cities">
+    <div className={`cities ${check_municipalities}`}>
       <button
         className="btn"
         onClick={clickHandler}
@@ -47,7 +48,8 @@ function CITIES_SOCIAL_FRIENDLY({
       >
         Show twitter icons
       </button>
-      <span className={check_municipalities}>{munVer(icons)}</span>
+      <Row end={false}>{title}: </Row>
+      {munVer}
     </div>
   );
 }

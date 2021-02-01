@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Municipalities from '../List/Combined/CITIES_SOCIAL_FRIENDLY/Municipalities';
 import trendsLegendDict from '../../trendsLegendDict';
 import { LegendSection } from '../Legend';
@@ -34,6 +34,8 @@ const LegendTable = ({ data = [{}] }) => {
 };
 
 function RatioTrends({ municipalities, errors }) {
+  const [show, setShow] = useState(false);
+  const munVer = <Municipalities data={municipalities} showTrend="n" />;
   return (
     <Error hasData={!!municipalities} hasError={errors.municipalities}>
       <LegendSection
@@ -48,9 +50,10 @@ function RatioTrends({ municipalities, errors }) {
         <p>y3 = vsota novih primerov za dneve (-6..0)</p>
       </LegendSection>
       <LegendSection title={'Občine CHECK ratio'}>
-        <ul className="municipalities">
-          <Municipalities data={municipalities} showTrend="n"></Municipalities>
-        </ul>
+        <button className="btn" onClick={() => setShow(prev => !prev)}>
+          {show ? 'Skrij' : 'Pokaži'}
+        </button>
+        {show && <ul className="municipalities">{munVer}</ul>}
       </LegendSection>
     </Error>
   );

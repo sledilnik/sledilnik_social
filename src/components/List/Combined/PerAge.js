@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Row, Brackets, NoData } from '../../shared/ui/New';
+import { Row, Brackets } from '../../shared/ui/New';
 import { formatNumber } from '../../../utils/formatNumber';
 
 function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
@@ -23,15 +23,9 @@ function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
     );
   });
 
-  const noData = deltas.some(delta => !isNaN(delta));
-
   return (
     <Row className={check_stats}>
-      {title}:{' '}
-      {noData && (
-        <NoData html={{ classes: 'bold' }}>manjkajoči podatki: </NoData>
-      )}{' '}
-      {deltas}
+      {title}: {deltas}
     </Row>
   );
 }

@@ -23,22 +23,10 @@ export const Row = ({
   );
 };
 
-// ? change to span
-export const Brackets = ({ children }) => <>({children})</>;
-
-export const NoData = ({ children, html = { tag: 'span', classes: '' } }) => {
-  if (html.tag === 'span' || !html.tag) {
-    return <span className={html.classes}>{children}</span>;
-  }
-  if (html.tag === 'p') {
-    return <Row className={html.classes}>{children}</Row>;
-  }
-  return null;
-};
-
 export const RowSkeleton = () => <Row className="skeleton" noArrow={true} />;
 export const RowError = () => (
   <Row className="bold" punctuationMark="!">
     Nekaj je narobe. Prosim, poizkusite kasneje
   </Row>
 );
+export const Brackets = ({ children }) => <>({children})</>;

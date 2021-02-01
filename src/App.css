@@ -19,7 +19,6 @@
 
 .bold {
   font-weight: 700;
-  font-style: bold;
 }
 
 .red {
@@ -34,6 +33,7 @@
   border: solid 1px var(--green);
   border-radius: 3px;
   cursor: pointer;
+  user-select: none;
 }
 
 .btn:hover,
