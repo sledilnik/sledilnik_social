@@ -34,11 +34,17 @@
   border-radius: 3px;
   cursor: pointer;
   user-select: none;
+  outline: none;
+  transition: all 1s ease-in-out;
+  opacity: 0.7;
 }
 
-.btn:hover,
+.btn:hover {
+  opacity: 1;
+}
+
 .btn:focus {
-  outline: none;
+  opacity: 1;
   color: var(--green);
   background-color: var(--white);
 }
