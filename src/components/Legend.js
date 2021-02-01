@@ -13,7 +13,7 @@ export const LegendSection = ({ title, children }) => (
 
 function Legend({ pathsDatesHooks, municipalitiesHook }) {
   return (
-    <div className="Legend">
+    <div className="post Legend">
       <h2 id="legenda">Legenda</h2>
       <PathsDates hooks={pathsDatesHooks} />
       <RatioTrends municipalitiesHook={municipalitiesHook} />
