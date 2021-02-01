@@ -147,12 +147,15 @@ function withPathsDatesHOC(Component) {
         const date = getDate(data);
         acc.dates[key] = formatToLocaleDateString(date);
 
-        // ? have to check if this condition is still needed; it is still used in Combined
-        //  const isPerAgeDataUndefined = isUndefined(stats.slice(-2, -1).pop().statePerAgeToDate[0].allToDate);
-        //  const statsCheck = isPerAgeDataUndefined || differenceInDays(new Date(), statsDate) > 0;
+        const extraStatsCheck =
+          key === 'stats' &&
+          pathData.slice(-2, -1).pop().statePerAgeToDate[0].allToDate ===
+            undefined;
 
         const check =
-          date && differenceInDays(new Date(), date) > compareDateDiffDict[key]
+          date &&
+          (differenceInDays(new Date(), date) > compareDateDiffDict[key] ||
+            extraStatsCheck)
             ? 'red'
             : '';
         acc.css[key] = check;
