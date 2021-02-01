@@ -65,7 +65,7 @@ const Municipalities = ({ data = new Map(), showTrend = 'y', icons = '' }) => {
         const icon = getIconOrTrend(icons, town.trend, showTrend);
         return (
           <span key={town.key}>
-            {town.name} {icon}{' '}
+            {town.name} {icon}
             {town.next ? (
               ', '
             ) : (
