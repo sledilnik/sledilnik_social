@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Municipalities from '../List/Combined/CITIES_SOCIAL_FRIENDLY/Municipalities';
-import trendsLegendDict from '../../trendsLegendDict';
+import trendsLegendDict from '../../dict/trendsLegendDict';
 import { LegendSection } from '../Legend';
 import Error from '../shared/Error';
 import { Row } from '../shared/ui/New';
