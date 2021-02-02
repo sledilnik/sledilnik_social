@@ -1,10 +1,11 @@
 import React from 'react';
 import { Row } from '../../shared/ui/New';
 
-function Deceased({ text, subtitle, deceased, deceasedToDate }) {
+function Deceased({ text, deceased, deceasedToDate }) {
   const { title, subtitle1 } = text;
   const titleText = Object.values(title).join('');
   const subtitle1Text = Object.values(subtitle1).join('');
+
   return (
     <Row>
       {titleText}

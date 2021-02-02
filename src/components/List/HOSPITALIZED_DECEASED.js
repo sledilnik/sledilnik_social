@@ -27,7 +27,7 @@ function HOSPITALIZED_DECEASED({
     <div className={css?.check_patients}>
       <Error hasError={errors.patients} hasData={!!hospitalized}>
         <Hospitalized
-          text={text.hospitalized}
+          text={{ ...text.hospitalized, spaces: text.spaces }}
           hospitalized={formatNumber(hospitalized?.hospNum)}
           hospitalizedIn={formatNumberWithSign(hospitalized?.hospIn)}
           hospitalizedOut={formatNumberWithSign(hospitalized?.hospOut)}
@@ -37,7 +37,7 @@ function HOSPITALIZED_DECEASED({
       </Error>
       <Error hasError={errors.patients} hasData={!!onRespiratory}>
         <OnRespiratory
-          text={text.onRespiratory}
+          text={{ ...text.onRespiratory, spaces: text.spaces }}
           respiratoryTotal={formatNumber(onRespiratory?.respiratoryTotal)}
           todayCritical={formatNumber(onRespiratory?.todayCritical)}
           criticalDelta={formatNumberWithSign(onRespiratory?.respiratoryDelta)}
@@ -47,7 +47,7 @@ function HOSPITALIZED_DECEASED({
       </Error>
       <Error hasError={errors.patients} hasData={!!inCare}>
         <InCare
-          text={text.inCare}
+          text={{ ...text.inCare, spaces: text.spaces }}
           careNum={!isNaN(inCare?.careNum) && formatNumber(inCare.careNum)}
           careIn={!isNaN(inCare?.careIn) && formatNumberWithSign(inCare.careIn)}
           careOut={
@@ -57,7 +57,7 @@ function HOSPITALIZED_DECEASED({
       </Error>
       <Error hasError={errors.patients} hasData={!!deceased}>
         <Deceased
-          text={text.deceased}
+          text={{ ...text.deceased, spaces: text.spaces }}
           deceased={formatNumberWithSign(
             formatNumberWithSign(deceased?.deceased)
           )}

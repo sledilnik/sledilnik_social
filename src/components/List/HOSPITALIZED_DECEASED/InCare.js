@@ -2,8 +2,9 @@ import React from 'react';
 import { Row, Brackets } from '../../shared/ui/New';
 
 function InCare({ text, careNum, careIn, careOut }) {
-  const { title } = text;
+  const { title, spaces } = text;
   const titleText = Object.values(title).join('');
+  const space = spaces && ' ';
 
   const isUndefined = value => value === undefined;
   const noData =
@@ -14,6 +15,7 @@ function InCare({ text, careNum, careIn, careOut }) {
     <Row className={noData && 'red'}>
       {titleText}
       <span className="bold">{careNum}</span>
+      {space}
       <span className="bold">
         <Brackets>
           {careIn}, {careOut}

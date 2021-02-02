@@ -16,6 +16,7 @@ export default {
       title: { before: '', text: 'Umrli', after: ': ' },
       subtitle1: { before: ', ', text: 'skupaj', after: ': ' },
     },
+    spaces: true,
   },
   TW: {
     hospitalized: {
@@ -34,5 +35,6 @@ export default {
       title: { before: '', text: 'Umrli', after: ': ' },
       subtitle1: { before: ', ', text: 'skupaj', after: ': ' },
     },
+    spaces: false,
   },
 };
