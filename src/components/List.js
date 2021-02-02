@@ -74,7 +74,6 @@ const List = ({
   const [version, setVersion] = useState('FB');
   const [showAlert, setShowAlert] = useState(false);
   const [clipboard, setClipboard] = useState('');
-  console.log({ clipboard });
 
   const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
 
