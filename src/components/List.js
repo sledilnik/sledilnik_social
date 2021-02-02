@@ -37,20 +37,14 @@ const List = ({
   const Copy = ({ id = '' }) => {
     const copyHandler = id => {
       const section = document.getElementById(id);
-      let buttonsText = [...section.getElementsByTagName('button')]
-        .map(item => item.innerText)
-        .join('');
-      const iconsTextTW = 'Prikaži TW ikone';
-      const iconsTextFB = 'Prikaži FB ikone';
-      buttonsText = buttonsText
-        .replace(iconsTextTW, '')
-        .replace(iconsTextFB, '');
+      let buttonsText = [...section.getElementsByTagName('button')];
 
-      const text = section.innerText
-        .replace(buttonsText + '\n', '')
-        .replace(iconsTextTW + '\n', '')
-        .replace(iconsTextFB + '\n', '')
-        .replace(/(\r\n|\r|\n){2,}/g, '\n');
+      let text = section.innerText.replace(/(\r\n|\r|\n){2,}/g, '\n');
+      buttonsText.forEach(item => {
+        console.log(item.innerText);
+        text = text.replace(item.innerText + '\n', '');
+      });
+
       const newDiv = document.createElement('textarea');
       newDiv.style = { position: 'relative', left: '-5000%' };
       newDiv.value = text;
