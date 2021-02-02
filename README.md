@@ -14,6 +14,7 @@ Endpoints for data fetch are set in `urlDict.js`.
 - Twitter #Covid-19 button
 - Switch between Facebook and Twitter icons.
 - Show/Hide ratio trend check.
+- Post 2/3 (HOS): different text for FB and TW
 
 ## ver: 0.2.1
 
