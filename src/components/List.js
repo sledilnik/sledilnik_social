@@ -7,9 +7,9 @@ import Outro from './shared/ui/Outro';
 import TESTS_ACTIVE from './List/TESTS_ACTIVE';
 import HOSPITALIZED_DECEASED from './List/HOSPITALIZED_DECEASED';
 import Combined from './List/Combined';
+import TrimNewLines from './List/TrimNewLines';
 
 import { formatToLocaleDateString } from '../utils/dates';
-import TrimNewLines from './List/TrimNewLines';
 
 const List = ({
   statsHook,
@@ -23,7 +23,7 @@ const List = ({
 
   const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
 
-  const Refresh = ({ refetch = [] }) => {
+  const RefreshButton = ({ refetch = [] }) => {
     const clickHandler = () => {
       refetch.forEach(func => func());
     };
@@ -34,7 +34,7 @@ const List = ({
     );
   };
 
-  const Copy = ({ id = '' }) => {
+  const CopyButton = ({ id = '' }) => {
     const copyHandler = id => {
       const section = document.getElementById(id);
       let buttonsText = [...section.getElementsByTagName('button')];
@@ -67,18 +67,25 @@ const List = ({
     );
   };
 
-  const iconsSwitchHandler = event => {
-    const { target } = event;
-    setVersion(prev => {
-      if (prev === 'FB') {
-        target.innerHTML = 'Prikaži za FB';
-        return 'TW';
-      }
-      if (prev === 'TW') {
-        target.innerHTML = 'Prikaži za TW';
-        return 'FB';
-      }
-    });
+  const SocialButton = () => {
+    const socialHandler = event => {
+      const { target } = event;
+      setVersion(prev => {
+        if (prev === 'FB') {
+          target.innerHTML = 'Prikaži za FB';
+          return 'TW';
+        }
+        if (prev === 'TW') {
+          target.innerHTML = 'Prikaži za TW';
+          return 'FB';
+        }
+      });
+    };
+    return (
+      <button id="icons-hos-btn" className="btn social" onClick={socialHandler}>
+        Prikaži za TW
+      </button>
+    );
   };
 
   return (
@@ -86,8 +93,10 @@ const List = ({
       <TrimNewLines />
       <section id="LAB" className="post">
         <div className="section-btn">
-          <Refresh refetch={[labTestsHook.refetch, summaryHook.refetch]} />
-          <Copy id="lab" />
+          <RefreshButton
+            refetch={[labTestsHook.refetch, summaryHook.refetch]}
+          />
+          <CopyButton id="lab" />
         </div>
         <Intro post={1} introTodayDate={introTodayDate} />
         <TESTS_ACTIVE labTestsHook={labTestsHook} summaryHook={summaryHook} />
@@ -95,15 +104,9 @@ const List = ({
       </section>
       <section id="HOS" className="post">
         <div className="section-btn">
-          <Refresh refetch={[patientsHook.refetch]} />
-          <button
-            id="icons-hos-btn"
-            className="btn social"
-            onClick={iconsSwitchHandler}
-          >
-            Prikaži za TW
-          </button>
-          <Copy id="hos" />
+          <RefreshButton refetch={[patientsHook.refetch]} />
+          <SocialButton />
+          <CopyButton id="hos" />
         </div>
         <Intro post={2} introTodayDate={introTodayDate} />
         <HOSPITALIZED_DECEASED patientsHook={patientsHook} version={version} />
@@ -111,7 +114,7 @@ const List = ({
       </section>
       <section id="EPI" className="post">
         <div className="section-btn">
-          <Refresh
+          <RefreshButton
             refetch={[
               labTestsHook.refetch,
               summaryHook.refetch,
@@ -121,7 +124,7 @@ const List = ({
               hospitalsListHook.refetch,
             ]}
           />
-          <Copy id="epi" />
+          <CopyButton id="epi" />
         </div>
         <Intro post={3} introTodayDate={introTodayDate} />
         <Combined
