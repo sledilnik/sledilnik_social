@@ -34,7 +34,7 @@ const TrimNewLines = () => {
   return (
     <div className="TrimNewLines post">
       <button className="btn" onClick={showHideHandler}>
-        {show ? 'Skrij' : 'Pokaži'}
+        {show ? 'Zapri' : 'Odpri'}
       </button>
       <label htmlFor="copy" id="copy-label">
         Odstrani odvečne vrstice, označi in prenese v odložišče.
