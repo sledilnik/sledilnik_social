@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import _ from 'lodash';
-import MunicipalitiesDict from '../../../../MunicipalitiesDict';
+import MunicipalitiesDict from '../../../../dict/MunicipalitiesDict';
 import { formatNumberWithSign } from './../../../../utils/formatNumber';
 
 // platform friendly icons
