@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import './TrimNewLines.css';
+
 const TrimNewLines = () => {
   const [length, setLength] = useState(0);
   const [show, setShow] = useState(false);
@@ -30,16 +32,18 @@ const TrimNewLines = () => {
   const showHideHandler = () => setShow(prev => !prev);
 
   return (
-    <div className="trim-new-lines-container" style={{ fontSize: '0.9em' }}>
-      <label htmlFor="copy" id="copy-label">
-        Odstrani odvečne vrstice, označi in prenese v odložišče.
-      </label>{' '}
+    <div className="TrimNewLines post">
       <button className="btn" onClick={showHideHandler}>
         {show ? 'Skrij' : 'Pokaži'}
       </button>
+      <label htmlFor="copy" id="copy-label">
+        Odstrani odvečne vrstice, označi in prenese v odložišče.
+      </label>{' '}
       {show && (
-        <div style={{ display: 'block' }}>
-          <p style={{ margin: '0.5em 0' }}>Število znakov: {length}</p>
+        <div>
+          <div className="counter">
+            Število znakov: <span className="bold">{length}</span>
+          </div>
           <div className="textwrapper">
             <textarea cols="50" rows="10" id="copy" onChange={changeHandler} />
           </div>

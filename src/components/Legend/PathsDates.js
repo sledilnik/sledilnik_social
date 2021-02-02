@@ -68,24 +68,24 @@ function PathsDates({
     <>
       <LegendSection title={'API datumi'}>
         <h4 className="bold">Danes: {today}</h4>
-        <ol style={{ padding: '8px 24px' }}>{apiPathsDates}</ol>
+        <ol>{apiPathsDates}</ol>
         {/* <TESTS_ACTIVE/> */}
         <h4 className="bold">Testi in aktivni primeri:</h4>
-        <ol style={{ padding: '8px 24px' }}>
+        <ol>
           <PathDate title={'PCR'} path={'labTests'} />
           <PathDate title={'HAT'} path={'labTests'} />
           <PathDate title={'Aktivni primeri'} path={'summary'} />
         </ol>
         {/* <HOSPITALIZED_DECEASED/> */}
         <h4 className="bold">Hospitalizirani, negovani in preminuli:</h4>{' '}
-        <ol className={css.patients} style={{ padding: '8px 24px' }}>
+        <ol className={css.patients}>
           <PathDate title={'Hospitalizirani'} path={'patients'} />
           <PathDate title={'Na respiratorju'} path={'patients'} />
           <PathDate title={'Negovalne bolnišnice'} path={'patients'} />
           <PathDate title={'Preminuli'} path={'patients'} />
         </ol>
         <h4 className="bold">Kombiniran:</h4>
-        <ol style={{ padding: '8px 24px' }}>
+        <ol>
           {/* <Vaccination/> */}
           <PathDate title={'Cepljeni'} path={'stats'} />
           {/* <Confirmed/> */}

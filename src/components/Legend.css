@@ -7,16 +7,16 @@
   margin: 16px 0;
 }
 
-.legend-section p {
-  margin: 1em 0;
-}
-
-.legend-section p:not(:first-of-type) {
-  font-size: 0.95em;
+.legend-section .text {
+  margin: 0.7em 0;
 }
 
 .legend-section-title {
   margin: 24px 0 16px;
+}
+
+.legend-section ol {
+  padding: 8px 24px;
 }
 
 .table-symbol {

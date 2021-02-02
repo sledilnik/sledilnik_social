@@ -45,10 +45,10 @@ function RatioTrends({ municipalities, errors }) {
         <LegendTable data={trendsLegendDict} />
       </LegendSection>
       <LegendSection title={'Formula za izračun trenda'}>
-        <p>trend = ( log(y1) + 3 * log(y3) - 4*log(y2) ) / 8</p>
-        <p>y1 = vsota novih primerov za dneve (-14..-8)</p>
-        <p>y2 = vsota novih primerov za dneve (-10..-4)</p>
-        <p>y3 = vsota novih primerov za dneve (-6..0)</p>
+        <h4>trend = ( log(y1) + 3 * log(y3) - 4*log(y2) ) / 8</h4>
+        <p className="text">y1 = vsota novih primerov za dneve (-14..-8)</p>
+        <p className="text">y2 = vsota novih primerov za dneve (-10..-4)</p>
+        <p className="text">y3 = vsota novih primerov za dneve (-6..0)</p>
       </LegendSection>
       <LegendSection title={'Občine CHECK ratio'}>
         <button className="btn" onClick={() => setShow(prev => !prev)}>

@@ -42,13 +42,9 @@ function CITIES_SOCIAL_FRIENDLY({
   return (
     <div className={`cities ${check_municipalities}`}>
       <button
-        className="btn"
+        id="cities-icons-btn"
+        className="btn social"
         onClick={clickHandler}
-        style={{
-          margin: '16px 8px 0',
-          color: 'var(--white)',
-          backgroundColor: '#1877f2',
-        }}
       >
         Prikaži TW ikone
       </button>
