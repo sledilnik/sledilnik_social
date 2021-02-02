@@ -2,7 +2,7 @@ import React from 'react';
 import sledilnikLogo from '../../../assets/sledilnik-logo.svg';
 import { Row, Emoji } from '../ui/New';
 
-const Outro = () => {
+const Outro = ({ spark = true }) => {
   const emojis =
     '💨🏠,😷,🙎↔️↔️🙎‍♂️ + 👐🧼🚿 + #ObvestiSvojeStike + #OstaniZdrav 📲 & 🤞';
 
@@ -60,7 +60,7 @@ const Outro = () => {
   return (
     <div className="Outro">
       <EmojisRow />
-      <SparkRow />
+      {spark && <SparkRow />}
       <Logo
         src={sledilnikLogo}
         alt="logo"
