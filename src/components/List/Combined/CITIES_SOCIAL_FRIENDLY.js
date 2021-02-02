@@ -29,12 +29,12 @@ function CITIES_SOCIAL_FRIENDLY({
 
     if (icons === 'FB') {
       setIcons('TW');
-      target.innerHTML = 'Show facebook icons';
+      target.innerHTML = 'Prikaži FB ikone';
       return;
     }
     if (icons === 'TW') {
       setIcons('FB');
-      target.innerHTML = 'Show twitter icons';
+      target.innerHTML = 'Prikaži TW ikone';
       return;
     }
   };
@@ -46,7 +46,7 @@ function CITIES_SOCIAL_FRIENDLY({
         onClick={clickHandler}
         style={{ marginTop: '1em', userSelect: 'none' }}
       >
-        Show twitter icons
+        Prikaži TW ikone
       </button>
       <Row end={false}>{title}: </Row>
       {munVer}
