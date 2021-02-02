@@ -44,7 +44,11 @@ function CITIES_SOCIAL_FRIENDLY({
       <button
         className="btn"
         onClick={clickHandler}
-        style={{ marginTop: '1em', userSelect: 'none' }}
+        style={{
+          margin: '16px 8px 0',
+          color: 'var(--white)',
+          backgroundColor: '#1877f2',
+        }}
       >
         Prikaži TW ikone
       </button>
