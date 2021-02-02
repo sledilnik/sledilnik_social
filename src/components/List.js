@@ -41,7 +41,6 @@ const List = ({
 
       let text = section.innerText.replace(/(\r\n|\r|\n){2,}/g, '\n');
       buttonsText.forEach(item => {
-        console.log(item.innerText);
         text = text.replace(item.innerText + '\n', '');
       });
 
