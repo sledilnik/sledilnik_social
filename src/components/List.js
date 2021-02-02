@@ -48,16 +48,51 @@ const List = ({
     });
   };
 
+  const copyHandler = id => {
+    const section = document.getElementById(id);
+    let buttonsText = [...section.getElementsByTagName('button')]
+      .map(item => item.innerText)
+      .join('');
+    const iconsTextTW = 'Prikaži TW ikone';
+    const iconsTextFB = 'Prikaži FB ikone';
+    buttonsText = buttonsText.replace(iconsTextTW, '').replace(iconsTextFB, '');
+
+    const text = section.innerText
+      .replace(buttonsText + '\n', '')
+      .replace(iconsTextTW + '\n', '')
+      .replace(iconsTextFB + '\n', '')
+      .replace(/(\r\n|\r|\n){2,}/g, '\n');
+    const newDiv = document.createElement('textarea');
+    newDiv.style = { position: 'relative', left: '-5000%' };
+    newDiv.value = text;
+    document.body.appendChild(newDiv);
+
+    newDiv.select();
+    newDiv.setSelectionRange(0, 99999); /* For mobile devices */
+    document.execCommand('copy');
+    document.body.removeChild(newDiv);
+    alert(`"${text}"\n\nje v odložišču!`);
+  };
+
   return (
     <div className="List">
       <TrimNewLines />
-      <section className="post">
+      <section id="LAB" className="post">
         <Refresh refetch={[labTestsHook.refetch, summaryHook.refetch]} />
+        <button
+          className="btn"
+          style={{
+            margin: '0 8px',
+          }}
+          onClick={() => copyHandler('LAB')}
+        >
+          V odložišče
+        </button>
         <Intro post={1} introTodayDate={introTodayDate} />
         <TESTS_ACTIVE labTestsHook={labTestsHook} summaryHook={summaryHook} />
         <Outro />
       </section>
-      <section className="post">
+      <section id="HOS" className="post">
         <Refresh refetch={[patientsHook.refetch]} />
         <button
           className="btn"
@@ -70,12 +105,20 @@ const List = ({
         >
           Prikaži za TW
         </button>
-
+        <button
+          className="btn"
+          style={{
+            margin: '0 8px',
+          }}
+          onClick={() => copyHandler('HOS')}
+        >
+          V odložišče
+        </button>
         <Intro post={2} introTodayDate={introTodayDate} />
         <HOSPITALIZED_DECEASED patientsHook={patientsHook} version={version} />
         <Outro spark={version === 'FB'} />
       </section>
-      <section className="post">
+      <section id="EPI" className="post">
         <Refresh
           refetch={[
             labTestsHook.refetch,
@@ -86,6 +129,15 @@ const List = ({
             hospitalsListHook.refetch,
           ]}
         />
+        <button
+          className="btn"
+          style={{
+            margin: '0 8px',
+          }}
+          onClick={() => copyHandler('EPI')}
+        >
+          V odložišče
+        </button>
         <Intro post={3} introTodayDate={introTodayDate} />
         <Combined
           statsHook={statsHook}
