@@ -63,11 +63,17 @@
 }
 
 .btn.modal {
-  font-size: 1em;
-  padding: 8px 32px;
+  font-size: 0.8em;
+  padding: 4px 32px;
+  margin: 0 4px;
   color: var(--bcg-header-clr);
   background-color: var(--black);
   border: solid 1px var(--black);
+}
+
+.btn.modal.cancel {
+  background-color: var(--bcg-header-clr);
+  color: var(--black);
 }
 
 .cities .btn {
