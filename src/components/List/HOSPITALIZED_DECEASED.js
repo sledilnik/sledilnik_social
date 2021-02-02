@@ -10,7 +10,7 @@ import { formatNumber, formatNumberWithSign } from '../../utils/formatNumber';
 import { getDate } from '../../utils/dates';
 import Error from '../shared/Error';
 
-import HOSDict from '../../HOSDict';
+import HOSDict from '../../dict/HOSDict';
 
 function HOSPITALIZED_DECEASED({
   css,
