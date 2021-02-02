@@ -10,6 +10,32 @@ import Combined from './List/Combined';
 import TrimNewLines from './List/TrimNewLines';
 
 import { formatToLocaleDateString } from '../utils/dates';
+import Modal from './Modal';
+import Backdrop from './shared/Backdrop';
+
+const Alert = ({ text, close }) => {
+  const textList = text
+    .split('\n')
+    .map((item, index) => <p key={index}>{item}</p>);
+  const clickHandler = () => {
+    close(false);
+    document.body.style.overflow = 'visible';
+  };
+  return (
+    <Modal>
+      <Backdrop className="backdrop-alert"></Backdrop>
+      <div className="alert-container">
+        <div className="bold">V odložišču</div>
+        <div id="alert-clipboard" className="alert-clipboard">
+          {textList}
+        </div>
+        <button className="btn modal" onClick={clickHandler}>
+          OK
+        </button>
+      </div>
+    </Modal>
+  );
+};
 
 const List = ({
   statsHook,
@@ -20,6 +46,8 @@ const List = ({
   summaryHook,
 }) => {
   const [version, setVersion] = useState('FB');
+  const [showAlert, setShowAlert] = useState(false);
+  const [clipboard, setClipboard] = useState('');
 
   const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
 
@@ -47,13 +75,14 @@ const List = ({
       const newDiv = document.createElement('textarea');
       newDiv.style = { position: 'relative', left: '-5000%' };
       newDiv.value = text;
-      document.body.appendChild(newDiv);
 
       newDiv.select();
       newDiv.setSelectionRange(0, 99999); /* For mobile devices */
+      // document.body.removeChild(newDiv);
       document.execCommand('copy');
-      document.body.removeChild(newDiv);
-      alert(`"${text}"\n\nje v odložišču!`);
+      document.body.style.overflow = 'hidden';
+      setClipboard(text);
+      setShowAlert(true);
     };
 
     return (
@@ -111,6 +140,7 @@ const List = ({
         <Intro post={2} introTodayDate={introTodayDate} />
         <HOSPITALIZED_DECEASED patientsHook={patientsHook} version={version} />
         <Outro spark={version === 'FB'} />
+        {showAlert && <Alert text={clipboard} close={setShowAlert} />}
       </section>
       <section id="EPI" className="post">
         <div className="section-btn">

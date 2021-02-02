@@ -44,9 +44,54 @@ textarea {
   margin: 0 8px;
 }
 
+.backdrop-alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  color: var(--white);
+  z-index: 200;
+  background-color: var(--black);
+
+  opacity: 0.8;
+  overflow: hidden;
+}
+
+.alert-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 95vh;
+  width: 95vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: var(--bcg-header-clr);
+  border-radius: 20px;
+  overflow: auto;
+  z-index: 300;
+}
+
+.alert-clipboard {
+  max-height: 70%;
+  margin: 0 8px;
+  padding: 8px 16px;
+  border: solid 2px black;
+  border-radius: 8px;
+  overflow: auto;
+}
+
 @media only screen and (min-width: 576px) {
   .List {
     width: 90%;
+  }
+
+  .alert-container {
+    height: 80vh;
+    max-width: 80%;
   }
 }
 
@@ -54,15 +99,24 @@ textarea {
   .List {
     width: 75%;
   }
+  .alert-container {
+    max-width: 70%;
+  }
 }
 
 @media only screen and (min-width: 992px) {
   .List {
     width: 60%;
   }
+  .alert-container {
+    max-width: 60%;
+  }
 }
 @media only screen and (min-width: 1200px) {
   .List {
     width: 50%;
+  }
+  .alert-container {
+    max-width: 50%;
   }
 }

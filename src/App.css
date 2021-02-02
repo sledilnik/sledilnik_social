@@ -62,6 +62,14 @@
   background-color: var(--white);
 }
 
+.btn.modal {
+  font-size: 1em;
+  padding: 8px 32px;
+  color: var(--bcg-header-clr);
+  background-color: var(--black);
+  border: solid 1px var(--black);
+}
+
 .cities .btn {
   margin-top: 16px;
 }
