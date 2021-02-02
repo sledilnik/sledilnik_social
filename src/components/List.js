@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './List.css';
 
@@ -19,6 +19,8 @@ const List = ({
   labTestsHook,
   summaryHook,
 }) => {
+  const [version, setVersion] = useState('FB');
+
   const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
 
   const Refresh = ({ refetch = [] }) => {
@@ -26,12 +28,24 @@ const List = ({
       refetch.forEach(func => func());
     };
     return (
-      <div className="refetch-container">
-        <button className="btn" onClick={clickHandler}>
-          Osveži
-        </button>
-      </div>
+      <button className="btn" onClick={clickHandler}>
+        Osveži
+      </button>
     );
+  };
+
+  const iconsSwitchHandler = event => {
+    const { target } = event;
+    setVersion(prev => {
+      if (prev === 'FB') {
+        target.innerHTML = 'Prikaži za FB';
+        return 'TW';
+      }
+      if (prev === 'TW') {
+        target.innerHTML = 'Prikaži za TW';
+        return 'FB';
+      }
+    });
   };
 
   return (
@@ -45,9 +59,21 @@ const List = ({
       </section>
       <section className="post">
         <Refresh refetch={[patientsHook.refetch]} />
+        <button
+          className="btn"
+          onClick={iconsSwitchHandler}
+          style={{
+            margin: '0 8px',
+            color: 'var(--white)',
+            backgroundColor: '#1877f2',
+          }}
+        >
+          Prikaži za TW
+        </button>
+
         <Intro post={2} introTodayDate={introTodayDate} />
-        <HOSPITALIZED_DECEASED patientsHook={patientsHook} />
-        <Outro />
+        <HOSPITALIZED_DECEASED patientsHook={patientsHook} version={version} />
+        <Outro spark={version === 'FB'} />
       </section>
       <section className="post">
         <Refresh

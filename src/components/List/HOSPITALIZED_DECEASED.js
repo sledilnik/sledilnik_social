@@ -10,6 +10,8 @@ import { formatNumber, formatNumberWithSign } from '../../utils/formatNumber';
 import { getDate } from '../../utils/dates';
 import Error from '../shared/Error';
 
+import HOSDict from '../../HOSDict';
+
 function HOSPITALIZED_DECEASED({
   css,
   hospitalized,
@@ -17,13 +19,15 @@ function HOSPITALIZED_DECEASED({
   inCare,
   deceased,
   errors,
+  version = 'FB',
 }) {
+  const text = HOSDict[version];
+
   return (
     <div className={css?.check_patients}>
       <Error hasError={errors.patients} hasData={!!hospitalized}>
         <Hospitalized
-          title={'Hospitalizirani'}
-          subtitle={'EIT'}
+          text={text.hospitalized}
           hospitalized={formatNumber(hospitalized?.hospNum)}
           hospitalizedIn={formatNumberWithSign(hospitalized?.hospIn)}
           hospitalizedOut={formatNumberWithSign(hospitalized?.hospOut)}
@@ -33,7 +37,7 @@ function HOSPITALIZED_DECEASED({
       </Error>
       <Error hasError={errors.patients} hasData={!!onRespiratory}>
         <OnRespiratory
-          title={'Respirator'}
+          text={text.onRespiratory}
           respiratoryTotal={formatNumber(onRespiratory?.respiratoryTotal)}
           todayCritical={formatNumber(onRespiratory?.todayCritical)}
           criticalDelta={formatNumberWithSign(onRespiratory?.respiratoryDelta)}
@@ -43,7 +47,7 @@ function HOSPITALIZED_DECEASED({
       </Error>
       <Error hasError={errors.patients} hasData={!!inCare}>
         <InCare
-          title={'Negovalne b.'}
+          text={text.inCare}
           careNum={!isNaN(inCare?.careNum) && formatNumber(inCare.careNum)}
           careIn={!isNaN(inCare?.careIn) && formatNumberWithSign(inCare.careIn)}
           careOut={
@@ -53,8 +57,7 @@ function HOSPITALIZED_DECEASED({
       </Error>
       <Error hasError={errors.patients} hasData={!!deceased}>
         <Deceased
-          title={'Umrli'}
-          subtitle={'skupaj'}
+          text={text.deceased}
           deceased={formatNumberWithSign(
             formatNumberWithSign(deceased?.deceased)
           )}
@@ -66,11 +69,12 @@ function HOSPITALIZED_DECEASED({
 }
 
 function withHospitalizedDeceasedHOC(Component) {
-  return ({ patientsHook, ...props }) => {
+  return ({ patientsHook, icons, ...props }) => {
     const errors = { patients: patientsHook.hasError };
     const data = {
       ...getHospitalizedDeceasedData(patientsHook.data),
       errors,
+      icons,
       ...props,
     };
 
