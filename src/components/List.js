@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './List.css';
 
@@ -18,20 +18,46 @@ const Alert = ({ text, close }) => {
     .split('\n')
     .map((item, index) => <p key={index}>{item}</p>);
   const clickHandler = () => {
+    const newDiv = document.getElementById('copyText');
+    newDiv.style = { position: 'relative', left: '-5000%' };
+    newDiv.value = text;
+
+    newDiv.select();
+    newDiv.setSelectionRange(0, 99999); /* For mobile devices */
+    document.execCommand('copy');
     close(false);
     document.body.style.overflow = 'visible';
   };
+
+  const closeHandler = () => close(false);
+
   return (
     <Modal>
       <Backdrop className="backdrop-alert"></Backdrop>
       <div className="alert-container">
-        <div className="bold">V odložišču</div>
+        <div className="bold">V odložišče?</div>
         <div id="alert-clipboard" className="alert-clipboard">
           {textList}
         </div>
-        <button className="btn modal" onClick={clickHandler}>
-          OK
-        </button>
+        <div>
+          <textarea
+            id="copyText"
+            readOnly
+            style={{
+              position: 'relative',
+              left: '-5000%',
+            }}
+            value={text}
+          />
+        </div>
+        <div>
+          <button className="btn modal" onClick={clickHandler}>
+            OK
+          </button>
+          <button className="btn modal cancel" onClick={closeHandler}>
+            Zapri
+          </button>
+        </div>
       </div>
     </Modal>
   );
@@ -48,6 +74,7 @@ const List = ({
   const [version, setVersion] = useState('FB');
   const [showAlert, setShowAlert] = useState(false);
   const [clipboard, setClipboard] = useState('');
+  console.log({ clipboard });
 
   const introTodayDate = formatToLocaleDateString(new Date(), 'd.M.yyyy');
 
@@ -71,15 +98,6 @@ const List = ({
       buttonsText.forEach(item => {
         text = text.replace(item.innerText + '\n', '');
       });
-
-      const newDiv = document.createElement('textarea');
-      newDiv.style = { position: 'relative', left: '-5000%' };
-      newDiv.value = text;
-
-      newDiv.select();
-      newDiv.setSelectionRange(0, 99999); /* For mobile devices */
-      // document.body.removeChild(newDiv);
-      document.execCommand('copy');
       document.body.style.overflow = 'hidden';
       setClipboard(text);
       setShowAlert(true);
