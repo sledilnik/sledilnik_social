@@ -113,7 +113,7 @@ body.menuOpen {
 
 /* CLOSING MENU */
 .closingMenu .backdrop-sidebar {
-  animation: close-backdrop 1s 0.05s ease-out forwards;
+  animation: close-backdrop 1.05s ease-out forwards;
 }
 
 .closingMenu .nav-container {
