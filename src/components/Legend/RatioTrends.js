@@ -52,7 +52,7 @@ function RatioTrends({ municipalities, errors }) {
       </LegendSection>
       <LegendSection title={'Občine CHECK ratio'}>
         <button className="btn" onClick={() => setShow(prev => !prev)}>
-          {show ? 'Skrij' : 'Pokaži'}
+          {show ? 'Zapri' : 'Odpri'}
         </button>
         {show && (
           <>
