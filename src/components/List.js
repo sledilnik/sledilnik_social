@@ -29,7 +29,10 @@ const Alert = ({ text, close }) => {
     document.body.style.overflow = 'visible';
   };
 
-  const closeHandler = () => close(false);
+  const closeHandler = () => {
+    close(false);
+    document.body.style.overflow = 'visible';
+  };
 
   return (
     <Modal>
