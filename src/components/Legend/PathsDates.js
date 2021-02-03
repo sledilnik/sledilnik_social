@@ -3,7 +3,7 @@ import differenceInDays from 'date-fns/differenceInDays';
 import { Emoji, Arrow, RowSkeleton } from '../shared/ui/New';
 import { LegendSection } from '../Legend';
 import { getDate, formatToLocaleDateString } from '../../utils/dates';
-import url from '../../urlDict';
+import url from '../../dict/urlDict';
 
 function PathsDates({
   css = {},
