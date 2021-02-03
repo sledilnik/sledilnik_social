@@ -10,7 +10,7 @@ import Combined from './List/Combined';
 import TrimNewLines from './List/TrimNewLines';
 
 import { formatToLocaleDateString } from '../utils/dates';
-import Modal from './Modal';
+import Modal from './shared/Modal';
 import Backdrop from './shared/Backdrop';
 
 const Alert = ({ text, close }) => {
