@@ -77,6 +77,14 @@
   outline: none;
 }
 
+.backdrop-sidebar {
+  position: fixed;
+  top: 0;
+  left: 100%;
+  height: 100%;
+  width: 100vw;
+}
+
 /* OPEN MENU */
 body.menuOpen {
   overflow: hidden;

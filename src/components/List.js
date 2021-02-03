@@ -19,7 +19,7 @@ const Alert = ({ text, close }) => {
     .map((item, index) => <p key={index}>{item}</p>);
   const clickHandler = () => {
     const newDiv = document.getElementById('copyText');
-    newDiv.style = { position: 'relative', left: '-5000%' };
+    newDiv.style = { position: 'relative', left: '-500vh' };
     newDiv.value = text;
 
     newDiv.select();
@@ -42,16 +42,14 @@ const Alert = ({ text, close }) => {
         <div id="alert-clipboard" className="alert-clipboard">
           {textList}
         </div>
-        <div>
-          <textarea
-            id="copyText"
-            readOnly
-            style={{
-              position: 'relative',
-              left: '-5000%',
-            }}
-            value={text}
-          />
+        <div
+          style={{
+            position: 'relative',
+            left: '-5000%',
+            height: 0,
+          }}
+        >
+          <textarea id="copyText" readOnly value={text} />
         </div>
         <div>
           <button className="btn modal" onClick={clickHandler}>
