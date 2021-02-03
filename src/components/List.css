@@ -89,6 +89,13 @@ textarea {
   overflow: auto;
 }
 
+.alert-clipboard::-webkit-scrollbar {
+  background-color: rgba(0, 0, 0, 0);
+}
+.alert-clipboard::-webkit-scrollbar:hover {
+  background-color: rgba(0, 0, 0, 1);
+}
+
 @media only screen and (min-width: 576px) {
   .List {
     width: 90%;
