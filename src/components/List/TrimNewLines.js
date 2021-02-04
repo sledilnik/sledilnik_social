@@ -7,6 +7,35 @@ const TrimNewLines = () => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
+    if (show) {
+      const selectedText = document
+        .getSelection()
+        .toString()
+        .replace(/(\r\n|\r|\n){2,}/g, '\n');
+      const textarea = document.getElementById('copy');
+      textarea.value = selectedText;
+      setLength(textarea.value.length);
+
+      const toClipboard = async () =>
+        await navigator.clipboard.writeText(selectedText);
+      navigator.clipboard && toClipboard();
+      if (!navigator.clipboard) {
+        textarea.value = textarea.value.replace(/(\r\n|\r|\n){2,}/g, '\n');
+        textarea.select();
+        textarea.setSelectionRange(
+          0,
+          textarea.value.length - 1
+        ); /* For mobile devices */
+        document.execCommand('copy');
+      }
+      // todo create snackbar
+      textarea.value && alert('Označen tekst je že v odložišču!');
+    }
+  }, [show]);
+
+  show && !navigator.clipboard && document.execCommand('copy');
+
+  useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://platform.twitter.com/widgets.js';
     script.async = true;
@@ -18,18 +47,28 @@ const TrimNewLines = () => {
     };
   }, [show]);
 
-  const clickHandler = () => {
-    const copyText = document.getElementById('copy');
-    copyText.value = copyText.value.replace(/(\r\n|\r|\n){2,}/g, '\n');
-
-    copyText.select();
-    copyText.setSelectionRange(0, 99999); /* For mobile devices */
-
-    document.execCommand('copy');
+  const clickHandler = async () => {
+    const textarea = document.getElementById('copy');
+    let copyText = textarea.value.replace(/(\r\n|\r|\n){2,}/g, '\n');
+    navigator.clipboard && navigator.clipboard.writeText(copyText);
+    if (!navigator.clipboard) {
+      textarea.select();
+      textarea.setSelectionRange(
+        0,
+        copyText.length - 1
+      ); /* For mobile devices */
+      document.execCommand('copy');
+    }
+    setLength(copyText.length);
+    textarea.value = copyText;
+    // todo create snackbar
+    alert('Tekst je v odložišču!');
   };
 
   const changeHandler = event => setLength(event.target.value.length);
-  const showHideHandler = () => setShow(prev => !prev);
+  const showHideHandler = () => {
+    setShow(prev => !prev);
+  };
 
   return (
     <div className="TrimNewLines post">
@@ -45,7 +84,7 @@ const TrimNewLines = () => {
             Število znakov: <span className="bold">{length}</span>
           </div>
           <div className="textwrapper">
-            <textarea cols="50" rows="10" id="copy" onChange={changeHandler} />
+            <textarea id="copy" cols="50" rows="10" onChange={changeHandler} />
           </div>
           <div className="text-area-btn-container">
             <button className="btn" onClick={clickHandler}>
