@@ -17,13 +17,26 @@ const Alert = ({ text, setShowAlert }) => {
   const textList = text
     .split('\n')
     .map((item, index) => <p key={index}>{item}</p>);
+
   const clickHandler = () => {
+    if (!navigator.clipboard) {
+      const newDiv = document.getElementById('copyText');
+      newDiv.value = text.replace(/(\r\n|\r|\n){2,}/g, '\n');
+      newDiv.select();
+      newDiv.setSelectionRange(0, text.length - 1); /* For mobile devices */
+      document.execCommand('copy');
+      newDiv.value = '';
+    }
     setShowAlert(false);
     document.body.style.overflow = 'visible';
   };
 
   const closeHandler = async () => {
-    await navigator.clipboard.writeText('');
+    navigator.clipboard && (await navigator.clipboard.writeText(''));
+    if (!navigator.clipboard) {
+      const newDiv = document.getElementById('copyText');
+      newDiv.value = '';
+    }
     setShowAlert(false);
     document.body.style.overflow = 'visible';
   };
@@ -32,9 +45,20 @@ const Alert = ({ text, setShowAlert }) => {
     <Modal>
       <Backdrop className="backdrop-alert"></Backdrop>
       <div className="alert-container">
-        <div className="bold">Trenutno v odložišču:</div>
+        <div className="bold">Trenutno v odložišču ({text.length}):</div>
         <div id="alert-clipboard" className="alert-clipboard">
           {textList}
+        </div>
+        <div>
+          <textarea
+            id="copyText"
+            readOnly
+            style={{
+              position: 'relative',
+              left: '-5000%',
+            }}
+            value={text}
+          />
         </div>
         <div>
           <button className="btn modal" onClick={clickHandler}>
@@ -83,8 +107,8 @@ const List = ({
       buttonsText.forEach(item => {
         text = text.replace(item.innerText + '\n', '');
       });
-      await navigator.clipboard.writeText(text);
 
+      navigator.clipboard && (await navigator.clipboard.writeText(text));
       document.body.style.overflow = 'hidden';
       setClipboard(text);
       setShowAlert(true);
