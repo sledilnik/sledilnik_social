@@ -33,8 +33,8 @@ function Combined({
       <Error hasData={!!vac1} hasError={errors.stats}>
         <Vaccination
           check_stats={combined.css.check_stats}
-          toDate={vac1}
-          toDate2={vac2}
+          firstVaccination={vac1}
+          secondVaccination={vac2}
         />
       </Error>
       <Error hasData={!!combined?.confirmedToDate} hasError={errors.stats}>
