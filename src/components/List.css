@@ -80,8 +80,8 @@ textarea {
   z-index: 300;
 }
 
-.alert-container div:first-child,
-.alert-container div:last-child {
+.alert-container > div:first-child,
+.alert-container > div:last-child {
   display: flex;
   align-items: center;
   flex-grow: 1;
@@ -106,6 +106,38 @@ textarea {
 
 .alert-clipboard::-webkit-scrollbar:hover {
   background-color: rgba(0, 0, 0, 1);
+}
+
+.btn.modal {
+  position: relative;
+}
+
+.btn.modal .tooltipText {
+  visibility: hidden;
+  color: var(--bcg-header-clr);
+  background-color: var(--black);
+  text-align: center;
+  min-width: 130px;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: -150%;
+  left: -25px;
+}
+
+.btn.modal .tooltipText::after {
+  content: ' ';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--black) transparent transparent transparent;
+}
+
+.btn.modal:hover .tooltipText {
+  visibility: visible;
 }
 
 @media only screen and (min-width: 576px) {

@@ -13,24 +13,18 @@ import { formatToLocaleDateString } from '../utils/dates';
 import Modal from './shared/Modal';
 import Backdrop from './shared/Backdrop';
 
-const Alert = ({ text, close }) => {
+const Alert = ({ text, setShowAlert }) => {
   const textList = text
     .split('\n')
     .map((item, index) => <p key={index}>{item}</p>);
   const clickHandler = () => {
-    const newDiv = document.getElementById('copyText');
-    newDiv.style = { position: 'relative', left: '-500vh' };
-    newDiv.value = text;
-
-    newDiv.select();
-    newDiv.setSelectionRange(0, 99999); /* For mobile devices */
-    document.execCommand('copy');
-    close(false);
+    setShowAlert(false);
     document.body.style.overflow = 'visible';
   };
 
-  const closeHandler = () => {
-    close(false);
+  const closeHandler = async () => {
+    await navigator.clipboard.writeText('');
+    setShowAlert(false);
     document.body.style.overflow = 'visible';
   };
 
@@ -38,25 +32,17 @@ const Alert = ({ text, close }) => {
     <Modal>
       <Backdrop className="backdrop-alert"></Backdrop>
       <div className="alert-container">
-        <div className="bold">V odložišče?</div>
+        <div className="bold">Trenutno v odložišču:</div>
         <div id="alert-clipboard" className="alert-clipboard">
           {textList}
         </div>
-        <div
-          style={{
-            position: 'relative',
-            left: '-5000%',
-            height: 0,
-          }}
-        >
-          <textarea id="copyText" readOnly value={text} />
-        </div>
         <div>
           <button className="btn modal" onClick={clickHandler}>
+            <span className="tooltipText">Ostane v odložišču.</span>
             OK
           </button>
           <button className="btn modal cancel" onClick={closeHandler}>
-            Zapri
+            Zapri<span className="tooltipText">Počisti odložišče.</span>
           </button>
         </div>
       </div>
@@ -90,14 +76,15 @@ const List = ({
   };
 
   const CopyButton = ({ id = '' }) => {
-    const copyHandler = id => {
+    const copyHandler = async id => {
       const section = document.getElementById(id);
       let buttonsText = [...section.getElementsByTagName('button')];
-
       let text = section.innerText.replace(/(\r\n|\r|\n){2,}/g, '\n');
       buttonsText.forEach(item => {
         text = text.replace(item.innerText + '\n', '');
       });
+      await navigator.clipboard.writeText(text);
+
       document.body.style.overflow = 'hidden';
       setClipboard(text);
       setShowAlert(true);
@@ -158,7 +145,6 @@ const List = ({
         <Intro post={2} introTodayDate={introTodayDate} />
         <HOSPITALIZED_DECEASED patientsHook={patientsHook} version={version} />
         <Outro spark={version === 'FB'} />
-        {showAlert && <Alert text={clipboard} close={setShowAlert} />}
       </section>
       <section id="EPI" className="post">
         <div className="section-btn">
@@ -185,6 +171,7 @@ const List = ({
         />
         <Outro />
       </section>
+      {showAlert && <Alert text={clipboard} setShowAlert={setShowAlert} />}
     </div>
   );
 };
