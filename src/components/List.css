@@ -74,7 +74,7 @@ textarea {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--bcg-header-clr);
+  background-color: var(--bcg-body-clr);
   border-radius: 20px;
   overflow: auto;
   z-index: 300;
@@ -90,8 +90,6 @@ textarea {
 .alert-clipboard {
   margin: 8px 8px;
   padding: 8px 16px;
-  border: solid 2px black;
-  border-radius: 8px;
   overflow: hidden;
   max-height: 50%;
 }
@@ -114,8 +112,8 @@ textarea {
 
 .btn.modal .tooltipText {
   visibility: hidden;
-  color: var(--bcg-header-clr);
-  background-color: var(--black);
+  color: var(--black);
+  background-color: var(--white);
   text-align: center;
   min-width: 130px;
   border-radius: 6px;
@@ -133,7 +131,7 @@ textarea {
   left: 50%;
   border-width: 5px;
   border-style: solid;
-  border-color: var(--black) transparent transparent transparent;
+  border-color: var(--white) transparent transparent transparent;
 }
 
 .btn.modal:hover .tooltipText {

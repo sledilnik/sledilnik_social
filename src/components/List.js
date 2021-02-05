@@ -50,7 +50,7 @@ const Alert = ({ text, setShowAlert }) => {
       <Backdrop className="backdrop-alert"></Backdrop>
       <div className="alert-container">
         <div className="bold">Trenutno v odložišču ({text.length}):</div>
-        <div id="alert-clipboard" className="alert-clipboard">
+        <div id="alert-clipboard" className="alert-clipboard post">
           {textList}
         </div>
         <div>
