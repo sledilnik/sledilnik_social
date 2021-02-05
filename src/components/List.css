@@ -95,15 +95,7 @@ textarea {
 }
 
 .alert-clipboard:hover {
-  overflow-y: auto;
-}
-
-.alert-clipboard::-webkit-scrollbar {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.alert-clipboard::-webkit-scrollbar:hover {
-  background-color: rgba(255, 255, 255, 1);
+  overflow: auto;
 }
 
 .btn.modal {
