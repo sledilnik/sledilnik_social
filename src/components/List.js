@@ -13,6 +13,12 @@ import { formatToLocaleDateString } from '../utils/dates';
 import Modal from './shared/Modal';
 import Backdrop from './shared/Backdrop';
 
+const selectAndCopy = textarea => {
+  textarea.select();
+  textarea.setSelectionRange(0, textarea.value.length); /* For mobile devices */
+  document.execCommand('copy');
+};
+
 const Alert = ({ text, setShowAlert }) => {
   const textList = text
     .split('\n')
@@ -20,12 +26,10 @@ const Alert = ({ text, setShowAlert }) => {
 
   const clickHandler = () => {
     if (!navigator.clipboard) {
-      const newDiv = document.getElementById('copyText');
-      newDiv.value = text.replace(/(\r\n|\r|\n){2,}/g, '\n');
-      newDiv.select();
-      newDiv.setSelectionRange(0, text.length - 1); /* For mobile devices */
-      document.execCommand('copy');
-      newDiv.value = '';
+      const textarea = document.getElementById('copyText');
+      textarea.value = text.replace(/(\r\n|\r|\n){2,}/g, '\n');
+      selectAndCopy(textarea);
+      textarea.value = '';
     }
     setShowAlert(false);
     document.body.style.overflow = 'visible';
@@ -34,8 +38,8 @@ const Alert = ({ text, setShowAlert }) => {
   const closeHandler = async () => {
     navigator.clipboard && (await navigator.clipboard.writeText(''));
     if (!navigator.clipboard) {
-      const newDiv = document.getElementById('copyText');
-      newDiv.value = '';
+      const textarea = document.getElementById('copyText');
+      textarea.value = '';
     }
     setShowAlert(false);
     document.body.style.overflow = 'visible';
@@ -102,8 +106,11 @@ const List = ({
   const CopyButton = ({ id = '' }) => {
     const copyHandler = async id => {
       const section = document.getElementById(id);
-      let buttonsText = [...section.getElementsByTagName('button')];
+      // ? section.innerText.length is the same on mobile and PC
       let text = section.innerText.replace(/(\r\n|\r|\n){2,}/g, '\n');
+      // ? text.length on mobile < text.length on PC; diff = 3
+      text = text.slice(-1) === '\n' ? text.slice(0, -1) : text;
+      let buttonsText = [...section.getElementsByTagName('button')];
       buttonsText.forEach(item => {
         text = text.replace(item.innerText + '\n', '');
       });
