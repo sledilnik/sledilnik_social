@@ -20,16 +20,13 @@ const TrimNewLines = () => {
         await navigator.clipboard.writeText(selectedText);
       navigator.clipboard && toClipboard();
       if (!navigator.clipboard) {
-        textarea.value = textarea.value.replace(/(\r\n|\r|\n){2,}/g, '\n');
         textarea.select();
         textarea.setSelectionRange(
           0,
-          textarea.value.length - 1
+          textarea.value.length
         ); /* For mobile devices */
         document.execCommand('copy');
       }
-      // todo create snackbar
-      textarea.value && alert('Označen tekst je že v odložišču!');
     }
   }, [show]);
 
@@ -53,16 +50,11 @@ const TrimNewLines = () => {
     navigator.clipboard && navigator.clipboard.writeText(copyText);
     if (!navigator.clipboard) {
       textarea.select();
-      textarea.setSelectionRange(
-        0,
-        copyText.length - 1
-      ); /* For mobile devices */
+      textarea.setSelectionRange(0, copyText.length); /* For mobile devices */
       document.execCommand('copy');
     }
     setLength(copyText.length);
     textarea.value = copyText;
-    // todo create snackbar
-    alert('Tekst je v odložišču!');
   };
 
   const changeHandler = event => setLength(event.target.value.length);
