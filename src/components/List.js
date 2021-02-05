@@ -106,9 +106,7 @@ const List = ({
   const CopyButton = ({ id = '' }) => {
     const copyHandler = async id => {
       const section = document.getElementById(id);
-      // ? section.innerText.length is the same on mobile and PC
       let text = section.innerText.replace(/(\r\n|\r|\n){2,}/g, '\n');
-      // ? text.length on mobile < text.length on PC; diff = 3
       text = text.slice(-1) === '\n' ? text.slice(0, -1) : text;
       let buttonsText = [...section.getElementsByTagName('button')];
       buttonsText.forEach(item => {
