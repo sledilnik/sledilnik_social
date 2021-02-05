@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 import './TrimNewLines.css';
 
+const selectAndCopy = textarea => {
+  textarea.select();
+  textarea.setSelectionRange(0, textarea.value.length); /* For mobile devices */
+  document.execCommand('copy');
+};
+
 const TrimNewLines = () => {
   const [length, setLength] = useState(0);
   const [show, setShow] = useState(false);
@@ -19,14 +25,7 @@ const TrimNewLines = () => {
       const toClipboard = async () =>
         await navigator.clipboard.writeText(selectedText);
       navigator.clipboard && toClipboard();
-      if (!navigator.clipboard) {
-        textarea.select();
-        textarea.setSelectionRange(
-          0,
-          textarea.value.length
-        ); /* For mobile devices */
-        document.execCommand('copy');
-      }
+      !navigator.clipboard && selectAndCopy(textarea);
     }
   }, [show]);
 
@@ -48,11 +47,8 @@ const TrimNewLines = () => {
     const textarea = document.getElementById('copy');
     let copyText = textarea.value.replace(/(\r\n|\r|\n){2,}/g, '\n');
     navigator.clipboard && navigator.clipboard.writeText(copyText);
-    if (!navigator.clipboard) {
-      textarea.select();
-      textarea.setSelectionRange(0, copyText.length); /* For mobile devices */
-      document.execCommand('copy');
-    }
+    !navigator.clipboard && selectAndCopy(textarea);
+
     setLength(copyText.length);
     textarea.value = copyText;
   };
