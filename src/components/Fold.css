@@ -1,0 +1,28 @@
+.Fold {
+  margin: 1em auto;
+  width: 95%;
+  background: var(--white);
+}
+
+@media only screen and (min-width: 576px) {
+  .Fold {
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .Fold {
+    width: 75%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .Fold {
+    width: 60%;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .Fold {
+    width: 50%;
+  }
+}
