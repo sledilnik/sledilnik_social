@@ -1,7 +1,9 @@
 .Fold {
   margin: 1em auto;
   width: 95%;
-  background: var(--white);
+  /* background: var(--white); */
+  /* background: var(--bcg-header-clr); */
+  background: var(--bcg-body-clr);
 }
 
 .List .Fold {
