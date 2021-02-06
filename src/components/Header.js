@@ -26,9 +26,20 @@ function Header() {
     if (target.id === 'legend-link') {
       event.preventDefault();
       const legend = document.getElementById('legenda');
-      legend.scrollIntoView({
-        block: 'center',
-      });
+      if (!legend) {
+        document.getElementById('legend-fold').click();
+        setTimeout(() => {
+          const legend = document.getElementById('legenda');
+          legend.scrollIntoView({
+            block: 'center',
+          });
+        }, 0);
+      }
+      if (legend) {
+        legend.scrollIntoView({
+          block: 'center',
+        });
+      }
     }
     const header = document.getElementById('header');
     setOpen(false);
