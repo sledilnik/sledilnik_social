@@ -4,6 +4,10 @@
   background: var(--white);
 }
 
+.List .Fold {
+  width: 100%;
+}
+
 @media only screen and (min-width: 576px) {
   .Fold {
     width: 90%;
