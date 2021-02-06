@@ -35,10 +35,10 @@ function App() {
           labTestsHook={labTestsHook}
           summaryHook={summaryHook}
         />
-        <Fold title="RJV">
+        <Fold title="JSON">
           <RJV />
         </Fold>
-        <Fold title="Legenda">
+        <Fold openId="legend-fold" title="Legenda">
           <Legend
             statsHook={statsHook}
             municipalitiesHook={municipalitiesHook}
