@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './Fold.css';
 
-function Fold({ children, title }) {
-  const [open, setOpen] = useState(false);
+function Fold({ children, title, show = false }) {
+  const [open, setOpen] = useState(show);
   return (
     <div className="Fold post">
       <div
