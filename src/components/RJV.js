@@ -101,11 +101,13 @@ function RJV() {
 
   return (
     <div
+      className="post"
       style={{
         margin: '8px 0',
         padding: '16px 0',
         minHeight: '200px',
         minWidth: '80%',
+        fontSize: '0.9em',
       }}
     >
       <div>
