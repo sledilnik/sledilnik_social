@@ -12,6 +12,7 @@ import TrimNewLines from './List/TrimNewLines';
 import { formatToLocaleDateString } from '../utils/dates';
 import Modal from './shared/Modal';
 import Backdrop from './shared/Backdrop';
+import Fold from './Fold';
 
 const selectAndCopy = textarea => {
   textarea.select();
@@ -154,52 +155,61 @@ const List = ({
   return (
     <div className="List">
       <TrimNewLines />
-      <section id="LAB" className="post">
-        <div className="section-btn">
-          <RefreshButton
-            refetch={[labTestsHook.refetch, summaryHook.refetch]}
+      <Fold title="LAB" show={true}>
+        <section id="LAB" className="post">
+          <div className="section-btn">
+            <RefreshButton
+              refetch={[labTestsHook.refetch, summaryHook.refetch]}
+            />
+            <CopyButton id="lab" />
+          </div>
+          <Intro post={1} introTodayDate={introTodayDate} />
+          <TESTS_ACTIVE labTestsHook={labTestsHook} summaryHook={summaryHook} />
+          <Outro />
+        </section>
+      </Fold>
+      <Fold title="HOS">
+        <section id="HOS" className="post">
+          <div className="section-btn">
+            <RefreshButton refetch={[patientsHook.refetch]} />
+            <SocialButton />
+            <CopyButton id="hos" />
+          </div>
+          <Intro post={2} introTodayDate={introTodayDate} />
+          <HOSPITALIZED_DECEASED
+            patientsHook={patientsHook}
+            version={version}
           />
-          <CopyButton id="lab" />
-        </div>
-        <Intro post={1} introTodayDate={introTodayDate} />
-        <TESTS_ACTIVE labTestsHook={labTestsHook} summaryHook={summaryHook} />
-        <Outro />
-      </section>
-      <section id="HOS" className="post">
-        <div className="section-btn">
-          <RefreshButton refetch={[patientsHook.refetch]} />
-          <SocialButton />
-          <CopyButton id="hos" />
-        </div>
-        <Intro post={2} introTodayDate={introTodayDate} />
-        <HOSPITALIZED_DECEASED patientsHook={patientsHook} version={version} />
-        <Outro spark={version === 'FB'} />
-      </section>
-      <section id="EPI" className="post">
-        <div className="section-btn">
-          <RefreshButton
-            refetch={[
-              labTestsHook.refetch,
-              summaryHook.refetch,
-              patientsHook.refetch,
-              statsHook.refetch,
-              municipalitiesHook.refetch,
-              hospitalsListHook.refetch,
-            ]}
+          <Outro spark={version === 'FB'} />
+        </section>
+      </Fold>
+      <Fold title="EPI">
+        <section id="EPI" className="post">
+          <div className="section-btn">
+            <RefreshButton
+              refetch={[
+                labTestsHook.refetch,
+                summaryHook.refetch,
+                patientsHook.refetch,
+                statsHook.refetch,
+                municipalitiesHook.refetch,
+                hospitalsListHook.refetch,
+              ]}
+            />
+            <CopyButton id="epi" />
+          </div>
+          <Intro post={3} introTodayDate={introTodayDate} />
+          <Combined
+            statsHook={statsHook}
+            summaryHook={summaryHook}
+            patientsHook={patientsHook}
+            labTestsHook={labTestsHook}
+            municipalitiesHook={municipalitiesHook}
+            hospitalsListHook={hospitalsListHook}
           />
-          <CopyButton id="epi" />
-        </div>
-        <Intro post={3} introTodayDate={introTodayDate} />
-        <Combined
-          statsHook={statsHook}
-          summaryHook={summaryHook}
-          patientsHook={patientsHook}
-          labTestsHook={labTestsHook}
-          municipalitiesHook={municipalitiesHook}
-          hospitalsListHook={hospitalsListHook}
-        />
-        <Outro />
-      </section>
+          <Outro />
+        </section>
+      </Fold>
       {showAlert && <Alert text={clipboard} setShowAlert={setShowAlert} />}
     </div>
   );
