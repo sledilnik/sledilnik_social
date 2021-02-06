@@ -10,6 +10,8 @@ import Legend from './components/Legend';
 import useFetch from './hooks/useFetch';
 
 import url from './dict/urlDict';
+import RJV from './components/RJV';
+import Fold from './components/Fold';
 
 function App() {
   const getISODateFrom = num => addDays(new Date(), num).toISOString();
@@ -33,13 +35,18 @@ function App() {
           labTestsHook={labTestsHook}
           summaryHook={summaryHook}
         />
-        <Legend
-          statsHook={statsHook}
-          municipalitiesHook={municipalitiesHook}
-          patientsHook={patientsHook}
-          labTestsHook={labTestsHook}
-          summaryHook={summaryHook}
-        />
+        <Fold title="RJV">
+          <RJV />
+        </Fold>
+        <Fold title="Legenda">
+          <Legend
+            statsHook={statsHook}
+            municipalitiesHook={municipalitiesHook}
+            patientsHook={patientsHook}
+            labTestsHook={labTestsHook}
+            summaryHook={summaryHook}
+          />
+        </Fold>
       </main>
       <Footer />
     </div>
