@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import './Fold.css';
 
-function Fold({ children, title, show = false }) {
+function Fold({ children, title, show = false, openId }) {
   const [open, setOpen] = useState(show);
   return (
     <div className="Fold post">
       <div
+        id={openId}
         className="post"
         onClick={() => setOpen(prev => !prev)}
         style={{
