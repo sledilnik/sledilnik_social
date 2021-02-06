@@ -121,92 +121,97 @@ function RJV() {
           <code style={codeStyle}>Enter</code> to submit <br /> When adding a
           new key, try <code style={codeStyle}>Escape</code> to cancel
         </section>
-        <label htmlFor="path">/api/</label>
-        <select
-          name="path"
-          id="path"
-          onChange={onSelectChangeHandler}
-          style={{ margin: '0 8px' }}
-        >
-          <option value="SUMMARY">summary</option>
-          <option value="PATIENTS">patients</option>
-          <option value="LAB_TESTS">lab-tests</option>
-          <option value="STATS">stats</option>
-          <option value="MUN">municipalities</option>
-          <option value="HOSPITALS_LIST">hospitals-list</option>
-        </select>
-        <button
-          id="refresh"
-          className="btn"
-          style={{ margin: '0 8px' }}
-          onClick={onRefreshClickHandler}
-        >
-          osveži
-        </button>
-        {dates.from && (
-          <>
-            <label htmlFor="date-from">from</label>
-            <input
-              type="date"
-              name="date-from"
-              id="date-from"
-              style={{ margin: '0 8px' }}
-              defaultValue={dates.from.toString().slice(0, 10)}
-              min="2020-02-24"
-              max={getISODateFrom(0).slice(0, 10)}
-              onChange={onDateChange}
-            />
-          </>
-        )}
-        {dates.to && (
-          <>
-            <label htmlFor="date-to">to</label>
-            <input
-              type="date"
-              name="date-to"
-              id="date-to"
-              style={{ margin: '0 8px' }}
-              defaultValue={dates.to.toString().slice(0, 10)}
-              min="2020-02-24"
-              max={getISODateFrom(0).slice(0, 10)}
-              onChange={onDateChange}
-            />
-          </>
-        )}
-        {dates.toDate && (
-          <>
-            <label htmlFor="date-toDate">toDate</label>
-            <input
-              type="date"
-              name="date-toDate"
-              id="date-toDate"
-              style={{ margin: '0 8px' }}
-              defaultValue={dates.toDate.toString().slice(0, 10)}
-              min="2020-02-24"
-              max={getISODateFrom(0).slice(0, 10)}
-              onChange={onDateChange}
-            />
-          </>
-        )}
-        {Object.keys(dates).length !== 0 && (
+        <section style={{ margin: '8px', fontSize: '0.9em' }}>
+          <label htmlFor="path">/api/</label>
+          <select
+            name="path"
+            id="path"
+            onChange={onSelectChangeHandler}
+            style={{ margin: '0 8px' }}
+          >
+            <option value="SUMMARY">summary</option>
+            <option value="PATIENTS">patients</option>
+            <option value="LAB_TESTS">lab-tests</option>
+            <option value="STATS">stats</option>
+            <option value="MUN">municipalities</option>
+            <option value="HOSPITALS_LIST">hospitals-list</option>
+          </select>
           <button
-            id="update"
+            id="refresh"
             className="btn"
             style={{ margin: '0 8px' }}
-            onClick={onUpdateClickHandler}
+            onClick={onRefreshClickHandler}
           >
-            posodobi
+            osveži
           </button>
-        )}
-        ali{' '}
-        <input
-          type="file"
-          name="file-upload"
-          id="file-upload"
-          accept=".json"
-          onChange={onFileChangeHandler}
-          style={{ margin: '0 8px' }}
-        />
+          {dates.from && (
+            <>
+              <label htmlFor="date-from">from</label>
+              <input
+                type="date"
+                name="date-from"
+                id="date-from"
+                style={{ margin: '0 8px' }}
+                defaultValue={dates.from.toString().slice(0, 10)}
+                min="2020-02-24"
+                max={getISODateFrom(0).slice(0, 10)}
+                onChange={onDateChange}
+              />
+            </>
+          )}
+          {dates.to && (
+            <>
+              <label htmlFor="date-to">to</label>
+              <input
+                type="date"
+                name="date-to"
+                id="date-to"
+                style={{ margin: '0 8px' }}
+                defaultValue={dates.to.toString().slice(0, 10)}
+                min="2020-02-24"
+                max={getISODateFrom(0).slice(0, 10)}
+                onChange={onDateChange}
+              />
+            </>
+          )}
+          {dates.toDate && (
+            <>
+              <label htmlFor="date-toDate">toDate</label>
+              <input
+                type="date"
+                name="date-toDate"
+                id="date-toDate"
+                style={{ margin: '0 8px' }}
+                defaultValue={dates.toDate.toString().slice(0, 10)}
+                min="2020-02-24"
+                max={getISODateFrom(0).slice(0, 10)}
+                onChange={onDateChange}
+              />
+            </>
+          )}
+          {Object.keys(dates).length !== 0 && (
+            <button
+              id="update"
+              className="btn"
+              style={{ margin: '0 8px' }}
+              onClick={onUpdateClickHandler}
+            >
+              posodobi
+            </button>
+          )}
+        </section>
+        <br />
+        <section style={{ margin: '8px', fontSize: '0.9em' }}>
+          <input
+            className="btn"
+            type="file"
+            name="file-upload"
+            id="file-upload"
+            accept=".json"
+            onChange={onFileChangeHandler}
+            style={{ margin: '0 8px' }}
+          />
+        </section>
       </div>
       {fetchedData !== null && (
         <Error hasError={hasError} hasData={!isLoading && fetchedData !== null}>
