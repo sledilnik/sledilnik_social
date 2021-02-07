@@ -130,7 +130,7 @@ function RJV() {
             id="api"
             name="json-option"
             value="api"
-            checked={showApi}
+            defaultChecked={showApi}
             onClick={() => setShowApi(true)}
             style={{ margin: '0 8px' }}
           />
