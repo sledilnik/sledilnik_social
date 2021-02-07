@@ -134,7 +134,7 @@ function RJV() {
             onClick={() => setShowApi(true)}
             style={{ margin: '0 8px' }}
           />
-          <label for="api">API</label>
+          <label htmlFor="api">API</label>
           <input
             type="radio"
             id="pick-file"
@@ -143,7 +143,7 @@ function RJV() {
             onClick={() => setShowApi(false)}
             style={{ margin: '0 8px' }}
           />
-          <label for="pick-file">Datoteka</label>
+          <label htmlFor="pick-file">Datoteka</label>
         </div>
         {showApi && (
           <div style={{ margin: '8px', fontSize: '0.9em' }}>
