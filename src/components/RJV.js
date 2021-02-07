@@ -73,9 +73,13 @@ function RJV() {
   const onRefreshClickHandler = () => refetch();
 
   const onDateChange = event => {
+    const { value } = event.target;
     const name = event.target.name.replace('date-', '');
-    const date = new Date(event.target.value);
-    setDates(prev => ({ ...prev, [name]: getISODate(new Date(date)) }));
+    const date = value ? new Date(value) : new Date();
+    setDates(prev => ({ ...prev, [name]: getISODate(date) }));
+    if (!value) {
+      event.target.value = getISODate(date);
+    }
   };
 
   const onUpdateClickHandler = event => {
