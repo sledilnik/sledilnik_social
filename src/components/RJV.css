@@ -1,0 +1,13 @@
+.file-input {
+  margin: 8px;
+  min-height: 24px;
+}
+
+.file {
+  opacity: 0;
+  width: 0.1px;
+}
+
+.file-input label {
+  cursor: pointer;
+}
