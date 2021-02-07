@@ -107,11 +107,7 @@ function RJV() {
   const onDelete = del => setData(del.updated_src);
 
   const onSaveClick = () => {
-    const dotIndex = name.lastIndexOf('.');
-    let filename = dotIndex !== -1 ? name.slice(0, dotIndex) : name;
-    filename += Date.parse(new Date());
-    const downloadFile = async () => {
-      const fileName = filename;
+    const downloadFile = async (fileName, data) => {
       const json = JSON.stringify(data);
       const blob = new Blob([json], { type: 'application/json' });
       const href = URL.createObjectURL(blob);
@@ -122,7 +118,11 @@ function RJV() {
       link.click();
       document.body.removeChild(link);
     };
-    downloadFile();
+
+    const dotIndex = name.lastIndexOf('.');
+    let filename = dotIndex !== -1 ? name.slice(0, dotIndex) : name;
+    filename += `_${Date.parse(new Date())}`;
+    downloadFile(filename, data);
   };
 
   return (
