@@ -102,9 +102,28 @@ function RJV() {
   };
 
   // RJV
-  const onEdit = edit => console.log({ edit });
-  const onAdd = add => console.log({ add });
-  const onDelete = del => console.log({ del });
+  const onEdit = edit => setData(edit.updated_src);
+  const onAdd = add => setData(add.updated_src);
+  const onDelete = del => setData(del.updated_src);
+
+  const onSaveClick = () => {
+    const dotIndex = name.lastIndexOf('.');
+    let filename = dotIndex !== -1 ? name.slice(0, dotIndex) : name;
+    filename += Date.parse(new Date());
+    const downloadFile = async () => {
+      const fileName = filename;
+      const json = JSON.stringify(data);
+      const blob = new Blob([json], { type: 'application/json' });
+      const href = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = href;
+      link.download = fileName + '.json';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+    downloadFile();
+  };
 
   return (
     <div
@@ -242,13 +261,16 @@ function RJV() {
             />
             <label htmlFor="file" className="btn">
               Izberi JSON datoteko
-            </label>
+            </label>{' '}
+            <button className="btn" onClick={onSaveClick}>
+              Shrani
+            </button>
           </div>
         )}
       </div>
       {fetchedData !== null && (
         <Error hasError={hasError} hasData={!isLoading && fetchedData !== null}>
-          <div>
+          <div id="RJV">
             <ReactJson
               src={data}
               name={name}
