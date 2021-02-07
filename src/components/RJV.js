@@ -237,6 +237,7 @@ function RJV() {
               name="file"
               id="file"
               className="file"
+              accept=".json"
               onChange={onFileChangeHandler}
             />
             <label htmlFor="file" className="btn">
