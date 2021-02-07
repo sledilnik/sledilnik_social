@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { Row, Brackets, NoData } from '../../shared/ui/New';
+import { Row, Brackets } from '../../shared/ui/New';
 import { formatNumber } from '../../../utils/formatNumber';
 
 function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
-  // TODO move logic to Combined?
   const deltas = todayPerAge.map((item, i) => {
     const { ageFrom, ageTo } = item;
     const ageRange = `${ageFrom}${ageTo ? `-${ageTo}` : '+'}`;
@@ -23,18 +22,10 @@ function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
     );
   });
 
-  const noData = deltas.some(delta => !isNaN(delta));
-
   return (
-    <span className={check_stats}>
-      <Row>
-        {title}:{' '}
-        {noData && (
-          <NoData html={{ classes: 'bold' }}>manjkajoči podatki: </NoData>
-        )}{' '}
-        {deltas}
-      </Row>
-    </span>
+    <Row className={check_stats}>
+      {title}: {deltas}
+    </Row>
   );
 }
 

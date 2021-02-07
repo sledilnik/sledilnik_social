@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 
 import Municipalities from './CITIES_SOCIAL_FRIENDLY/Municipalities';
-import Outro from '../../shared/ui/Outro';
 import { Row } from '../../shared/ui/New';
 
 function CITIES_SOCIAL_FRIENDLY({
@@ -9,25 +8,49 @@ function CITIES_SOCIAL_FRIENDLY({
   title,
   municipalities,
 }) {
-  const munVer = iconsVersion => (
-    <>
-      <Row end={false}>{title}: </Row>
-      <ul className="municipalities">
-        <Municipalities
-          data={municipalities}
-          showTrend="y"
-          icons={iconsVersion}
-        ></Municipalities>
-      </ul>
-    </>
-  );
+  const [icons, setIcons] = useState('FB');
+
+  const munVer = useMemo(() => {
+    return (
+      <>
+        <ul className="municipalities">
+          <Municipalities
+            data={municipalities}
+            showTrend="y"
+            icons={icons}
+          ></Municipalities>
+        </ul>
+      </>
+    );
+  }, [icons, municipalities]);
+
+  const clickHandler = event => {
+    const { target } = event;
+
+    if (icons === 'FB') {
+      setIcons('TW');
+      target.innerHTML = 'Prikaži FB ikone';
+      return;
+    }
+    if (icons === 'TW') {
+      setIcons('FB');
+      target.innerHTML = 'Prikaži TW ikone';
+      return;
+    }
+  };
 
   return (
-    <span className={check_municipalities}>
-      {munVer('FB')}
-      <Outro />
-      {munVer('TW')}
-    </span>
+    <div className={`cities ${check_municipalities}`}>
+      <button
+        id="cities-icons-btn"
+        className="btn social"
+        onClick={clickHandler}
+      >
+        Prikaži TW ikone
+      </button>
+      <Row end={false}>{title}: </Row>
+      {munVer}
+    </div>
   );
 }
 

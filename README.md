@@ -2,9 +2,23 @@
 
 Basic API extraction to serve Sledilnik's API data in a Social media form.
 
+## ver: 0.3.0
+
+Endpoints for data fetch are set in `urlDict.js`.
+
+### New Features
+
+- Displaying data as it is fetched.
+- Refresh each post separately.
+- Simple text editor with option to trim redundant new lines before posting on social media.
+- Twitter #Covid-19 button
+- Switch between Facebook and Twitter icons.
+- Show/Hide ratio trend check.
+- Post 2/3 (HOS): different text for FB and TW
+
 ## ver: 0.2.1
 
-Endpoints for data fetch are set in `apiPathObject.js`
+Endpoints for data fetch are set in `apiPathObject.js`.
 
 ### API Paths
 
@@ -141,92 +155,6 @@ Display 3 sets of data:
 
 ---
 
-#### Data Display
-
-##### Translate
-
-##### DataTranslate
-
-```javascript
-function DataTranslate({ number, text }) {
-  return (
-    <>
-      <span className="bold"> {number} </span>
-      <Translate text={text} number={number} />
-    </>
-  );
-}
-
-<DataTranslate number={327} text={'oseba'} />;
-```
-
-> Output: 327 oseb
-
-##### Intro
-
-##### Outro
-
----
-
-##### Emoji
-
-```javascript
-<Emoji emoji={'🇸🇮'} ariaLabel={'flag'} />
-```
-
-> Output: 🇸🇮
-
-##### Arrow
-
-##### Row
-
-```javascript
-const comfirmed = '148.556'
-<Row className="">Skupaj: {comfirmed} potrjenih primerov</Row>
-```
-
-> Output: ➡️ Skupaj 148.556 potrjenih primerov.
-
-```javascript
-const title = 'Stanje po bolnišnicah'
-<Row end={false}>{title}: </Row>
-```
-
-> Output: ➡️ Stanje po bolnišnicah:
-
-##### Brackets
-
-```javascript
-<Brackets>
-  {3}, {-1}
-</Brackets>
-```
-
-> Output: (3,-1)
-
-##### NoData
-
-```javascript
-<NoData className="text" html={{ tag: 'p', classes: 'bold red' }}>
-  Ni vseh podatkov za cepljene osebe
-</NoData>
-```
-
-> Output: ➡️ Ni vseh podatkov za cepljene osebe.
-
-```javascript
-const title = Potrjeni primeri po starosti
-const deltas = [1, NaN,...]
-const noData = true
-<Row>
-  {title}:{' '}
-  {noData && <NoData html={{ classes: 'bold' }}>manjkajoči podatki: </NoData>}{' '}
-  {deltas}
-</Row>
-```
-
-> Output: ➡️ Potrjeni primeri po starosti: **manjkajoči podatki:** ... .
-
 ## ver: 0.1.0
 
 - APIs are set in App.js
@@ -234,3 +162,7 @@ const noData = true
   - if you want to disable "Moralec" comment out RandomGenerator start and end
   - there are subcomponents for Delta and Percentage
 - municipalities have a complex algorithm, check Array
+
+```
+
+```

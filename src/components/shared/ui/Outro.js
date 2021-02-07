@@ -2,7 +2,7 @@ import React from 'react';
 import sledilnikLogo from '../../../assets/sledilnik-logo.svg';
 import { Row, Emoji } from '../ui/New';
 
-const Outro = () => {
+const Outro = ({ spark = true }) => {
   const emojis =
     '💨🏠,😷,🙎↔️↔️🙎‍♂️ + 👐🧼🚿 + #ObvestiSvojeStike + #OstaniZdrav 📲 & 🤞';
 
@@ -28,11 +28,13 @@ const Outro = () => {
     );
   };
 
-  const Logo = (
-    { className, src = '', alt = 'logo' },
+  const Logo = ({
+    className,
+    src = '',
+    alt = 'logo',
     width = '48',
-    height = '48'
-  ) => (
+    height = '48',
+  }) => (
     <img
       src={src}
       alt={alt}
@@ -42,13 +44,11 @@ const Outro = () => {
     />
   );
 
-  // TODO edit css .spark-link
   const SparkRow = () => (
     <Row noArrow={true} end={false}>
       <Spark />{' '}
       <Link
         text="SPARK"
-        className="spark-link"
         href="https://covid-spark.info"
         target="_blank"
         rel="noopener noreferrer"
@@ -60,7 +60,7 @@ const Outro = () => {
   return (
     <div className="Outro">
       <EmojisRow />
-      <SparkRow />
+      {spark && <SparkRow />}
       <Logo
         src={sledilnikLogo}
         alt="logo"
