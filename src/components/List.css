@@ -74,14 +74,14 @@ textarea {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--bcg-header-clr);
+  background-color: var(--bcg-body-clr);
   border-radius: 20px;
   overflow: auto;
   z-index: 300;
 }
 
-.alert-container div:first-child,
-.alert-container div:last-child {
+.alert-container > div:first-child,
+.alert-container > div:last-child {
   display: flex;
   align-items: center;
   flex-grow: 1;
@@ -90,22 +90,44 @@ textarea {
 .alert-clipboard {
   margin: 8px 8px;
   padding: 8px 16px;
-  border: solid 2px black;
-  border-radius: 8px;
   overflow: hidden;
   max-height: 50%;
 }
 
 .alert-clipboard:hover {
-  overflow-y: auto;
+  overflow: auto;
 }
 
-.alert-clipboard::-webkit-scrollbar {
-  background-color: rgba(0, 0, 0, 0.2);
+.btn.modal {
+  position: relative;
 }
 
-.alert-clipboard::-webkit-scrollbar:hover {
-  background-color: rgba(0, 0, 0, 1);
+.btn.modal .tooltipText {
+  visibility: hidden;
+  color: var(--black);
+  background-color: var(--white);
+  text-align: center;
+  min-width: 130px;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: -150%;
+  left: -25px;
+}
+
+.btn.modal .tooltipText::after {
+  content: ' ';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--white) transparent transparent transparent;
+}
+
+.btn.modal:hover .tooltipText {
+  visibility: visible;
 }
 
 @media only screen and (min-width: 576px) {

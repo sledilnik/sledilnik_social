@@ -4,7 +4,6 @@ import { Row, Brackets } from '../../shared/ui/New';
 import { formatNumber } from '../../../utils/formatNumber';
 
 function PerAge({ check_stats, title, todayPerAge, yesterdayPerAge }) {
-  // ? move logic to Combined
   const deltas = todayPerAge.map((item, i) => {
     const { ageFrom, ageTo } = item;
     const ageRange = `${ageFrom}${ageTo ? `-${ageTo}` : '+'}`;

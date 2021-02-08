@@ -9,7 +9,7 @@ import Header from './components/Header';
 import Legend from './components/Legend';
 import useFetch from './hooks/useFetch';
 
-import url from './urlDict';
+import url from './dict/urlDict';
 
 function App() {
   const getISODateFrom = num => addDays(new Date(), num).toISOString();
