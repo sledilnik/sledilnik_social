@@ -10,9 +10,14 @@ import './RJV.css';
 const getISODateFrom = num => addDays(new Date(), num).toISOString();
 const getISODate = date => format(date, 'yyyy-MM-dd');
 
-const getParams = params => {
+const dateParams = ['from', 'to', 'toDate'];
+const createIncludes = arr => key => arr.includes(key);
+const getIsDateParam = createIncludes(dateParams);
+
+const getParams = (params = {}) => {
   return Object.entries(params).reduce((acc, [key, value]) => {
-    acc[key] = getISODateFrom(value);
+    const isDateParam = getIsDateParam(key);
+    acc[key] = isDateParam ? getISODateFrom(value) : value;
     return acc;
   }, {});
 };
