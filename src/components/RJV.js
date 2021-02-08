@@ -79,7 +79,7 @@ function RJV() {
 
   const onRefreshClickHandler = () => refetch();
 
-  const onDateChange = event => {
+  const onDateChangeHandler = event => {
     const { value } = event.target;
     const name = event.target.name.replace('date-', '');
     const date = value ? new Date(value) : new Date();
@@ -89,9 +89,8 @@ function RJV() {
     }
   };
 
-  const onIdChange = event => {
+  const onIdChangeHandler = event => {
     const { value, name } = event.target;
-    console.log(name, value);
     setDates(prev => ({ ...prev, [name]: value }));
     console.log({ dates });
     updateFetchParams(prev => ({ ...prev, [name]: value }));
@@ -215,7 +214,7 @@ function RJV() {
                 <select
                   name="id"
                   id="id"
-                  onChange={onIdChange}
+                  onChange={onIdChangeHandler}
                   style={{ margin: '0 8px' }}
                   defaultValue={dates.id}
                 >
@@ -235,7 +234,7 @@ function RJV() {
                   defaultValue={dates.from.toString().slice(0, 10)}
                   min="2020-02-24"
                   max={getISODateFrom(0).slice(0, 10)}
-                  onChange={onDateChange}
+                  onChange={onDateChangeHandler}
                 />
               </>
             )}
@@ -250,7 +249,7 @@ function RJV() {
                   defaultValue={dates.to.toString().slice(0, 10)}
                   min="2020-02-24"
                   max={getISODateFrom(0).slice(0, 10)}
-                  onChange={onDateChange}
+                  onChange={onDateChangeHandler}
                 />
               </>
             )}
@@ -265,7 +264,7 @@ function RJV() {
                   defaultValue={dates.toDate.toString().slice(0, 10)}
                   min="2020-02-24"
                   max={getISODateFrom(0).slice(0, 10)}
-                  onChange={onDateChange}
+                  onChange={onDateChangeHandler}
                 />
               </>
             )}
