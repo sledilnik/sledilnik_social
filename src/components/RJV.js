@@ -91,7 +91,6 @@ function RJV() {
   const onIdChangeHandler = event => {
     const { value, name } = event.target;
     setParams(prev => ({ ...prev, [name]: value }));
-    console.log({ dates: params });
     updateFetchParams(prev => ({ ...prev, [name]: value }));
   };
 
