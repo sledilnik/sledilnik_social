@@ -49,7 +49,6 @@ function RJV() {
 
   const {
     data: fetchedData,
-    isLoading,
     hasError,
     updateUrl,
     updateParams: updateFetchParams,
@@ -287,22 +286,20 @@ function RJV() {
           </div>
         )}
       </div>
-      {fetchedData !== null && (
-        <Error hasError={hasError} hasData={!isLoading && fetchedData !== null}>
-          <div id="RJV">
-            <ReactJson
-              src={data}
-              name={name}
-              theme="monokai"
-              collapsed={2}
-              onEdit={onEdit}
-              onAdd={onAdd}
-              onDelete={onDelete}
-              style={{ margin: '8px', padding: '8px' }}
-            />
-          </div>
-        </Error>
-      )}
+      <Error hasError={hasError} hasData={!!data}>
+        <div id="RJV">
+          <ReactJson
+            src={data}
+            name={name}
+            theme="monokai"
+            collapsed={2}
+            onEdit={onEdit}
+            onAdd={onAdd}
+            onDelete={onDelete}
+            style={{ margin: '8px', padding: '8px' }}
+          />
+        </div>
+      </Error>
     </div>
   );
 }
