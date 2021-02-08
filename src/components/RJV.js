@@ -69,7 +69,7 @@ function RJV() {
   }, [path]);
 
   // API inputs & buttons
-  const onSelectChangeHandler = event => {
+  const onPathChangeHandler = event => {
     setParams(getParams(url[event.target.value].params));
     updateFetchParams(getParams(url[event.target.value].params));
     updateUrl(url[event.target.value].url);
@@ -186,7 +186,7 @@ function RJV() {
             <select
               name="path"
               id="path"
-              onChange={onSelectChangeHandler}
+              onChange={onPathChangeHandler}
               style={{ margin: '0 8px' }}
             >
               <option value="SUMMARY">summary</option>
