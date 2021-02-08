@@ -30,6 +30,7 @@ const pathTranslateDict = {
   PATIENTS: 'patients',
   MUN: 'municipalities',
   SCHOOLS: 'schools',
+  SCHOOL_STATUS: 'school-status',
 };
 
 const getPathTranslate = path => {
@@ -86,6 +87,14 @@ function RJV() {
     if (!value) {
       event.target.value = getISODate(date);
     }
+  };
+
+  const onIdChange = event => {
+    const { value, name } = event.target;
+    console.log(name, value);
+    setDates(prev => ({ ...prev, [name]: value }));
+    console.log({ dates });
+    updateParams(prev => ({ ...prev, [name]: value }));
   };
 
   const onUpdateClickHandler = event => {
@@ -190,6 +199,7 @@ function RJV() {
               <option value="MUN">municipalities</option>
               <option value="HOSPITALS_LIST">hospitals-list</option>
               <option value="SCHOOLS">schools</option>
+              <option value="SCHOOL_STATUS">school-status</option>
             </select>
             <button
               id="refresh"
@@ -199,6 +209,21 @@ function RJV() {
             >
               osveži
             </button>
+            {dates.id && (
+              <>
+                <label htmlFor="id">id</label>
+                <select
+                  name="id"
+                  id="id"
+                  onChange={onIdChange}
+                  style={{ margin: '0 8px' }}
+                  defaultValue={dates.id}
+                >
+                  <option value="711">711</option>
+                  <option value="1198">1198</option>
+                </select>
+              </>
+            )}
             {dates.from && (
               <>
                 <label htmlFor="date-from">from</label>
@@ -244,7 +269,7 @@ function RJV() {
                 />
               </>
             )}
-            {Object.keys(dates).length !== 0 && (
+            {Object.keys(dates).length !== 0 && !dates.id && (
               <button
                 id="update"
                 className="btn"
