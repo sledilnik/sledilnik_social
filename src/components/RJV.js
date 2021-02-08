@@ -47,8 +47,7 @@ const codeStyle = {
 function RJV() {
   const [path, setPath] = useState('SUMMARY');
   const [name, setName] = useState(getPathTranslate(path));
-  const params = getParams(url[path].params);
-  const [dates, setDates] = useState({ ...params });
+  const [params, setParams] = useState(getParams(url[path].params));
   const [data, setData] = useState({});
   const [showApi, setShowApi] = useState(true);
 
@@ -71,7 +70,7 @@ function RJV() {
 
   // API inputs & buttons
   const onSelectChangeHandler = event => {
-    setDates(getParams(url[event.target.value].params));
+    setParams(getParams(url[event.target.value].params));
     updateFetchParams(getParams(url[event.target.value].params));
     updateUrl(url[event.target.value].url);
     setPath(event.target.value);
@@ -83,7 +82,7 @@ function RJV() {
     const { value } = event.target;
     const name = event.target.name.replace('date-', '');
     const date = value ? new Date(value) : new Date();
-    setDates(prev => ({ ...prev, [name]: getISODate(date) }));
+    setParams(prev => ({ ...prev, [name]: getISODate(date) }));
     if (!value) {
       event.target.value = getISODate(date);
     }
@@ -91,13 +90,13 @@ function RJV() {
 
   const onIdChangeHandler = event => {
     const { value, name } = event.target;
-    setDates(prev => ({ ...prev, [name]: value }));
-    console.log({ dates });
+    setParams(prev => ({ ...prev, [name]: value }));
+    console.log({ dates: params });
     updateFetchParams(prev => ({ ...prev, [name]: value }));
   };
 
   const onUpdateClickHandler = event => {
-    updateFetchParams(dates);
+    updateFetchParams(params);
   };
 
   // FILE input
@@ -208,7 +207,7 @@ function RJV() {
             >
               osveži
             </button>
-            {dates.id && (
+            {params.id && (
               <>
                 <label htmlFor="id">id</label>
                 <select
@@ -216,14 +215,14 @@ function RJV() {
                   id="id"
                   onChange={onIdChangeHandler}
                   style={{ margin: '0 8px' }}
-                  defaultValue={dates.id}
+                  defaultValue={params.id}
                 >
                   <option value="711">711</option>
                   <option value="1198">1198</option>
                 </select>
               </>
             )}
-            {dates.from && (
+            {params.from && (
               <>
                 <label htmlFor="date-from">from</label>
                 <input
@@ -231,14 +230,14 @@ function RJV() {
                   name="date-from"
                   id="date-from"
                   style={{ margin: '0 8px' }}
-                  defaultValue={dates.from.toString().slice(0, 10)}
+                  defaultValue={params.from.toString().slice(0, 10)}
                   min="2020-02-24"
                   max={getISODateFrom(0).slice(0, 10)}
                   onChange={onDateChangeHandler}
                 />
               </>
             )}
-            {dates.to && (
+            {params.to && (
               <>
                 <label htmlFor="date-to">to</label>
                 <input
@@ -246,14 +245,14 @@ function RJV() {
                   name="date-to"
                   id="date-to"
                   style={{ margin: '0 8px' }}
-                  defaultValue={dates.to.toString().slice(0, 10)}
+                  defaultValue={params.to.toString().slice(0, 10)}
                   min="2020-02-24"
                   max={getISODateFrom(0).slice(0, 10)}
                   onChange={onDateChangeHandler}
                 />
               </>
             )}
-            {dates.toDate && (
+            {params.toDate && (
               <>
                 <label htmlFor="date-toDate">toDate</label>
                 <input
@@ -261,14 +260,14 @@ function RJV() {
                   name="date-toDate"
                   id="date-toDate"
                   style={{ margin: '0 8px' }}
-                  defaultValue={dates.toDate.toString().slice(0, 10)}
+                  defaultValue={params.toDate.toString().slice(0, 10)}
                   min="2020-02-24"
                   max={getISODateFrom(0).slice(0, 10)}
                   onChange={onDateChangeHandler}
                 />
               </>
             )}
-            {Object.keys(dates).length !== 0 && !dates.id && (
+            {Object.keys(params).length !== 0 && !params.id && (
               <button
                 id="update"
                 className="btn"
