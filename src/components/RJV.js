@@ -29,6 +29,7 @@ const pathTranslateDict = {
   STATS: 'stats',
   PATIENTS: 'patients',
   MUN: 'municipalities',
+  SCHOOLS: 'schools',
 };
 
 const getPathTranslate = path => {
@@ -188,6 +189,7 @@ function RJV() {
               <option value="STATS">stats</option>
               <option value="MUN">municipalities</option>
               <option value="HOSPITALS_LIST">hospitals-list</option>
+              <option value="SCHOOLS">schools</option>
             </select>
             <button
               id="refresh"
