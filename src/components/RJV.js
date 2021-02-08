@@ -156,7 +156,14 @@ function RJV() {
     );
   };
 
-  const ApiFileRadio = ({ id, value, defaultChecked, onClick, labelText }) => (
+  const ApiFileRadio = ({
+    id,
+    value,
+    defaultChecked,
+    onClick,
+    onChange,
+    labelText,
+  }) => (
     <>
       <input
         type="radio"
@@ -164,6 +171,7 @@ function RJV() {
         name="json-option"
         value={value}
         defaultChecked={defaultChecked}
+        onChange={onChange}
         onClick={onClick}
       />
       <label htmlFor={id}>{labelText ? labelText : id.toUpperCase()}</label>
@@ -213,6 +221,13 @@ function RJV() {
     ) : null;
   });
 
+  const onApiFileRadioChangeHandler = event => {
+    if (event.target.id === 'api' && name !== getPathTranslate(path)) {
+      setName(getPathTranslate(path));
+      refetch();
+    }
+  };
+
   return (
     <div className="RJV post">
       <div id="rjv-options" className="rjv-options-container">
@@ -229,12 +244,14 @@ function RJV() {
             id="api"
             value="api"
             defaultChecked={showApi}
+            onChange={onApiFileRadioChangeHandler}
             onClick={() => setShowApi(true)}
           />
           <ApiFileRadio
             id="pick-file"
             value="pick-file"
             defaultChecked={!showApi}
+            onChange={onApiFileRadioChangeHandler}
             onClick={() => setShowApi(false)}
           />
         </div>
