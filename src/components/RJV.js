@@ -7,12 +7,17 @@ import Error from './shared/Error';
 
 import './RJV.css';
 
+const DATA_COLLECT_START_DATE = '2020-02-24';
+
 const getISODateFrom = num => addDays(new Date(), num).toISOString();
 const getISODate = date => format(date, 'yyyy-MM-dd');
 
-const dateParams = ['from', 'to', 'toDate'];
 const createIncludes = arr => key => arr.includes(key);
+
+const dateParams = ['from', 'to', 'toDate'];
 const getIsDateParam = createIncludes(dateParams);
+const selectParams = ['id'];
+const selectParamsOptions = { id: [711, 1198] };
 
 const getParams = (params = {}) => {
   return Object.entries(params).reduce((acc, [key, value]) => {
@@ -23,26 +28,17 @@ const getParams = (params = {}) => {
 };
 
 const pathTranslateDict = {
-  HOSPITALS_LIST: 'hospitals-list',
-  LAB_TESTS: 'lab-tests',
   SUMMARY: 'summary',
-  STATS: 'stats',
+  LAB_TESTS: 'lab-tests',
   PATIENTS: 'patients',
+  STATS: 'stats',
   MUN: 'municipalities',
   SCHOOLS: 'schools',
   SCHOOL_STATUS: 'school-status',
+  HOSPITALS_LIST: 'hospitals-list',
 };
 
-const getPathTranslate = path => {
-  return pathTranslateDict[path] || path;
-};
-
-const codeStyle = {
-  background: 'lightgrey',
-  padding: '0 8px',
-  fontSize: '0.9em',
-  borderRadius: '10px',
-};
+const getPathTranslate = path => pathTranslateDict[path] || path;
 
 function RJV() {
   const [path, setPath] = useState('SUMMARY');
@@ -68,7 +64,7 @@ function RJV() {
     setName(getPathTranslate(path));
   }, [path]);
 
-  // API inputs & buttons
+  // API inputs & buttons handlers
   const onPathChangeHandler = event => {
     setParams(getParams(url[event.target.value].params));
     updateFetchParams(getParams(url[event.target.value].params));
@@ -98,7 +94,7 @@ function RJV() {
     updateFetchParams(params);
   };
 
-  // FILE input
+  // FILE input handlers
   const onFileChangeHandler = async event => {
     const file = event.target.files[0];
     const fileReader = new FileReader();
@@ -113,7 +109,7 @@ function RJV() {
     fileReader.readAsText(file);
   };
 
-  // RJV
+  // RJV handlers
   const onEdit = edit => setData(edit.updated_src);
   const onAdd = add => setData(add.updated_src);
   const onDelete = del => setData(del.updated_src);
@@ -137,140 +133,134 @@ function RJV() {
     downloadFile(filename, data);
   };
 
+  const selectPathOptions = Object.entries(pathTranslateDict).map(
+    ([key, value]) => (
+      <option key={key} value={key}>
+        {value}
+      </option>
+    )
+  );
+
+  const SelectInput = ({ id, onChange, defaultValue, children }) => {
+    return (
+      <>
+        <label htmlFor="path">{id}</label>
+        <select
+          name={id}
+          id={id}
+          onChange={onChange}
+          defaultValue={defaultValue}
+        >
+          {children}
+        </select>
+      </>
+    );
+  };
+
+  const ApiFileRadio = ({ id, value, defaultChecked, onClick, labelText }) => (
+    <>
+      <input
+        type="radio"
+        id={id}
+        name="json-option"
+        value={value}
+        defaultChecked={defaultChecked}
+        onClick={onClick}
+      />
+      <label htmlFor={id}>{labelText ? labelText : id.toUpperCase()}</label>
+    </>
+  );
+
+  const DateInput = ({ id, defaultValue }) => {
+    return (
+      <>
+        <label htmlFor={id}>{id}</label>
+        <input
+          type="date"
+          name={id}
+          id={id}
+          defaultValue={defaultValue.toString().slice(0, 10)}
+          min={DATA_COLLECT_START_DATE}
+          max={getISODateFrom(0).slice(0, 10)}
+          onChange={onDateChangeHandler}
+        />
+      </>
+    );
+  };
+
+  const dateInputs = dateParams.map(item =>
+    params[item] ? (
+      <DateInput key={item} id={item} defaultValue={params[item]} />
+    ) : null
+  );
+
+  const selectParamsChangeHandlersDict = { id: onIdChangeHandler };
+
+  const selectInputs = selectParams.map(item => {
+    const options = selectParamsOptions[item].map(value => (
+      <option key={value} value={value}>
+        {value}
+      </option>
+    ));
+    return params[item] ? (
+      <SelectInput
+        key={item}
+        id={item}
+        defaultValue={params[item]}
+        onChange={selectParamsChangeHandlersDict[item]}
+      >
+        {options}
+      </SelectInput>
+    ) : null;
+  });
+
   return (
-    <div
-      className="post"
-      style={{
-        margin: '8px 0',
-        padding: '16px 0',
-        minHeight: '200px',
-        minWidth: '80%',
-        fontSize: '0.9em',
-      }}
-    >
-      <div>
-        <section style={{ margin: '8px', fontSize: '0.9em' }}>
+    <div className="RJV post">
+      <div id="rjv-options" className="rjv-options-container">
+        <section>
           Keyboard Shortcuts <br /> To edit a value, try{' '}
-          <code style={codeStyle}>ctrl/cmd + click</code> enter edit mode <br />{' '}
-          When editing a value, try{' '}
-          <code style={codeStyle}>ctrl/cmd + Enter</code> to submit changes{' '}
-          <br /> When editing a value, try <code style={codeStyle}>Escape</code>{' '}
-          key to cancel <br /> When adding a new key, try{' '}
-          <code style={codeStyle}>Enter</code> to submit <br /> When adding a
-          new key, try <code style={codeStyle}>Escape</code> to cancel
+          <code>ctrl/cmd + click</code> enter edit mode <br /> When editing a
+          value, try <code>ctrl/cmd + Enter</code> to submit changes <br /> When
+          editing a value, try <code>Escape</code> key to cancel <br /> When
+          adding a new key, try <code>Enter</code> to submit <br /> When adding
+          a new key, try <code>Escape</code> to cancel
         </section>
-        <div style={{ margin: '8px', fontSize: '0.9em' }}>
-          <input
-            type="radio"
+        <div>
+          <ApiFileRadio
             id="api"
-            name="json-option"
             value="api"
             defaultChecked={showApi}
             onClick={() => setShowApi(true)}
-            style={{ margin: '0 8px' }}
           />
-          <label htmlFor="api">API</label>
-          <input
-            type="radio"
+          <ApiFileRadio
             id="pick-file"
-            name="json-option"
-            value="file"
+            value="pick-file"
+            defaultChecked={!showApi}
             onClick={() => setShowApi(false)}
-            style={{ margin: '0 8px' }}
           />
-          <label htmlFor="pick-file">Datoteka</label>
         </div>
         {showApi && (
-          <div style={{ margin: '8px', fontSize: '0.9em' }}>
-            <label htmlFor="path">path</label>
-            <select
-              name="path"
+          <div>
+            <SelectInput
               id="path"
               onChange={onPathChangeHandler}
-              style={{ margin: '0 8px' }}
+              defaultValue={path}
             >
-              <option value="SUMMARY">summary</option>
-              <option value="PATIENTS">patients</option>
-              <option value="LAB_TESTS">lab-tests</option>
-              <option value="STATS">stats</option>
-              <option value="MUN">municipalities</option>
-              <option value="HOSPITALS_LIST">hospitals-list</option>
-              <option value="SCHOOLS">schools</option>
-              <option value="SCHOOL_STATUS">school-status</option>
-            </select>
+              {selectPathOptions}
+            </SelectInput>
             <button
               id="refresh"
               className="btn"
-              style={{ margin: '0 8px' }}
               onClick={onRefreshClickHandler}
             >
               osveži
             </button>
-            {params.id && (
-              <>
-                <label htmlFor="id">id</label>
-                <select
-                  name="id"
-                  id="id"
-                  onChange={onIdChangeHandler}
-                  style={{ margin: '0 8px' }}
-                  defaultValue={params.id}
-                >
-                  <option value="711">711</option>
-                  <option value="1198">1198</option>
-                </select>
-              </>
-            )}
-            {params.from && (
-              <>
-                <label htmlFor="date-from">from</label>
-                <input
-                  type="date"
-                  name="date-from"
-                  id="date-from"
-                  style={{ margin: '0 8px' }}
-                  defaultValue={params.from.toString().slice(0, 10)}
-                  min="2020-02-24"
-                  max={getISODateFrom(0).slice(0, 10)}
-                  onChange={onDateChangeHandler}
-                />
-              </>
-            )}
-            {params.to && (
-              <>
-                <label htmlFor="date-to">to</label>
-                <input
-                  type="date"
-                  name="date-to"
-                  id="date-to"
-                  style={{ margin: '0 8px' }}
-                  defaultValue={params.to.toString().slice(0, 10)}
-                  min="2020-02-24"
-                  max={getISODateFrom(0).slice(0, 10)}
-                  onChange={onDateChangeHandler}
-                />
-              </>
-            )}
-            {params.toDate && (
-              <>
-                <label htmlFor="date-toDate">toDate</label>
-                <input
-                  type="date"
-                  name="date-toDate"
-                  id="date-toDate"
-                  style={{ margin: '0 8px' }}
-                  defaultValue={params.toDate.toString().slice(0, 10)}
-                  min="2020-02-24"
-                  max={getISODateFrom(0).slice(0, 10)}
-                  onChange={onDateChangeHandler}
-                />
-              </>
-            )}
+            {selectInputs}
+            {dateInputs}
             {Object.keys(params).length !== 0 && !params.id && (
               <button
                 id="update"
                 className="btn"
-                style={{ margin: '0 8px' }}
                 onClick={onUpdateClickHandler}
               >
                 posodobi
@@ -290,7 +280,7 @@ function RJV() {
             />
             <label htmlFor="file" className="btn">
               Izberi JSON datoteko
-            </label>{' '}
+            </label>
             <button className="btn" onClick={onSaveClick}>
               Shrani
             </button>
