@@ -15,4 +15,12 @@ export default {
     params: { from: -3, to: 0 },
   },
   SUMMARY: { url: `${BASE_API_URL}/api/summary`, params: { toDate: 0 } },
+  SCHOOLS: {
+    url: `${BASE_API_URL}/api/schools`,
+    params: { from: -4, to: 0 },
+  },
+  SCHOOL_STATUS: {
+    url: `${BASE_API_URL}/api/school-status`,
+    params: { id: '1198' },
+  },
 };
