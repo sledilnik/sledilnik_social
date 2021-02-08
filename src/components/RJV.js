@@ -57,7 +57,7 @@ function RJV() {
     isLoading,
     hasError,
     updateUrl,
-    updateParams,
+    updateParams: updateFetchParams,
     refetch,
   } = useFetch(url[path].url, params);
 
@@ -72,7 +72,7 @@ function RJV() {
   // API inputs & buttons
   const onSelectChangeHandler = event => {
     setDates(getParams(url[event.target.value].params));
-    updateParams(getParams(url[event.target.value].params));
+    updateFetchParams(getParams(url[event.target.value].params));
     updateUrl(url[event.target.value].url);
     setPath(event.target.value);
   };
@@ -94,11 +94,11 @@ function RJV() {
     console.log(name, value);
     setDates(prev => ({ ...prev, [name]: value }));
     console.log({ dates });
-    updateParams(prev => ({ ...prev, [name]: value }));
+    updateFetchParams(prev => ({ ...prev, [name]: value }));
   };
 
   const onUpdateClickHandler = event => {
-    updateParams(dates);
+    updateFetchParams(dates);
   };
 
   // FILE input
