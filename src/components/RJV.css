@@ -17,6 +17,7 @@ code {
 .RJV input,
 .RJV button {
   margin: 0 8px;
+  max-width: 40%;
 }
 
 .rjv-options-container > section,

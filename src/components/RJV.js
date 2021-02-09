@@ -5,6 +5,8 @@ import url from '../dict/rjvUrlDict';
 import { addDays, format } from 'date-fns';
 import Error from './shared/Error';
 
+import schoolsDict from '../dict/schoolsDict';
+
 import './RJV.css';
 
 const DATA_COLLECT_START_DATE = '2020-02-24';
@@ -17,7 +19,7 @@ const createIncludes = arr => key => arr.includes(key);
 const dateParams = ['from', 'to', 'toDate'];
 const getIsDateParam = createIncludes(dateParams);
 const selectParams = ['id'];
-const selectParamsOptions = { id: [711, 1198] };
+const selectParamsOptions = { id: schoolsDict };
 
 const getParams = (params = {}) => {
   return Object.entries(params).reduce((acc, [key, value]) => {
@@ -204,9 +206,9 @@ function RJV() {
   const selectParamsChangeHandlersDict = { id: onIdChangeHandler };
 
   const selectInputs = selectParams.map(item => {
-    const options = selectParamsOptions[item].map(value => (
-      <option key={value} value={value}>
-        {value}
+    const options = selectParamsOptions[item].map(item => (
+      <option key={item.zavid} value={item.zavid}>
+        {item.name}
       </option>
     ));
     return params[item] ? (
