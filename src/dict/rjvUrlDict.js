@@ -21,6 +21,6 @@ export default {
   },
   SCHOOL_STATUS: {
     url: `${BASE_API_URL}/api/school-status`,
-    params: { id: '1198' },
+    params: { id: '119' },
   },
 };
