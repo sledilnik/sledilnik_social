@@ -228,80 +228,79 @@ function RJV() {
     }
   };
 
+  const Help = () => (
+    <section>
+      Keyboard Shortcuts <br /> To edit a value, try{' '}
+      <code>ctrl/cmd + click</code> enter edit mode <br /> When editing a value,
+      try <code>ctrl/cmd + Enter</code> to submit changes <br /> When editing a
+      value, try <code>Escape</code> key to cancel <br /> When adding a new key,
+      try <code>Enter</code> to submit <br /> When adding a new key, try{' '}
+      <code>Escape</code> to cancel
+    </section>
+  );
+
+  const ApiFileRadioContainer = () => (
+    <div>
+      <ApiFileRadio
+        id="api"
+        value="api"
+        defaultChecked={showApi}
+        onChange={onApiFileRadioChangeHandler}
+        onClick={() => setShowApi(true)}
+      />
+      <ApiFileRadio
+        id="pick-file"
+        value="pick-file"
+        defaultChecked={!showApi}
+        onChange={onApiFileRadioChangeHandler}
+        onClick={() => setShowApi(false)}
+      />
+    </div>
+  );
+
+  const ApiInputs = () => (
+    <div>
+      <SelectInput id="path" onChange={onPathChangeHandler} defaultValue={path}>
+        {selectPathOptions}
+      </SelectInput>
+      <button id="refresh" className="btn" onClick={onRefreshClickHandler}>
+        osveži
+      </button>
+      {selectInputs}
+      {dateInputs}
+      {Object.keys(params).length !== 0 && !params.id && (
+        <button id="update" className="btn" onClick={onUpdateClickHandler}>
+          posodobi
+        </button>
+      )}
+    </div>
+  );
+
+  const FileInputs = () => (
+    <div className="file-input">
+      <input
+        type="file"
+        name="file"
+        id="file"
+        className="file"
+        accept=".json"
+        onChange={onFileChangeHandler}
+      />
+      <label htmlFor="file" className="btn">
+        Izberi JSON datoteko
+      </label>
+      <button className="btn" onClick={onSaveClick}>
+        Shrani
+      </button>
+    </div>
+  );
+
   return (
     <div className="RJV post">
       <div id="rjv-options" className="rjv-options-container">
-        <section>
-          Keyboard Shortcuts <br /> To edit a value, try{' '}
-          <code>ctrl/cmd + click</code> enter edit mode <br /> When editing a
-          value, try <code>ctrl/cmd + Enter</code> to submit changes <br /> When
-          editing a value, try <code>Escape</code> key to cancel <br /> When
-          adding a new key, try <code>Enter</code> to submit <br /> When adding
-          a new key, try <code>Escape</code> to cancel
-        </section>
-        <div>
-          <ApiFileRadio
-            id="api"
-            value="api"
-            defaultChecked={showApi}
-            onChange={onApiFileRadioChangeHandler}
-            onClick={() => setShowApi(true)}
-          />
-          <ApiFileRadio
-            id="pick-file"
-            value="pick-file"
-            defaultChecked={!showApi}
-            onChange={onApiFileRadioChangeHandler}
-            onClick={() => setShowApi(false)}
-          />
-        </div>
-        {showApi && (
-          <div>
-            <SelectInput
-              id="path"
-              onChange={onPathChangeHandler}
-              defaultValue={path}
-            >
-              {selectPathOptions}
-            </SelectInput>
-            <button
-              id="refresh"
-              className="btn"
-              onClick={onRefreshClickHandler}
-            >
-              osveži
-            </button>
-            {selectInputs}
-            {dateInputs}
-            {Object.keys(params).length !== 0 && !params.id && (
-              <button
-                id="update"
-                className="btn"
-                onClick={onUpdateClickHandler}
-              >
-                posodobi
-              </button>
-            )}
-          </div>
-        )}
-        {!showApi && (
-          <div className="file-input">
-            <input
-              type="file"
-              name="file"
-              id="file"
-              className="file"
-              accept=".json"
-              onChange={onFileChangeHandler}
-            />
-            <label htmlFor="file" className="btn">
-              Izberi JSON datoteko
-            </label>
-            <button className="btn" onClick={onSaveClick}>
-              Shrani
-            </button>
-          </div>
-        )}
+        <Help />
+        <ApiFileRadioContainer />
+        {showApi ? <ApiInputs /> : <FileInputs />}
       </div>
       <Error hasError={hasError} hasData={!!data}>
         <div id="RJV">
