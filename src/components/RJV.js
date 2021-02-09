@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactJson from 'react-json-view';
+import _ from 'lodash';
 import useFetch from '../hooks/useFetch';
 import url from '../dict/rjvUrlDict';
 import { addDays, format } from 'date-fns';
@@ -19,7 +20,7 @@ const createIncludes = arr => key => arr.includes(key);
 const dateParams = ['from', 'to', 'toDate'];
 const getIsDateParam = createIncludes(dateParams);
 const selectParams = ['id'];
-const selectParamsOptions = { id: schoolsDict };
+const selectParamsOptions = { id: _.orderBy(schoolsDict, 'name') };
 
 const getParams = (params = {}) => {
   return Object.entries(params).reduce((acc, [key, value]) => {
