@@ -44,6 +44,18 @@ code {
     monospace;
 }
 
+summary {
+  cursor: pointer;
+}
+
+summary:hover {
+  opacity: 0.8;
+}
+
+summary:focus {
+  outline: none;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 12px;
