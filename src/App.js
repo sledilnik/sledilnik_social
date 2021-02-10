@@ -10,8 +10,12 @@ import Legend from './components/Legend';
 import useFetch from './hooks/useFetch';
 
 import url from './dict/urlDict';
+
 import RJV from './components/RJV';
 import Fold from './components/Fold';
+
+import Timestamps from './components/Timestamps';
+import { TimestampsProvider } from './context/TimestampsContext';
 
 function App() {
   const getISODateFrom = num => addDays(new Date(), num).toISOString();
@@ -26,6 +30,9 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <TimestampsProvider>
+        <Timestamps />
+      </TimestampsProvider>
       <main className="main">
         <List
           statsHook={statsHook}
