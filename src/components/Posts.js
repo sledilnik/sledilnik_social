@@ -15,7 +15,7 @@ function Posts() {
     <section>
       <br />
       <Card summary="LAB" open={true}>
-        <Post>
+        <Post postNumber={1}>
           <PCR />
           <HAT />
           <ActiveCases />
@@ -23,7 +23,7 @@ function Posts() {
       </Card>
       <br />
       <Card summary="HOS">
-        <Post>
+        <Post postNumber={2}>
           <Hospitalized />
           <OnRespiratory />
           <Care />
@@ -32,7 +32,7 @@ function Posts() {
       </Card>
       <br />
       <Card summary="EPI">
-        <Post>
+        <Post postNumber={3}>
           <PCR />
           <HAT />
           <ActiveCases />
