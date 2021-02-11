@@ -7,11 +7,11 @@ import { API_URL } from '../dicts/urlDict';
 const dataDict = [
   {
     prefix: 'PCR: ',
-    data: ['subValues', 'positive'],
+    dataKeys: ['subValues', 'positive'],
     suffix: ', ',
     formatType: 'sign',
   },
-  { prefix: 'testiranih: ', data: ['value'], suffix: ', ' },
+  { prefix: 'testiranih: ', dataKeys: ['value'], suffix: ', ' },
   {
     prefix: 'delež pozitivnih: ',
     dataKeys: ['subValues', 'percent'],
