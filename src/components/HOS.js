@@ -1,7 +1,7 @@
 import React from 'react';
 import Post from './Post';
-import useFetch from '../../hooks/useFetch';
 import { API_URL, API_PARAMS } from '../dicts/urlDict';
+import useFetch from '../hooks/useFetch';
 
 function HOS({ data, hasHeader, hasFooter }) {
   return <Post data={data} hasHeader={hasHeader} hasFooter={hasFooter} />;

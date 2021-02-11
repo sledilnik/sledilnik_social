@@ -3,7 +3,7 @@ import {
   formatNumberWithSign,
   formatPercentage,
   formatNumber,
-} from '../../utils/formatNumber';
+} from '../utils/formatNumber';
 
 const Emoji = ({ emoji, ariaLabel }) => (
   <span role="img" aria-label={ariaLabel}>
@@ -16,8 +16,7 @@ const Arrow = () => <Emoji emoji={'➡️'} ariaLabel={'arrow'} />;
 function PresentData({ dataString }) {
   return (
     <p>
-      <Arrow />
-      {dataString}
+      <Arrow /> {dataString}
     </p>
   );
 }

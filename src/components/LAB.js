@@ -1,7 +1,7 @@
 import React from 'react';
 import Post from './Post';
 import { API_URL } from '../dicts/urlDict';
-import useFetch from '../../hooks/useFetch';
+import useFetch from './../hooks/useFetch';
 
 function LAB({ data, hasHeader, hasFooter }) {
   return <Post data={data} hasHeader={hasHeader} hasFooter={hasFooter} />;

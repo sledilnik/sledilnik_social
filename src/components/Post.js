@@ -14,7 +14,7 @@ function Post({ hasHeader = true, children, hasFooter = true }) {
 
 function withPostHOC(Component) {
   return props => {
-    return <Component props />;
+    return <Component {...props} />;
   };
 }
 

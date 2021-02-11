@@ -1,6 +1,6 @@
 import React from 'react';
+import Posts from './components/Posts';
 // import urlDict from './clean-start/dicts/urlDict';
-import Posts from './clean-start/components/Posts';
 // import { addDays } from 'date-fns';
 
 // import './App.css';
