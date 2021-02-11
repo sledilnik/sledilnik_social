@@ -2,10 +2,12 @@ import React from 'react';
 import LAB from './LAB';
 import Card from './Card';
 import HOS from './HOS';
+import PCR from './PCR';
 
 function Posts() {
   return (
     <section>
+      <PCR />
       {/* <Card summary={'LAB'} open={true}>
         <LAB />
       </Card>
