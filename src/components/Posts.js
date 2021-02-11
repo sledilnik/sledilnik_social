@@ -1,14 +1,16 @@
 import React from 'react';
 
+import Card from './Card';
+import Post from './Post';
+
 import PCR from './PCR';
+import HAT from './HAT';
+import ActiveCases from './ActiveCases';
+
 import Hospitalized from './Hospitalized';
 import OnRespiratory from './OnRespiratory';
 import Care from './Care';
 import Deceased from './Deceased';
-import HAT from './HAT';
-import ActiveCases from './ActiveCases';
-import Post from './Post';
-import Card from './Card';
 
 function Posts() {
   return (
