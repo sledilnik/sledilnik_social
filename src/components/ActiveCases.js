@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PresentData from './PresentData';
-import { API_URL } from '../dicts/urlDict';
-import useFetch from '../hooks/useFetch';
 import { summaryDict } from './dataDict';
 import getTranslatedData from '../utils/getTranslatedData';
+import { DataContext } from '../context/DataContext';
 
 // path summary
 const dataDict = summaryDict.casesActive;
@@ -16,7 +15,7 @@ function ActiveCases({ data, ...props }) {
 
 function withActiveCases_HOC(Component) {
   return ({ ...props }) => {
-    const hook = useFetch(API_URL.SUMMARY);
+    const { summary: hook } = useContext(DataContext);
 
     if (hook.isLoading) {
       return 'Loading....';

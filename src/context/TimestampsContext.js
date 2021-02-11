@@ -1,5 +1,5 @@
 import React, { createContext, useMemo, useState, useEffect } from 'react';
-import { TIMESTAMP_URL } from '../dict/urlDict';
+import { TIMESTAMP_URL } from '../dicts/urlDict';
 import useFetch from '../hooks/useFetch';
 
 export const TimestampsContext = createContext();

@@ -9,6 +9,7 @@ import HAT from './HAT';
 import ActiveCases from './ActiveCases';
 import Post from './Post';
 import Card from './Card';
+
 function Posts() {
   return (
     <section>

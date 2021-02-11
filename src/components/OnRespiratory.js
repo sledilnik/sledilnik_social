@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PresentData from './PresentData';
-import { API_URL, API_PARAMS } from '../dicts/urlDict';
-import useFetch from '../hooks/useFetch';
 import { patients } from './dataDict';
 import getTranslatedData from '../utils/getTranslatedData';
+import { DataContext } from '../context/DataContext';
 
 // path patients
 const dataDict = patients.onRespiratory;
@@ -16,7 +15,7 @@ function OnRespiratory({ data, ...props }) {
 
 function withOnRespiratoryHOC(Component) {
   return ({ ...props }) => {
-    const hook = useFetch(API_URL.PATIENTS, API_PARAMS.PATIENTS);
+    const { patients: hook } = useContext(DataContext);
 
     if (hook.isLoading) {
       return 'Loading....';

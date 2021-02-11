@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PresentData from './PresentData';
-import { API_URL, API_PARAMS } from '../dicts/urlDict';
-import useFetch from '../hooks/useFetch';
 import { patients } from './dataDict';
 import getTranslatedData from '../utils/getTranslatedData';
+import { DataContext } from '../context/DataContext';
 
 // path patients
 const dataDict = patients.hospitalized;
@@ -16,17 +15,17 @@ function Hospitalized({ data, ...props }) {
 
 function withHospitalizedHOC(Component) {
   return ({ ...props }) => {
-    const hook = useFetch(API_URL.PATIENTS, API_PARAMS.PATIENTS);
+    const { patients } = useContext(DataContext);
 
-    if (hook.isLoading) {
+    if (patients.isLoading) {
       return 'Loading....';
     }
 
-    if (hook.data === null) {
+    if (patients.data === null) {
       return 'Null';
     }
 
-    const sortedData = [...hook.data].sort(
+    const sortedData = [...patients.data].sort(
       (a, b) => b.dayFromStart - a.dayFromStart
     );
 
