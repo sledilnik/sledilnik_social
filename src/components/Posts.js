@@ -17,6 +17,7 @@ import Vaccination from './Vaccination';
 import PerAge from './PerAge';
 import { TimestampsContext } from '../context/TimestampsContext';
 import InHospitals from './InHospitals';
+import Municipalities from './Municipalities';
 
 const LAB = () => {
   const { labTests, cases } = useContext(TimestampsContext);
@@ -69,6 +70,7 @@ const EPI = () => {
         <Care />
         <Deceased />
         <InHospitals />
+        <Municipalities icons="FB" />
       </Post>
     </Card>
   );

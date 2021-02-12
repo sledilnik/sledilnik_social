@@ -208,3 +208,7 @@ export const stats = {
     ...perAge,
   ],
 };
+
+export const municipalities = {
+  perCityTrend: [{ prefix: 'Po krajih:' }],
+};
