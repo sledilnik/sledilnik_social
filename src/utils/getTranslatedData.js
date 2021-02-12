@@ -1,14 +1,26 @@
 const getValue = (dataItem, keys) => {
-  if (keys.length > 1)
+  if (keys.length > 1) {
     return getValue(dataItem[keys[0]], keys.slice(1, keys.length));
+  }
+
   return dataItem[keys[0]];
 };
 export default function getTranslatedData(dict, data) {
   return dict.map(item => {
+    if (item.dataKeys === undefined) {
+      return { ...item, data: null };
+    }
+
     if (item.calculate?.what === 'diff') {
       const values = item.calculate.indexArray.map(index => {
+        if (index instanceof Array) {
+          const newData = getValue(data, index);
+          return getValue(newData, item.dataKeys);
+        }
+
         return getValue(data[index], item.dataKeys);
       });
+
       return { ...item, data: values[0] - values[1] };
     }
 
