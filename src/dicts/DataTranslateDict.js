@@ -200,7 +200,7 @@ const perAge = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].reduce((acc, item) => {
   ];
   return acc;
 }, []);
-export const stats = {
+export const FBStatsDict = {
   statePerAgeToDate: [
     {
       prefix: 'Potrjeni primeri po starosti: ',
@@ -209,6 +209,6 @@ export const stats = {
   ],
 };
 
-export const municipalities = {
+export const FBMunicipalitiesDict = {
   perCityTrend: [{ prefix: 'Po krajih:' }],
 };

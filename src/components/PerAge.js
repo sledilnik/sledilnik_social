@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import PresentData from './PresentData';
-import { stats } from '../dicts/DataTranslateDict';
+import { FBStatsDict } from '../dicts/DataTranslateDict';
 import getTranslatedData from '../utils/getTranslatedData';
 import { DataContext } from '../context/DataContext';
 
 // path patients
-const DataTranslateDict = stats.statePerAgeToDate;
+const DataTranslateDict = FBStatsDict.statePerAgeToDate;
 
 function PerAge({ data, ...props }) {
   const translatedData = getTranslatedData(DataTranslateDict, data);

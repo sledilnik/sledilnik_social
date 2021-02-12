@@ -1,14 +1,18 @@
 import React, { useMemo, useContext } from 'react';
 import _ from 'lodash';
-import { formatNumberWithSign } from './../utils/formatNumber';
 import municipalitiesDict from '../dicts/MunicipalitiesDict';
-import { DataContext } from '../context/DataContext';
-import PresentData from './PresentData';
-import { municipalities } from '../dicts/DataTranslateDict';
+
+import { FBMunicipalitiesDict } from '../dicts/DataTranslateDict';
+
+import { formatNumberWithSign } from './../utils/formatNumber';
 import getTranslatedData from '../utils/getTranslatedData';
+
+import { DataContext } from '../context/DataContext';
 import { SocialContext } from '../context/SocialContext';
 
-const DataTranslateDict = municipalities.perCityTrend;
+import PresentData from './PresentData';
+
+const DataTranslateDict = FBMunicipalitiesDict.perCityTrend;
 
 // platform friendly icons
 const FB_ICONS = {
