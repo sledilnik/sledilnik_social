@@ -43,18 +43,31 @@ const getFormatedNumber = (
 function withPresentDataHOC(Component) {
   return ({ data, ...props }) => {
     const output = data.map(item => {
-      const {
-        prefix = '',
-        data,
-        suffix = '',
-        formatType,
-        negative,
-        divide,
-      } = item;
+      const prefix = item.prefix ? item.prefix : '';
+      const suffix = item.suffix ? item.suffix : '';
 
+      if (item.data === null) {
+        return `${prefix}${suffix}`;
+      }
+
+      const { formatType, negative } = item;
+
+      if (item.data === undefined) {
+        console.log(item);
+      }
+
+      if (item.data === null) {
+        console.log(item);
+      }
+
+      if (isNaN(item.data)) {
+        console.log('isNaN: ', item);
+      }
+
+      // ? isNaN
       const formatedNumber =
-        !isNaN(data) &&
-        getFormatedNumber(data, divide, {
+        !isNaN(item.data) &&
+        getFormatedNumber(item.data, item.divide, {
           formatType,
           negative,
         });
