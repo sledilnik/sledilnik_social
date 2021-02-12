@@ -1,6 +1,7 @@
 import React from 'react';
 import Posts from './components/Posts';
 import { DataProvider } from './context/DataContext';
+import { TimestampsProvider } from './context/TimestampsContext';
 
 // import './App.css';
 
@@ -15,11 +16,13 @@ function App() {
   return (
     <div className="App">
       <header>Header</header>
-      <main>
-        <DataProvider>
-          <Posts />
-        </DataProvider>
-      </main>
+      <TimestampsProvider>
+        <main>
+          <DataProvider>
+            <Posts />
+          </DataProvider>
+        </main>
+      </TimestampsProvider>
       <footer>Footer</footer>
     </div>
   );
