@@ -12,8 +12,6 @@ import { SocialContext } from '../context/SocialContext';
 
 import PresentData from './PresentData';
 
-const DataTranslateDict = FBMunicipalitiesDict.perCityTrend;
-
 // platform friendly icons
 const FB_ICONS = {
   down: '⤵',
@@ -95,6 +93,7 @@ const Municipalities = ({ data = new Map(), showTrend = 'y' }) => {
     return display;
   }, [data, icons, showTrend]);
 
+  const DataTranslateDict = FBMunicipalitiesDict.perCityTrend;
   const translatedData = getTranslatedData(DataTranslateDict);
 
   return (
