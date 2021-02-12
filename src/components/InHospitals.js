@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { DataContext } from '../context/DataContext';
 import { formatNumber, formatNumberWithSign } from '../utils/formatNumber';
 import PresentData from './PresentData';
-import { patients } from '../dicts/DataTranslateDict';
+import { FBPatientsDict } from '../dicts/DataTranslateDict';
 import getTranslatedData from '../utils/getTranslatedData';
 
-const DataTranslateDict = patients.inHospitals;
+const DataTranslateDict = FBPatientsDict.inHospitals;
 
 const dictionary = [
   [

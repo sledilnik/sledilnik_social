@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PresentData from './PresentData';
 
-import { patients } from '../dicts/DataTranslateDict';
+import { FBPatientsDict } from '../dicts/DataTranslateDict';
 import { TWPatientsDict } from '../dicts/TwitterTranslateDict';
 
 import getTranslatedData from '../utils/getTranslatedData';
@@ -14,7 +14,7 @@ function Care({ data, ...props }) {
   const { social } = useContext(SocialContext);
 
   const DataTranslateDict =
-    social === 'FB' ? patients.care : TWPatientsDict.care;
+    social === 'FB' ? FBPatientsDict.care : TWPatientsDict.care;
   const translatedData = getTranslatedData(DataTranslateDict, data);
 
   return <PresentData data={translatedData} props={props} />;

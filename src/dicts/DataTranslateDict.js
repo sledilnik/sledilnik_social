@@ -68,7 +68,7 @@ export const FBSummaryDict = {
   ],
 };
 
-export const patients = {
+export const FBPatientsDict = {
   hospitalized: [
     {
       prefix: 'Hospitalizirani: ',
