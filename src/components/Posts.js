@@ -16,6 +16,7 @@ import ComfirmedToDate from './ConfirmedToDate';
 import Vaccination from './Vaccination';
 import PerAge from './PerAge';
 import { TimestampsContext } from '../context/TimestampsContext';
+import InHospitals from './InHospitals';
 
 const LAB = () => {
   const { labTests, cases } = useContext(TimestampsContext);
@@ -67,6 +68,7 @@ const EPI = () => {
         <OnRespiratory />
         <Care />
         <Deceased />
+        <InHospitals />
       </Post>
     </Card>
   );
