@@ -4,7 +4,7 @@ import { formatNumberWithSign } from './../utils/formatNumber';
 import municipalitiesDict from '../dicts/MunicipalitiesDict';
 import { DataContext } from '../context/DataContext';
 import PresentData from './PresentData';
-import { municipalities } from './dataDict';
+import { municipalities } from '../dicts/dataDict';
 import getTranslatedData from '../utils/getTranslatedData';
 
 const dataDict = municipalities.perCityTrend;

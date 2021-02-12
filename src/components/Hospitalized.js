@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PresentData from './PresentData';
-import { patients } from './dataDict';
+import { patients } from '../dicts/dataDict';
 import getTranslatedData from '../utils/getTranslatedData';
 import { DataContext } from '../context/DataContext';
 

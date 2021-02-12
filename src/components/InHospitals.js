@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { DataContext } from '../context/DataContext';
 import { formatNumber, formatNumberWithSign } from '../utils/formatNumber';
 import PresentData from './PresentData';
-import { patients } from './dataDict';
+import { patients } from '../dicts/dataDict';
 import getTranslatedData from '../utils/getTranslatedData';
 
 const dataDict = patients.inHospitals;
