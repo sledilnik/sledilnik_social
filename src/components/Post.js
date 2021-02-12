@@ -1,5 +1,6 @@
 import React from 'react';
 import sledilnikLogo from '../assets/sledilnik-logo.svg';
+import { format } from 'date-fns';
 
 const mainComponentsNames = ['LAB', 'HOS', 'EPI'];
 
@@ -90,7 +91,12 @@ const Outro = ({ spark = true }) => {
 };
 
 function Post({ postNumber, hasHeader = true, children, hasFooter = true }) {
-  const header = hasHeader && <Intro postNumber={postNumber} />;
+  const header = hasHeader && (
+    <Intro
+      postNumber={postNumber}
+      introTodayDate={format(new Date(), 'dd.MM.yyyy')}
+    />
+  );
   const footer = hasFooter && <Outro />;
   return (
     <article>
