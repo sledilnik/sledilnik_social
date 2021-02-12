@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import PresentData from './PresentData';
-import { patients } from '../dicts/dataDict';
+import { patients } from '../dicts/DataTranslateDict';
 import getTranslatedData from '../utils/getTranslatedData';
 import { DataContext } from '../context/DataContext';
 
 // path patients
-const dataDict = patients.onRespiratory;
+const DataTranslateDict = patients.onRespiratory;
 
 function OnRespiratory({ data, ...props }) {
-  const translatedData = getTranslatedData(dataDict, data);
+  const translatedData = getTranslatedData(DataTranslateDict, data);
 
   return <PresentData data={translatedData} props={props} />;
 }

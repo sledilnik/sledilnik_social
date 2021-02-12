@@ -4,11 +4,11 @@ import { formatNumberWithSign } from './../utils/formatNumber';
 import municipalitiesDict from '../dicts/MunicipalitiesDict';
 import { DataContext } from '../context/DataContext';
 import PresentData from './PresentData';
-import { municipalities } from '../dicts/dataDict';
+import { municipalities } from '../dicts/DataTranslateDict';
 import getTranslatedData from '../utils/getTranslatedData';
 import { SocialContext } from '../context/SocialContext';
 
-const dataDict = municipalities.perCityTrend;
+const DataTranslateDict = municipalities.perCityTrend;
 
 // platform friendly icons
 const FB_ICONS = {
@@ -91,7 +91,7 @@ const Municipalities = ({ data = new Map(), showTrend = 'y' }) => {
     return display;
   }, [data, icons, showTrend]);
 
-  const translatedData = getTranslatedData(dataDict);
+  const translatedData = getTranslatedData(DataTranslateDict);
 
   return (
     <>

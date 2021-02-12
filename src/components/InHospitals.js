@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { DataContext } from '../context/DataContext';
 import { formatNumber, formatNumberWithSign } from '../utils/formatNumber';
 import PresentData from './PresentData';
-import { patients } from '../dicts/dataDict';
+import { patients } from '../dicts/DataTranslateDict';
 import getTranslatedData from '../utils/getTranslatedData';
 
-const dataDict = patients.inHospitals;
+const DataTranslateDict = patients.inHospitals;
 
 const dictionary = [
   [
@@ -110,7 +110,7 @@ function InHospitals({ perHospitalChanges }) {
     .sort(sortDescByPatients)
     .map(createHospitalOutput);
 
-  const translatedData = getTranslatedData(dataDict);
+  const translatedData = getTranslatedData(DataTranslateDict);
 
   return (
     <div>

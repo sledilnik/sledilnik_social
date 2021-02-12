@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import PresentData from './PresentData';
-import { summaryDict } from '../dicts/dataDict';
+import { summaryDict } from '../dicts/DataTranslateDict';
 import getTranslatedData from '../utils/getTranslatedData';
 import { DataContext } from '../context/DataContext';
 
 // path summary
-const dataDict = summaryDict.testsToday;
+const DataTranslateDict = summaryDict.testsToday;
 
 function PCR({ data, ...props }) {
-  const translatedData = getTranslatedData(dataDict, data);
+  const translatedData = getTranslatedData(DataTranslateDict, data);
 
   return <PresentData data={translatedData} props={props} />;
 }

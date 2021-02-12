@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import PresentData from './PresentData';
-import { stats } from '../dicts/dataDict';
+import { stats } from '../dicts/DataTranslateDict';
 import getTranslatedData from '../utils/getTranslatedData';
 import { DataContext } from '../context/DataContext';
 
 // path patients
-const dataDict = stats.statePerAgeToDate;
+const DataTranslateDict = stats.statePerAgeToDate;
 
 function PerAge({ data, ...props }) {
-  const translatedData = getTranslatedData(dataDict, data);
+  const translatedData = getTranslatedData(DataTranslateDict, data);
 
   return <PresentData data={translatedData} props={props} />;
 }
