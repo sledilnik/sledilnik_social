@@ -6,6 +6,7 @@ import { DataContext } from '../context/DataContext';
 import PresentData from './PresentData';
 import { municipalities } from '../dicts/dataDict';
 import getTranslatedData from '../utils/getTranslatedData';
+import { SocialContext } from '../context/SocialContext';
 
 const dataDict = municipalities.perCityTrend;
 
@@ -63,7 +64,11 @@ const getIconOrTrend = (icons, trend, showTrend) =>
     </i>
   );
 
-const Municipalities = ({ data = new Map(), showTrend = 'y', icons = '' }) => {
+const Municipalities = ({ data = new Map(), showTrend = 'y' }) => {
+  const context = useContext(SocialContext);
+
+  const icons = context.social;
+
   const memoDisplay = useMemo(() => {
     const display = [];
     for (const [count, townsByDiff] of data) {

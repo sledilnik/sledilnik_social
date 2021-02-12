@@ -1,28 +1,46 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Posts from './components/Posts';
 import { DataProvider } from './context/DataContext';
+import { SocialProvider, SocialContext } from './context/SocialContext';
 import { TimestampsProvider } from './context/TimestampsContext';
 
 // import './App.css';
 
+const SocialChanger = () => {
+  const context = useContext(SocialContext);
+
+  const socialHandler = () => {
+    const button = document.getElementById('social-changer');
+    if (context.social === 'FB') {
+      button.innerText = 'Prikaži FB ikone';
+      context.setSocial('TW');
+      return;
+    }
+    button.innerText = 'Prikaži TW ikone';
+    context.setSocial('FB');
+  };
+
+  return (
+    <button id="social-changer" onClick={socialHandler}>
+      Prikaži TW ikone
+    </button>
+  );
+};
+
 function App() {
-  // const getISODateFrom = num => addDays(new Date(), num).toISOString();
-
-  // const statsHook = useFetch(url.STATS, { from: getISODateFrom(-4) });
-  // const municipalitiesHook = useFetch(url.MUN, { from: getISODateFrom(-18) });
-  // const hospitalsListHook = useFetch(url.HOSPITALS_LIST);
-  // const labTestsHook = useFetch(url.LAB_TESTS, { from: getISODateFrom(-3) });
-
   return (
     <div className="App">
       <header>Header</header>
-      <TimestampsProvider>
-        <main>
-          <DataProvider>
-            <Posts />
-          </DataProvider>
-        </main>
-      </TimestampsProvider>
+      <main>
+        <TimestampsProvider>
+          <SocialProvider>
+            <SocialChanger />
+            <DataProvider>
+              <Posts />
+            </DataProvider>
+          </SocialProvider>
+        </TimestampsProvider>
+      </main>
       <footer>Footer</footer>
     </div>
   );
