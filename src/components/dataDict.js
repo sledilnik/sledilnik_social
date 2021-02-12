@@ -55,6 +55,17 @@ export const summaryDict = {
       negative: true,
     },
   ],
+  casesToDateSummary: [
+    {
+      prefix: 'Skupaj: ',
+      dataKeys: ['value'],
+      suffix: ' potrjenih primerov.',
+    },
+  ],
+  vaccinationSummary: [
+    { prefix: 'Cepljenih oseb: 💉', dataKeys: ['value'], suffix: ', ' },
+    { prefix: '💉💉', dataKeys: ['subValues', 'in'], suffix: '.' },
+  ],
 };
 
 export const patients = {
@@ -155,6 +166,44 @@ export const patients = {
       suffix: ', ',
       formatType: 'sign',
     },
-    { prefix: 'skupaj: ', dataKeys: ['0', 'total', 'deceased', 'toDate'] },
+    {
+      prefix: 'skupaj: ',
+      dataKeys: ['0', 'total', 'deceased', 'toDate'],
+      suffix: '.',
+    },
+  ],
+};
+
+const perAge = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].reduce((acc, item) => {
+  acc = [
+    ...acc,
+    {
+      dataKeys: ['0', 'statePerAgeToDate', item, 'ageFrom'],
+      suffix: item === 9 ? '' : '-',
+    },
+    item === 9
+      ? { prefix: '+' }
+      : { dataKeys: ['0', 'statePerAgeToDate', item, 'ageTo'], suffix: ' ' },
+    {
+      prefix: '(',
+      dataKeys: ['allToDate'],
+      calculate: {
+        what: 'diff',
+        indexArray: [
+          ['1', 'statePerAgeToDate', item],
+          ['2', 'statePerAgeToDate', item],
+        ],
+      },
+      suffix: item === 9 ? ').' : '), ',
+    },
+  ];
+  return acc;
+}, []);
+export const stats = {
+  statePerAgeToDate: [
+    {
+      prefix: 'Potrjeni primeri po starosti: ',
+    },
+    ...perAge,
   ],
 };
