@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import PresentData from './PresentData';
-import { summaryDict } from '../dicts/DataTranslateDict';
+import { FBSummaryDict } from '../dicts/DataTranslateDict';
 import getTranslatedData from '../utils/getTranslatedData';
 import { DataContext } from '../context/DataContext';
 
 // path summary
-const DataTranslateDict = summaryDict.vaccinationSummary;
+const DataTranslateDict = FBSummaryDict.vaccinationSummary;
 
 function Vaccination({ data, ...props }) {
   const translatedData = getTranslatedData(DataTranslateDict, data);
