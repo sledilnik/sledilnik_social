@@ -1,13 +1,21 @@
 import React, { useContext } from 'react';
 import PresentData from './PresentData';
+
 import { patients } from '../dicts/DataTranslateDict';
+import { TWPatientsDict } from './../dicts/TwitterTranslateDict';
+
 import getTranslatedData from '../utils/getTranslatedData';
+
 import { DataContext } from '../context/DataContext';
+import { SocialContext } from './../context/SocialContext';
 
 // path patients
-const DataTranslateDict = patients.hospitalized;
 
 function Hospitalized({ data, ...props }) {
+  const { social } = useContext(SocialContext);
+
+  const DataTranslateDict =
+    social === 'FB' ? patients.hospitalized : TWPatientsDict.hospitalized;
   const translatedData = getTranslatedData(DataTranslateDict, data);
 
   return <PresentData data={translatedData} props={props} />;
