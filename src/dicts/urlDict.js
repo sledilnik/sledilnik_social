@@ -17,7 +17,7 @@ export const API_URL = {
 export const API_PARAMS = {
   PATIENTS: { from: getISODateFrom(-3) },
   STATS: { from: getISODateFrom(-4) },
-  MUN: { from: getISODateFrom(-17) },
+  MUN: { from: getISODateFrom(-18) },
 };
 export const TIMESTAMP_URL = {
   LAB_TESTS: `${BASE_TIMESTAMP_URL}/lab-tests.csv.timestamp`,
