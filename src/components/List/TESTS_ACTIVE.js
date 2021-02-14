@@ -14,7 +14,7 @@ import {
 import { getDate } from '../../utils/dates';
 import Error from '../shared/Error';
 
-function TESTS_ACTIVE({ css, cases, regTests, hagtTests, errors }) {
+function TESTS_ACTIVE({ css, cases, regTests, hagtTests, errors, version }) {
   const { regToday, regPerformed, regFraction } =
     regTests !== undefined && regTests;
   const { hagtPerformed } = hagtTests !== undefined && hagtTests;
@@ -30,6 +30,7 @@ function TESTS_ACTIVE({ css, cases, regTests, hagtTests, errors }) {
             numerator={formatNumberWithSign(regToday)}
             denominator={formatNumber(regPerformed)}
             percent={formatPercentage(regFraction)}
+            end={version === 'TW' ? false : true}
           />
         </Error>
         <Error hasData={!!hagtPerformed} hasError={errors.labTests}>
