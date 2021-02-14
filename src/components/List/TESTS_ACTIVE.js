@@ -4,6 +4,8 @@ import { differenceInDays } from 'date-fns';
 import PercentageRow from './TESTS_ACTIVE/PercentageRow';
 import ActiveCasesRow from './TESTS_ACTIVE/ActiveCasesRow';
 
+import { Row } from './../shared/ui/New';
+
 import {
   formatNumberWithSign,
   formatNumber,
@@ -12,11 +14,10 @@ import {
 import { getDate } from '../../utils/dates';
 import Error from '../shared/Error';
 
-function TESTS_ACTIVE({ css, cases, regTests, hagtTests, errors }) {
+function TESTS_ACTIVE({ css, cases, regTests, hagtTests, errors, version }) {
   const { regToday, regPerformed, regFraction } =
     regTests !== undefined && regTests;
-  const { hagtToday, hagtPerformed, hagtFraction } =
-    hagtTests !== undefined && hagtTests;
+  const { hagtPerformed } = hagtTests !== undefined && hagtTests;
   const { casesActive, casesActiveIn, casesActiveOut } =
     cases !== undefined && cases;
 
@@ -29,15 +30,14 @@ function TESTS_ACTIVE({ css, cases, regTests, hagtTests, errors }) {
             numerator={formatNumberWithSign(regToday)}
             denominator={formatNumber(regPerformed)}
             percent={formatPercentage(regFraction)}
+            end={version === 'TW' ? false : true}
           />
         </Error>
-        <Error hasData={!!hagtToday} hasError={errors.labTests}>
-          <PercentageRow
-            title={'HAT'}
-            numerator={formatNumberWithSign(hagtToday)}
-            denominator={formatNumber(hagtPerformed)}
-            percent={formatPercentage(hagtFraction)}
-          />
+        <Error hasData={!!hagtPerformed} hasError={errors.labTests}>
+          <Row>
+            HAT: <span className="bold">{formatNumber(hagtPerformed)}</span>{' '}
+            testiranih (*ni podatka o pozitivnih)
+          </Row>
         </Error>
       </section>
       <section className={css?.check_summary}>
