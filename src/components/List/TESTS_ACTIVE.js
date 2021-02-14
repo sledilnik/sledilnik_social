@@ -17,8 +17,7 @@ import Error from '../shared/Error';
 function TESTS_ACTIVE({ css, cases, regTests, hagtTests, errors }) {
   const { regToday, regPerformed, regFraction } =
     regTests !== undefined && regTests;
-  const { hagtToday, hagtPerformed, hagtFraction } =
-    hagtTests !== undefined && hagtTests;
+  const { hagtPerformed } = hagtTests !== undefined && hagtTests;
   const { casesActive, casesActiveIn, casesActiveOut } =
     cases !== undefined && cases;
 
