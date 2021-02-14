@@ -78,6 +78,24 @@ const Alert = ({ text, setShowAlert }) => {
   );
 };
 
+const SocialButton = ({ version, setVersion }) => {
+  const socialHandler = event => {
+    if (version === 'TW') {
+      setVersion('FB');
+      return;
+    }
+    if (version === 'FB') {
+      setVersion('TW');
+      return;
+    }
+  };
+  return (
+    <button id="icons-hos-btn" className="btn social" onClick={socialHandler}>
+      Prikaži za {version === 'FB' ? 'TW' : 'FB'}
+    </button>
+  );
+};
+
 const List = ({
   statsHook,
   patientsHook,
@@ -130,27 +148,6 @@ const List = ({
     );
   };
 
-  const SocialButton = () => {
-    const socialHandler = event => {
-      const { target } = event;
-      setVersion(prev => {
-        if (prev === 'FB') {
-          target.innerHTML = 'Prikaži za FB';
-          return 'TW';
-        }
-        if (prev === 'TW') {
-          target.innerHTML = 'Prikaži za TW';
-          return 'FB';
-        }
-      });
-    };
-    return (
-      <button id="icons-hos-btn" className="btn social" onClick={socialHandler}>
-        Prikaži za TW
-      </button>
-    );
-  };
-
   return (
     <div className="List">
       <TrimNewLines />
@@ -159,16 +156,21 @@ const List = ({
           <RefreshButton
             refetch={[labTestsHook.refetch, summaryHook.refetch]}
           />
+          <SocialButton version={version} setVersion={setVersion} />
           <CopyButton id="lab" />
         </div>
         <Intro post={1} introTodayDate={introTodayDate} />
-        <TESTS_ACTIVE labTestsHook={labTestsHook} summaryHook={summaryHook} />
+        <TESTS_ACTIVE
+          labTestsHook={labTestsHook}
+          summaryHook={summaryHook}
+          version={version}
+        />
         <Outro />
       </section>
       <section id="HOS" className="post">
         <div className="section-btn">
           <RefreshButton refetch={[patientsHook.refetch]} />
-          <SocialButton />
+          <SocialButton version={version} setVersion={setVersion} />
           <CopyButton id="hos" />
         </div>
         <Intro post={2} introTodayDate={introTodayDate} />
