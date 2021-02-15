@@ -77,7 +77,7 @@ function withPresentDataHOC(Component) {
       const key = `${index}-${prefix}${number}${suffix}`;
 
       return (
-        <span key={key} style={{ fontWeight: number ? 700 : 400 }}>
+        <span key={key} style={{ fontWeight: item.style === null ? 400 : 700 }}>
           {prefix}
           {number}
           {suffix}
