@@ -52,34 +52,29 @@ function withPresentDataHOC(Component) {
 
       const { formatType, negative } = item;
 
-      // if (item.data === undefined) {
-      //   console.log('isUndefined: ', item);
-      // }
-
-      // if (item.data === null) {
-      //   console.log('isNull: ', item);
-      // }
-
-      // if (isNaN(item.data)) {
-      //   console.log('isNaN: ', item);
-      // }
+      let output;
+      if (formatType === 'string') {
+        output = item.data;
+      }
 
       // ? isNaN
-      const formatedNumber =
-        !isNaN(item.data) &&
-        getFormatedNumber(item.data, item.divide, {
-          formatType,
-          negative,
-        });
+      if (formatType !== 'string') {
+        const formatedNumber =
+          !isNaN(item.data) &&
+          getFormatedNumber(item.data, item.divide, {
+            formatType,
+            negative,
+          });
 
-      const number = formatedNumber || ' - ';
+        output = formatedNumber || ' - ';
+      }
 
-      const key = `${index}-${prefix}${number}${suffix}`;
+      const key = `${index}-${prefix}${output}${suffix}`;
 
       return (
         <span key={key} style={{ fontWeight: item.style === null ? 400 : 700 }}>
           {prefix}
-          {number}
+          {output}
           {suffix}
         </span>
       );
