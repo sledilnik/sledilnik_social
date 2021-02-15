@@ -80,11 +80,8 @@ function Posts() {
   return (
     <section>
       <LAB />
-      <br />
       <HOS />
-      <br />
       <EPI />
-      <br />
     </section>
   );
 }
