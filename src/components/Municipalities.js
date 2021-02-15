@@ -66,11 +66,7 @@ const getIconOrTrend = (icons, trend, showTrend) =>
     </i>
   );
 
-const Municipalities = ({ data = new Map(), showTrend = 'y' }) => {
-  const context = useContext(SocialContext);
-
-  const icons = context.social;
-
+const Municipalities = ({ data = new Map(), showTrend = 'y', icons }) => {
   const memoDisplay = useMemo(() => {
     const display = [];
     for (const [count, townsByDiff] of data) {
@@ -140,6 +136,7 @@ const createCalculatedRegions = perDayRegions => {
 function withMunicipalitiesHOC(Component) {
   return ({ ...props }) => {
     const { municipalities: hook } = useContext(DataContext);
+    const { social } = useContext(SocialContext);
 
     if (hook.isLoading) {
       return 'Loading....';
@@ -235,7 +232,7 @@ function withMunicipalitiesHOC(Component) {
     const newProps = {
       data,
       showTrend: props.showTrend,
-      icons: props.icons,
+      icons: social,
     };
 
     return <Component {...newProps} />;
