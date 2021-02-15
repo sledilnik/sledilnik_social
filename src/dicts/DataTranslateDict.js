@@ -44,6 +44,13 @@ export const FBSummaryDict = {
     { dataKeys: ['value'] },
     { prefix: ', 💉💉', dataKeys: ['subValues', 'in'], suffix: '.' },
   ],
+  noSubValues: {
+    testsTodayHAT: [
+      { prefix: 'HAT: ' },
+      { dataKeys: ['value'] },
+      { prefix: ' (*ni podatka o pozitivnih).' },
+    ],
+  },
 };
 
 export const FBPatientsDict = {
