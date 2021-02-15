@@ -1,70 +1,16 @@
 import React, { useContext } from 'react';
 import { DataContext } from '../context/DataContext';
-import { formatNumber, formatNumberWithSign } from '../utils/formatNumber';
 import PresentData from './PresentData';
 import { FBPatientsDict } from '../dicts/DataTranslateDict';
 import getTranslatedData from '../utils/getTranslatedData';
 
-const DataTranslateDict = FBPatientsDict.inHospitals;
+function InHospital({ hospShort, data }) {
+  const DataTranslateDict = FBPatientsDict.inHospital;
+  const translatedData = getTranslatedData(DataTranslateDict, data);
 
-const dictionary = [
-  [
-    'preminula oseba',
-    'preminuli osebi',
-    'osebe preminule',
-    'osebe preminule',
-    'preminulih oseb',
-  ],
-  [
-    'potrjeni primer',
-    'potrjena primera',
-    'potrjeni primeri',
-    'potrjeni primeri',
-    'potrjenih primerov',
-  ],
-  ['zdravi', 'zdravita', 'zdravijo', 'zdravijo', 'zdravi'],
-  ['oseba', 'osebi', 'osebe', 'osebe', 'oseb'],
-];
-
-const Translate = ({ number, text }) => {
-  let variable = '';
-
-  if (number > 5) {
-    number = 5;
-  }
-
-  dictionary.forEach(translation => {
-    if (translation[0] === text) {
-      variable = translation[number - 1];
-    }
-  });
-
-  return <span>{variable}</span>;
-};
-
-function DataTranslate({ number, text }) {
-  return (
-    <>
-      <span className="bold"> {number} </span>
-      <Translate text={text} number={number} />
-    </>
-  );
-}
-
-function InHospital({ hospShort, hospitalName, hosp, icu }) {
   return (
     <li key={hospShort}>
-      <span className="bold">{hospitalName}</span>:{' '}
-      <DataTranslate number={hosp.number} text={'oseba'} />{' '}
-      <span className="bold">
-        ({hosp.in}, {hosp.out})
-      </span>
-      , EIT:
-      <DataTranslate number={icu.number} text={'oseba'} />{' '}
-      <span className="bold">
-        ({icu.in}, {icu.out})
-      </span>
-      .
+      <PresentData data={translatedData} noArrow={true} />
     </li>
   );
 }
@@ -76,21 +22,6 @@ function InHospitals({ perHospitalChanges }) {
   const createHospitalOutput = hosp => {
     const { inHospital, icu } = hosp[1];
 
-    // we want to display property 'out' as negative number
-    const negHospOut = -inHospital.out;
-    const negIcuOut = -icu.out;
-
-    const formattedInHospital = {
-      number: isNaN(inHospital.today) ? '-' : formatNumber(inHospital.today),
-      in: isNaN(inHospital.in) ? '-' : formatNumberWithSign(inHospital.in),
-      out: isNaN(negHospOut) ? '-' : formatNumberWithSign(negHospOut),
-    };
-    const foramttedIcu = {
-      number: isNaN(icu.today) ? '-' : formatNumber(icu.today),
-      in: isNaN(icu.in) ? '-' : formatNumberWithSign(icu.in),
-      out: isNaN(negIcuOut) ? '-' : formatNumberWithSign(negIcuOut),
-    };
-
     const noHospitalData = hosp[1].inHospital.today === undefined;
 
     return noHospitalData ? (
@@ -99,9 +30,12 @@ function InHospitals({ perHospitalChanges }) {
       <InHospital
         key={hosp[0]}
         hospShort={hosp[0]}
-        hospitalName={hosp[2]}
-        hosp={{ ...formattedInHospital }}
-        icu={{ ...foramttedIcu }}
+        data={{
+          hospitalName: hosp[2],
+          inHospital,
+          icu,
+          translateText: 'oseba',
+        }}
       />
     );
   };
@@ -110,6 +44,7 @@ function InHospitals({ perHospitalChanges }) {
     .sort(sortDescByPatients)
     .map(createHospitalOutput);
 
+  const DataTranslateDict = FBPatientsDict.inHospitals;
   const translatedData = getTranslatedData(DataTranslateDict);
 
   return (
@@ -138,11 +73,14 @@ function withInHospitalsHOC(Component) {
       return 'Null';
     }
 
-    const data = getInHospitalsData(hookHospitals.data, hookPatients.data);
+    const { perHospitalChanges } = getInHospitalsData(
+      hookHospitals.data,
+      hookPatients.data
+    );
 
     const newProps = {
       ...props,
-      perHospitalChanges: data.perHospitalChanges,
+      perHospitalChanges,
     };
 
     return <Component {...newProps} />;
