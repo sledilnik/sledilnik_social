@@ -1,5 +1,4 @@
 import React from 'react';
-import sledilnikLogo from '../assets/sledilnik-logo.svg';
 import { format } from 'date-fns';
 
 const mainComponentsNames = ['LAB', 'HOS', 'EPI'];
@@ -44,22 +43,6 @@ const Outro = ({ spark = true }) => {
     );
   };
 
-  const Logo = ({
-    className,
-    src = '',
-    alt = 'logo',
-    width = '48',
-    height = '48',
-  }) => (
-    <img
-      src={src}
-      alt={alt}
-      className={className}
-      width={width}
-      height={height}
-    />
-  );
-
   const SparkRow = () => (
     <>
       <Spark />{' '}
@@ -77,15 +60,6 @@ const Outro = ({ spark = true }) => {
     <div>
       <EmojisRow />
       <div>{spark && <SparkRow />}</div>
-      <div>
-        <Logo
-          src={sledilnikLogo}
-          alt="logo"
-          className="logoCenter"
-          width="48"
-          height="48"
-        />
-      </div>
     </div>
   );
 };
