@@ -13,10 +13,10 @@ const Emoji = ({ emoji, ariaLabel }) => (
 
 const Arrow = () => <Emoji emoji={'➡️'} ariaLabel={'arrow'} />;
 
-function PresentData({ dataString }) {
+function PresentData({ dataString, noArrow = false }) {
   return (
     <p>
-      <Arrow /> {dataString}
+      {!noArrow && <Arrow />} {dataString}
     </p>
   );
 }
@@ -41,7 +41,7 @@ const getFormatedNumber = (
 };
 
 function withPresentDataHOC(Component) {
-  return ({ data, ...props }) => {
+  return ({ data, noArrow = false, ...props }) => {
     const output = data.map((item, index) => {
       const prefix = item.prefix ? item.prefix : '';
       const suffix = item.suffix ? item.suffix : '';
