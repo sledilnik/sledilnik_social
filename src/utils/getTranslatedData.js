@@ -1,3 +1,7 @@
+const dictionary = {
+  oseba: ['oseba', 'osebi', 'osebe', 'osebe', 'oseb'],
+};
+
 const getValue = (dataItem, keys) => {
   if (keys.length > 1) {
     return getValue(dataItem[keys[0]], keys.slice(1, keys.length));
@@ -29,6 +33,17 @@ export default function getTranslatedData(dict, data) {
         return getValue(data[0][item.dataKeys], keys);
       });
       return { ...item, data: values[0] + values[1] };
+    }
+
+    if (item.calculate?.what === 'translate') {
+      const value = getValue(data, item.calculate.dataKeys);
+      const dict = dictionary[data[item.dataKeys[0]]];
+      let index = 0;
+      index = value === 2 ? 1 : index;
+      index = value === 3 ? 2 : index;
+      index = value === 4 ? 3 : index;
+      index = value > 4 ? 4 : index;
+      return { ...item, data: dict[index] };
     }
 
     const value = getValue(data, item.dataKeys);
