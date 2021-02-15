@@ -42,7 +42,7 @@ const getFormatedNumber = (
 
 function withPresentDataHOC(Component) {
   return ({ data, ...props }) => {
-    const output = data.map(item => {
+    const output = data.map((item, index) => {
       const prefix = item.prefix ? item.prefix : '';
       const suffix = item.suffix ? item.suffix : '';
 
@@ -52,17 +52,17 @@ function withPresentDataHOC(Component) {
 
       const { formatType, negative } = item;
 
-      if (item.data === undefined) {
-        console.log(item);
-      }
+      // if (item.data === undefined) {
+      //   console.log('isUndefined: ', item);
+      // }
 
-      if (item.data === null) {
-        console.log(item);
-      }
+      // if (item.data === null) {
+      //   console.log('isNull: ', item);
+      // }
 
-      if (isNaN(item.data)) {
-        console.log('isNaN: ', item);
-      }
+      // if (isNaN(item.data)) {
+      //   console.log('isNaN: ', item);
+      // }
 
       // ? isNaN
       const formatedNumber =
@@ -74,7 +74,15 @@ function withPresentDataHOC(Component) {
 
       const number = formatedNumber || ' - ';
 
-      return `${prefix}${number}${suffix}`;
+      const key = `${index}-${prefix}${number}${suffix}`;
+
+      return (
+        <span key={key} style={{ fontWeight: number ? 700 : 400 }}>
+          {prefix}
+          {number}
+          {suffix}
+        </span>
+      );
     });
 
     const newProps = { ...props, dataString: output };
