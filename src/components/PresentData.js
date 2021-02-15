@@ -80,7 +80,7 @@ function withPresentDataHOC(Component) {
       );
     });
 
-    const newProps = { ...props, dataString: output };
+    const newProps = { ...props, dataString: output, noArrow };
 
     return <Component {...newProps} />;
   };
