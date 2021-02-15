@@ -38,12 +38,8 @@ export default function getTranslatedData(dict, data) {
     if (item.calculate?.what === 'translate') {
       const value = getValue(data, item.calculate.dataKeys);
       const dict = dictionary[data[item.dataKeys[0]]];
-      let index = 0;
-      index = value === 0 || value > 4 ? 4 : index;
-      index = value === 2 ? 1 : index;
-      index = value === 3 ? 2 : index;
-      index = value === 4 ? 3 : index;
-      return { ...item, data: dict[index] };
+      const index = value > 5 ? 5 : value;
+      return { ...item, data: dict[index - 1] };
     }
 
     const value = getValue(data, item.dataKeys);
