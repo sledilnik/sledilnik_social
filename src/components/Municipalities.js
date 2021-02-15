@@ -78,7 +78,10 @@ const Municipalities = ({ data = new Map(), showTrend = 'y', icons }) => {
             {town.next ? (
               ', '
             ) : (
-              <span className="bold"> {formatNumberWithSign(count)}</span>
+              <span style={{ fontWeight: 700 }}>
+                {' '}
+                {formatNumberWithSign(count)}
+              </span>
             )}
           </span>
         );
