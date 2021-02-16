@@ -1,7 +1,14 @@
 import React from 'react';
 import DataRow from './DataRow';
 
-function Output({ data, defaultTexts, TextsDict, keyTitle, ...props }) {
+function Output({
+  data,
+  defaultTexts,
+  TextsDict,
+  keyTitle,
+  noArrow = false,
+  ...props
+}) {
   const { social, kindOfData } = props;
   const texts = {
     ...defaultTexts,
@@ -16,7 +23,7 @@ function Output({ data, defaultTexts, TextsDict, keyTitle, ...props }) {
     </span>
   ));
 
-  return <DataRow dataString={output} />;
+  return <DataRow dataString={output} noArrow={noArrow} />;
 }
 
 export default Output;
