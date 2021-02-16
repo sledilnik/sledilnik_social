@@ -6,3 +6,13 @@
   box-shadow: 0 1px 3px 0 var(--box-shadow);
   border-radius: 6px;
 }
+
+.Card > summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Card > summary > div {
+  font-size: 0.8em;
+}
