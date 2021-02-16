@@ -10,6 +10,8 @@
 
 .Post > p {
   margin: 4px 0;
+  text-indent: -26px;
+  padding-left: 26px;
 }
 
 .Post li {
