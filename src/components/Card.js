@@ -1,4 +1,7 @@
 import React from 'react';
+
+import './Card.css';
+
 import { formatRelative } from 'date-fns';
 import { sl } from 'date-fns/locale';
 
@@ -30,7 +33,7 @@ function Card({ summary, dates = {}, children, open = false }) {
   ));
 
   return (
-    <details open={open}>
+    <details className="Card" open={open}>
       <summary>
         <h2>{summary}</h2>
         {datesOutput}
