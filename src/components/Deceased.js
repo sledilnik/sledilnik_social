@@ -1,28 +1,35 @@
 import React, { useContext } from 'react';
-import PresentData from './PresentData';
-
-import { FBPatientsDict } from '../dicts/DataTranslateDict';
-import { TWPatientsDict } from '../dicts/TwitterTranslateDict';
-
-import getTranslatedData from '../utils/getTranslatedData';
 
 import { DataContext } from '../context/DataContext';
 import { SocialContext } from '../context/SocialContext';
 
+import { formatNumberWithSign, formatNumber } from '../utils/formatNumber';
+
+import Output from './Output';
+
 // path patients
-function Deceased({ data, ...props }) {
-  const { social } = useContext(SocialContext);
 
-  const DataTranslateDict =
-    social === 'FB' ? FBPatientsDict.deceased : TWPatientsDict.deceased;
-  const translatedData = getTranslatedData(DataTranslateDict, data);
+const TextsDict = {
+  FB: {
+    default: {
+      text1: 'Umrli: ',
+      text2: ', skupaj: ',
+      text3: '.',
+    },
+    onlyValue: {},
+  },
+  TW: {
+    default: {},
+    onValue: {},
+  },
+};
 
-  return <PresentData data={translatedData} props={props} />;
-}
+const defaultTexts = TextsDict.FB.default;
 
 function withDeceasedHOC(Component) {
   return ({ ...props }) => {
     const { patients: hook } = useContext(DataContext);
+    const { social } = useContext(SocialContext);
 
     if (hook.isLoading) {
       return 'Loading....';
@@ -36,9 +43,24 @@ function withDeceasedHOC(Component) {
       (a, b) => b.dayFromStart - a.dayFromStart
     );
 
-    const newProps = { ...props, data: sortedData };
+    const kindOfData = 'default';
+
+    const newData = {
+      value1: formatNumberWithSign(sortedData[0].total.deceased.today),
+      value2: formatNumber(sortedData[0].total.deceased.toDate),
+    };
+
+    const newProps = {
+      ...props,
+      data: newData,
+      social,
+      kindOfData,
+      defaultTexts,
+      TextsDict,
+      keyTitle: 'Deceased',
+    };
 
     return <Component {...newProps} />;
   };
 }
-export default withDeceasedHOC(Deceased);
+export default withDeceasedHOC(Output);

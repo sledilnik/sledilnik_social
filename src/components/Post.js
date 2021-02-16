@@ -12,7 +12,7 @@ const Emoji = ({ emoji, ariaLabel }) => (
 const Intro = ({ postNumber, introTodayDate }) => {
   const postsCount = mainComponentsNames.length;
   return (
-    <h3 className="Intro text">
+    <h3>
       <span>
         Status #COVID19 <Emoji emoji={'🇸🇮'} ariaLabel={'flag'} /> {postNumber}/
         {postsCount} {introTodayDate}
@@ -29,15 +29,9 @@ const Outro = ({ spark = true }) => {
 
   const Spark = () => <Emoji emoji={'✨'} ariaLabel="spark" />;
 
-  const Link = ({
-    text = '',
-    className = '',
-    href = '',
-    target = '',
-    rel = '',
-  }) => {
+  const Link = ({ text = '', href = '', target = '', rel = '' }) => {
     return (
-      <a className={className} href={href} target={target} rel={rel}>
+      <a href={href} target={target} rel={rel}>
         {text ? text : href}
       </a>
     );

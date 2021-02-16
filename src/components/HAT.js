@@ -1,28 +1,37 @@
 import React, { useContext } from 'react';
-import PresentData from './PresentData';
-
-import getTranslatedData from '../utils/getTranslatedData';
 
 import { DataContext } from '../context/DataContext';
 import { SocialContext } from '../context/SocialContext';
 
-import { FBSummaryDict } from '../dicts/DataTranslateDict';
-import { TWSummaryDict } from '../dicts/TwitterTranslateDict';
+import {
+  formatNumber,
+  formatNumberWithSign,
+  formatPercentage,
+} from '../utils/formatNumber';
 
-// path summary
-function HAT({ data, ...props }) {
-  const subValuesNotExists = Object.keys(data.subValues).length === 0;
+import Output from './Output';
 
-  const DataTranslateDict = subValuesNotExists
-    ? FBSummaryDict.noSubValues.testsTodayHAT
-    : props.social === 'FB'
-    ? FBSummaryDict.testsTodayHAT
-    : TWSummaryDict.testsTodayHAT;
+const TextsDict = {
+  FB: {
+    default: {
+      text1: 'HAT: ',
+      text2: ', testiranih: ',
+      text3: ', delež pozitivnih: ',
+      text4: '.',
+    },
+    onlyValue: {
+      text2: ' testiranih (*ni podatka o pozitivnih).',
+      text3: '',
+      text4: '',
+    },
+  },
+  TW: {
+    default: { text4: '' },
+    onValue: {},
+  },
+};
 
-  const translatedData = getTranslatedData(DataTranslateDict, data);
-
-  return <PresentData data={translatedData} props={props} />;
-}
+const defaultTexts = TextsDict.FB.default;
 
 function withHAT_HOC(Component) {
   return ({ ...props }) => {
@@ -37,11 +46,34 @@ function withHAT_HOC(Component) {
       return 'Null';
     }
 
-    const { testsTodayHAT } = hook.data;
+    const {
+      value,
+      subValues: { positive, percent },
+    } = hook.data.testsTodayHAT;
 
-    const newProps = { ...props, data: testsTodayHAT, social };
+    const kindOfData =
+      value && !!positive && !!percent ? 'default' : 'onlyValue';
+
+    const newData =
+      kindOfData === 'default'
+        ? {
+            value1: formatNumberWithSign(positive),
+            value2: formatNumber(value),
+            value3: formatPercentage(percent),
+          }
+        : { value1: formatNumber(value) };
+
+    const newProps = {
+      ...props,
+      data: newData,
+      social,
+      kindOfData,
+      defaultTexts,
+      TextsDict,
+      keyTitle: 'HAT',
+    };
 
     return <Component {...newProps} />;
   };
 }
-export default withHAT_HOC(HAT);
+export default withHAT_HOC(Output);

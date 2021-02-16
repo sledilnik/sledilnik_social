@@ -1,21 +1,35 @@
 import React, { useContext } from 'react';
-import PresentData from './PresentData';
-import { FBSummaryDict } from '../dicts/DataTranslateDict';
-import getTranslatedData from '../utils/getTranslatedData';
+
 import { DataContext } from '../context/DataContext';
+import { SocialContext } from '../context/SocialContext';
+
+import { formatNumber } from '../utils/formatNumber';
+
+import Output from './Output';
 
 // path summary
-const DataTranslateDict = FBSummaryDict.casesToDateSummary;
 
-function ConfirmedToDate({ data, ...props }) {
-  const translatedData = getTranslatedData(DataTranslateDict, data);
+const TextsDict = {
+  FB: {
+    default: {
+      text1: 'Skupaj: ',
+      text2: '',
+      text3: ' potrjenih primerov.',
+    },
+    onlyValue: {},
+  },
+  TW: {
+    default: {},
+    onValue: {},
+  },
+};
 
-  return <PresentData data={translatedData} props={props} />;
-}
+const defaultTexts = TextsDict.FB.default;
 
 function withConfirmedToDate_HOC(Component) {
   return ({ ...props }) => {
     const { summary: hook } = useContext(DataContext);
+    const { social } = useContext(SocialContext);
 
     if (hook.isLoading) {
       return 'Loading....';
@@ -27,9 +41,23 @@ function withConfirmedToDate_HOC(Component) {
 
     const { casesToDateSummary } = hook.data;
 
-    const newProps = { ...props, data: casesToDateSummary };
+    const kindOfData = 'default';
+
+    const newData = {
+      value1: formatNumber(casesToDateSummary.value),
+    };
+
+    const newProps = {
+      ...props,
+      data: newData,
+      social,
+      kindOfData,
+      defaultTexts,
+      TextsDict,
+      keyTitle: 'ConfirmedToDate',
+    };
 
     return <Component {...newProps} />;
   };
 }
-export default withConfirmedToDate_HOC(ConfirmedToDate);
+export default withConfirmedToDate_HOC(Output);

@@ -1,45 +1,81 @@
 import React, { useContext } from 'react';
-import PresentData from './PresentData';
-
-import { FBPatientsDict } from '../dicts/DataTranslateDict';
-import { TWPatientsDict } from './../dicts/TwitterTranslateDict';
-
-import getTranslatedData from '../utils/getTranslatedData';
 
 import { DataContext } from '../context/DataContext';
 import { SocialContext } from './../context/SocialContext';
 
+import { formatNumberWithSign, formatNumber } from '../utils/formatNumber';
+
+import Output from './Output';
+
 // path patients
 
-function Hospitalized({ data, ...props }) {
-  const { social } = useContext(SocialContext);
+const TextsDict = {
+  FB: {
+    default: {
+      text1: 'Hospitalizirani: ',
+      text2: ' ',
+      text3: ', EIT: ',
+      text4: ' ',
+      text5: '.',
+    },
+    onlyValue: {},
+  },
+  TW: {
+    default: { text2: '', text4: '' },
+    onValue: {},
+  },
+};
 
-  const DataTranslateDict =
-    social === 'FB' ? FBPatientsDict.hospitalized : TWPatientsDict.hospitalized;
-  const translatedData = getTranslatedData(DataTranslateDict, data);
+const defaultTexts = TextsDict.FB.default;
 
-  return <PresentData data={translatedData} props={props} />;
-}
+const Brackets = ({ children }) => <>({children})</>;
 
 function withHospitalizedHOC(Component) {
   return ({ ...props }) => {
-    const { patients } = useContext(DataContext);
+    const { patients: hook } = useContext(DataContext);
+    const { social } = useContext(SocialContext);
 
-    if (patients.isLoading) {
+    if (hook.isLoading) {
       return 'Loading....';
     }
 
-    if (patients.data === null) {
+    if (hook.data === null) {
       return 'Null';
     }
 
-    const sortedData = [...patients.data].sort(
+    const sortedData = [...hook.data].sort(
       (a, b) => b.dayFromStart - a.dayFromStart
     );
 
-    const newProps = { ...props, data: sortedData };
+    const kindOfData = 'default';
 
+    const newData = {
+      value1: formatNumber(sortedData[0].total.inHospital.today),
+      value2: (
+        <Brackets>
+          {formatNumberWithSign(sortedData[0].total.inHospital.in)},{' '}
+          {formatNumberWithSign(-sortedData[0].total.inHospital.out)}
+        </Brackets>
+      ),
+      value3: formatNumber(sortedData[0].total.icu.today),
+      value4: (
+        <Brackets>
+          {formatNumberWithSign(sortedData[0].total.inHospital.today) -
+            sortedData[1].total.inHospital.today}
+        </Brackets>
+      ),
+    };
+
+    const newProps = {
+      ...props,
+      data: newData,
+      social,
+      kindOfData,
+      defaultTexts,
+      TextsDict,
+      keyTitle: 'ActiveCases',
+    };
     return <Component {...newProps} />;
   };
 }
-export default withHospitalizedHOC(Hospitalized);
+export default withHospitalizedHOC(Output);

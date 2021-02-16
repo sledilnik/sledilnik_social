@@ -1,21 +1,35 @@
 import React, { useContext } from 'react';
-import PresentData from './PresentData';
-import { FBSummaryDict } from '../dicts/DataTranslateDict';
-import getTranslatedData from '../utils/getTranslatedData';
+
 import { DataContext } from '../context/DataContext';
+import { SocialContext } from '../context/SocialContext';
+
+import { formatNumber } from '../utils/formatNumber';
+
+import Output from './Output';
 
 // path summary
-const DataTranslateDict = FBSummaryDict.vaccinationSummary;
 
-function Vaccination({ data, ...props }) {
-  const translatedData = getTranslatedData(DataTranslateDict, data);
+const TextsDict = {
+  FB: {
+    default: {
+      text1: 'Cepljenih oseb: 💉',
+      text2: ', 💉💉',
+      text3: '.',
+    },
+    onlyValue: {},
+  },
+  TW: {
+    default: {},
+    onValue: {},
+  },
+};
 
-  return <PresentData data={translatedData} props={props} />;
-}
+const defaultTexts = TextsDict.FB.default;
 
 function withVaccination_HOC(Component) {
   return ({ ...props }) => {
     const { summary: hook } = useContext(DataContext);
+    const { social } = useContext(SocialContext);
 
     if (hook.isLoading) {
       return 'Loading....';
@@ -27,9 +41,24 @@ function withVaccination_HOC(Component) {
 
     const { vaccinationSummary } = hook.data;
 
-    const newProps = { ...props, data: vaccinationSummary };
+    const kindOfData = 'default';
+
+    const newData = {
+      value1: formatNumber(vaccinationSummary.value),
+      value2: formatNumber(vaccinationSummary.subValues.in),
+    };
+
+    const newProps = {
+      ...props,
+      data: newData,
+      social,
+      kindOfData,
+      defaultTexts,
+      TextsDict,
+      keyTitle: 'ActiveCases',
+    };
 
     return <Component {...newProps} />;
   };
 }
-export default withVaccination_HOC(Vaccination);
+export default withVaccination_HOC(Output);

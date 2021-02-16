@@ -5,7 +5,6 @@ import { sl } from 'date-fns/locale';
 import sledilnikLogo from '../assets/sledilnik-logo.svg';
 
 const Logo = ({
-  className,
   src = sledilnikLogo,
   alt = 'logo',
   width = '96',
@@ -14,7 +13,6 @@ const Logo = ({
   <img
     src={src}
     alt={alt}
-    className={className}
     width={width}
     height={height}
     style={{ display: 'block', margin: '0 auto' }}

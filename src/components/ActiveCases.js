@@ -1,21 +1,35 @@
 import React, { useContext } from 'react';
-import PresentData from './PresentData';
-import { FBSummaryDict } from '../dicts/DataTranslateDict';
-import getTranslatedData from '../utils/getTranslatedData';
 import { DataContext } from '../context/DataContext';
+import { SocialContext } from '../context/SocialContext';
+
+import { formatNumber } from '../utils/formatNumber';
+import { formatNumberWithSign } from './../utils/formatNumber';
+
+import Output from './Output';
 
 // path summary
-const DataTranslateDict = FBSummaryDict.casesActive;
 
-function ActiveCases({ data, ...props }) {
-  const translatedData = getTranslatedData(DataTranslateDict, data);
+const TextsDict = {
+  FB: {
+    default: {
+      text1: 'Aktivni primeri: ',
+      text2: ' ',
+      text3: '.',
+    },
+  },
+  TW: {
+    default: {},
+  },
+};
 
-  return <PresentData data={translatedData} props={props} />;
-}
+const defaultTexts = TextsDict.FB.default;
+
+const Brackets = ({ children }) => <>({children})</>;
 
 function withActiveCases_HOC(Component) {
   return ({ ...props }) => {
     const { summary: hook } = useContext(DataContext);
+    const { social } = useContext(SocialContext);
 
     if (hook.isLoading) {
       return 'Loading....';
@@ -25,11 +39,33 @@ function withActiveCases_HOC(Component) {
       return 'Null';
     }
 
-    const { casesActive } = hook.data;
+    const {
+      value,
+      subValues: { in: casesIn, out },
+    } = hook.data.casesActive;
 
-    const newProps = { ...props, data: casesActive };
+    const kindOfData = 'default';
+
+    const newData = {
+      value1: formatNumber(value),
+      value2: (
+        <Brackets>
+          {formatNumberWithSign(casesIn)}, {formatNumberWithSign(-out)}
+        </Brackets>
+      ),
+    };
+
+    const newProps = {
+      ...props,
+      data: newData,
+      social,
+      kindOfData,
+      defaultTexts,
+      TextsDict,
+      keyTitle: 'ActiveCases',
+    };
 
     return <Component {...newProps} />;
   };
 }
-export default withActiveCases_HOC(ActiveCases);
+export default withActiveCases_HOC(Output);

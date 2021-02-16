@@ -1,22 +1,37 @@
 import React, { useContext } from 'react';
-import PresentData from './PresentData';
-
-import getTranslatedData from '../utils/getTranslatedData';
 
 import { DataContext } from '../context/DataContext';
 import { SocialContext } from '../context/SocialContext';
 
-import { FBSummaryDict } from '../dicts/DataTranslateDict';
-import { TWSummaryDict } from '../dicts/TwitterTranslateDict';
+import {
+  formatNumberWithSign,
+  formatNumber,
+  formatPercentage,
+} from '../utils/formatNumber';
 
-// path summary
-function PCR({ data, ...props }) {
-  const DataTranslateDict =
-    props.social === 'FB' ? FBSummaryDict.testsToday : TWSummaryDict.testsToday;
-  const translatedData = getTranslatedData(DataTranslateDict, data);
+import Output from './Output';
 
-  return <PresentData data={translatedData} props={props} />;
-}
+const TextsDict = {
+  FB: {
+    default: {
+      text1: 'PCR: ',
+      text2: ', testiranih: ',
+      text3: ', delež pozitivnih: ',
+      text4: '.',
+    },
+    onlyValue: {
+      text2: ' testiranih (*ni podatka o pozitivnih).',
+      text3: '',
+      text4: '',
+    },
+  },
+  TW: {
+    default: { text4: '' },
+    onValue: {},
+  },
+};
+
+const defaultTexts = TextsDict.FB.default;
 
 function withPCR_HOC(Component) {
   return ({ ...props }) => {
@@ -31,11 +46,33 @@ function withPCR_HOC(Component) {
       return 'Null';
     }
 
-    const { testsToday } = hook.data;
+    const {
+      value,
+      subValues: { positive, percent },
+    } = hook.data.testsToday;
 
-    const newProps = { ...props, data: testsToday, social };
+    const kindOfData =
+      value && !!positive && !!percent ? 'default' : 'onlyValue';
 
+    const newData =
+      kindOfData === 'default'
+        ? {
+            value1: formatNumberWithSign(positive),
+            value2: formatNumber(value),
+            value3: formatPercentage(percent),
+          }
+        : { value1: formatNumber(value) };
+
+    const newProps = {
+      ...props,
+      data: newData,
+      social,
+      kindOfData,
+      defaultTexts,
+      TextsDict,
+      keyTitle: 'PCR',
+    };
     return <Component {...newProps} />;
   };
 }
-export default withPCR_HOC(PCR);
+export default withPCR_HOC(Output);
