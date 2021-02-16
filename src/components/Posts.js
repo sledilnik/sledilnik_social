@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 
+import './Posts.css';
+
 import Card from './Card';
 import Post from './Post';
 
@@ -78,7 +80,7 @@ const EPI = () => {
 
 function Posts() {
   return (
-    <section>
+    <section className="Posts">
       <LAB />
       <HOS />
       <EPI />
