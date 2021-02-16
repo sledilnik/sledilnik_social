@@ -90,10 +90,12 @@ const Municipalities = ({ data = new Map(), showTrend = 'y', icons }) => {
   }, [data, icons, showTrend]);
 
   return (
-    <>
-      <DataRow>Po krajih:</DataRow>
+    <details>
+      <summary>
+        <DataRow>Po krajih:</DataRow>
+      </summary>
       <ul>{memoDisplay}</ul>;
-    </>
+    </details>
   );
 };
 
