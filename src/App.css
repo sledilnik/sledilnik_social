@@ -2,29 +2,6 @@
   font-family: 'Roboto', serif;
 }
 
-.main {
-  min-height: 80vh;
-  /* margin-top: 10vh; */
-  background-color: var(--bcg-body-clr);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  z-index: 100;
-}
-
-.text {
-  font-weight: 400;
-  letter-spacing: 0.05em;
-}
-
-.bold {
-  font-weight: 700;
-}
-
-.red {
-  color: var(--red);
-}
-
 /* BUTTONS */
 .btn {
   padding: 4px 8px;

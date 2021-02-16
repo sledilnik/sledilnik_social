@@ -3,8 +3,10 @@ import Posts from './components/Posts';
 import { DataProvider } from './context/DataContext';
 import { SocialProvider, SocialContext } from './context/SocialContext';
 import { TimestampsProvider } from './context/TimestampsContext';
+import Header from './components/Header';
 
-// import './App.css';
+import './App.css';
+import Footer from './components/Footer';
 
 const SocialChanger = () => {
   const context = useContext(SocialContext);
@@ -30,7 +32,7 @@ const SocialChanger = () => {
 function App() {
   return (
     <div className="App">
-      <header>Header</header>
+      <Header />
       <main>
         <TimestampsProvider>
           <SocialProvider>
@@ -41,7 +43,7 @@ function App() {
           </SocialProvider>
         </TimestampsProvider>
       </main>
-      <footer>Footer</footer>
+      <Footer />
     </div>
   );
 }
