@@ -39,7 +39,6 @@
 
 /* NAVIGATION */
 .nav-container {
-  margin-left: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
