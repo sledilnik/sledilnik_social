@@ -21,4 +21,9 @@
 
 .Post details {
   margin: 4px 0;
+  background: var(--bcg-body-clr);
+}
+
+.Post details[open] {
+  background: var(--white);
 }
