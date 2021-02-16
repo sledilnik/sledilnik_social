@@ -2,15 +2,12 @@ import React, { useMemo, useContext } from 'react';
 import _ from 'lodash';
 import municipalitiesDict from '../dicts/MunicipalitiesDict';
 
-import { FBMunicipalitiesDict } from '../dicts/DataTranslateDict';
-
 import { formatNumberWithSign } from './../utils/formatNumber';
-import getTranslatedData from '../utils/getTranslatedData';
 
 import { DataContext } from '../context/DataContext';
 import { SocialContext } from '../context/SocialContext';
 
-import PresentData from './PresentData';
+import DataRow from './DataRow';
 
 // platform friendly icons
 const FB_ICONS = {
@@ -92,12 +89,9 @@ const Municipalities = ({ data = new Map(), showTrend = 'y', icons }) => {
     return display;
   }, [data, icons, showTrend]);
 
-  const DataTranslateDict = FBMunicipalitiesDict.perCityTrend;
-  const translatedData = getTranslatedData(DataTranslateDict);
-
   return (
     <>
-      <PresentData data={translatedData} />
+      <DataRow>Po krajih:</DataRow>
       <ul>{memoDisplay}</ul>;
     </>
   );
