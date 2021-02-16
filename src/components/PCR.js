@@ -59,7 +59,7 @@ function withPCR_HOC(Component) {
         ? {
             value1: formatNumberWithSign(positive),
             value2: formatNumber(value),
-            value3: formatPercentage(percent),
+            value3: formatPercentage(percent / 100),
           }
         : { value1: formatNumber(value) };
 
