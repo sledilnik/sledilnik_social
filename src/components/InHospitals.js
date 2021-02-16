@@ -1,19 +1,19 @@
 import React, { useContext } from 'react';
 import { DataContext } from '../context/DataContext';
-import PresentData from './PresentData';
-import { FBPatientsDict } from '../dicts/DataTranslateDict';
-import getTranslatedData from '../utils/getTranslatedData';
 
-function InHospital({ hospShort, data }) {
-  const DataTranslateDict = FBPatientsDict.inHospital;
-  const translatedData = getTranslatedData(DataTranslateDict, data);
+import DataRow from './DataRow';
+import { formatNumber, formatNumberWithSign } from '../utils/formatNumber';
+import InHospital from './InHospital';
 
-  return (
-    <li key={hospShort}>
-      <PresentData data={translatedData} noArrow={true} />
-    </li>
-  );
-}
+const dictionary = {
+  oseba: ['oseba', 'osebi', 'osebe', 'osebe', 'oseb'],
+};
+
+const getTranslate = (num, text) => {
+  const dict = dictionary[text];
+  const index = num > 5 ? 5 : num;
+  return dict[index - 1];
+};
 
 function InHospitals({ perHospitalChanges }) {
   const sortDescByPatients = (a, b) =>
@@ -21,6 +21,23 @@ function InHospitals({ perHospitalChanges }) {
 
   const createHospitalOutput = hosp => {
     const { inHospital, icu } = hosp[1];
+
+    // we want to display property 'out' as negative number
+    const negHospOut = -inHospital.out;
+    const negIcuOut = -icu.out;
+
+    const formattedInHospital = {
+      number: isNaN(inHospital.today) ? '-' : formatNumber(inHospital.today),
+      in: isNaN(inHospital.in) ? '-' : formatNumberWithSign(inHospital.in),
+      out: isNaN(negHospOut) ? '-' : formatNumberWithSign(negHospOut),
+      text: getTranslate(inHospital.today, 'oseba'),
+    };
+    const foramttedIcu = {
+      number: isNaN(icu.today) ? '-' : formatNumber(icu.today),
+      in: isNaN(icu.in) ? '-' : formatNumberWithSign(icu.in),
+      out: isNaN(negIcuOut) ? '-' : formatNumberWithSign(negIcuOut),
+      text: getTranslate(icu.today, 'oseba'),
+    };
 
     const noHospitalData = hosp[1].inHospital.today === undefined;
 
@@ -30,12 +47,9 @@ function InHospitals({ perHospitalChanges }) {
       <InHospital
         key={hosp[0]}
         hospShort={hosp[0]}
-        data={{
-          hospitalName: hosp[2],
-          inHospital,
-          icu,
-          translateText: 'oseba',
-        }}
+        hospitalName={hosp[2]}
+        hosp={{ ...formattedInHospital }}
+        icu={{ ...foramttedIcu }}
       />
     );
   };
@@ -44,12 +58,9 @@ function InHospitals({ perHospitalChanges }) {
     .sort(sortDescByPatients)
     .map(createHospitalOutput);
 
-  const DataTranslateDict = FBPatientsDict.inHospitals;
-  const translatedData = getTranslatedData(DataTranslateDict);
-
   return (
     <div>
-      <PresentData data={translatedData} />
+      <DataRow>Stanje po bolnišnicah:</DataRow>
       <ul>{hospitalOutput}</ul>
     </div>
   );
