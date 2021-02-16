@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import './Post.css';
 
 import { format } from 'date-fns';
+import { SocialContext } from './../context/SocialContext';
 
 const mainComponentsNames = ['LAB', 'HOS', 'EPI'];
 
@@ -61,16 +62,23 @@ const Outro = ({ spark = true }) => {
   );
 };
 
-function Post({ postNumber, hasHeader = true, children, hasFooter = true }) {
+function Post({
+  id,
+  postNumber,
+  hasHeader = true,
+  children,
+  hasFooter = true,
+  ...props
+}) {
   const header = hasHeader && (
     <Intro
       postNumber={postNumber}
       introTodayDate={format(new Date(), 'dd.MM.yyyy')}
     />
   );
-  const footer = hasFooter && <Outro />;
+  const footer = hasFooter && <Outro spark={props.spark} />;
   return (
-    <article className="Post">
+    <article id={id} className="Post">
       {header}
       {children}
       {footer}
@@ -78,9 +86,27 @@ function Post({ postNumber, hasHeader = true, children, hasFooter = true }) {
   );
 }
 
+const SparkDict = {
+  FB: {
+    LAB: true,
+    HOS: true,
+    EPI: true,
+  },
+  TW: {
+    LAB: true,
+    HOS: false,
+    EPI: true,
+  },
+};
+
 function withPostHOC(Component) {
   return props => {
-    return <Component {...props} />;
+    const post = props.id.replace('post-', '').toUpperCase();
+    const { social } = useContext(SocialContext);
+    const spark = SparkDict[social][post];
+    const newProps = { ...props, spark };
+
+    return <Component {...newProps} />;
   };
 }
 
