@@ -27,6 +27,7 @@ body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
   background-color: var(--bcg-body-clr);
+  user-select: none;
 }
 
 a,
