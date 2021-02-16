@@ -43,7 +43,7 @@ const HOS = () => {
   const { data: patientsTimestamp } = patients;
   const dates = { patients: patientsTimestamp };
   return (
-    <Card summary="HOS" dates={dates} open={true}>
+    <Card summary="HOS" dates={dates} open={false}>
       <Post postNumber={2}>
         <Hospitalized />
         <OnRespiratory />
@@ -59,7 +59,7 @@ const EPI = () => {
   const { data: patientsTimestamp } = stats;
   const dates = { stats: patientsTimestamp };
   return (
-    <Card summary="EPI" dates={dates} open={true}>
+    <Card summary="EPI" dates={dates} open={false}>
       <Post postNumber={3}>
         <PCR />
         <HAT />
