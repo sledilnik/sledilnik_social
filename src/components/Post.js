@@ -1,4 +1,7 @@
 import React from 'react';
+
+import './Post.css';
+
 import { format } from 'date-fns';
 
 const mainComponentsNames = ['LAB', 'HOS', 'EPI'];
@@ -67,7 +70,7 @@ function Post({ postNumber, hasHeader = true, children, hasFooter = true }) {
   );
   const footer = hasFooter && <Outro />;
   return (
-    <article>
+    <article className="Post">
       {header}
       {children}
       {footer}
