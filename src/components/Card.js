@@ -23,20 +23,23 @@ const Logo = ({
 );
 
 function Card({ summary, dates = {}, children, open = false }) {
-  const datesOutput = Object.entries(dates).map(([path, ts], index) => (
-    <span key={ts + '-' + index}>
-      {path}:{' '}
-      {formatRelative(new Date(ts * 1000), new Date(), {
-        locale: sl,
-      })}{' '}
-    </span>
-  ));
+  const sortedDates = [...Object.values(dates)].sort((a, b) => b - a);
+
+  const noDates = Object.values(dates).every(item => item === null);
+
+  const relativeDate = noDates ? (
+    <span style={{ opacity: 0, marginLeft: '24px' }}>loading...</span>
+  ) : (
+    formatRelative(new Date(sortedDates[0] * 1000), new Date(), {
+      locale: sl,
+    })
+  );
 
   return (
     <details className="Card" open={open}>
       <summary>
         <h2>{summary}</h2>
-        {datesOutput}
+        <div>Osveženo: {relativeDate}</div>
       </summary>
       {children}
       <Logo />
