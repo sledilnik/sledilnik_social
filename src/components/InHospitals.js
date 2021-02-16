@@ -59,10 +59,12 @@ function InHospitals({ perHospitalChanges }) {
     .map(createHospitalOutput);
 
   return (
-    <div>
-      <DataRow>Stanje po bolnišnicah:</DataRow>
+    <details>
+      <summary>
+        <DataRow>Stanje po bolnišnicah:</DataRow>
+      </summary>
       <ul>{hospitalOutput}</ul>
-    </div>
+    </details>
   );
 }
 
