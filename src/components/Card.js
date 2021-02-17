@@ -8,21 +8,6 @@ import { sl } from 'date-fns/locale';
 import sledilnikLogo from '../assets/sledilnik-logo.svg';
 import PopOut from './shared/PopOut';
 
-const Logo = ({
-  src = sledilnikLogo,
-  alt = 'logo',
-  width = '96',
-  height = '96',
-}) => (
-  <img
-    src={src}
-    alt={alt}
-    width={width}
-    height={height}
-    style={{ display: 'block', margin: '0 auto' }}
-  />
-);
-
 function Card({ id, summary, dates = {}, children, open = false }) {
   const [clipboard, setClipboard] = useState(null);
   const [showPopOut, setShowPopOut] = useState(false);
@@ -71,7 +56,13 @@ function Card({ id, summary, dates = {}, children, open = false }) {
         </button>
       </summary>
       {children}
-      <Logo />
+      <img
+        src={sledilnikLogo}
+        alt="sledilnik logo"
+        width="96"
+        height="48"
+        style={{ display: 'block', margin: '0 auto' }}
+      />
       <PopOut open={showPopOut}>
         <div className="textarea-container">
           <textarea
