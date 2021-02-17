@@ -8,6 +8,10 @@
   user-select: text;
 }
 
+.Post h3 {
+  font-size: 1em;
+}
+
 .Post > p {
   margin: 4px 0;
   text-indent: -26px;
