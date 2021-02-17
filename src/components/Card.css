@@ -7,12 +7,14 @@
   border-radius: 6px;
 }
 
-.Card > summary {
+.Card .summary-container {
+  padding: 4px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 0.8em;
 }
 
-.Card > summary > div {
-  font-size: 0.8em;
+.Card .summary-date {
+  color: var(--menu-clr);
 }
