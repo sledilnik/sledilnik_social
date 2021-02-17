@@ -44,7 +44,7 @@ function Header() {
 
   return (
     <header id="header" className="Header">
-      <div className="logo">Covid-19 Sledilnik Social</div>
+      <h1 className="logo">Covid-19 Sledilnik Social</h1>
       <SocialChanger />
       <div className="🍔" onClick={onHamburgerClick}>
         <div className="line line-1"></div>
