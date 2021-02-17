@@ -7,4 +7,61 @@
   min-height: -webkit-fill-available;
   width: 100vw;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.PopOut .popout-container {
+  padding: 24px 16px 8px;
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: var(--bcg-body-clr);
+  -webkit-box-shadow: 0 1px 3px 0 var(--box-shadow);
+  box-shadow: 0 1px 3px 0 var(--box-shadow);
+  border-radius: 6px;
+}
+
+.PopOut .textarea-container {
+  width: 100%;
+}
+.PopOut .textarea-container textarea {
+  padding: 2px;
+  border: none;
+  -webkit-box-shadow: 0 1px 3px 0 var(--box-shadow);
+  box-shadow: 0 1px 3px 0 var(--box-shadow);
+  border-radius: 6px;
+}
+
+.PopOut .button-container {
+  padding: 8px 0;
+}
+
+.close {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+}
+
+.close .line {
+  height: 2px;
+  width: 20px;
+  background: var(--white);
+}
+
+.close .line.line-1 {
+  transform: translate(5px, 15px) rotate(45deg);
+}
+.close .line.line-2 {
+  transform: translate(5px, 13px) rotate(-45deg);
+}
+
+.close:hover .line {
+  background: var(--bcg-header-clr);
 }
