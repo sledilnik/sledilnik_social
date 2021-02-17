@@ -72,12 +72,15 @@ function Card({ id, summary, dates = {}, children, open = false }) {
       </summary>
       {children}
       <Logo />
-      <PopOut open={showPopOut} className={'popout-backdrop'}>
-        <textarea
-          rows="10"
-          defaultValue={clipboard}
-          style={{ width: ' 100%', resize: 'vertical' }}
-        />
+      <PopOut open={showPopOut}>
+        <div className="textarea-container">
+          <textarea
+            readOnly={true}
+            rows="10"
+            defaultValue={clipboard}
+            style={{ width: ' 100%', resize: 'vertical' }}
+          />
+        </div>
       </PopOut>
     </details>
   );
