@@ -8,7 +8,7 @@ import Backdrop from './Backdrop';
 function PopOut({ children, className = '' }) {
   return (
     <Modal>
-      <Backdrop className={className}>{children}</Backdrop>
+      <Backdrop className={`PopOut ${className}`}>{children}</Backdrop>
     </Modal>
   );
 }
