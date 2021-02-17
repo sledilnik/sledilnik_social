@@ -68,16 +68,17 @@ function Card({ id, summary, dates = {}, children, open = false }) {
     const textarea = document.getElementById('textarea-copy');
     navigator.clipboard &&
       (await navigator.clipboard.writeText(textarea.value));
-
     !navigator.clipboard && selectAndCopy(textarea);
-
     setShowPopOut(false);
   };
+
+  const onDetailsClick = event =>
+    event.target.id.includes('copy') && event.preventDefault();
 
   const buttonId = 'copy-' + id;
 
   return (
-    <details id={id} className="Card" open={open}>
+    <details id={id} className="Card" open={open} onClick={onDetailsClick}>
       <summary>
         <div className="summary-container">
           <h2>{summary}</h2>
