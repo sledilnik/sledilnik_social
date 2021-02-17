@@ -94,7 +94,7 @@ const Municipalities = ({ data = new Map(), showTrend = 'y', icons }) => {
       <summary>
         <DataRow>Po krajih:</DataRow>
       </summary>
-      <ul>{memoDisplay}</ul>;
+      <ul>{memoDisplay}</ul>
     </details>
   );
 };
