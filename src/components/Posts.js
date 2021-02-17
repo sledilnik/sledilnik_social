@@ -28,8 +28,8 @@ const LAB = () => {
   const dates = { 'lab-tests': labTestsTimestamp, cases: casesTimestamp };
 
   return (
-    <Card summary="LAB" dates={dates} open={true}>
-      <Post postNumber={1}>
+    <Card id="card-lab" summary="LAB" dates={dates} open={true}>
+      <Post id="post-lab" postNumber={1}>
         <PCR />
         <HAT />
         <ActiveCases />
@@ -43,8 +43,8 @@ const HOS = () => {
   const { data: patientsTimestamp } = patients;
   const dates = { patients: patientsTimestamp };
   return (
-    <Card summary="HOS" dates={dates} open={false}>
-      <Post postNumber={2}>
+    <Card id="card-hos" summary="HOS" dates={dates} open={false}>
+      <Post id="post-hos" postNumber={2}>
         <Hospitalized />
         <OnRespiratory />
         <Care />
@@ -59,8 +59,8 @@ const EPI = () => {
   const { data: patientsTimestamp } = stats;
   const dates = { stats: patientsTimestamp };
   return (
-    <Card summary="EPI" dates={dates} open={false}>
-      <Post postNumber={3}>
+    <Card id="card-epi" summary="EPI" dates={dates} open={false}>
+      <Post id="post-epi" postNumber={3}>
         <PCR />
         <HAT />
         <ActiveCases />

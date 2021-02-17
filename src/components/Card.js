@@ -22,7 +22,7 @@ const Logo = ({
   />
 );
 
-function Card({ summary, dates = {}, children, open = false }) {
+function Card({ id, summary, dates = {}, children, open = false }) {
   const sortedDates = [...Object.values(dates)].sort((a, b) => b - a);
 
   const noDates = Object.values(dates).every(item => item === null);
@@ -36,7 +36,7 @@ function Card({ summary, dates = {}, children, open = false }) {
   );
 
   return (
-    <details className="Card" open={open}>
+    <details id={id} className="Card" open={open}>
       <summary>
         <h2>{summary}</h2>
         <div>Osveženo: {relativeDate}</div>
