@@ -5,7 +5,7 @@ import './PopOut.css';
 import Modal from './Modal';
 import Backdrop from './Backdrop';
 
-function PopOut({ children, className }) {
+function PopOut({ children, className = '' }) {
   return (
     <Modal>
       <Backdrop className={className}>{children}</Backdrop>
