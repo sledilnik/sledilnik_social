@@ -60,7 +60,7 @@ function InHospitals({ perHospitalChanges }) {
 
   return (
     <details>
-      <summary>
+      <summary className="summary-with-after">
         <DataRow>Stanje po bolnišnicah:</DataRow>
       </summary>
       <ul>{hospitalOutput}</ul>

@@ -91,7 +91,7 @@ const Municipalities = ({ data = new Map(), showTrend = 'y', icons }) => {
 
   return (
     <details>
-      <summary>
+      <summary className="summary-with-after">
         <DataRow>Po krajih:</DataRow>
       </summary>
       <ul>{memoDisplay}</ul>

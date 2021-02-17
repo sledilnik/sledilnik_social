@@ -31,3 +31,16 @@
 .Post details[open] {
   background: var(--white);
 }
+
+.Post .summary-with-after > * {
+  position: relative;
+  display: inline-block;
+}
+.Post .summary-with-after::after {
+  display: inline-block;
+  font-size: 0.85em;
+  content: '\00A0\00A0↘️';
+}
+.Post details[open] > .summary-with-after::after {
+  content: '';
+}
