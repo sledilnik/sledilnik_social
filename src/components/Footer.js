@@ -5,6 +5,8 @@ import './Footer.css';
 function Footer() {
   return (
     <footer className="Footer">
+      Icon by <a href="https://freeicons.io/profile/714">Raj Dev</a> on{' '}
+      <a href="https://freeicons.io">freeicons.io</a>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
