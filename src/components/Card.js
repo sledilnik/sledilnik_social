@@ -84,6 +84,7 @@ function Card({ id, summary, dates = {}, children, open = false }) {
           <div className="summary-date">Osveženo: {relativeDate}</div>
           <img
             id={buttonId}
+            className="copy-icon"
             src={copyIcon}
             width={16}
             height={16}
