@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { differenceInDays } from 'date-fns/';
+import { getDate } from '../utils/dates';
 
 import { DataContext } from '../context/DataContext';
 import { SocialContext } from '../context/SocialContext';
@@ -63,6 +65,9 @@ function withPCR_HOC(Component) {
           }
         : { value1: formatNumber(value) };
 
+    const wrongDate =
+      differenceInDays(new Date(), getDate(hook.data.testsToday)) > 1;
+
     const newProps = {
       ...props,
       data: newData,
@@ -71,6 +76,7 @@ function withPCR_HOC(Component) {
       defaultTexts,
       TextsDict,
       keyTitle: 'PCR',
+      wrongDate,
     };
     return <Component {...newProps} />;
   };
