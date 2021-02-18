@@ -1,8 +1,12 @@
 import React, { useContext } from 'react';
+import { differenceInDays } from 'date-fns';
+
 import { DataContext } from '../context/DataContext';
 
-import DataRow from './DataRow';
 import { formatNumber, formatNumberWithSign } from '../utils/formatNumber';
+import { getDate } from '../utils/dates';
+
+import DataRow from './DataRow';
 import InHospital from './InHospital';
 
 const dictionary = {
@@ -15,7 +19,7 @@ const getTranslate = (num, text) => {
   return dict[index - 1];
 };
 
-function InHospitals({ perHospitalChanges }) {
+function InHospitals({ perHospitalChanges, wrongDate }) {
   const sortDescByPatients = (a, b) =>
     (b[1].inHospital.today || 0) - (a[1].inHospital.today || 0);
 
@@ -50,6 +54,7 @@ function InHospitals({ perHospitalChanges }) {
         hospitalName={hosp[2]}
         hosp={{ ...formattedInHospital }}
         icu={{ ...foramttedIcu }}
+        wrongDate={wrongDate}
       />
     );
   };
@@ -61,7 +66,7 @@ function InHospitals({ perHospitalChanges }) {
   return (
     <details>
       <summary className="summary-with-after">
-        <DataRow>Stanje po bolnišnicah:</DataRow>
+        <DataRow markFail={wrongDate}>Stanje po bolnišnicah:</DataRow>
       </summary>
       <ul>{hospitalOutput}</ul>
     </details>
@@ -95,9 +100,19 @@ function withInHospitalsHOC(Component) {
       sortedData[0]
     );
 
+    const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+
+    console.log({
+      sortedData,
+      date: getDate(sortedData[0]),
+      diff: differenceInDays(new Date(), getDate(sortedData[0])),
+      length: hookPatients.data,
+    });
+
     const newProps = {
       ...props,
       perHospitalChanges,
+      wrongDate,
     };
 
     return <Component {...newProps} />;
