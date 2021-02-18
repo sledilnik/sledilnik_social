@@ -87,3 +87,27 @@
 .close:hover .line {
   background: var(--bcg-header-clr);
 }
+
+@media only screen and (min-width: 576px) {
+  .PopOut .popout-container {
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .PopOut .popout-container {
+    width: 85%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .PopOut .popout-container {
+    width: 75%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .PopOut .popout-container {
+    width: 65%;
+  }
+}
