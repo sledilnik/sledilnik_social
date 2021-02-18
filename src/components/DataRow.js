@@ -8,10 +8,13 @@ const Emoji = ({ emoji, ariaLabel }) => (
 
 const Arrow = () => <Emoji emoji={'➡️'} ariaLabel={'arrow'} />;
 
-function DataRow({ dataString, noArrow = false, children }) {
+const MarkFail = () => <Emoji emoji={'❌'} ariaLabel="cross mark" />;
+
+function DataRow({ dataString, noArrow = false, children, markFail = false }) {
   return (
     <p>
-      {!noArrow && <Arrow />} {dataString}
+      {markFail && <MarkFail />}
+      {!noArrow && !markFail && <Arrow />} {dataString}
       {children}
     </p>
   );
