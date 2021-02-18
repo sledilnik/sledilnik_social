@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { differenceInDays } from 'date-fns';
+import { getDate } from '../utils/dates';
 
 import { DataContext } from '../context/DataContext';
 import { SocialContext } from '../context/SocialContext';
@@ -69,6 +71,8 @@ function withOnRespiratoryHOC(Component) {
       )})`,
     };
 
+    const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+
     const newProps = {
       ...props,
       data: newData,
@@ -77,6 +81,7 @@ function withOnRespiratoryHOC(Component) {
       defaultTexts,
       TextsDict,
       keyTitle: 'OnRespiratory',
+      wrongDate,
     };
 
     return <Component {...newProps} />;
