@@ -1,15 +1,18 @@
 import React, { useContext } from 'react';
+import { differenceInDays } from 'date-fns';
 
 import { DataContext } from '../context/DataContext';
 
 import { formatNumber } from './../utils/formatNumber';
+import { getDate } from '../utils/dates';
+
 import DataRow from './DataRow';
 
 // path patients
 
 const Brackets = ({ children }) => <>({children})</>;
 
-function PerAge({ title, todayPerAge, yesterdayPerAge }) {
+function PerAge({ title, todayPerAge, yesterdayPerAge, wrongDate }) {
   const deltas = todayPerAge.map((item, i) => {
     const { ageFrom, ageTo } = item;
     const ageRange = `${ageFrom}${ageTo ? `-${ageTo}` : '+'}`;
@@ -29,7 +32,7 @@ function PerAge({ title, todayPerAge, yesterdayPerAge }) {
   });
 
   return (
-    <DataRow>
+    <DataRow markFail={wrongDate}>
       {title}: {deltas}.
     </DataRow>
   );
@@ -51,11 +54,14 @@ function withPerAgeHOC(Component) {
       (a, b) => b.dayFromStart - a.dayFromStart
     );
 
+    const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+
     const newProps = {
       ...props,
       title: 'Potrjeni primeri po starosti',
       todayPerAge: sortedData[1].statePerAgeToDate,
       yesterdayPerAge: sortedData[2].statePerAgeToDate,
+      wrongDate,
     };
 
     return <Component {...newProps} />;
