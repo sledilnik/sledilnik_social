@@ -11,8 +11,9 @@ const Arrow = () => <Emoji emoji={'➡️'} ariaLabel={'arrow'} />;
 const MarkFail = () => <Emoji emoji={'❌'} ariaLabel="cross mark" />;
 
 function DataRow({ dataString, noArrow = false, children, markFail = false }) {
+  const color = markFail ? 'var(--red)' : 'initial';
   return (
-    <p>
+    <p style={{ color }}>
       {markFail && <MarkFail />}
       {!noArrow && !markFail && <Arrow />} {dataString}
       {children}
