@@ -6,6 +6,8 @@ import { formatNumber } from '../utils/formatNumber';
 import { formatNumberWithSign } from './../utils/formatNumber';
 
 import Output from './Output';
+import { differenceInDays } from 'date-fns';
+import { getDate } from '../utils/dates';
 
 // path summary
 
@@ -55,6 +57,9 @@ function withActiveCases_HOC(Component) {
       ),
     };
 
+    const wrongDate =
+      differenceInDays(new Date(), getDate(hook.data.casesActive)) > 1;
+
     const newProps = {
       ...props,
       data: newData,
@@ -63,6 +68,7 @@ function withActiveCases_HOC(Component) {
       defaultTexts,
       TextsDict,
       keyTitle: 'ActiveCases',
+      wrongDate,
     };
 
     return <Component {...newProps} />;
