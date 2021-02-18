@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
+import { differenceInDays } from 'date-fns';
 
 import { DataContext } from '../context/DataContext';
 import { SocialContext } from '../context/SocialContext';
 
 import { formatNumber } from '../utils/formatNumber';
+import { getDate } from '../utils/dates';
 
 import Output from './Output';
 
@@ -47,6 +49,9 @@ function withConfirmedToDate_HOC(Component) {
       value1: formatNumber(casesToDateSummary.value),
     };
 
+    const wrongDate =
+      differenceInDays(new Date(), getDate(casesToDateSummary)) > 1;
+
     const newProps = {
       ...props,
       data: newData,
@@ -55,6 +60,7 @@ function withConfirmedToDate_HOC(Component) {
       defaultTexts,
       TextsDict,
       keyTitle: 'ConfirmedToDate',
+      wrongDate,
     };
 
     return <Component {...newProps} />;
