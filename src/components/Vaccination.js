@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { differenceInDays } from 'date-fns';
+import { getDate } from '../utils/dates';
 
 import { DataContext } from '../context/DataContext';
 import { SocialContext } from '../context/SocialContext';
@@ -48,6 +50,9 @@ function withVaccination_HOC(Component) {
       value2: formatNumber(vaccinationSummary.subValues.in),
     };
 
+    const wrongDate =
+      differenceInDays(new Date(), getDate(vaccinationSummary)) > 1;
+
     const newProps = {
       ...props,
       data: newData,
@@ -56,6 +61,7 @@ function withVaccination_HOC(Component) {
       defaultTexts,
       TextsDict,
       keyTitle: 'ActiveCases',
+      wrongDate,
     };
 
     return <Component {...newProps} />;
