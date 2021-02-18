@@ -86,9 +86,13 @@ function withInHospitalsHOC(Component) {
       return 'Null';
     }
 
+    const sortedData = [...hookPatients.data].sort(
+      (a, b) => b.dayFromStart - a.dayFromStart
+    );
+
     const { perHospitalChanges } = getInHospitalsData(
       hookHospitals.data,
-      hookPatients.data
+      sortedData[0]
     );
 
     const newProps = {
@@ -137,9 +141,8 @@ function prepareHospitalsDict(hospitalsList) {
 // -> [["ukclj", {care: {...}, critical: {..}, deceased: {...},deceasedCare: {...}, icu: {...}, inHospital: {...}, niv: {...} }],...]
 // properties of interest icu & inHospital
 function getPerHospitalChanges(patients) {
-  const patientsData = patients.slice(-1).pop();
-  const patientsDataIsNotUndefined = !isUndefined(patientsData);
-  return patientsDataIsNotUndefined && Object.entries(patientsData.facilities);
+  const patientsDataIsNotUndefined = !isUndefined(patients);
+  return patientsDataIsNotUndefined && Object.entries(patients.facilities);
 }
 
 // -> [["ukclj", {...}, "UKC Ljubljana"],... ]
