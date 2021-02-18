@@ -8,6 +8,8 @@ import { DataContext } from '../context/DataContext';
 import { SocialContext } from '../context/SocialContext';
 
 import DataRow from './DataRow';
+import { differenceInDays } from 'date-fns/esm';
+import { getDate } from '../utils/dates';
 
 // platform friendly icons
 const FB_ICONS = {
@@ -63,7 +65,12 @@ const getIconOrTrend = (icons, trend, showTrend) =>
     </i>
   );
 
-const Municipalities = ({ data = new Map(), showTrend = 'y', icons }) => {
+const Municipalities = ({
+  data = new Map(),
+  showTrend = 'y',
+  icons,
+  ...props
+}) => {
   const memoDisplay = useMemo(() => {
     const display = [];
     for (const [count, townsByDiff] of data) {
@@ -83,16 +90,21 @@ const Municipalities = ({ data = new Map(), showTrend = 'y', icons }) => {
           </span>
         );
       });
-      display.push(<li key={`${count}-${{ icons }}`}>{sameDiffTownsLabel}</li>);
+      const color = props.wrongDate ? 'var(--red)' : 'initial';
+      display.push(
+        <li key={`${count}-${{ icons }}`} style={{ color }}>
+          {sameDiffTownsLabel}
+        </li>
+      );
     }
 
     return display;
-  }, [data, icons, showTrend]);
+  }, [data, icons, showTrend, props.wrongDate]);
 
   return (
     <details>
       <summary className="summary-with-after">
-        <DataRow>Po krajih:</DataRow>
+        <DataRow markFail={props.wrongDate}>Po krajih:</DataRow>
       </summary>
       <ul>{memoDisplay}</ul>
     </details>
@@ -228,10 +240,14 @@ function withMunicipalitiesHOC(Component) {
         return acc1;
       }, new Map());
 
+    const wrongDate =
+      differenceInDays(new Date(), getDate(hook.data.slice(-1).pop())) > 1;
+
     const newProps = {
       data,
       showTrend: props.showTrend,
       icons: social,
+      wrongDate,
     };
 
     return <Component {...newProps} />;
