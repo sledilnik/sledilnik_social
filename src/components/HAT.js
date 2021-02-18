@@ -10,6 +10,8 @@ import {
 } from '../utils/formatNumber';
 
 import Output from './Output';
+import { differenceInDays } from 'date-fns';
+import { getDate } from '../utils/dates';
 
 const TextsDict = {
   FB: {
@@ -63,6 +65,9 @@ function withHAT_HOC(Component) {
           }
         : { value1: formatNumber(value) };
 
+    const wrongDate =
+      differenceInDays(new Date(), getDate(hook.data.testsTodayHAT)) > 1;
+
     const newProps = {
       ...props,
       data: newData,
@@ -71,6 +76,7 @@ function withHAT_HOC(Component) {
       defaultTexts,
       TextsDict,
       keyTitle: 'HAT',
+      wrongDate,
     };
 
     return <Component {...newProps} />;
