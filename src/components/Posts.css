@@ -2,5 +2,29 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  max-width: 95vw;
+  max-width: 95%;
+}
+
+@media only screen and (min-width: 576px) {
+  .Posts {
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .Posts {
+    width: 85%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .Posts {
+    width: 75%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .Posts {
+    width: 65%;
+  }
 }
