@@ -6,6 +6,8 @@ import { SocialContext } from './../context/SocialContext';
 import { formatNumberWithSign, formatNumber } from '../utils/formatNumber';
 
 import Output from './Output';
+import { differenceInDays } from 'date-fns';
+import { getDate } from '../utils/dates';
 
 // path patients
 
@@ -66,6 +68,8 @@ function withHospitalizedHOC(Component) {
       ),
     };
 
+    const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+
     const newProps = {
       ...props,
       data: newData,
@@ -74,6 +78,7 @@ function withHospitalizedHOC(Component) {
       defaultTexts,
       TextsDict,
       keyTitle: 'ActiveCases',
+      wrongDate,
     };
     return <Component {...newProps} />;
   };
