@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { differenceInDays } from 'date-fns';
+import { getDate } from '../utils/dates';
 
 import { DataContext } from '../context/DataContext';
 import { SocialContext } from '../context/SocialContext';
@@ -59,6 +61,8 @@ function withCareHOC(Component) {
       ),
     };
 
+    const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+
     const newProps = {
       ...props,
       data: newData,
@@ -67,6 +71,7 @@ function withCareHOC(Component) {
       defaultTexts,
       TextsDict,
       keyTitle: 'Care',
+      wrongDate,
     };
 
     return <Component {...newProps} />;
