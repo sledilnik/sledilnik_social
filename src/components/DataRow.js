@@ -14,7 +14,7 @@ function DataRow({ dataString, noArrow = false, children, markFail = false }) {
   const color = markFail ? 'var(--red)' : 'initial';
   return (
     <p style={{ color }}>
-      {markFail && <MarkFail />}
+      {!noArrow && markFail && <MarkFail />}
       {!noArrow && !markFail && <Arrow />} {dataString}
       {children}
     </p>
