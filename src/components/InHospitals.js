@@ -102,13 +102,6 @@ function withInHospitalsHOC(Component) {
 
     const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
 
-    console.log({
-      sortedData,
-      date: getDate(sortedData[0]),
-      diff: differenceInDays(new Date(), getDate(sortedData[0])),
-      length: hookPatients.data,
-    });
-
     const newProps = {
       ...props,
       perHospitalChanges,
