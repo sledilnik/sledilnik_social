@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { differenceInDays } from 'date-fns';
+import { getDate } from '../utils/dates';
 
 import { DataContext } from '../context/DataContext';
 import { SocialContext } from '../context/SocialContext';
@@ -50,6 +52,8 @@ function withDeceasedHOC(Component) {
       value2: formatNumber(sortedData[0].total.deceased.toDate),
     };
 
+    const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+
     const newProps = {
       ...props,
       data: newData,
@@ -58,6 +62,7 @@ function withDeceasedHOC(Component) {
       defaultTexts,
       TextsDict,
       keyTitle: 'Deceased',
+      wrongDate,
     };
 
     return <Component {...newProps} />;
