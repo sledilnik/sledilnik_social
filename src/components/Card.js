@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 
 import './Card.css';
 
@@ -15,16 +15,6 @@ function Card({ id, summary, dates = {}, children, open = false }) {
 
   const [clipboard, setClipboard] = useState(null);
   const [showPopOut, setShowPopOut] = useState(false);
-
-  useEffect(() => {
-    const close = e => {
-      if (e.keyCode === 27) {
-        setShowPopOut(false);
-      }
-    };
-    window.addEventListener('keydown', close);
-    return () => window.removeEventListener('keydown', close);
-  }, []);
 
   const openPopOutHandler = event => {
     const buttonId = event.target.id;
@@ -119,8 +109,8 @@ function Card({ id, summary, dates = {}, children, open = false }) {
       <ToClipboard
         open={showPopOut}
         defaultValue={clipboard}
-        setClipboard={setClipboard}
-        setShowPopOut={setShowPopOut}
+        clear={() => setClipboard('')}
+        close={() => setShowPopOut(false)}
       />
     </details>
   );
