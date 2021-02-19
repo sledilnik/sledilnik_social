@@ -62,32 +62,6 @@
   border: 1px solid var(--menu-clr);
 }
 
-.close {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  cursor: pointer;
-  height: 30px;
-  width: 30px;
-}
-
-.close .line {
-  height: 2px;
-  width: 20px;
-  background: var(--white);
-}
-
-.close .line.line-1 {
-  transform: translate(5px, 15px) rotate(45deg);
-}
-.close .line.line-2 {
-  transform: translate(5px, 13px) rotate(-45deg);
-}
-
-.close:hover .line {
-  background: var(--bcg-header-clr);
-}
-
 @media only screen and (min-width: 576px) {
   .PopOut .popout-container {
     width: 90%;
