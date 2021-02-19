@@ -13,7 +13,7 @@ function PopOut({ children, className = '' }) {
   );
 }
 
-function withBackdropHOC(Component) {
+function withPopOutHOC(Component) {
   return ({ open, ...props }) => {
     const [show, setShow] = useState(open);
     useEffect(() => setShow(open), [open]);
@@ -27,4 +27,4 @@ function withBackdropHOC(Component) {
     return null;
   };
 }
-export default withBackdropHOC(PopOut);
+export default withPopOutHOC(PopOut);
