@@ -1,6 +1,5 @@
 .Backdrop {
   color: var(--white);
   z-index: 200;
-  background-color: var(--black);
-  opacity: 0.8;
+  background-color: rgba(0, 0, 0, 0.8);
 }

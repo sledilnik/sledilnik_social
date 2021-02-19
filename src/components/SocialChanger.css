@@ -1,0 +1,51 @@
+.SocialChanger {
+  margin: 0 auto;
+  --radius: 16px;
+}
+
+.SocialChanger input[type='checkbox'] {
+  top: -100vh;
+  opacity: 0;
+}
+
+.checkbox-container {
+  position: relative;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3.5vh;
+  border: 1px solid black;
+}
+
+.checkbox-label > span {
+  cursor: pointer;
+  padding: 2px 16px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  transition: all 1s linear;
+}
+
+.switch-left {
+  border-left: 1px solid black;
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
+}
+
+.switch-right {
+  border-right: 1px solid black;
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+}
+
+.SocialChanger input[type='checkbox']:checked + .switch-left {
+  background-color: black;
+  color: var(--bcg-header-clr);
+}
+.SocialChanger
+  input[type='checkbox']:not(:checked)
+  + .switch-left
+  + .switch-right {
+  background-color: black;
+  color: var(--bcg-header-clr);
+}

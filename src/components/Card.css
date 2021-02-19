@@ -1,0 +1,24 @@
+.Card {
+  margin: 8px 0;
+  padding: 16px 16px;
+  background: var(--bcg-header-clr);
+  -webkit-box-shadow: 0 1px 3px 0 var(--box-shadow);
+  box-shadow: 0 1px 3px 0 var(--box-shadow);
+  border-radius: 6px;
+}
+
+.Card .summary-container {
+  padding: 4px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8em;
+}
+
+.Card .summary-date {
+  color: var(--menu-clr);
+}
+
+.Card .copy-icon:hover {
+  transform: scale(1.2);
+}
