@@ -56,26 +56,36 @@ const setPlatformFriendlyIcon = (iconsVersion = 'FB', trend) => {
   return selectedIcons[iconKey];
 };
 
-const getIconOrTrend = (icons, trend, showTrend) =>
-  showTrend === 'y' ? (
-    setPlatformFriendlyIcon(icons, trend)
+const getIconOrTrend = (icons, trend, showTrend, showIcon) => {
+  const trendIcon =
+    showTrend && showIcon && setPlatformFriendlyIcon(icons, trend);
+  const _trendNumber = Math.round((trend + Number.EPSILON) * 100000) / 100000;
+  const trendNumber = isNaN(_trendNumber) ? '-' : _trendNumber;
+
+  return showTrend === 'y' ? (
+    trendIcon
   ) : (
     <i>
-      {trend !== 'no' && Math.round((trend + Number.EPSILON) * 100000) / 100000}
+      {trend !== 'no' && trendIcon
+        ? trendIcon + ' ' + trendNumber
+        : trendNumber}
     </i>
   );
+};
 
 const Municipalities = ({
   data = new Map(),
   showTrend = 'y',
   icons,
+  wrongDate,
+  showIcons,
   ...props
 }) => {
   const memoDisplay = useMemo(() => {
     const display = [];
     for (const [count, townsByDiff] of data) {
       const sameDiffTownsLabel = townsByDiff.map(town => {
-        const icon = getIconOrTrend(icons, town.trend, showTrend);
+        const icon = getIconOrTrend(icons, town.trend, showTrend, showIcons);
         return (
           <span key={town.key}>
             {town.name} {icon}
@@ -90,7 +100,7 @@ const Municipalities = ({
           </span>
         );
       });
-      const color = props.wrongDate ? 'var(--red)' : 'initial';
+      const color = wrongDate ? 'var(--red)' : 'initial';
       display.push(
         <li key={`${count}-${{ icons }}`} style={{ color }}>
           {sameDiffTownsLabel}
@@ -99,7 +109,7 @@ const Municipalities = ({
     }
 
     return display;
-  }, [data, icons, showTrend, props.wrongDate]);
+  }, [data, icons, showTrend, wrongDate, showIcons]);
 
   return (
     <details>
@@ -145,7 +155,7 @@ const createCalculatedRegions = perDayRegions => {
 };
 
 function withMunicipalitiesHOC(Component) {
-  return ({ ...props }) => {
+  return ({ icons, showTrend, showIcons, ...rest }) => {
     const { municipalities: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
 
@@ -245,9 +255,11 @@ function withMunicipalitiesHOC(Component) {
 
     const newProps = {
       data,
-      showTrend: props.showTrend,
+      showTrend,
       icons: social,
       wrongDate,
+      showIcons,
+      ...rest,
     };
 
     return <Component {...newProps} />;
