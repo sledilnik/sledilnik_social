@@ -36,7 +36,7 @@ const defaultTexts = TextsDict.FB.default;
 const Brackets = ({ children }) => <>({children})</>;
 
 function withInHospital_HOC(Component) {
-  return ({ hospShort, hospitalName, hosp, icu, ...props }) => {
+  const InHospital = ({ hospShort, hospitalName, hosp, icu, ...props }) => {
     const { social } = useContext(SocialContext);
     const kindOfData = 'default';
 
@@ -75,5 +75,6 @@ function withInHospital_HOC(Component) {
 
     return <Component {...newProps} />;
   };
+  return InHospital;
 }
 export default withInHospital_HOC(InHospital);

@@ -29,7 +29,7 @@ const TextsDict = {
 const defaultTexts = TextsDict.FB.default;
 
 function withDeceasedHOC(Component) {
-  return ({ ...props }) => {
+  const Deceased = ({ ...props }) => {
     const { patients: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
 
@@ -67,5 +67,6 @@ function withDeceasedHOC(Component) {
 
     return <Component {...newProps} />;
   };
+  return Deceased;
 }
 export default withDeceasedHOC(Output);

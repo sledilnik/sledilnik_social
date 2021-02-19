@@ -39,7 +39,7 @@ const TextsDict = {
 const defaultTexts = TextsDict.FB.default;
 
 function withOnRespiratoryHOC(Component) {
-  return ({ ...props }) => {
+  const OnRespiratory = ({ ...props }) => {
     const { patients: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
 
@@ -86,5 +86,6 @@ function withOnRespiratoryHOC(Component) {
 
     return <Component {...newProps} />;
   };
+  return OnRespiratory;
 }
 export default withOnRespiratoryHOC(Output);

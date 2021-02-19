@@ -29,7 +29,7 @@ const defaultTexts = TextsDict.FB.default;
 const Brackets = ({ children }) => <>({children})</>;
 
 function withActiveCases_HOC(Component) {
-  return ({ ...props }) => {
+  const ActiveCases = ({ ...props }) => {
     const { summary: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
 
@@ -73,5 +73,6 @@ function withActiveCases_HOC(Component) {
 
     return <Component {...newProps} />;
   };
+  return ActiveCases;
 }
 export default withActiveCases_HOC(Output);

@@ -155,7 +155,7 @@ const createCalculatedRegions = perDayRegions => {
 };
 
 function withMunicipalitiesHOC(Component) {
-  return ({ icons, showTrend, showIcons, ...rest }) => {
+  const WithMunicipalities = ({ icons, showTrend, showIcons, ...rest }) => {
     const { municipalities: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
 
@@ -264,6 +264,7 @@ function withMunicipalitiesHOC(Component) {
 
     return <Component {...newProps} />;
   };
+  return WithMunicipalities;
 }
 
 export default withMunicipalitiesHOC(Municipalities);

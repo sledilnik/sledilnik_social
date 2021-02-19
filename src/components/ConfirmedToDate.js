@@ -29,7 +29,7 @@ const TextsDict = {
 const defaultTexts = TextsDict.FB.default;
 
 function withConfirmedToDate_HOC(Component) {
-  return ({ ...props }) => {
+  const ConfirmedToDate = ({ ...props }) => {
     const { summary: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
 
@@ -65,5 +65,6 @@ function withConfirmedToDate_HOC(Component) {
 
     return <Component {...newProps} />;
   };
+  return ConfirmedToDate;
 }
 export default withConfirmedToDate_HOC(Output);

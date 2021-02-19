@@ -33,7 +33,7 @@ const defaultTexts = TextsDict.FB.default;
 const Brackets = ({ children }) => <>({children})</>;
 
 function withCareHOC(Component) {
-  return ({ ...props }) => {
+  const Care = ({ ...props }) => {
     const { patients: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
 
@@ -76,5 +76,6 @@ function withCareHOC(Component) {
 
     return <Component {...newProps} />;
   };
+  return Care;
 }
 export default withCareHOC(Output);

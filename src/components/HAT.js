@@ -36,7 +36,7 @@ const TextsDict = {
 const defaultTexts = TextsDict.FB.default;
 
 function withHAT_HOC(Component) {
-  return ({ ...props }) => {
+  const HAT = ({ ...props }) => {
     const { summary: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
 
@@ -81,5 +81,6 @@ function withHAT_HOC(Component) {
 
     return <Component {...newProps} />;
   };
+  return HAT;
 }
 export default withHAT_HOC(Output);

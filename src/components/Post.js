@@ -109,13 +109,7 @@ function withPostHOC(Component) {
     return <Component {...newProps} />;
   };
 
-  WithPost.displayName = getDisplayName(WithPost);
-
   return WithPost;
-}
-
-function getDisplayName(WrappedComponent) {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
 
 export default withPostHOC(Post);

@@ -43,7 +43,7 @@ function PerAge({ title, todayPerAge, yesterdayPerAge, wrongDate }) {
 }
 
 function withPerAgeHOC(Component) {
-  return ({ ...props }) => {
+  const PerAge = ({ ...props }) => {
     const { stats: hook } = useContext(DataContext);
 
     if (hook.isLoading) {
@@ -70,5 +70,6 @@ function withPerAgeHOC(Component) {
 
     return <Component {...newProps} />;
   };
+  return PerAge;
 }
 export default withPerAgeHOC(PerAge);

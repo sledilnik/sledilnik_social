@@ -74,7 +74,7 @@ function InHospitals({ perHospitalChanges, wrongDate }) {
 }
 
 function withInHospitalsHOC(Component) {
-  return ({ props }) => {
+  const InHospitals = ({ props }) => {
     const { patients: hookPatients, hospitalsList: hookHospitals } = useContext(
       DataContext
     );
@@ -110,6 +110,7 @@ function withInHospitalsHOC(Component) {
 
     return <Component {...newProps} />;
   };
+  return InHospitals;
 }
 export default withInHospitalsHOC(InHospitals);
 

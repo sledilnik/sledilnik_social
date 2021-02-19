@@ -29,7 +29,7 @@ const TextsDict = {
 const defaultTexts = TextsDict.FB.default;
 
 function withVaccination_HOC(Component) {
-  return ({ ...props }) => {
+  const Vaccination = ({ ...props }) => {
     const { summary: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
 
@@ -66,5 +66,6 @@ function withVaccination_HOC(Component) {
 
     return <Component {...newProps} />;
   };
+  return Vaccination;
 }
 export default withVaccination_HOC(Output);
