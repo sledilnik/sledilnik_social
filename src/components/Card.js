@@ -41,9 +41,7 @@ function Card({ id, summary, dates = {}, children, open = false }) {
     const buttonId = event.target.id;
     const postId = buttonId.replace('copy-card', 'post');
     const article = document.getElementById(postId);
-    const cardId = buttonId.replace('copy-card', 'card');
-    const card = document.getElementById(cardId);
-    card.open = true;
+    detailsRef.current.open = true;
     const details = article.getElementsByTagName('details');
     [...details].forEach(item => {
       item.open = true;
