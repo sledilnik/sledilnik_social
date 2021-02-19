@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import './Card.css';
 
@@ -10,6 +10,8 @@ import copyIcon from '../assets/svg/copy.svg';
 import PopOut from './shared/PopOut';
 
 function Card({ id, summary, dates = {}, children, open = false }) {
+  const detailsRef = useRef();
+
   const [clipboard, setClipboard] = useState(null);
   const [showPopOut, setShowPopOut] = useState(false);
 
@@ -79,10 +81,36 @@ function Card({ id, summary, dates = {}, children, open = false }) {
   const summaryId = 'summary-' + cardId;
   const buttonId = 'copy-' + cardId;
 
-  const buttonId = 'copy-' + id;
+  const onDetailsClick = event => {
+    const { target } = event;
+
+    if (target.dataset.open !== 'open' && target.id !== buttonId) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (target.id === buttonId) {
+      detailsRef.current.open = true;
+      return;
+    }
+
+    detailsRef.current.open = !detailsRef.current.open;
+    detailsRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
+  };
 
   return (
+    <details
+      ref={detailsRef}
       id={cardId}
+      className="Card"
+      open={open}
+      onClick={onDetailsClick}
+    >
       <summary id={summaryId} data-open="open">
         <div className="summary-container" data-open="open">
           <h2 data-open="open">{summary}</h2>
