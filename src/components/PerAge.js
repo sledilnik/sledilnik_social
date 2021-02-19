@@ -13,26 +13,30 @@ import DataRow from './DataRow';
 const Brackets = ({ children }) => <>({children})</>;
 
 function PerAge({ title, todayPerAge, yesterdayPerAge, wrongDate }) {
-  const deltas = todayPerAge.map((item, i) => {
-    const { ageFrom, ageTo } = item;
+  const _deltas = todayPerAge.map(
+    (item, i) => item.allToDate - yesterdayPerAge[i].allToDate
+  );
+
+  const deltas = _deltas.map((item, i) => {
+    const { ageFrom, ageTo } = todayPerAge[i];
     const ageRange = `${ageFrom}${ageTo ? `-${ageTo}` : '+'}`;
-    const today = item.allToDate;
-    const yesterday = yesterdayPerAge[i].allToDate;
-    const delta = today - yesterday;
+    const delta = isNaN(item) ? '-' : formatNumber(item);
     return (
       <span key={`${i}_${ageRange}`}>
         {' '}
         {ageRange}{' '}
         <span style={{ fontWeight: 700 }}>
-          <Brackets>{isNaN(delta) ? '-' : formatNumber(delta)}</Brackets>
+          <Brackets>{delta}</Brackets>
         </span>
         {i !== 9 ? ',' : ''}
       </span>
     );
   });
 
+  const allIsNaN = _deltas.every(item => isNaN(item));
+
   return (
-    <DataRow markFail={wrongDate}>
+    <DataRow markFail={wrongDate || allIsNaN}>
       {title}: {deltas}.
     </DataRow>
   );
