@@ -45,7 +45,7 @@ function ToClipboard({
 }
 
 function withToClipboardHOC(Component) {
-  return ({ ...props }) => {
+  const WithToClipboard = ({ ...props }) => {
     const { close, clear, ...rest } = props;
 
     const newClose = props.close instanceof Function ? props.close : () => {};
@@ -84,5 +84,7 @@ function withToClipboardHOC(Component) {
       />
     );
   };
+
+  return WithToClipboard;
 }
 export default withToClipboardHOC(ToClipboard);

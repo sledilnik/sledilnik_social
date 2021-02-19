@@ -100,7 +100,7 @@ const SparkDict = {
 };
 
 function withPostHOC(Component) {
-  return props => {
+  const WithPost = props => {
     const post = props.id.replace('post-', '').toUpperCase();
     const { social } = useContext(SocialContext);
     const spark = SparkDict[social][post];
@@ -108,6 +108,14 @@ function withPostHOC(Component) {
 
     return <Component {...newProps} />;
   };
+
+  WithPost.displayName = getDisplayName(WithPost);
+
+  return WithPost;
+}
+
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
 
 export default withPostHOC(Post);

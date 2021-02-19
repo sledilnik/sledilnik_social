@@ -36,7 +36,7 @@ const TextsDict = {
 const defaultTexts = TextsDict.FB.default;
 
 function withPCR_HOC(Component) {
-  return ({ ...props }) => {
+  const PCR = ({ ...props }) => {
     const { summary: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
 
@@ -80,5 +80,14 @@ function withPCR_HOC(Component) {
     };
     return <Component {...newProps} />;
   };
+
+  PCR.displayName = getDisplayName(PCR);
+
+  return PCR;
 }
+
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
 export default withPCR_HOC(Output);
