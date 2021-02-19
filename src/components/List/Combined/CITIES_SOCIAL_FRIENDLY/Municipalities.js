@@ -48,21 +48,30 @@ const setPlatformFriendlyIcon = (iconsVersion = 'FB', trend) => {
   return selectedIcons[iconKey];
 };
 
-const getIconOrTrend = (icons, trend, showTrend) =>
+const getIconOrTrend = (icons, trend, showTrend, showIcon = false) =>
   showTrend === 'y' ? (
-    setPlatformFriendlyIcon(icons, trend)
+    showIcon ? (
+      setPlatformFriendlyIcon(icons, trend)
+    ) : (
+      ''
+    )
   ) : (
     <i>
       {trend !== 'no' && Math.round((trend + Number.EPSILON) * 100000) / 100000}
     </i>
   );
 
-const Municipalities = ({ data = new Map(), showTrend = 'y', icons = '' }) => {
+const Municipalities = ({
+  data = new Map(),
+  showTrend = 'y',
+  icons = '',
+  showIcons,
+}) => {
   const memoDisplay = useMemo(() => {
     const display = [];
     for (const [count, townsByDiff] of data) {
       const sameDiffTownsLabel = townsByDiff.map(town => {
-        const icon = getIconOrTrend(icons, town.trend, showTrend);
+        const icon = getIconOrTrend(icons, town.trend, showTrend, showIcons);
         return (
           <span key={town.key}>
             {town.name} {icon}
@@ -204,6 +213,7 @@ function withMunicipalitiesHOC(Component) {
       data,
       showTrend: props.showTrend,
       icons: props.icons,
+      showIcons: props.showIcons,
     };
 
     return <Component {...newProps} />;
