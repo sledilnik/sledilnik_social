@@ -11,6 +11,7 @@ import PopOut from './shared/PopOut';
 
 function Card({ id, summary, dates = {}, children, open = false }) {
   const detailsRef = useRef();
+  const toClipboardButtonRef = useRef();
 
   const [clipboard, setClipboard] = useState(null);
   const [showPopOut, setShowPopOut] = useState(false);
@@ -28,7 +29,6 @@ function Card({ id, summary, dates = {}, children, open = false }) {
   const sortedDates = [...Object.values(dates)].sort((a, b) => b - a);
 
   const noDates = Object.values(dates).every(item => item === null);
-
   const relativeDate = noDates ? (
     <span style={{ opacity: 0, marginLeft: '24px' }}>ni podatka</span>
   ) : (
@@ -75,31 +75,32 @@ function Card({ id, summary, dates = {}, children, open = false }) {
     setShowPopOut(false);
   };
 
-  const cardId = 'card-' + id;
-  const summaryId = 'summary-' + cardId;
-  const buttonId = 'copy-' + cardId;
-
   const onDetailsClick = event => {
     const { target } = event;
+    const { current: copyButton } = toClipboardButtonRef;
+    const { current: details } = detailsRef;
 
-    if (target.dataset.open !== 'open' && target.id !== buttonId) {
+    if (target.dataset.open !== 'open' && target.id !== copyButton.id) {
       return;
     }
 
     event.preventDefault();
-
-    if (target.id === buttonId) {
-      detailsRef.current.open = true;
+    if (target.id === copyButton.id) {
+      details.open = true;
       return;
     }
 
-    detailsRef.current.open = !detailsRef.current.open;
-    detailsRef.current.scrollIntoView({
+    details.open = !details.open;
+    details.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
       inline: 'nearest',
     });
   };
+
+  const cardId = 'card-' + id;
+  const summaryId = 'summary-' + cardId;
+  const buttonId = 'copy-' + cardId;
 
   return (
     <details
@@ -117,6 +118,7 @@ function Card({ id, summary, dates = {}, children, open = false }) {
           </div>
           <img
             id={buttonId}
+            ref={toClipboardButtonRef}
             className="copy-icon"
             src={copyIcon}
             width={16}
