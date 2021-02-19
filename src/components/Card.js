@@ -98,6 +98,15 @@ function Card({ id, summary, dates = {}, children, open = false }) {
     });
   };
 
+  const latestDate =
+    dates && [...Object.values(dates)].sort((a, b) => a - b).pop();
+
+  const relativeDate =
+    latestDate !== null &&
+    formatRelative(new Date(latestDate * 1000), new Date(), {
+      locale: sl,
+    });
+
   const cardId = 'card-' + id;
   const summaryId = 'summary-' + cardId;
   const buttonId = 'copy-' + cardId;
@@ -114,7 +123,12 @@ function Card({ id, summary, dates = {}, children, open = false }) {
         <div className="summary-container" data-open="open">
           <h2 data-open="open">{summary}</h2>
           <div data-open="open" className="summary-date">
-            Osveženo: {relativeDate}
+            Osveženo:{' '}
+            {relativeDate ? (
+              relativeDate
+            ) : (
+              <span style={{ marginLeft: '26px' }}>...loading</span>
+            )}
           </div>
           <img
             id={buttonId}
