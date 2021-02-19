@@ -87,7 +87,7 @@ const Municipalities = ({
     }
 
     return display;
-  }, [data, icons, showTrend]);
+  }, [data, icons, showTrend, showIcons]);
   return memoDisplay;
 };
 
