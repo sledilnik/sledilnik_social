@@ -75,17 +75,20 @@ function Card({ id, summary, dates = {}, children, open = false }) {
     setShowPopOut(false);
   };
 
-  const onDetailsClick = event =>
-    event.target.id.includes('copy') && event.preventDefault();
+  const cardId = 'card-' + id;
+  const summaryId = 'summary-' + cardId;
+  const buttonId = 'copy-' + cardId;
 
   const buttonId = 'copy-' + id;
 
   return (
-    <details id={id} className="Card" open={open} onClick={onDetailsClick}>
-      <summary>
-        <div className="summary-container">
-          <h2>{summary}</h2>
-          <div className="summary-date">Osveženo: {relativeDate}</div>
+      id={cardId}
+      <summary id={summaryId} data-open="open">
+        <div className="summary-container" data-open="open">
+          <h2 data-open="open">{summary}</h2>
+          <div data-open="open" className="summary-date">
+            Osveženo: {relativeDate}
+          </div>
           <img
             id={buttonId}
             className="copy-icon"
