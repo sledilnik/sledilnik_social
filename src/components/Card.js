@@ -5,7 +5,7 @@ import './Card.css';
 import { formatRelative } from 'date-fns';
 import { sl } from 'date-fns/locale';
 
-import sledilnikLogo from '../assets/sledilnik-logo.svg';
+import sledilnikLogo from '../assets/svg/sledilnik-logo.svg';
 import copyIcon from '../assets/svg/copy.svg';
 import ToClipboard from './shared/ToClipboard';
 
