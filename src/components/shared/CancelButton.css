@@ -1,0 +1,28 @@
+.CancelButton {
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+}
+
+.CancelButton.top-right {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+}
+
+.CancelButton .line {
+  height: 2px;
+  width: 20px;
+  background: var(--white);
+}
+
+.CancelButton .line.line-1 {
+  transform: translate(5px, 15px) rotate(45deg);
+}
+.CancelButton .line.line-2 {
+  transform: translate(5px, 13px) rotate(-45deg);
+}
+
+.CancelButton:hover .line {
+  background: var(--bcg-header-clr);
+}
