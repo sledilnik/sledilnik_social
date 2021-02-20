@@ -12,8 +12,8 @@ const selectAndCopy = textarea => {
 function ToClipboard({
   open,
   defaultValue,
-  cancel = () => {},
-  toClipboard = () => {},
+  onCancel = () => {},
+  onConfirm = () => {},
 }) {
   const textareaRef = useRef();
 
@@ -21,7 +21,7 @@ function ToClipboard({
     <PopOut
       className="ToClipboard"
       open={open}
-      close={() => cancel(textareaRef.current)}
+      close={() => onCancel(textareaRef.current)}
     >
       <div className="textarea-container">
         <textarea
@@ -34,7 +34,7 @@ function ToClipboard({
         />
       </div>
       <div className="button-container">
-        <button onClick={() => toClipboard(textareaRef.current)}>
+        <button onClick={() => onConfirm(textareaRef.current)}>
           V odložišče
         </button>
       </div>
@@ -63,8 +63,8 @@ function withToClipboardHOC(Component) {
 
     return (
       <Component
-        cancel={cancelHandler}
-        toClipboard={toClipboardHandler}
+        onCancel={cancelHandler}
+        onConfirm={toClipboardHandler}
         {...rest}
       />
     );
