@@ -25,6 +25,10 @@
   border-radius: 6px;
 }
 
+.PopOut .button-container {
+  padding: 8px 0;
+}
+
 @media only screen and (min-width: 576px) {
   .PopOut .popout-container {
     width: 90%;

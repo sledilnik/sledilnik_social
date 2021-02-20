@@ -17,11 +17,20 @@ function ToClipboard({
 }) {
   const textareaRef = useRef();
 
+  const buttons = (
+    <>
+      <button onClick={() => onConfirm(textareaRef.current)}>
+        V odložišče
+      </button>
+    </>
+  );
+
   return (
     <PopOut
       className="ToClipboard"
       open={open}
-      close={() => onCancel(textareaRef.current)}
+      buttons={buttons}
+      onClose={() => onCancel(textareaRef.current)}
     >
       <div className="textarea-container">
         <textarea
@@ -32,11 +41,6 @@ function ToClipboard({
           defaultValue={defaultValue}
           style={{ width: ' 100%', resize: 'none' }}
         />
-      </div>
-      <div className="button-container">
-        <button onClick={() => onConfirm(textareaRef.current)}>
-          V odložišče
-        </button>
       </div>
     </PopOut>
   );

@@ -9,10 +9,6 @@
   border-radius: 6px;
 }
 
-.ToClipboard .button-container {
-  padding: 8px 0;
-}
-
 .ToClipboard .button-container button {
   padding: 4px 8px;
   cursor: pointer;
