@@ -4,11 +4,15 @@ import './PopOut.css';
 
 import Modal from './Modal';
 import Backdrop from './Backdrop';
+import CancelButton from './CancelButton';
 
-function PopOut({ children, className = '' }) {
+function PopOut({ children, className = '', close = () => {} }) {
   return (
     <Modal>
-      <Backdrop className={`PopOut ${className}`}>{children}</Backdrop>
+      <Backdrop className={`PopOut ${className}`}>
+        <div className="popout-container">{children}</div>
+        <CancelButton topRight handleClick={() => close()} />
+      </Backdrop>
     </Modal>
   );
 }

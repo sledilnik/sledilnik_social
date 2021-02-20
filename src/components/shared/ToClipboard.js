@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import './ToClipboard.css';
 
 import PopOut from './PopOut';
-import CancelButton from './CancelButton';
 
 const selectAndCopy = textarea => {
   textarea.select();
@@ -19,25 +18,26 @@ function ToClipboard({
   const textareaRef = useRef();
 
   return (
-    <PopOut open={open}>
-      <div className="popout-container">
-        <div className="textarea-container">
-          <textarea
-            id="textarea-copy"
-            ref={textareaRef}
-            readOnly={true}
-            rows="10"
-            defaultValue={defaultValue}
-            style={{ width: ' 100%', resize: 'none' }}
-          />
-        </div>
-        <div className="button-container">
-          <button onClick={() => toClipboard(textareaRef.current)}>
-            V odložišče
-          </button>
-        </div>
+    <PopOut
+      className="ToClipboard"
+      open={open}
+      close={() => cancel(textareaRef.current)}
+    >
+      <div className="textarea-container">
+        <textarea
+          id="textarea-copy"
+          ref={textareaRef}
+          readOnly={true}
+          rows="10"
+          defaultValue={defaultValue}
+          style={{ width: ' 100%', resize: 'none' }}
+        />
       </div>
-      <CancelButton topRight handleClick={() => cancel(textareaRef.current)} />
+      <div className="button-container">
+        <button onClick={() => toClipboard(textareaRef.current)}>
+          V odložišče
+        </button>
+      </div>
     </PopOut>
   );
 }
