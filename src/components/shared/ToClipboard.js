@@ -1,7 +1,8 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef } from 'react';
 import './ToClipboard.css';
 
 import PopOut from './PopOut';
+import CancelButton from './CancelButton';
 
 const selectAndCopy = textarea => {
   textarea.select();
@@ -36,10 +37,7 @@ function ToClipboard({
           </button>
         </div>
       </div>
-      <div className="close" onClick={() => cancel(textareaRef.current)}>
-        <div className="line line-1"></div>
-        <div className="line line-2"></div>
-      </div>
+      <CancelButton topRight handleClick={() => cancel(textareaRef.current)} />
     </PopOut>
   );
 }
@@ -48,32 +46,19 @@ function withToClipboardHOC(Component) {
   const WithToClipboard = ({ ...props }) => {
     const { close, clear, ...rest } = props;
 
-    const newClose = props.close instanceof Function ? props.close : () => {};
-    const closeMemo = useCallback(() => newClose(), [newClose]);
-
-    useEffect(() => {
-      const close = e => {
-        if (e.keyCode === 27) {
-          closeMemo();
-        }
-      };
-      window.addEventListener('keydown', close);
-      return () => window.removeEventListener('keydown', close);
-    }, [closeMemo]);
-
     const cancelHandler = async textarea => {
       navigator.clipboard && (await navigator.clipboard.writeText(''));
       textarea.value = '';
       !navigator.clipboard && selectAndCopy(textarea);
       clear();
-      closeMemo();
+      close();
     };
 
     const toClipboardHandler = async textarea => {
       navigator.clipboard &&
         (await navigator.clipboard.writeText(textarea.value));
       !navigator.clipboard && selectAndCopy(textarea.current);
-      closeMemo();
+      close();
     };
 
     return (
