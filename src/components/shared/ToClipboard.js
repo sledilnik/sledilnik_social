@@ -3,12 +3,6 @@ import './ToClipboard.css';
 
 import PopOut from './PopOut';
 
-const selectAndCopy = textarea => {
-  textarea.select();
-  textarea.setSelectionRange(0, textarea.value.length);
-  document.execCommand('copy');
-};
-
 function ToClipboard({
   open,
   defaultValue,
@@ -43,6 +37,12 @@ function ToClipboard({
     </PopOut>
   );
 }
+
+const selectAndCopy = textarea => {
+  textarea.select();
+  textarea.setSelectionRange(0, textarea.value.length);
+  document.execCommand('copy');
+};
 
 function withToClipboardHOC(Component) {
   const WithToClipboard = ({ ...props }) => {
