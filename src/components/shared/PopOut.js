@@ -11,7 +11,7 @@ function PopOut({ children, className = '', buttons, onClose = () => {} }) {
     <Modal>
       <Backdrop className={`PopOut ${className}`}>
         <div className="popout-container">
-          {children}
+          <div className="children-container">{children}</div>
           <div className="button-container">{buttons}</div>
         </div>
         <CancelButton topRight handleClick={() => onClose()} />

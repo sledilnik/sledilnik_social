@@ -25,6 +25,10 @@
   border-radius: 6px;
 }
 
+.PopOut .children-container {
+  width: 100%;
+}
+
 .PopOut .button-container {
   padding: 8px 0;
 }

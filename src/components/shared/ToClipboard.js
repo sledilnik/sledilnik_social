@@ -32,16 +32,14 @@ function ToClipboard({
       buttons={buttons}
       onClose={() => onCancel(textareaRef.current)}
     >
-      <div className="textarea-container">
-        <textarea
-          id="textarea-copy"
-          ref={textareaRef}
-          readOnly={true}
-          rows="10"
-          defaultValue={defaultValue}
-          style={{ width: ' 100%', resize: 'none' }}
-        />
-      </div>
+      <textarea
+        id="textarea-copy"
+        ref={textareaRef}
+        readOnly={true}
+        rows="10"
+        defaultValue={defaultValue}
+        style={{ width: ' 100%', resize: 'none' }}
+      />
     </PopOut>
   );
 }

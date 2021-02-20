@@ -1,7 +1,4 @@
-.ToClipboard .textarea-container {
-  width: 100%;
-}
-.ToClipboard .textarea-container textarea {
+.ToClipboard textarea {
   padding: 2px;
   border: none;
   -webkit-box-shadow: 0 1px 3px 0 var(--box-shadow);
@@ -9,7 +6,7 @@
   border-radius: 6px;
 }
 
-.ToClipboard .button-container button {
+.ToClipboard button {
   padding: 4px 8px;
   cursor: pointer;
   background-color: rgba(255, 217, 34, 0.5);
@@ -19,12 +16,12 @@
   font-weight: 700;
 }
 
-.ToClipboard .button-container button:hover {
+.ToClipboard button:hover {
   background-color: var(--bcg-header-clr);
   border: 1px solid var(--bcg-header-clr);
 }
 
-.ToClipboard .button-container button:focus {
+.ToClipboard button:focus {
   outline: none;
   color: var(--bcg-header-clr);
   background-color: var(--menu-clr);
