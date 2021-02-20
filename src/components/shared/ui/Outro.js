@@ -1,5 +1,5 @@
 import React from 'react';
-import sledilnikLogo from '../../../assets/sledilnik-logo.svg';
+import sledilnikLogo from '../../../assets/svg/sledilnik-logo.svg';
 import { Row, Emoji } from '../ui/New';
 
 const Outro = ({ spark = true }) => {
