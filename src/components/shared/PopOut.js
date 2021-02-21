@@ -6,13 +6,20 @@ import Modal from './Modal';
 import Backdrop from './Backdrop';
 import CancelButton from './CancelButton';
 
-function PopOut({ children, className = '', buttons, onClose = () => {} }) {
+function PopOut({
+  children,
+  className = '',
+  header,
+  footer,
+  onClose = () => {},
+}) {
   return (
     <Modal>
       <Backdrop className={`PopOut ${className}`}>
         <div className="popout-container">
+          <div className="popout-header-container">{header}</div>
           <div className="children-container">{children}</div>
-          <div className="button-container">{buttons}</div>
+          <div className="popout-footer-container">{footer}</div>
         </div>
         <CancelButton topRight handleClick={() => onClose()} />
       </Backdrop>
