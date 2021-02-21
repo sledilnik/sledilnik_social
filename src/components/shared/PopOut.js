@@ -21,7 +21,7 @@ function PopOut({ children, className = '', buttons, onClose = () => {} }) {
 }
 
 function withPopOutHOC(Component) {
-  return ({ open, ...props }) => {
+  const WithPopOut = ({ open, ...props }) => {
     const [show, setShow] = useState(open);
     useEffect(() => setShow(open), [open]);
 
@@ -33,5 +33,6 @@ function withPopOutHOC(Component) {
     document.body.style.overflow = 'visible';
     return null;
   };
+  return WithPopOut;
 }
 export default withPopOutHOC(PopOut);
