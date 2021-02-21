@@ -35,6 +35,9 @@ function withCharCountHOC(Component) {
 
     const getBorder = style => `${basicBorder} ${style}`;
     const defaultStyle = {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
       width: '30px',
       height: '30px',
       padding: '4px',
