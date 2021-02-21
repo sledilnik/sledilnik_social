@@ -23,7 +23,7 @@ function ToClipboard({
     <PopOut
       className="ToClipboard"
       open={open}
-      buttons={buttons}
+      footer={buttons}
       onClose={() => onCancel(textareaRef.current)}
     >
       <textarea
