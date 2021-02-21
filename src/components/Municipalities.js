@@ -114,7 +114,7 @@ const Municipalities = ({
   return (
     <details>
       <summary className="summary-with-after">
-        <DataRow markFail={props.wrongDate}>Po krajih:</DataRow>
+        <DataRow markFail={wrongDate}>Po krajih:</DataRow>
       </summary>
       <ul>{memoDisplay}</ul>
     </details>
