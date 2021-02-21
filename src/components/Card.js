@@ -28,9 +28,10 @@ function Card({
   const [showPopOut, setShowPopOut] = useState(false);
   const [showCharCount, setShowCharCount] = useState(null);
 
+  const isOpen = detailsRef?.current?.open;
   useEffect(() => {
-    setShowCharCount(social === 'TW' && detailsRef?.current?.open && !noCount);
-  }, [social, noCount]);
+    setShowCharCount(social === 'TW' && isOpen && !noCount);
+  }, [social, noCount, isOpen]);
 
   useEffect(() => {
     const article = document.getElementById('post-' + id);
