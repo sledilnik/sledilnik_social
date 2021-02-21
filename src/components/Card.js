@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 
 import './Card.css';
 
@@ -8,13 +8,31 @@ import { sl } from 'date-fns/locale';
 import sledilnikLogo from '../assets/svg/sledilnik-logo.svg';
 import copyIcon from '../assets/svg/copy.svg';
 import ToClipboard from './shared/ToClipboard';
+import TweetCount from './shared/TweetCount';
+import { SocialContext } from './../context/SocialContext';
 
 function Card({ id, summary, dates = {}, children, open = false }) {
   const detailsRef = useRef();
   const toClipboardButtonRef = useRef();
 
-  const [clipboard, setClipboard] = useState(null);
+  const { social } = useContext(SocialContext);
+
+  const [clipboard, setClipboard] = useState('');
   const [showPopOut, setShowPopOut] = useState(false);
+  const [showCharCount, setShowCharCount] = useState(null);
+
+  useEffect(() => {
+    setShowCharCount(social === 'TW' && detailsRef?.current?.open);
+  }, [social]);
+
+  useEffect(() => {
+    const article = document.getElementById('post-' + id);
+    const innerText = article ? article.innerText : '';
+    let text =
+      social === 'TW' ? innerText.replace(/(\r\n|\r|\n){2,}/g, '\n') : '';
+    text = text.slice(-1) === '\n' ? text.slice(0, -1) : text;
+    setClipboard(text);
+  }, [id, social, showCharCount]);
 
   const openPopOutHandler = event => {
     const buttonId = event.target.id;
@@ -52,6 +70,7 @@ function Card({ id, summary, dates = {}, children, open = false }) {
       block: 'start',
       inline: 'nearest',
     });
+    setShowCharCount(social === 'TW' && details.open);
   };
 
   const latestDate =
@@ -86,6 +105,7 @@ function Card({ id, summary, dates = {}, children, open = false }) {
               <span style={{ marginLeft: '26px' }}>...loading</span>
             )}
           </div>
+          {showCharCount && <TweetCount text={clipboard} />}
           <img
             id={buttonId}
             ref={toClipboardButtonRef}
