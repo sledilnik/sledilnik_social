@@ -11,7 +11,14 @@ import ToClipboard from './shared/ToClipboard';
 import TweetCount from './shared/TweetCount';
 import { SocialContext } from './../context/SocialContext';
 
-function Card({ id, summary, dates = {}, children, open = false }) {
+function Card({
+  id,
+  summary,
+  dates = {},
+  children,
+  open = false,
+  noCount = true,
+}) {
   const detailsRef = useRef();
   const toClipboardButtonRef = useRef();
 
@@ -22,8 +29,8 @@ function Card({ id, summary, dates = {}, children, open = false }) {
   const [showCharCount, setShowCharCount] = useState(null);
 
   useEffect(() => {
-    setShowCharCount(social === 'TW' && detailsRef?.current?.open);
-  }, [social]);
+    setShowCharCount(social === 'TW' && detailsRef?.current?.open && !noCount);
+  }, [social, noCount]);
 
   useEffect(() => {
     const article = document.getElementById('post-' + id);
