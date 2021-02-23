@@ -9,14 +9,14 @@ function Output({
   noArrow = false,
   ...props
 }) {
-  const { social, kindOfData, wrongDate } = props;
+  const { social, kindOfData, isWrongDate } = props;
   const texts = {
     ...defaultTexts,
     ...TextsDict.FB[kindOfData],
     ...TextsDict[social][kindOfData],
   };
 
-  const color = wrongDate ? 'var(--red)' : 'initial';
+  const color = isWrongDate ? 'var(--red)' : 'initial';
 
   const output = Object.values(texts).map((item, index) => (
     <span key={`${keyTitle}-${index}`} style={{ color }}>
@@ -25,7 +25,9 @@ function Output({
     </span>
   ));
 
-  return <DataRow dataString={output} noArrow={noArrow} markFail={wrongDate} />;
+  return (
+    <DataRow dataString={output} noArrow={noArrow} markFail={isWrongDate} />
+  );
 }
 
 export default Output;

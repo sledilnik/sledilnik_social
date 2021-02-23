@@ -12,7 +12,7 @@ import DataRow from './DataRow';
 
 const Brackets = ({ children }) => <>({children})</>;
 
-function PerAge({ title, todayPerAge, yesterdayPerAge, wrongDate }) {
+function PerAge({ title, todayPerAge, yesterdayPerAge, isWrongDate }) {
   const _deltas = todayPerAge.map(
     (item, i) => item.allToDate - yesterdayPerAge[i].allToDate
   );
@@ -36,7 +36,7 @@ function PerAge({ title, todayPerAge, yesterdayPerAge, wrongDate }) {
   const allIsNaN = _deltas.every(item => isNaN(item));
 
   return (
-    <DataRow markFail={wrongDate || allIsNaN}>
+    <DataRow markFail={isWrongDate || allIsNaN}>
       {title}: {deltas}.
     </DataRow>
   );
@@ -58,14 +58,15 @@ function withPerAgeHOC(Component) {
       (a, b) => b.dayFromStart - a.dayFromStart
     );
 
-    const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+    const isWrongDate =
+      differenceInDays(new Date(), getDate(sortedData[0])) > 0;
 
     const newProps = {
       ...props,
       title: 'Potrjeni primeri po starosti',
       todayPerAge: sortedData[1].statePerAgeToDate,
       yesterdayPerAge: sortedData[2].statePerAgeToDate,
-      wrongDate,
+      isWrongDate,
     };
 
     return <Component {...newProps} />;

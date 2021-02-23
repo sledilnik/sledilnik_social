@@ -61,7 +61,8 @@ function withCareHOC(Component) {
       ),
     };
 
-    const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+    const isWrongDate =
+      differenceInDays(new Date(), getDate(sortedData[0])) > 0;
 
     const newProps = {
       ...props,
@@ -71,7 +72,7 @@ function withCareHOC(Component) {
       defaultTexts,
       TextsDict,
       keyTitle: 'Care',
-      wrongDate,
+      isWrongDate,
     };
 
     return <Component {...newProps} />;

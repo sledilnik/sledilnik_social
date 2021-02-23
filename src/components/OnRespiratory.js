@@ -71,7 +71,8 @@ function withOnRespiratoryHOC(Component) {
       )})`,
     };
 
-    const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+    const isWrongDate =
+      differenceInDays(new Date(), getDate(sortedData[0])) > 0;
 
     const newProps = {
       ...props,
@@ -81,7 +82,7 @@ function withOnRespiratoryHOC(Component) {
       defaultTexts,
       TextsDict,
       keyTitle: 'OnRespiratory',
-      wrongDate,
+      isWrongDate,
     };
 
     return <Component {...newProps} />;

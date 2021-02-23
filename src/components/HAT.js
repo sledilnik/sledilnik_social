@@ -53,10 +53,10 @@ const getHATData = data => {
         }
       : { value1: formatNumber(value) };
 
-  const wrongDate =
+  const isWrongDate =
     differenceInDays(new Date(), getDate(data.testsTodayHAT)) > 1;
 
-  return { data: newData, kindOfData, wrongDate };
+  return { data: newData, kindOfData, isWrongDate };
 };
 
 function HAT({ hook, outputProps, ...props }) {

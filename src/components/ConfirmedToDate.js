@@ -35,10 +35,10 @@ const getConfirmedToDateData = data => {
   const newData = {
     value1: formatNumber(value),
   };
-  const wrongDate =
+  const isWrongDate =
     differenceInDays(new Date(), getDate(data.casesToDateSummary)) > 1;
 
-  return { data: newData, kindOfData, wrongDate };
+  return { data: newData, kindOfData, isWrongDate };
 };
 
 function ConfirmedToData({ hook, outputProps, ...props }) {

@@ -39,10 +39,10 @@ const getVaccinationData = data => {
     value1: formatNumber(value),
     value2: formatNumber(vac2),
   };
-  const wrongDate =
+  const isWrongDate =
     differenceInDays(new Date(), getDate(data.vaccinationSummary)) > 1;
 
-  return { data: newData, kindOfData, wrongDate };
+  return { data: newData, kindOfData, isWrongDate };
 };
 
 function Vaccination({ hook, outputProps, ...props }) {

@@ -43,9 +43,10 @@ const getActiveCasesData = data => {
       </Brackets>
     ),
   };
-  const wrongDate = differenceInDays(new Date(), getDate(data.casesActive)) > 1;
+  const isWrongDate =
+    differenceInDays(new Date(), getDate(data.casesActive)) > 1;
 
-  return { data: newData, kindOfData, wrongDate };
+  return { data: newData, kindOfData, isWrongDate };
 };
 
 function ActiveCases({ hook, outputProps, ...props }) {

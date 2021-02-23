@@ -52,7 +52,8 @@ function withDeceasedHOC(Component) {
       value2: formatNumber(sortedData[0].total.deceased.toDate),
     };
 
-    const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+    const isWrongDate =
+      differenceInDays(new Date(), getDate(sortedData[0])) > 0;
 
     const newProps = {
       ...props,
@@ -62,7 +63,7 @@ function withDeceasedHOC(Component) {
       defaultTexts,
       TextsDict,
       keyTitle: 'Deceased',
-      wrongDate,
+      isWrongDate,
     };
 
     return <Component {...newProps} />;

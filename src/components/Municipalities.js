@@ -77,7 +77,7 @@ const Municipalities = ({
   data = new Map(),
   showTrend = 'y',
   icons,
-  wrongDate,
+  isWrongDate,
   showIcons,
   ...props
 }) => {
@@ -100,7 +100,7 @@ const Municipalities = ({
           </span>
         );
       });
-      const color = wrongDate ? 'var(--red)' : 'initial';
+      const color = isWrongDate ? 'var(--red)' : 'initial';
       display.push(
         <li key={`${count}-${{ icons }}`} style={{ color }}>
           {sameDiffTownsLabel}
@@ -109,12 +109,12 @@ const Municipalities = ({
     }
 
     return display;
-  }, [data, icons, showTrend, wrongDate, showIcons]);
+  }, [data, icons, showTrend, isWrongDate, showIcons]);
 
   return (
     <details>
       <summary className="summary-with-after">
-        <DataRow markFail={wrongDate}>Po krajih:</DataRow>
+        <DataRow markFail={isWrongDate}>Po krajih:</DataRow>
       </summary>
       <ul>{memoDisplay}</ul>
     </details>
@@ -250,14 +250,14 @@ function withMunicipalitiesHOC(Component) {
         return acc1;
       }, new Map());
 
-    const wrongDate =
+    const isWrongDate =
       differenceInDays(new Date(), getDate(hook.data.slice(-1).pop())) > 1;
 
     const newProps = {
       data,
       showTrend,
       icons: social,
-      wrongDate,
+      isWrongDate,
       showIcons,
       ...rest,
     };

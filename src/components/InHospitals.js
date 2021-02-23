@@ -19,7 +19,7 @@ const getTranslate = (num, text) => {
   return dict[index - 1];
 };
 
-function InHospitals({ perHospitalChanges, wrongDate }) {
+function InHospitals({ perHospitalChanges, isWrongDate }) {
   const sortDescByPatients = (a, b) =>
     (b[1].inHospital.today || 0) - (a[1].inHospital.today || 0);
 
@@ -54,7 +54,7 @@ function InHospitals({ perHospitalChanges, wrongDate }) {
         hospitalName={hosp[2]}
         hosp={{ ...formattedInHospital }}
         icu={{ ...foramttedIcu }}
-        wrongDate={wrongDate}
+        isWrongDate={isWrongDate}
       />
     );
   };
@@ -66,7 +66,7 @@ function InHospitals({ perHospitalChanges, wrongDate }) {
   return (
     <details>
       <summary className="summary-with-after">
-        <DataRow markFail={wrongDate}>Stanje po bolnišnicah:</DataRow>
+        <DataRow markFail={isWrongDate}>Stanje po bolnišnicah:</DataRow>
       </summary>
       <ul>{hospitalOutput}</ul>
     </details>
@@ -100,12 +100,13 @@ function withInHospitalsHOC(Component) {
       sortedData[0]
     );
 
-    const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+    const isWrongDate =
+      differenceInDays(new Date(), getDate(sortedData[0])) > 0;
 
     const newProps = {
       ...props,
       perHospitalChanges,
-      wrongDate,
+      isWrongDate,
     };
 
     return <Component {...newProps} />;

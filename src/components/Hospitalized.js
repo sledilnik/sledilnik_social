@@ -55,9 +55,9 @@ const getHospitalizedData = data => {
     ),
   };
 
-  const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+  const isWrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
 
-  return { data: newData, kindOfData, wrongDate };
+  return { data: newData, kindOfData, isWrongDate };
 };
 
 function Hospitalized({ hook, outputProps, ...props }) {

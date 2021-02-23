@@ -53,9 +53,10 @@ const getPCRData = data => {
         }
       : { value1: formatNumber(value) };
 
-  const wrongDate = differenceInDays(new Date(), getDate(data.testsToday)) > 1;
+  const isWrongDate =
+    differenceInDays(new Date(), getDate(data.testsToday)) > 1;
 
-  return { data: newData, kindOfData, wrongDate };
+  return { data: newData, kindOfData, isWrongDate };
 };
 
 function PCR({ hook, outputProps, ...props }) {
