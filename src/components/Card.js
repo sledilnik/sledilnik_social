@@ -144,4 +144,10 @@ function Card({
   );
 }
 
-export default Card;
+function withCardHOC(Component) {
+  const WithCard = ({ ...props }) => {
+    return <Component {...props} />;
+  };
+  return WithCard;
+}
+export default withCardHOC(Card);
