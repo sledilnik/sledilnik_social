@@ -8,6 +8,7 @@ import { formatNumber } from '../utils/formatNumber';
 import { getDate } from '../utils/dates';
 
 import Output from './Output';
+import FetchBoundary from './FetchBoundary';
 
 // path summary
 
@@ -28,43 +29,42 @@ const TextsDict = {
 
 const defaultTexts = TextsDict.FB.default;
 
+const getConfirmedToDateData = data => {
+  const { value } = data.casesToDateSummary;
+  const kindOfData = 'default';
+  const newData = {
+    value1: formatNumber(value),
+  };
+  const wrongDate =
+    differenceInDays(new Date(), getDate(data.casesToDateSummary)) > 1;
+
+  return { data: newData, kindOfData, wrongDate };
+};
+
+function ConfirmedToData({ hook, outputProps, ...props }) {
+  return (
+    <FetchBoundary hook={hook}>
+      <Output {...outputProps} />
+    </FetchBoundary>
+  );
+}
+
 function withConfirmedToDate_HOC(Component) {
-  const ConfirmedToDate = ({ ...props }) => {
+  const WithConfirmedToDate = ({ ...props }) => {
     const { summary: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
+    const data = hook.data && getConfirmedToDateData(hook.data);
 
-    if (hook.isLoading) {
-      return 'Loading....';
-    }
-
-    if (hook.data === null) {
-      return 'Null';
-    }
-
-    const { casesToDateSummary } = hook.data;
-
-    const kindOfData = 'default';
-
-    const newData = {
-      value1: formatNumber(casesToDateSummary.value),
-    };
-
-    const wrongDate =
-      differenceInDays(new Date(), getDate(casesToDateSummary)) > 1;
-
-    const newProps = {
-      ...props,
-      data: newData,
+    const outputProps = {
       social,
-      kindOfData,
+      ...data,
       defaultTexts,
       TextsDict,
-      keyTitle: 'ConfirmedToDate',
-      wrongDate,
+      keyTitle: 'Vaccination',
     };
 
-    return <Component {...newProps} />;
+    return <Component hook={hook} outputProps={outputProps} {...props} />;
   };
-  return ConfirmedToDate;
+  return WithConfirmedToDate;
 }
-export default withConfirmedToDate_HOC(Output);
+export default withConfirmedToDate_HOC(ConfirmedToData);
