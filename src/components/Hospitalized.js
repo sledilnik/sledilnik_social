@@ -8,6 +8,7 @@ import { formatNumberWithSign, formatNumber } from '../utils/formatNumber';
 import Output from './Output';
 import { differenceInDays } from 'date-fns';
 import { getDate } from '../utils/dates';
+import FetchBoundary from './FetchBoundary';
 
 // path patients
 
@@ -32,56 +33,57 @@ const defaultTexts = TextsDict.FB.default;
 
 const Brackets = ({ children }) => <>({children})</>;
 
+const getHospitalizedData = data => {
+  const sortedData = [...data].sort((a, b) => b.dayFromStart - a.dayFromStart);
+
+  const kindOfData = 'default';
+
+  const newData = {
+    value1: formatNumber(sortedData[0].total.inHospital.today),
+    value2: (
+      <Brackets>
+        {formatNumberWithSign(sortedData[0].total.inHospital.in)},{' '}
+        {formatNumberWithSign(-sortedData[0].total.inHospital.out)}
+      </Brackets>
+    ),
+    value3: formatNumber(sortedData[0].total.icu.today),
+    value4: (
+      <Brackets>
+        {formatNumberWithSign(sortedData[0].total.inHospital.today) -
+          sortedData[1].total.inHospital.today}
+      </Brackets>
+    ),
+  };
+
+  const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+
+  return { data: newData, kindOfData, wrongDate };
+};
+
+function Hospitalized({ hook, outputProps, ...props }) {
+  return (
+    <FetchBoundary hook={hook}>
+      <Output {...outputProps} />
+    </FetchBoundary>
+  );
+}
+
 function withHospitalizedHOC(Component) {
-  const Hospitalized = ({ ...props }) => {
+  const WithHospitalized = ({ ...props }) => {
     const { patients: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
+    const data = hook.data && getHospitalizedData(hook.data);
 
-    if (hook.isLoading) {
-      return 'Loading....';
-    }
-
-    if (hook.data === null) {
-      return 'Null';
-    }
-
-    const sortedData = [...hook.data].sort(
-      (a, b) => b.dayFromStart - a.dayFromStart
-    );
-
-    const kindOfData = 'default';
-
-    const newData = {
-      value1: formatNumber(sortedData[0].total.inHospital.today),
-      value2: (
-        <Brackets>
-          {formatNumberWithSign(sortedData[0].total.inHospital.in)},{' '}
-          {formatNumberWithSign(-sortedData[0].total.inHospital.out)}
-        </Brackets>
-      ),
-      value3: formatNumber(sortedData[0].total.icu.today),
-      value4: (
-        <Brackets>
-          {formatNumberWithSign(sortedData[0].total.inHospital.today) -
-            sortedData[1].total.inHospital.today}
-        </Brackets>
-      ),
-    };
-
-    const wrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
-
-    const newProps = {
-      ...props,
-      data: newData,
+    const outputProps = {
       social,
-      kindOfData,
+      ...data,
       defaultTexts,
       TextsDict,
-      keyTitle: 'ActiveCases',
-      wrongDate,
+      keyTitle: 'Hospitalized',
     };
-    return <Component {...newProps} />;
+
+    return <Component hook={hook} outputProps={outputProps} {...props} />;
   };
-  return Hospitalized;
+  return WithHospitalized;
 }
-export default withHospitalizedHOC(Output);
+export default withHospitalizedHOC(Hospitalized);
