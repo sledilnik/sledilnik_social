@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import DataRow from './DataRow';
+import { SocialContext } from '../context/SocialContext';
 
 function Output({ output, noArrow, markFail, ...props }) {
   return (
@@ -14,17 +15,12 @@ function Output({ output, noArrow, markFail, ...props }) {
 
 function withOutputHOC(Component) {
   const WithOutput = props => {
-    const { kindOfData, TextsDict, social, defaultTexts, ...rest1 } = props;
-
-    const DefaultDict = kindOfData ? TextsDict.FB[kindOfData] : {};
-    const SocialDict =
-      social || kindOfData ? TextsDict[social][kindOfData] : {};
-
-    const texts = {
-      ...defaultTexts,
-      ...DefaultDict,
-      ...SocialDict,
-    };
+    const { social } = useContext(SocialContext);
+    const { kindOfData, TextsDict, defaultTexts, ...rest1 } = props;
+    const canTranslate = ['FB', 'TW'].includes(social) && !!kindOfData;
+    const texts = canTranslate
+      ? { ...defaultTexts, ...TextsDict[social][kindOfData] }
+      : { ...defaultTexts };
 
     const { isWrongDate, keyTitle, data, ...rest2 } = rest1;
 
