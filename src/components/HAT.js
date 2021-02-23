@@ -12,6 +12,7 @@ import {
 import Output from './Output';
 import { differenceInDays } from 'date-fns';
 import { getDate } from '../utils/dates';
+import FetchBoundary from './FetchBoundary';
 
 const TextsDict = {
   FB: {
@@ -35,52 +36,53 @@ const TextsDict = {
 
 const defaultTexts = TextsDict.FB.default;
 
+const getHATData = data => {
+  const {
+    value,
+    subValues: { positive, percent },
+  } = data.testsTodayHAT;
+
+  const kindOfData = value && !!positive && !!percent ? 'default' : 'onlyValue';
+
+  const newData =
+    kindOfData === 'default'
+      ? {
+          value1: formatNumberWithSign(positive),
+          value2: formatNumber(value),
+          value3: formatPercentage(percent / 100),
+        }
+      : { value1: formatNumber(value) };
+
+  const wrongDate =
+    differenceInDays(new Date(), getDate(data.testsTodayHAT)) > 1;
+
+  return { data: newData, kindOfData, wrongDate };
+};
+
+function HAT({ hook, outputProps, ...props }) {
+  return (
+    <FetchBoundary hook={hook}>
+      <Output {...outputProps} />
+    </FetchBoundary>
+  );
+}
+
 function withHAT_HOC(Component) {
-  const HAT = ({ ...props }) => {
+  const WithHAT = ({ ...props }) => {
     const { summary: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
+    const data = hook.data && getHATData(hook.data);
 
-    if (hook.isLoading) {
-      return 'Loading....';
-    }
-
-    if (hook.data === null) {
-      return 'Null';
-    }
-
-    const {
-      value,
-      subValues: { positive, percent },
-    } = hook.data.testsTodayHAT;
-
-    const kindOfData =
-      value && !!positive && !!percent ? 'default' : 'onlyValue';
-
-    const newData =
-      kindOfData === 'default'
-        ? {
-            value1: formatNumberWithSign(positive),
-            value2: formatNumber(value),
-            value3: formatPercentage(percent / 100),
-          }
-        : { value1: formatNumber(value) };
-
-    const wrongDate =
-      differenceInDays(new Date(), getDate(hook.data.testsTodayHAT)) > 1;
-
-    const newProps = {
-      ...props,
-      data: newData,
+    const outputProps = {
       social,
-      kindOfData,
+      ...data,
       defaultTexts,
       TextsDict,
-      keyTitle: 'HAT',
-      wrongDate,
+      keyTitle: 'PCR',
     };
 
-    return <Component {...newProps} />;
+    return <Component hook={hook} outputProps={outputProps} {...props} />;
   };
-  return HAT;
+  return WithHAT;
 }
-export default withHAT_HOC(Output);
+export default withHAT_HOC(HAT);
