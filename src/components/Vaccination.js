@@ -8,6 +8,7 @@ import { SocialContext } from '../context/SocialContext';
 import { formatNumber } from '../utils/formatNumber';
 
 import Output from './Output';
+import FetchBoundary from './FetchBoundary';
 
 // path summary
 
@@ -28,44 +29,46 @@ const TextsDict = {
 
 const defaultTexts = TextsDict.FB.default;
 
+const getVaccinationData = data => {
+  const {
+    value,
+    subValues: { in: vac2 },
+  } = data.vaccinationSummary;
+  const kindOfData = 'default';
+  const newData = {
+    value1: formatNumber(value),
+    value2: formatNumber(vac2),
+  };
+  const wrongDate =
+    differenceInDays(new Date(), getDate(data.vaccinationSummary)) > 1;
+
+  return { data: newData, kindOfData, wrongDate };
+};
+
+function Vaccination({ hook, outputProps, ...props }) {
+  return (
+    <FetchBoundary hook={hook}>
+      <Output {...outputProps} />
+    </FetchBoundary>
+  );
+}
+
 function withVaccination_HOC(Component) {
-  const Vaccination = ({ ...props }) => {
+  const WithVaccination = ({ ...props }) => {
     const { summary: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
+    const data = hook.data && getVaccinationData(hook.data);
 
-    if (hook.isLoading) {
-      return 'Loading....';
-    }
-
-    if (hook.data === null) {
-      return 'Null';
-    }
-
-    const { vaccinationSummary } = hook.data;
-
-    const kindOfData = 'default';
-
-    const newData = {
-      value1: formatNumber(vaccinationSummary.value),
-      value2: formatNumber(vaccinationSummary.subValues.in),
-    };
-
-    const wrongDate =
-      differenceInDays(new Date(), getDate(vaccinationSummary)) > 1;
-
-    const newProps = {
-      ...props,
-      data: newData,
+    const outputProps = {
       social,
-      kindOfData,
+      ...data,
       defaultTexts,
       TextsDict,
-      keyTitle: 'ActiveCases',
-      wrongDate,
+      keyTitle: 'Vaccination',
     };
 
-    return <Component {...newProps} />;
+    return <Component hook={hook} outputProps={outputProps} {...props} />;
   };
-  return Vaccination;
+  return WithVaccination;
 }
-export default withVaccination_HOC(Output);
+export default withVaccination_HOC(Vaccination);
