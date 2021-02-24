@@ -23,14 +23,6 @@ function Header() {
   };
 
   const onLinkClick = event => {
-    const { target } = event;
-    if (target.id === 'legend-link') {
-      event.preventDefault();
-      const legend = document.getElementById('legenda');
-      legend.scrollIntoView({
-        block: 'center',
-      });
-    }
     const header = document.getElementById('header');
     setOpen(false);
     header.classList.remove('menuOpen');
@@ -53,14 +45,6 @@ function Header() {
       </div>
       <nav className="nav-container" onClick={onCloseHandler}>
         <div className="nav-heading">Meni</div>
-        <a
-          id="legend-link"
-          className="nav-link"
-          href="#legenda"
-          onClick={onLinkClick}
-        >
-          Legenda
-        </a>
         <a
           className="nav-link"
           href="https://covid-19.sledilnik.org/"
