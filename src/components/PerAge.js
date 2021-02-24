@@ -7,12 +7,27 @@ import { formatNumber } from './../utils/formatNumber';
 import { getDate } from '../utils/dates';
 
 import DataRow from './DataRow';
+import FetchBoundary from './FetchBoundary';
 
 // path patients
-
 const Brackets = ({ children }) => <>({children})</>;
 
-function PerAge({ title, todayPerAge, yesterdayPerAge, isWrongDate }) {
+function PerAge({ hook, deltas, isWrongDate }) {
+  return (
+    <FetchBoundary hook={hook}>
+      <DataRow markFail={isWrongDate}>
+        Potrjeni primeri po starosti: {deltas}.
+      </DataRow>
+    </FetchBoundary>
+  );
+}
+
+const getPerAgeData = data => {
+  const sortedData = [...data].sort((a, b) => b.dayFromStart - a.dayFromStart);
+
+  const todayPerAge = sortedData[1].statePerAgeToDate;
+  const yesterdayPerAge = sortedData[2].statePerAgeToDate;
+
   const _deltas = todayPerAge.map(
     (item, i) => item.allToDate - yesterdayPerAge[i].allToDate
   );
@@ -35,42 +50,21 @@ function PerAge({ title, todayPerAge, yesterdayPerAge, isWrongDate }) {
 
   const allIsNaN = _deltas.every(item => isNaN(item));
 
-  return (
-    <DataRow markFail={isWrongDate || allIsNaN}>
-      {title}: {deltas}.
-    </DataRow>
-  );
-}
+  const isWrongDate =
+    differenceInDays(new Date(), getDate(sortedData[0])) > 0 || allIsNaN;
+  return {
+    deltas,
+    isWrongDate,
+  };
+};
 
 function withPerAgeHOC(Component) {
-  const PerAge = ({ ...props }) => {
+  const WithPerAge = ({ ...props }) => {
     const { stats: hook } = useContext(DataContext);
+    const data = hook.data && getPerAgeData(hook.data);
 
-    if (hook.isLoading) {
-      return 'Loading....';
-    }
-
-    if (hook.data === null) {
-      return 'Null';
-    }
-
-    const sortedData = [...hook.data].sort(
-      (a, b) => b.dayFromStart - a.dayFromStart
-    );
-
-    const isWrongDate =
-      differenceInDays(new Date(), getDate(sortedData[0])) > 0;
-
-    const newProps = {
-      ...props,
-      title: 'Potrjeni primeri po starosti',
-      todayPerAge: sortedData[1].statePerAgeToDate,
-      yesterdayPerAge: sortedData[2].statePerAgeToDate,
-      isWrongDate,
-    };
-
-    return <Component {...newProps} />;
+    return <Component hook={hook} {...data} {...props} />;
   };
-  return PerAge;
+  return WithPerAge;
 }
 export default withPerAgeHOC(PerAge);
