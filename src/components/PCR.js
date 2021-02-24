@@ -3,7 +3,6 @@ import { differenceInDays } from 'date-fns/';
 import { getDate } from '../utils/dates';
 
 import { DataContext } from '../context/DataContext';
-import { SocialContext } from '../context/SocialContext';
 
 import {
   formatNumberWithSign,
@@ -14,51 +13,6 @@ import {
 import Output from './Output';
 import FetchBoundary from './FetchBoundary';
 
-const TextsDict = {
-  FB: {
-    default: {
-      text1: 'PCR: ',
-      text2: ', testiranih: ',
-      text3: ', delež pozitivnih: ',
-      text4: '.',
-    },
-    onlyValue: {
-      text2: ' testiranih (*ni podatka o pozitivnih).',
-      text3: '',
-      text4: '',
-    },
-  },
-  TW: {
-    default: { text4: '' },
-    onValue: {},
-  },
-};
-
-const defaultTexts = TextsDict.FB.default;
-
-const getPCRData = data => {
-  const {
-    value,
-    subValues: { positive, percent },
-  } = data.testsToday;
-
-  const kindOfData = value && !!positive && !!percent ? 'default' : 'onlyValue';
-
-  const newData =
-    kindOfData === 'default'
-      ? {
-          value1: formatNumberWithSign(positive),
-          value2: formatNumber(value),
-          value3: formatPercentage(percent / 100),
-        }
-      : { value1: formatNumber(value) };
-
-  const isWrongDate =
-    differenceInDays(new Date(), getDate(data.testsToday)) > 1;
-
-  return { data: newData, kindOfData, isWrongDate };
-};
-
 function PCR({ hook, outputProps, ...props }) {
   return (
     <FetchBoundary hook={hook}>
@@ -67,17 +21,50 @@ function PCR({ hook, outputProps, ...props }) {
   );
 }
 
+const getPCRValues = data => {
+  const {
+    value,
+    subValues: { positive, percent },
+  } = data;
+  return { value, positive, percent };
+};
+
+const getPCRDataDict = ({ value, positive, percent }) => ({
+  default: {
+    value1: formatNumberWithSign(positive),
+    value2: formatNumber(value),
+    value3: formatPercentage(percent / 100),
+  },
+  onlyValue: { value1: formatNumber(value) },
+});
+
+const getPCRKindOfData = data =>
+  data.value && !!data.positive && !!data.percent ? 'default' : 'onlyValue';
+
+const isWrongDate = (date, compare) =>
+  differenceInDays(new Date(), date) > compare;
+
+const getDataOutputProps = data => {
+  const values = getPCRValues(data);
+  const dataDict = getPCRDataDict(values);
+  const kindOfData = getPCRKindOfData(values);
+
+  return {
+    kindOfData,
+    data: dataDict[kindOfData],
+    isWrongDate: isWrongDate(getDate(data), 1),
+  };
+};
+
 function withPCR_HOC(Component) {
   const WithPCR = ({ ...props }) => {
     const { summary: hook } = useContext(DataContext);
-    const { social } = useContext(SocialContext);
-    const data = hook.data && getPCRData(hook.data);
+
+    const dataProps =
+      hook.data?.testsToday && getDataOutputProps(hook.data.testsToday);
 
     const outputProps = {
-      social,
-      ...data,
-      defaultTexts,
-      TextsDict,
+      ...dataProps,
       keyTitle: 'PCR',
     };
 
