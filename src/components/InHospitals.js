@@ -8,6 +8,7 @@ import { getDate } from '../utils/dates';
 
 import DataRow from './DataRow';
 import InHospital from './InHospital';
+import FetchBoundary from './FetchBoundary';
 
 const dictionary = {
   oseba: ['oseba', 'osebi', 'osebe', 'osebe', 'oseb'],
@@ -19,7 +20,8 @@ const getTranslate = (num, text) => {
   return dict[index - 1];
 };
 
-function InHospitals({ perHospitalChanges, isWrongDate }) {
+// patients
+function InHospitals({ hook, perHospitalChanges, isWrongDate }) {
   const sortDescByPatients = (a, b) =>
     (b[1].inHospital.today || 0) - (a[1].inHospital.today || 0);
 
@@ -59,84 +61,65 @@ function InHospitals({ perHospitalChanges, isWrongDate }) {
     );
   };
 
-  const hospitalOutput = perHospitalChanges
-    .sort(sortDescByPatients)
-    .map(createHospitalOutput);
+  const hospitalOutput =
+    perHospitalChanges &&
+    perHospitalChanges.sort(sortDescByPatients).map(createHospitalOutput);
 
   return (
-    <details>
-      <summary className="summary-with-after">
-        <DataRow markFail={isWrongDate}>Stanje po bolnišnicah:</DataRow>
-      </summary>
-      <ul>{hospitalOutput}</ul>
-    </details>
+    <FetchBoundary hook={hook}>
+      <details>
+        <summary className="summary-with-after">
+          <DataRow markFail={isWrongDate}>Stanje po bolnišnicah:</DataRow>
+        </summary>
+        <ul>{hospitalOutput}</ul>
+      </details>
+    </FetchBoundary>
   );
 }
 
-function withInHospitalsHOC(Component) {
-  const InHospitals = ({ props }) => {
+const withInHospitalsHOC = function withInHospitalsHOC(Component) {
+  const WithInHospitals = ({ props }) => {
     const { patients: hookPatients, hospitalsList: hookHospitals } = useContext(
       DataContext
     );
 
     const isLoading = hookPatients.isLoading || hookHospitals.isLoading;
+    const hasError = hookPatients.hasError || hookHospitals.hasError;
+    const data =
+      hookPatients.data === null || hookHospitals.data === null
+        ? null
+        : { hospitals: hookHospitals.data, patients: hookPatients.data };
+    const hook = { hasError, isLoading, data };
 
-    if (isLoading) {
-      return 'Loading....';
-    }
+    const newProps = data && getInHospitalsData(data);
 
-    const isDataNull =
-      hookPatients.data === null || hookHospitals.data === null;
-    if (isDataNull) {
-      return 'Null';
-    }
-
-    const sortedData = [...hookPatients.data].sort(
-      (a, b) => b.dayFromStart - a.dayFromStart
-    );
-
-    const { perHospitalChanges } = getInHospitalsData(
-      hookHospitals.data,
-      sortedData[0]
-    );
-
-    const isWrongDate =
-      differenceInDays(new Date(), getDate(sortedData[0])) > 0;
-
-    const newProps = {
-      ...props,
-      perHospitalChanges,
-      isWrongDate,
-    };
-
-    return <Component {...newProps} />;
+    return <Component hook={hook} {...newProps} {...props} />;
   };
-  return InHospitals;
-}
+  return WithInHospitals;
+};
 export default withInHospitalsHOC(InHospitals);
 
-const getInHospitalsData = (hospitalsList, patients) => {
-  if (hospitalsList === null || patients === null) {
-    return {
-      perHospitalChanges: null,
-      css: {
-        check_patients: null,
-      },
-    };
-  }
+const getInHospitalsData = data => {
+  const { hospitals, patients } = data;
+  const sortedData = [...patients].sort(
+    (a, b) => b.dayFromStart - a.dayFromStart
+  );
 
   // {code: 'xxx', name: 'yyy', uri: 'zzz} -> [['xxx', 'zzz]] [[<code>,<name>]]
-  const hospitalsDict = prepareHospitalsDict(hospitalsList);
+  const hospitalsDict = prepareHospitalsDict(hospitals);
 
   // prepare perHospitalChanges
-  const perHospitalChanges = getPerHospitalChanges(patients);
+  const perHospitalChanges = getPerHospitalChanges(sortedData[0]);
   const perHospitalChangesWithLongName = findAndPushLongHospitalName(
     perHospitalChanges,
     hospitalsDict
   );
 
+  const isWrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+
   return {
     perHospitalChanges: perHospitalChangesWithLongName,
+    isWrongDate,
   };
 };
 
