@@ -3,80 +3,53 @@ import { differenceInDays } from 'date-fns';
 import { getDate } from '../utils/dates';
 
 import { DataContext } from '../context/DataContext';
-import { SocialContext } from '../context/SocialContext';
 
 import { formatNumber, formatNumberWithSign } from '../utils/formatNumber';
 
 import Output from './Output';
+import FetchBoundary from './FetchBoundary';
 
 // path patients
-
-const TextsDict = {
-  FB: {
-    default: {
-      text1: 'Negovalne bolnišnice: ',
-      text2: ' ',
-      text3: '.',
-    },
-    onlyValue: {},
-  },
-  TW: {
-    default: {
-      text1: 'Negovalne b.: ',
-    },
-    onValue: {},
-  },
-};
-
-const defaultTexts = TextsDict.FB.default;
-
+function Care({ hook, outputProps, ...props }) {
+  return (
+    <FetchBoundary hook={hook}>
+      <Output {...outputProps} />
+    </FetchBoundary>
+  );
+}
 const Brackets = ({ children }) => <>({children})</>;
 
-function withCareHOC(Component) {
-  const Care = ({ ...props }) => {
-    const { patients: hook } = useContext(DataContext);
-    const { social } = useContext(SocialContext);
+const getCaredData = data => {
+  const sortedData = [...data].sort((a, b) => b.dayFromStart - a.dayFromStart);
 
-    if (hook.isLoading) {
-      return 'Loading....';
-    }
+  const kindOfData = 'default';
 
-    if (hook.data === null) {
-      return 'Null';
-    }
-
-    const sortedData = [...hook.data].sort(
-      (a, b) => b.dayFromStart - a.dayFromStart
-    );
-
-    const kindOfData = 'default';
-
-    const newData = {
-      value1: formatNumber(sortedData[0].total.care.today),
-      value2: (
-        <Brackets>
-          {formatNumberWithSign(sortedData[0].total.care.in)},{' '}
-          {formatNumberWithSign(-sortedData[0].total.care.out)}
-        </Brackets>
-      ),
-    };
-
-    const isWrongDate =
-      differenceInDays(new Date(), getDate(sortedData[0])) > 0;
-
-    const newProps = {
-      ...props,
-      data: newData,
-      social,
-      kindOfData,
-      defaultTexts,
-      TextsDict,
-      keyTitle: 'Care',
-      isWrongDate,
-    };
-
-    return <Component {...newProps} />;
+  const newData = {
+    value1: formatNumber(sortedData[0].total.care.today),
+    value2: (
+      <Brackets>
+        {formatNumberWithSign(sortedData[0].total.care.in)},{' '}
+        {formatNumberWithSign(-sortedData[0].total.care.out)}
+      </Brackets>
+    ),
   };
-  return Care;
+
+  const isWrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+  return { data: newData, kindOfData, isWrongDate };
+};
+
+function withCareHOC(Component) {
+  const WithCare = ({ ...props }) => {
+    const { patients: hook } = useContext(DataContext);
+    const data = hook.data && getCaredData(hook.data);
+
+    const outputProps = {
+      ...data,
+      keyTitle: 'Care',
+    };
+
+    return <Component hook={hook} outputProps={outputProps} {...props} />;
+  };
+  return WithCare;
 }
-export default withCareHOC(Output);
+export default withCareHOC(Care);
