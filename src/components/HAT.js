@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 
 import { DataContext } from '../context/DataContext';
-import { SocialContext } from '../context/SocialContext';
 
 import {
   formatNumber,
@@ -13,28 +12,6 @@ import Output from './Output';
 import { differenceInDays } from 'date-fns';
 import { getDate } from '../utils/dates';
 import FetchBoundary from './FetchBoundary';
-
-const TextsDict = {
-  FB: {
-    default: {
-      text1: 'HAT: ',
-      text2: ', testiranih: ',
-      text3: ', delež pozitivnih: ',
-      text4: '.',
-    },
-    onlyValue: {
-      text2: ' testiranih (*ni podatka o pozitivnih).',
-      text3: '',
-      text4: '',
-    },
-  },
-  TW: {
-    default: { text4: '' },
-    onValue: {},
-  },
-};
-
-const defaultTexts = TextsDict.FB.default;
 
 const getHATData = data => {
   const {
@@ -70,15 +47,11 @@ function HAT({ hook, outputProps, ...props }) {
 function withHAT_HOC(Component) {
   const WithHAT = ({ ...props }) => {
     const { summary: hook } = useContext(DataContext);
-    const { social } = useContext(SocialContext);
     const data = hook.data && getHATData(hook.data);
 
     const outputProps = {
-      social,
       ...data,
-      defaultTexts,
-      TextsDict,
-      keyTitle: 'PCR',
+      keyTitle: 'HAT',
     };
 
     return <Component hook={hook} outputProps={outputProps} {...props} />;
