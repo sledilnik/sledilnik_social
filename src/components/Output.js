@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
-import DataRow from './DataRow';
+
 import { SocialContext } from '../context/SocialContext';
+import DataRow from './DataRow';
+import TextsDict from '../dicts/SocialTextsDict';
 
 function Output({ output, noArrow, markFail, ...props }) {
   return (
@@ -16,13 +18,14 @@ function Output({ output, noArrow, markFail, ...props }) {
 function withOutputHOC(Component) {
   const WithOutput = props => {
     const { social } = useContext(SocialContext);
-    const { kindOfData, TextsDict, defaultTexts, ...rest1 } = props;
-    const canTranslate = ['FB', 'TW'].includes(social) && !!kindOfData;
-    const texts = canTranslate
-      ? { ...defaultTexts, ...TextsDict[social][kindOfData] }
-      : { ...defaultTexts };
+    const { kindOfData, keyTitle, ...rest1 } = props;
 
-    const { isWrongDate, keyTitle, data, ...rest2 } = rest1;
+    const texts = {
+      ...TextsDict.FB[keyTitle].default,
+      ...TextsDict[social][keyTitle][kindOfData],
+    };
+
+    const { isWrongDate, data, ...rest2 } = rest1;
 
     const color = isWrongDate ? 'var(--red)' : 'initial';
 
