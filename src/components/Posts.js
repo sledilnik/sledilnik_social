@@ -55,9 +55,17 @@ const HOS = () => {
 };
 
 const EPI = () => {
-  const { stats } = useContext(TimestampsContext);
-  const { data: patientsTimestamp } = stats;
-  const dates = { stats: patientsTimestamp };
+  const { stats, labTests, cases, patients } = useContext(TimestampsContext);
+  const { data: statsTimestamp } = stats;
+  const { data: labTestsTimestamp } = labTests;
+  const { data: casesTimestamp } = cases;
+  const { data: patientsTimestamp } = patients;
+  const dates = {
+    stats: statsTimestamp,
+    'lab-tests': labTestsTimestamp,
+    cases: casesTimestamp,
+    patients: patientsTimestamp,
+  };
   return (
     <Card id="epi" summary="EPI" dates={dates} open={false}>
       <Post id="post-epi" postNumber={3}>
