@@ -3,90 +3,58 @@ import { differenceInDays } from 'date-fns';
 import { getDate } from '../utils/dates';
 
 import { DataContext } from '../context/DataContext';
-import { SocialContext } from '../context/SocialContext';
 
 import { formatNumber } from '../utils/formatNumber';
 
 import Output from './Output';
 import { formatNumberWithSign } from './../utils/formatNumber';
+import FetchBoundary from './FetchBoundary';
 
 // path patients
+function OnRespiratory({ hook, outputProps, ...props }) {
+  return (
+    <FetchBoundary hook={hook}>
+      <Output {...outputProps} />
+    </FetchBoundary>
+  );
+}
 
-const TextsDict = {
-  FB: {
-    default: {
-      text1: 'Na respiratorju: ',
-      text2: ', intubirani: ',
-      text3: ' ',
-      text4: ', neinvazivno: ',
-      text5: ' ',
-      text6: '.',
-    },
-    onlyValue: {},
-  },
-  TW: {
-    default: {
-      text1: 'Respirator: ',
-      text2: ' intubirani ',
-      text3: '',
-      text4: ' neinvazivno ',
-      text5: '',
-    },
-    onValue: {},
-  },
+const getOnRespiratoryData = data => {
+  const sortedData = [...data].sort((a, b) => b.dayFromStart - a.dayFromStart);
+
+  const kindOfData = 'default';
+
+  const newData = {
+    value1: formatNumber(
+      sortedData[0].total.critical.today + sortedData[0].total.niv.today
+    ),
+    value2: formatNumber(sortedData[0].total.critical.today),
+    value3: `(${formatNumberWithSign(
+      sortedData[0].total.critical.today - sortedData[1].total.critical.today
+    )})`,
+    value4: formatNumber(sortedData[0].total.niv.today),
+    value5: `(${formatNumberWithSign(
+      sortedData[0].total.niv.today - sortedData[1].total.niv.today
+    )})`,
+  };
+
+  const isWrongDate = differenceInDays(new Date(), getDate(sortedData[0])) > 0;
+
+  return { data: newData, kindOfData, isWrongDate };
 };
 
-const defaultTexts = TextsDict.FB.default;
-
 function withOnRespiratoryHOC(Component) {
-  const OnRespiratory = ({ ...props }) => {
+  const WithOnRespiratory = ({ ...props }) => {
     const { patients: hook } = useContext(DataContext);
-    const { social } = useContext(SocialContext);
+    const data = hook.data && getOnRespiratoryData(hook.data);
 
-    if (hook.isLoading) {
-      return 'Loading....';
-    }
-
-    if (hook.data === null) {
-      return 'Null';
-    }
-
-    const sortedData = [...hook.data].sort(
-      (a, b) => b.dayFromStart - a.dayFromStart
-    );
-
-    const kindOfData = 'default';
-
-    const newData = {
-      value1: formatNumber(
-        sortedData[0].total.critical.today + sortedData[0].total.niv.today
-      ),
-      value2: formatNumber(sortedData[0].total.critical.today),
-      value3: `(${formatNumberWithSign(
-        sortedData[0].total.critical.today - sortedData[1].total.critical.today
-      )})`,
-      value4: formatNumber(sortedData[0].total.niv.today),
-      value5: `(${formatNumberWithSign(
-        sortedData[0].total.niv.today - sortedData[1].total.niv.today
-      )})`,
-    };
-
-    const isWrongDate =
-      differenceInDays(new Date(), getDate(sortedData[0])) > 0;
-
-    const newProps = {
-      ...props,
-      data: newData,
-      social,
-      kindOfData,
-      defaultTexts,
-      TextsDict,
+    const outputProps = {
+      ...data,
       keyTitle: 'OnRespiratory',
-      isWrongDate,
     };
 
-    return <Component {...newProps} />;
+    return <Component hook={hook} outputProps={outputProps} {...props} />;
   };
-  return OnRespiratory;
+  return WithOnRespiratory;
 }
-export default withOnRespiratoryHOC(Output);
+export default withOnRespiratoryHOC(OnRespiratory);
