@@ -26,7 +26,6 @@ function withOutputHOC(Component) {
     };
 
     const { isWrongDate, data, ...rest2 } = rest1;
-    console.log(isWrongDate);
 
     const color = isWrongDate ? 'var(--red)' : 'initial';
 
