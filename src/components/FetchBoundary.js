@@ -1,24 +1,26 @@
 import React from 'react';
 import SkeletonRow from './SkeletonRow';
 import DataRow from './DataRow';
+import SomethingWentWrong from './SomethingWentWrong';
 
 function FetchBoundary(props) {
   return <>{props.children}</>;
 }
 
 function withFetchBoundaryHOC(Component) {
-  const WithFetchBoundary = ({ ...props }) => {
-    if (props.hook.isLoading) {
+  const WithFetchBoundary = ({ hook, ...props }) => {
+    if (hook.isLoading) {
       return <SkeletonRow />;
     }
 
-    if (props.hook.data === null) {
+    if (hook.isError) {
+      return <SomethingWentWrong title={props.title} />;
+    }
+
+    if (hook.data === null) {
       return <DataRow dataString="Žal ni podatkov." />;
     }
 
-    if (props.hook.isError) {
-      return <DataRow dataString="Nekaj je šlo narobe!" />;
-    }
     return <Component {...props} />;
   };
   return WithFetchBoundary;
