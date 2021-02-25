@@ -219,7 +219,11 @@ const getDict = (keys, dict) => {
 const SummaryDict = getDict(summaryKeys, summaryDict);
 const PatientsDict = getDict(patientsKeys, patientsDict);
 
+const FB = { ...SummaryDict.FB, ...PatientsDict.FB };
+const TW = { ...SummaryDict.TW, ...PatientsDict.TW };
+
+export const DefaultTextsDict = FB;
 export default {
-  FB: { ...SummaryDict.FB, ...PatientsDict.FB },
-  TW: { ...SummaryDict.TW, ...PatientsDict.TW },
+  FB,
+  TW,
 };
