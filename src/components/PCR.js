@@ -13,10 +13,10 @@ import {
 import Output from './Output';
 import FetchBoundary from './FetchBoundary';
 
-function PCR({ hook, outputProps, ...props }) {
+function PCR({ hook, title, outputProps, ...props }) {
   return (
-    <FetchBoundary hook={hook}>
-      <Output {...outputProps} />
+    <FetchBoundary hook={hook} title={title} {...props}>
+      <Output keyTitle={title} {...outputProps} />
     </FetchBoundary>
   );
 }
