@@ -21,12 +21,18 @@ function PCR({ hook, title, outputProps, ...props }) {
   );
 }
 
+const isObject = variable =>
+  Object.prototype.toString.call(variable) === '[object Object]';
+
 const getPCRValues = data => {
-  const {
-    value,
-    subValues: { positive, percent },
-  } = data;
-  return { value, positive, percent };
+  if (isObject(data)) {
+    const {
+      value,
+      subValues: { positive, percent },
+    } = data;
+    return { value, positive, percent };
+  }
+  return new Error('Argument should be an object!');
 };
 
 const getPCRDataDict = ({ value, positive, percent }) => ({
