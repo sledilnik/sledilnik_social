@@ -26,6 +26,7 @@ function withOutputHOC(Component) {
     };
 
     const { isWrongDate, data, ...rest2 } = rest1;
+    console.log(isWrongDate);
 
     const color = isWrongDate ? 'var(--red)' : 'initial';
 
@@ -36,7 +37,7 @@ function withOutputHOC(Component) {
       </span>
     ));
 
-    return <Component output={output} {...rest2} />;
+    return <Component output={output} markFail={isWrongDate} {...rest2} />;
   };
   return WithOutput;
 }
