@@ -22,6 +22,7 @@ function withOutputHOC(Component) {
 
     const texts = {
       ...DefaultTextsDict[keyTitle].default,
+      ...DefaultTextsDict[keyTitle][kindOfData],
       ...TextsDict[social][keyTitle][kindOfData],
     };
 
