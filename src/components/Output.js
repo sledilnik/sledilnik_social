@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import { SocialContext } from '../context/SocialContext';
 import DataRow from './DataRow';
 import TextsDict, { DefaultTextsDict } from '../dicts/SocialTextsDict';
-import SomethingWentWrong from './SomethingWentWrong';
 
 function Output({ output, noArrow, markFail, ...props }) {
   return (
@@ -19,18 +18,14 @@ function Output({ output, noArrow, markFail, ...props }) {
 function withOutputHOC(Component) {
   const WithOutput = props => {
     const { social } = useContext(SocialContext);
-    const { error, keyTitle, ...rest1 } = props;
-    if (error) {
-      return <SomethingWentWrong title={keyTitle} {...rest1} />;
-    }
+    const { keyTitle, kindOfData, ...rest1 } = props;
 
-    const { kindOfData, ...rest2 } = rest1;
     const texts = {
       ...DefaultTextsDict[keyTitle].default,
       ...TextsDict[social][keyTitle][kindOfData],
     };
 
-    const { isWrongDate, data, ...rest3 } = rest2;
+    const { isWrongDate, data, ...rest2 } = rest1;
     const color = isWrongDate ? 'var(--red)' : 'initial';
     const output = Object.values(texts).map((item, index) => (
       <span key={`${keyTitle}-${index}`} style={{ color }}>
@@ -39,7 +34,7 @@ function withOutputHOC(Component) {
       </span>
     ));
 
-    return <Component output={output} markFail={isWrongDate} {...rest3} />;
+    return <Component output={output} markFail={isWrongDate} {...rest2} />;
   };
   return WithOutput;
 }
