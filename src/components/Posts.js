@@ -5,21 +5,16 @@ import './Posts.css';
 import Card from './Card';
 import Post from './Post';
 
-import PCR from './PCR';
-import HAT from './HAT';
-import ActiveCases from './ActiveCases';
-
 import Hospitalized from './Hospitalized';
 import OnRespiratory from './OnRespiratory';
 import Care from './Care';
 import Deceased from './Deceased';
 
-import ComfirmedToDate from './ConfirmedToDate';
-import Vaccination from './Vaccination';
 import PerAge from './PerAge';
 import { TimestampsContext } from '../context/TimestampsContext';
 import InHospitals from './InHospitals';
 import Municipalities from './Municipalities';
+import Summary from './Summary';
 
 const LAB = () => {
   const { labTests, cases } = useContext(TimestampsContext);
@@ -30,9 +25,9 @@ const LAB = () => {
   return (
     <Card id="lab" summary="LAB" dates={dates} open={true} noCount={false}>
       <Post id="post-lab" postNumber={1}>
-        <PCR />
-        <HAT />
-        <ActiveCases />
+        <Summary title="PCR" />
+        <Summary title="HAT" />
+        <Summary title="ActiveCases" />
       </Post>
     </Card>
   );
@@ -69,11 +64,11 @@ const EPI = () => {
   return (
     <Card id="epi" summary="EPI" dates={dates} open={false}>
       <Post id="post-epi" postNumber={3}>
-        <PCR />
-        <HAT />
-        <ActiveCases />
-        <Vaccination />
-        <ComfirmedToDate />
+        <Summary title="PCR" />
+        <Summary title="HAT" />
+        <Summary title="ActiveCases" />
+        <Summary title="Vaccination" />
+        <Summary title="ConfirmedToDate" />
         <PerAge />
         <Hospitalized />
         <OnRespiratory />
