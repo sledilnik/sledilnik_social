@@ -43,7 +43,7 @@ const getValues = data => {
   return { value, ...subValues };
 };
 
-const isWrongDate = (date, compare) => {
+const isDaysDiffGreater = (date, compare) => {
   if (date === 'Invalid Date') {
     throw new Error('Invalid Date');
   }
@@ -83,56 +83,56 @@ const getFormattedValues = (
   }
 };
 
-const getDataType = data => {
-  if (!data) {
-    throw new Error('Missing data argument.');
+const getValuesType = (type, mandatoryProperties, values) => {
+  if (type.fallback === null || !mandatoryProperties) {
+    return type.default;
   }
-  return data.value && !!data.positive && !!data.percent
-    ? 'percentage'
-    : 'onlyValue';
+
+  const result = mandatoryProperties.reduce((acc, item) => {
+    return acc && !!values[item];
+  }, true);
+  return result ? type.default : type.fallback;
 };
 
 const SummaryData = {
   PCR: {
     field: 'testsToday',
-    type: 'percentage',
-    getDataType: getDataType,
+    types: { default: 'percentage', fallback: 'onlyValue' },
+    mandatoryProperties: ['value', 'positive', 'percent'],
   },
   HAT: {
     field: 'testsTodayHAT',
-    type: 'percentage',
-    getDataType: getDataType,
+    types: { default: 'percentage', fallback: 'onlyValue' },
+    mandatoryProperties: ['value', 'positive', 'percent'],
   },
   ActiveCases: {
     field: 'casesActive',
-    type: 'bracketsInOut',
-    getDataType: () => 'bracketsInOut',
+    types: { default: 'bracketsInOut', fallback: null },
   },
   Vaccination: {
     field: 'vaccinationSummary',
-    type: 'onlyIn',
-    getDataType: () => 'onlyIn',
+    types: { default: 'onlyIn', fallback: null },
   },
   ConfirmedToDate: {
     field: 'casesToDateSummary',
-    type: 'onlyValue',
-    getDataType: () => 'onlyValue',
+    types: { default: 'onlyValue', fallback: null },
   },
 };
 
 const getOutputProps = (data, title) => {
   const values = getValues(data);
-  const valuesKindOfData = SummaryData[title].getDataType(values);
-  const FormattedValues = getFormattedValues(valuesKindOfData, values);
+  const { types, mandatoryProperties } = SummaryData[title].titleParams;
+
+  const type = getValuesType(types, mandatoryProperties, values);
+  const formattedValues = getFormattedValues(type, values);
   const DAYS_DIFFERENCE = 1;
 
-  const textsKindOfData =
-    valuesKindOfData === SummaryData[title].type ? 'default' : 'onlyValue';
+  const textsType = type === types.default ? 'default' : 'onlyValue';
 
   return {
-    kindOfData: textsKindOfData,
-    data: FormattedValues,
-    isWrongDate: isWrongDate(getDate(data), DAYS_DIFFERENCE),
+    kindOfData: textsType,
+    data: formattedValues,
+    isWrongDate: isDaysDiffGreater(getDate(data), DAYS_DIFFERENCE),
   };
 };
 
