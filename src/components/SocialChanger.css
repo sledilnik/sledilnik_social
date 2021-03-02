@@ -1,11 +1,12 @@
 .SocialChanger {
+  position: relative;
   margin: 0 auto;
   --radius: 16px;
 }
 
 .SocialChanger input[type='checkbox'] {
+  position: absolute;
   top: -100vh;
-  opacity: 0;
 }
 
 .checkbox-container {
