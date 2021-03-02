@@ -10,8 +10,6 @@ import DataRow from './DataRow';
 import FetchBoundary from './FetchBoundary';
 
 // path patients
-const Brackets = ({ children }) => <>({children})</>;
-
 function PerAge({ hook, deltas, isWrongDate }) {
   return (
     <FetchBoundary hook={hook}>
@@ -39,10 +37,7 @@ const getPerAgeData = data => {
     return (
       <span key={`${i}_${ageRange}`}>
         {' '}
-        {ageRange}{' '}
-        <span style={{ fontWeight: 700 }}>
-          <Brackets>{delta}</Brackets>
-        </span>
+        {ageRange} <span style={{ fontWeight: 700 }}>({delta})</span>
         {i !== 9 ? ',' : ''}
       </span>
     );
