@@ -73,7 +73,7 @@ function Post({
   const header = hasHeader && (
     <Intro
       postNumber={postNumber}
-      introTodayDate={format(new Date(), 'dd.MM.yyyy')}
+      introTodayDate={format(new Date(), 'd.M.yyyy')}
     />
   );
   const footer = hasFooter && <Outro spark={props.spark} />;
