@@ -5,11 +5,6 @@ import './Posts.css';
 import Card from './Card';
 import Post from './Post';
 
-import Hospitalized from './Hospitalized';
-import OnRespiratory from './OnRespiratory';
-import Care from './Care';
-import Deceased from './Deceased';
-
 import PerAge from './PerAge';
 import { TimestampsContext } from '../context/TimestampsContext';
 import InHospitals from './InHospitals';
@@ -45,7 +40,6 @@ const HOS = () => {
         <Patients title="OnRespiratory" />
         <Patients title="Care" />
         <Patients title="Deceased" />
-        <Deceased />
       </Post>
     </Card>
   );
