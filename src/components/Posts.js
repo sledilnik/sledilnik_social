@@ -15,6 +15,7 @@ import { TimestampsContext } from '../context/TimestampsContext';
 import InHospitals from './InHospitals';
 import Municipalities from './Municipalities';
 import Summary from './Summary';
+import Patients from './Patients';
 
 const LAB = () => {
   const { labTests, cases } = useContext(TimestampsContext);
@@ -40,9 +41,10 @@ const HOS = () => {
   return (
     <Card id="hos" summary="HOS" dates={dates} open={false} noCount={false}>
       <Post id="post-hos" postNumber={2}>
-        <Hospitalized />
-        <OnRespiratory />
-        <Care />
+        <Patients title="Hospitalized" />
+        <Patients title="OnRespiratory" />
+        <Patients title="Care" />
+        <Patients title="Deceased" />
         <Deceased />
       </Post>
     </Card>
@@ -70,10 +72,10 @@ const EPI = () => {
         <Summary title="Vaccination" />
         <Summary title="ConfirmedToDate" />
         <PerAge />
-        <Hospitalized />
-        <OnRespiratory />
-        <Care />
-        <Deceased />
+        <Patients title="Hospitalized" />
+        <Patients title="OnRespiratory" />
+        <Patients title="Care" />
+        <Patients title="Deceased" />
         <InHospitals />
         <Municipalities icons="FB" />
       </Post>
