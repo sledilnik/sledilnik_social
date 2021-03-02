@@ -105,14 +105,6 @@ function Card({
       <summary id={summaryId} data-open="open">
         <div className="summary-container" data-open="open">
           <h2 data-open="open">{summary}</h2>
-          <div data-open="open" className="summary-date">
-            Osveženo:{' '}
-            {relativeDate ? (
-              relativeDate
-            ) : (
-              <span style={{ marginLeft: '26px' }}>...loading</span>
-            )}
-          </div>
           {showCharCount && <TweetCount text={clipboard} />}
           <img
             id={buttonId}
@@ -124,6 +116,13 @@ function Card({
             onClick={openPopOutHandler}
             alt="copy icon"
           />
+        </div>
+        <div className="summary-container " data-open="open">
+          {relativeDate && (
+            <div data-open="open" className="summary-date">
+              Osveženo: {relativeDate}
+            </div>
+          )}
         </div>
       </summary>
       {children}

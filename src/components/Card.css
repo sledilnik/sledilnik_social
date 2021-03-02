@@ -8,12 +8,17 @@
 }
 
 .Card .summary-container {
-  padding: 4px 0;
-  min-height: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.8em;
+}
+
+.Card .summary-container:first-of-type {
+  min-height: 40px;
+}
+.Card .summary-container:last-of-type {
+  min-height: 15px;
 }
 
 .Card .summary-date {
