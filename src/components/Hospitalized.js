@@ -36,8 +36,8 @@ const getHospitalizedData = data => {
     value3: formatNumber(sortedData[0].total.icu.today),
     value4: (
       <Brackets>
-        {formatNumberWithSign(sortedData[0].total.inHospital.today) -
-          sortedData[1].total.inHospital.today}
+        {formatNumberWithSign(sortedData[0].total.icu.today) -
+          sortedData[1].total.icu.today}
       </Brackets>
     ),
   };
