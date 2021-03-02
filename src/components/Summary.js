@@ -81,6 +81,7 @@ const getFormattedValues = (
       value1: formatNumber(value),
     };
   }
+  throw new Error('Type does not exist!');
 };
 
 const getValuesType = (type, mandatoryProperties, values) => {
@@ -121,7 +122,7 @@ const SummaryData = {
 
 const getOutputProps = (data, title) => {
   const values = getValues(data);
-  const { types, mandatoryProperties } = SummaryData[title].titleParams;
+  const { types, mandatoryProperties } = SummaryData[title];
 
   const type = getValuesType(types, mandatoryProperties, values);
   const formattedValues = getFormattedValues(type, values);
