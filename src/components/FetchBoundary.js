@@ -13,7 +13,7 @@ function withFetchBoundaryHOC(Component) {
       return <SkeletonRow />;
     }
 
-    if (hook.isError) {
+    if (hook.hasError) {
       return <SomethingWentWrong title={props.title} />;
     }
 
