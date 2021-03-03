@@ -25,9 +25,6 @@ export const TIMESTAMP_URL = {
   PATIENTS: `${BASE_TIMESTAMP_URL}/patients.csv.timestamp`,
   STATS: `${BASE_TIMESTAMP_URL}/stats.csv.timestamp`,
   MUN: `${BASE_TIMESTAMP_URL}/municipality-active.csv.timestamp`,
-  // HOSPITALS: `${BASE_TIMESTAMP_URL}/hospitals.csv.timestamp`,
-  // ICU: `${BASE_TIMESTAMP_URL}/icu.csv.timestamp`,
-  // VACCINATION: `${BASE_TIMESTAMP_URL}/vaccination.csv.timestamp`,
 };
 
 export default {

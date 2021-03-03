@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import { API_URL, API_PARAMS } from '../dicts/urlDict';
+import { API_URL, API_PARAMS } from '../dicts/URL_Dict';
 import useFetch from '../hooks/useFetch';
 
 export const DataContext = createContext();

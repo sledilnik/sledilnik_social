@@ -1,12 +1,10 @@
 import React, { createContext } from 'react';
-import { TIMESTAMP_URL } from '../dicts/urlDict';
+import { TIMESTAMP_URL } from '../dicts/URL_Dict';
 import useFetch from '../hooks/useFetch';
 
 export const TimestampsContext = createContext();
 
 export const TimestampsProvider = ({ children }) => {
-  // const [state, setState] = useState(null);
-
   const now = Date.now();
   const params = { nocache: now };
   const patients = useFetch(TIMESTAMP_URL.PATIENTS, params);
