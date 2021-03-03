@@ -39,14 +39,7 @@
   border-bottom-right-radius: var(--radius);
 }
 
-.SocialChanger input[type='checkbox']:checked + .switch-left {
-  background-color: black;
-  color: var(--bcg-header-clr);
-}
-.SocialChanger
-  input[type='checkbox']:not(:checked)
-  + .switch-left
-  + .switch-right {
+.checked {
   background-color: black;
   color: var(--bcg-header-clr);
 }
