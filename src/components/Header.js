@@ -63,15 +63,6 @@ function Header() {
         >
           <div className="logo">Spark</div>
         </a>
-        <a
-          className="nav-link"
-          href="https://sledilnik-social-ver-0-1-0.netlify.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={onLinkClick}
-        >
-          ver 0.1.0
-        </a>
       </nav>
       <Backdrop
         className="backdrop-sidebar"
