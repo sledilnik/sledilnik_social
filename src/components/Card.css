@@ -7,17 +7,17 @@
   border-radius: 6px;
 }
 
-.Card .summary-container {
+.Card .summary-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.8em;
 }
 
-.Card .summary-container:first-of-type {
+.Card .summary-row:first-of-type {
   min-height: 40px;
 }
-.Card .summary-container:last-of-type {
+.Card .summary-row:last-of-type {
   min-height: 15px;
 }
 

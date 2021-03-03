@@ -104,7 +104,7 @@ function Card({
       onClick={onDetailsClick}
     >
       <summary id={summaryId} data-open="open">
-        <div className="summary-container" data-open="open">
+        <div className="summary-row" data-open="open">
           <h2 data-open="open">{summary}</h2>
           {showCharCount && <TweetCount text={clipboard} />}
           <img
@@ -118,7 +118,7 @@ function Card({
             alt="copy icon"
           />
         </div>
-        <div className="summary-container " data-open="open">
+        <div className="summary-row " data-open="open">
           {relativeDate && (
             <div data-open="open" className="summary-date">
               Osveženo: {relativeDate}
