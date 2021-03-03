@@ -18,7 +18,7 @@ function Patients({ hook, title, outputProps, ...props }) {
   );
 }
 
-const getValues = (field, data) => {
+const getValues = (data, field) => {
   if (field === 'hospitalized') {
     const { inHospital, icu } = data[0].total;
     const { icu: beforeIcu } = data[1].total;
@@ -129,9 +129,8 @@ const isDaysDiffGreater = (date, compare) => {
 };
 
 const getOutputProps = (data, title) => {
-  const { field } = PatientsData[title];
-  const values = getValues(field, data);
-  const { types, mandatoryProperties } = PatientsData[title];
+  const { field, types, mandatoryProperties } = PatientsData[title];
+  const values = getValues(data, field);
   const type = getValuesType(types, mandatoryProperties, values);
   const formattedValues = getFormattedValues(type, values);
   const DAYS_DIFFERENCE = 0;
