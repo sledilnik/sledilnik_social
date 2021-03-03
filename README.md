@@ -40,7 +40,7 @@ Endpoints for data fetch are set in `urlDict.js`.
 ##### patients
 
 1. Hospitalized
-   - `.total.inHospital` & `.total.niv`
+   - `.total.inHospital` & `.total.icu`
      - `.today`
      - `.in`
      - `.out`
