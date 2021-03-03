@@ -46,16 +46,20 @@ const HOS = () => {
 };
 
 const EPI = () => {
-  const { stats, labTests, cases, patients } = useContext(TimestampsContext);
+  const { stats, labTests, cases, patients, munActive } = useContext(
+    TimestampsContext
+  );
   const { data: statsTimestamp } = stats;
   const { data: labTestsTimestamp } = labTests;
   const { data: casesTimestamp } = cases;
   const { data: patientsTimestamp } = patients;
+  const { data: munActiveTimestamp } = munActive;
   const dates = {
     stats: statsTimestamp,
     'lab-tests': labTestsTimestamp,
     cases: casesTimestamp,
     patients: patientsTimestamp,
+    'municipalities-active': munActiveTimestamp,
   };
   return (
     <Card id="epi" summary="EPI" dates={dates} open={false}>

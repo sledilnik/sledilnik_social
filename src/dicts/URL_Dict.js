@@ -24,7 +24,7 @@ export const TIMESTAMP_URL = {
   CASES: `${BASE_TIMESTAMP_URL}/cases.csv.timestamp`,
   PATIENTS: `${BASE_TIMESTAMP_URL}/patients.csv.timestamp`,
   STATS: `${BASE_TIMESTAMP_URL}/stats.csv.timestamp`,
-  MUN: `${BASE_TIMESTAMP_URL}/municipality-active.csv.timestamp`,
+  MUN: `${BASE_TIMESTAMP_URL}/municipality-confirmed.csv.timestamp`,
 };
 
 export default {

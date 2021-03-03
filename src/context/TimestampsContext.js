@@ -11,13 +11,12 @@ export const TimestampsProvider = ({ children }) => {
   const stats = useFetch(TIMESTAMP_URL.STATS, params);
   const labTests = useFetch(TIMESTAMP_URL.LAB_TESTS, params);
   const cases = useFetch(TIMESTAMP_URL.CASES, params);
-  // const municipalities = useFetch(TIMESTAMP_URL.MUN, params);
-  // const hospitals = useFetch(TIMESTAMP_URL.HOSPITALS, params);
-  // const icu = useFetch(TIMESTAMP_URL.ICU, params);
-  // const vaccination = useFetch(TIMESTAMP_URL.ICU, params);
+  const munActive = useFetch(TIMESTAMP_URL.MUN, params);
 
   return (
-    <TimestampsContext.Provider value={{ patients, stats, labTests, cases }}>
+    <TimestampsContext.Provider
+      value={{ patients, stats, labTests, cases, munActive }}
+    >
       {children}
     </TimestampsContext.Provider>
   );
