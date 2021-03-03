@@ -29,9 +29,10 @@ function Card({
   const [showCharCount, setShowCharCount] = useState(null);
 
   const isOpen = detailsRef?.current?.open;
+
   useEffect(() => {
     setShowCharCount(social === 'TW' && isOpen && !noCount);
-  }, [social, noCount, isOpen]);
+  }, [social, isOpen, noCount]);
 
   useEffect(() => {
     const article = document.getElementById('post-' + id);
@@ -78,7 +79,7 @@ function Card({
       block: 'start',
       inline: 'nearest',
     });
-    setShowCharCount(social === 'TW' && details.open);
+    setShowCharCount(social === 'TW' && details.open && !noCount);
   };
 
   const latestDate =
