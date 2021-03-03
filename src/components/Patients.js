@@ -20,8 +20,8 @@ function Patients({ hook, title, outputProps, ...props }) {
 
 const getValues = (field, data) => {
   if (field === 'hospitalized') {
-    const { inHospital, icu } = data[0];
-    const { icu: beforeIcu } = data[1];
+    const { inHospital, icu } = data[0].total;
+    const { icu: beforeIcu } = data[1].total;
     return [
       inHospital.today,
       [inHospital.in, inHospital.out],
@@ -31,8 +31,8 @@ const getValues = (field, data) => {
   }
 
   if (field === 'onRespiratory') {
-    const { critical, niv } = data[0];
-    const { critical: beforeCritical, niv: beforeNiv } = data[1];
+    const { critical, niv } = data[0].total;
+    const { critical: beforeCritical, niv: beforeNiv } = data[1].total;
     return [
       critical.today + niv.today,
       critical.today,
@@ -43,12 +43,12 @@ const getValues = (field, data) => {
   }
 
   if (field === 'care') {
-    const { care } = data[0];
+    const { care } = data[0].total;
     return [care.today, [care.in, care.out]];
   }
 
   if (field === 'deceased') {
-    const { deceased } = data[0];
+    const { deceased } = data[0].total;
     return [deceased.today, deceased.toDate];
   }
 };
@@ -141,7 +141,7 @@ const getOutputProps = (data, title) => {
   return {
     kindOfData: textsType,
     data: formattedValues,
-    isWrongDate: isDaysDiffGreater(getDate(data), DAYS_DIFFERENCE),
+    isWrongDate: isDaysDiffGreater(getDate(data[0]), DAYS_DIFFERENCE),
   };
 };
 
@@ -151,14 +151,10 @@ function withPatientsHOC(Component) {
     const sortedData =
       hook.data &&
       [...hook.data].sort((a, b) => b.dayFromStart - a.dayFromStart);
-    const relevantData = sortedData !== null && [
-      sortedData[0].total,
-      sortedData[1].total,
-    ];
 
     let outputProps;
     try {
-      outputProps = relevantData && getOutputProps(relevantData, title);
+      outputProps = sortedData && getOutputProps(sortedData, title);
     } catch (error) {
       return <SomethingWentWrong title={title} />;
     }
