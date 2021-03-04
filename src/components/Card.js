@@ -25,7 +25,7 @@ function Card({
   noCount = true,
   ...props
 }) {
-  const { detailsRef, toClipboardButtonRef } = props.refs;
+  const { postRef, detailsRef, toClipboardButtonRef } = props.refs;
   const { social, timestamp } = props;
 
   const [clipboard, setClipboard] = useState('');
@@ -39,27 +39,21 @@ function Card({
     setShowCharCount(social === 'TW' && isOpen && !noCount);
   }, [social, isOpen, noCount]);
 
+  // sets correct twitter char count
   useEffect(() => {
-    const article = document.getElementById('post-' + id);
-    const innerText = article ? article.innerText : '';
-    let text =
-      social === 'TW' ? innerText.replace(/(\r\n|\r|\n){2,}/g, '\n') : '';
-    text = text.slice(-1) === '\n' ? text.slice(0, -1) : text;
-    setClipboard(text);
-  }, [id, social, showCharCount]);
+    const text = postRef.current.innerText;
+    setClipboard(removeConsecutiveNewLines(text));
+  }, [postRef, social, showCharCount]);
 
-  const openPopOutHandler = event => {
-    const buttonId = event.target.id;
-    const postId = buttonId.replace('copy-card', 'post');
-    const article = document.getElementById(postId);
+  const openPopOutHandler = () => {
+    const article = postRef.current;
     detailsRef.current.open = true;
     const details = article.getElementsByTagName('details');
     [...details].forEach(item => {
       item.open = true;
     });
-    let text = article.innerText.replace(/(\r\n|\r|\n){2,}/g, '\n');
-    text = text.slice(-1) === '\n' ? text.slice(0, -1) : text;
-    setClipboard(text);
+
+    setClipboard(removeConsecutiveNewLines(article.innerText));
     setShowPopOut(true);
   };
 
@@ -177,6 +171,7 @@ const getTimestamp = dates => {
 
 function withCardHOC(Component) {
   const WithCard = ({ dates, ...props }) => {
+    const { postRef } = props;
     const detailsRef = useRef();
     const toClipboardButtonRef = useRef();
 
@@ -184,7 +179,7 @@ function withCardHOC(Component) {
 
     const newProps = {
       social,
-      refs: { detailsRef, toClipboardButtonRef },
+      refs: { postRef, detailsRef, toClipboardButtonRef },
       timestamp: getTimestamp(dates),
     };
     return <Component {...newProps} {...props} />;
