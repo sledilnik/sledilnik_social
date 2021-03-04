@@ -21,10 +21,6 @@
   min-height: 15px;
 }
 
-.Card .summary-date {
-  color: var(--menu-clr);
-}
-
 .Card .copy-icon:hover {
   transform: scale(1.2);
 }

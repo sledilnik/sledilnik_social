@@ -7,8 +7,11 @@ import { sl } from 'date-fns/locale';
 
 import sledilnikLogo from '../assets/svg/sledilnik-logo.svg';
 import copyIcon from '../assets/svg/copy.svg';
+
 import ToClipboard from './shared/ToClipboard';
 import TweetCount from './shared/TweetCount';
+import TextWithTooltip from './TextWithTooltip';
+
 import { SocialContext } from './../context/SocialContext';
 
 const removeConsecutiveNewLines = text => {
@@ -27,30 +30,9 @@ const SummaryRow = ({ title, counter, buttons, timestamp, ...props }) => {
   );
 };
 
-const TextWithTooltip = ({
-  text,
-  tooltipText,
-  tooltipProps = {},
-  ...props
-}) => {
-  const [showTooltip, setShowTooltip] = useState(false);
-
-  return (
-    <div
-      onMouseOver={() => setShowTooltip(true)}
-      onMouseOut={() => setShowTooltip(false)}
-      {...props}
-    >
-      {text}
-      {showTooltip && <div {...tooltipProps}>{tooltipText}</div>}
-    </div>
-  );
-};
-
 function Card({ id, children, open = false, ...props }) {
   const {
     refs: { detailsRef },
-    timestamp: { relativeDate, path },
   } = props;
 
   const cardId = 'card-' + id;
@@ -72,30 +54,11 @@ function Card({ id, children, open = false, ...props }) {
           counter={props.counter}
           buttons={props.buttons}
         />
-        <div className="summary-row " data-open="open">
-          {relativeDate && (
-            <TextWithTooltip
-              text={relativeDate}
-              tooltipText={path}
-              data-open="open"
-              className="summary-date"
-              style={{ position: 'relative' }}
-              tooltipProps={{
-                style: {
-                  position: 'absolute',
-                  top: '-32px',
-                  left: '46px',
-                  width: '100%',
-                  padding: '4px 8px',
-                  backgroundColor: 'black',
-                  color: 'white',
-                  borderRadius: '4px',
-                  textAlign: 'center',
-                },
-              }}
-            />
-          )}
-        </div>
+        <SummaryRow
+          className="summary-row "
+          data-open="open"
+          timestamp={props.timestamp}
+        />
       </summary>
       {children}
       {props.footer}
@@ -212,11 +175,20 @@ function withCardHOC(Component) {
       />
     );
 
+    const { relativeDate, path } = getTimestamp(dates);
+    const timestamp = relativeDate && (
+      <TextWithTooltip
+        text={relativeDate}
+        tooltipText={path}
+        data-open="open"
+      />
+    );
+
     const newProps = {
       id,
       social,
       refs: { postRef, detailsRef, toClipboardButtonRef },
-      timestamp: getTimestamp(dates),
+      timestamp,
       title,
       buttons,
       counter,
