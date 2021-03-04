@@ -16,74 +16,45 @@ const removeConsecutiveNewLines = text => {
   return step1.slice(-1) === '\n' ? step1.slice(0, -1) : step1;
 };
 
-function Card({
-  id,
-  summary,
-  dates = {},
-  children,
-  open = false,
-  noCount = true,
+const SummaryRow = ({ title, counter, buttons, timestamp, ...props }) => {
+  return (
+    <div {...props}>
+      {title}
+      {counter}
+      {buttons}
+      {timestamp}
+    </div>
+  );
+};
+
+const TextWithTooltip = ({
+  text,
+  tooltipText,
+  tooltipProps = {},
   ...props
-}) {
-  const { postRef, detailsRef, toClipboardButtonRef } = props.refs;
-  const { social, timestamp } = props;
+}) => {
+  const [showTooltip, setShowTooltip] = useState(false);
 
-  const [clipboard, setClipboard] = useState('');
-  const [showPopOut, setShowPopOut] = useState(false);
-  const [showCharCount, setShowCharCount] = useState(null);
-  const [showTimestampTooltip, setShowTimestampTooltip] = useState(false);
+  return (
+    <div
+      onMouseOver={() => setShowTooltip(true)}
+      onMouseOut={() => setShowTooltip(false)}
+      {...props}
+    >
+      {text}
+      {showTooltip && <div {...tooltipProps}>{tooltipText}</div>}
+    </div>
+  );
+};
 
-  const isOpen = detailsRef?.current?.open;
-
-  useEffect(() => {
-    setShowCharCount(social === 'TW' && isOpen && !noCount);
-  }, [social, isOpen, noCount]);
-
-  // sets correct twitter char count
-  useEffect(() => {
-    const text = postRef.current.innerText;
-    setClipboard(removeConsecutiveNewLines(text));
-  }, [postRef, social, showCharCount]);
-
-  const openPopOutHandler = () => {
-    const article = postRef.current;
-    detailsRef.current.open = true;
-    const details = article.getElementsByTagName('details');
-    [...details].forEach(item => {
-      item.open = true;
-    });
-
-    setClipboard(removeConsecutiveNewLines(article.innerText));
-    setShowPopOut(true);
-  };
-
-  const onDetailsClick = event => {
-    const { target } = event;
-    const { current: copyButton } = toClipboardButtonRef;
-    const { current: details } = detailsRef;
-
-    if (target.dataset.open !== 'open' && target.id !== copyButton.id) {
-      return;
-    }
-
-    event.preventDefault();
-    if (target.id === copyButton.id) {
-      details.open = true;
-      return;
-    }
-
-    details.open = !details.open;
-    details.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-      inline: 'nearest',
-    });
-    setShowCharCount(social === 'TW' && details.open && !noCount);
-  };
+function Card({ id, children, open = false, ...props }) {
+  const {
+    refs: { detailsRef },
+    timestamp: { relativeDate, path },
+  } = props;
 
   const cardId = 'card-' + id;
   const summaryId = 'summary-' + cardId;
-  const buttonId = 'copy-' + cardId;
 
   return (
     <details
@@ -91,67 +62,44 @@ function Card({
       id={cardId}
       className="Card"
       open={open}
-      onClick={onDetailsClick}
+      onClick={props.onDetailsClick}
     >
       <summary id={summaryId} data-open="open">
-        <div className="summary-row" data-open="open">
-          <h2 data-open="open">{summary}</h2>
-          {showCharCount && <TweetCount text={clipboard} />}
-          <img
-            id={buttonId}
-            ref={toClipboardButtonRef}
-            className="copy-icon"
-            src={copyIcon}
-            width={16}
-            height={16}
-            onClick={openPopOutHandler}
-            alt="copy icon"
-          />
-        </div>
+        <SummaryRow
+          className="summary-row"
+          data-open="open"
+          title={props.title}
+          counter={props.counter}
+          buttons={props.buttons}
+        />
         <div className="summary-row " data-open="open">
-          {timestamp.relativeDate && (
-            <div
+          {relativeDate && (
+            <TextWithTooltip
+              text={relativeDate}
+              tooltipText={path}
               data-open="open"
               className="summary-date"
-              onMouseOver={() => setShowTimestampTooltip(true)}
-              onMouseOut={() => setShowTimestampTooltip(false)}
               style={{ position: 'relative' }}
-            >
-              Osveženo: {timestamp.relativeDate}
-              {showTimestampTooltip && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '-32px',
-                    left: '46px',
-                    padding: '4px 8px',
-                    backgroundColor: 'black',
-                    color: 'white',
-                    opacity: 1,
-                    borderRadius: '4px',
-                  }}
-                >
-                  {timestamp.path}
-                </div>
-              )}
-            </div>
+              tooltipProps={{
+                style: {
+                  position: 'absolute',
+                  top: '-32px',
+                  left: '46px',
+                  width: '100%',
+                  padding: '4px 8px',
+                  backgroundColor: 'black',
+                  color: 'white',
+                  borderRadius: '4px',
+                  textAlign: 'center',
+                },
+              }}
+            />
           )}
         </div>
       </summary>
       {children}
-      <img
-        src={sledilnikLogo}
-        alt="sledilnik logo"
-        width="96"
-        height="48"
-        style={{ display: 'block', margin: '0 auto' }}
-      />
-      <ToClipboard
-        open={showPopOut}
-        defaultValue={clipboard}
-        clear={() => setClipboard('')}
-        close={() => setShowPopOut(false)}
-      />
+      {props.footer}
+      {props.popout}
     </details>
   );
 }
@@ -170,17 +118,111 @@ const getTimestamp = dates => {
 };
 
 function withCardHOC(Component) {
-  const WithCard = ({ dates, ...props }) => {
+  const WithCard = ({ id, dates, noCount = true, ...props }) => {
     const { postRef } = props;
     const detailsRef = useRef();
     const toClipboardButtonRef = useRef();
 
+    const [showCharCount, setShowCharCount] = useState(null);
+    const [clipboard, setClipboard] = useState('');
+    const [showPopOut, setShowPopOut] = useState(false);
     const { social } = useContext(SocialContext);
 
+    const isOpen = detailsRef?.current?.open;
+
+    useEffect(() => {
+      setShowCharCount(social === 'TW' && isOpen && !noCount);
+    }, [social, isOpen, noCount]);
+
+    // sets correct twitter char count
+    useEffect(() => {
+      const text = postRef.current.innerText;
+      setClipboard(removeConsecutiveNewLines(text));
+    }, [postRef, social, showCharCount]);
+
+    const openPopOutHandler = () => {
+      const article = postRef.current;
+      detailsRef.current.open = true;
+      const details = article.getElementsByTagName('details');
+      [...details].forEach(item => {
+        item.open = true;
+      });
+
+      setClipboard(removeConsecutiveNewLines(article.innerText));
+      setShowPopOut(true);
+    };
+
+    const onDetailsClick = event => {
+      const { target } = event;
+      const { current: copyButton } = toClipboardButtonRef;
+      const { current: details } = detailsRef;
+
+      if (target.dataset.open !== 'open' && target.id !== copyButton.id) {
+        return;
+      }
+
+      event.preventDefault();
+      if (target.id === copyButton.id) {
+        details.open = true;
+        return;
+      }
+
+      details.open = !details.open;
+      details.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      });
+      setShowCharCount(social === 'TW' && details.open && !noCount);
+    };
+
+    const title = <h2 data-open="open">{props.summary}</h2>;
+
+    const buttonId = 'copy-card-' + id;
+    const buttons = (
+      <img
+        id={buttonId}
+        ref={toClipboardButtonRef}
+        className="copy-icon"
+        src={copyIcon}
+        width={16}
+        height={16}
+        onClick={openPopOutHandler}
+        alt="copy icon"
+      />
+    );
+    const counter = showCharCount && <TweetCount text={clipboard} />;
+
+    const footer = (
+      <img
+        src={sledilnikLogo}
+        alt="sledilnik logo"
+        width="96"
+        height="48"
+        style={{ display: 'block', margin: '0 auto' }}
+      />
+    );
+
+    const popout = (
+      <ToClipboard
+        open={showPopOut}
+        defaultValue={clipboard}
+        clear={() => setClipboard('')}
+        close={() => setShowPopOut(false)}
+      />
+    );
+
     const newProps = {
+      id,
       social,
       refs: { postRef, detailsRef, toClipboardButtonRef },
       timestamp: getTimestamp(dates),
+      title,
+      buttons,
+      counter,
+      footer,
+      popout,
+      onDetailsClick,
     };
     return <Component {...newProps} {...props} />;
   };
