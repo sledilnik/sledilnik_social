@@ -70,6 +70,7 @@ function Post({
   hasFooter = true,
   ...props
 }) {
+  const { forwardedRef } = props;
   const header = hasHeader && (
     <Intro
       postNumber={postNumber}
@@ -78,7 +79,7 @@ function Post({
   );
   const footer = hasFooter && <Outro spark={props.spark} />;
   return (
-    <article id={id} className="Post">
+    <article ref={forwardedRef} id={id} className="Post">
       {header}
       {children}
       {footer}
@@ -100,14 +101,14 @@ const SparkDict = {
 };
 
 function withPostHOC(Component) {
-  const WithPost = props => {
+  const WithPost = React.forwardRef((props, ref) => {
     const post = props.id.replace('post-', '').toUpperCase();
     const { social } = useContext(SocialContext);
     const spark = SparkDict[social][post];
     const newProps = { ...props, spark };
 
-    return <Component {...newProps} />;
-  };
+    return <Component forwardedRef={ref} {...newProps} />;
+  });
 
   return WithPost;
 }
