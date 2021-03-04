@@ -27,6 +27,7 @@ function Card({
   const [clipboard, setClipboard] = useState('');
   const [showPopOut, setShowPopOut] = useState(false);
   const [showCharCount, setShowCharCount] = useState(null);
+  const [showTimestampTooltip, setShowTimestampTooltip] = useState(false);
 
   const isOpen = detailsRef?.current?.open;
 
@@ -83,11 +84,11 @@ function Card({
   };
 
   const latestDate =
-    dates && [...Object.values(dates)].sort((a, b) => a - b).pop();
+    dates && [...Object.entries(dates)].sort((a, b) => a[1] - b[1]).pop();
 
   const relativeDate =
-    latestDate !== null &&
-    formatRelative(new Date(latestDate * 1000), new Date(), {
+    latestDate[1] !== null &&
+    formatRelative(new Date(latestDate[1] * 1000), new Date(), {
       locale: sl,
     });
 
@@ -120,8 +121,30 @@ function Card({
         </div>
         <div className="summary-row " data-open="open">
           {relativeDate && (
-            <div data-open="open" className="summary-date">
+            <div
+              data-open="open"
+              className="summary-date"
+              onMouseOver={() => setShowTimestampTooltip(true)}
+              onMouseOut={() => setShowTimestampTooltip(false)}
+              style={{ position: 'relative' }}
+            >
               Osveženo: {relativeDate}
+              {showTimestampTooltip && (
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '-32px',
+                    left: '46px',
+                    padding: '4px 8px',
+                    backgroundColor: 'black',
+                    color: 'white',
+                    opacity: 1,
+                    borderRadius: '4px',
+                  }}
+                >
+                  /{latestDate[0]}
+                </div>
+              )}
             </div>
           )}
         </div>
