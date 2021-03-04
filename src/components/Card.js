@@ -11,6 +11,11 @@ import ToClipboard from './shared/ToClipboard';
 import TweetCount from './shared/TweetCount';
 import { SocialContext } from './../context/SocialContext';
 
+const removeConsecutiveNewLines = text => {
+  const step1 = text.replace(/(\r\n|\r|\n){2,}/g, '\n');
+  return step1.slice(-1) === '\n' ? step1.slice(0, -1) : step1;
+};
+
 function Card({
   id,
   summary,
