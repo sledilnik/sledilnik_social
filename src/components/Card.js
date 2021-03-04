@@ -18,11 +18,10 @@ function Card({
   children,
   open = false,
   noCount = true,
+  ...props
 }) {
-  const detailsRef = useRef();
-  const toClipboardButtonRef = useRef();
-
-  const { social } = useContext(SocialContext);
+  const { detailsRef, toClipboardButtonRef } = props.refs;
+  const { social, timestamp } = props;
 
   const [clipboard, setClipboard] = useState('');
   const [showPopOut, setShowPopOut] = useState(false);
@@ -83,15 +82,6 @@ function Card({
     setShowCharCount(social === 'TW' && details.open && !noCount);
   };
 
-  const latestDate =
-    dates && [...Object.entries(dates)].sort((a, b) => a[1] - b[1]).pop();
-
-  const relativeDate =
-    latestDate[1] !== null &&
-    formatRelative(new Date(latestDate[1] * 1000), new Date(), {
-      locale: sl,
-    });
-
   const cardId = 'card-' + id;
   const summaryId = 'summary-' + cardId;
   const buttonId = 'copy-' + cardId;
@@ -120,7 +110,7 @@ function Card({
           />
         </div>
         <div className="summary-row " data-open="open">
-          {relativeDate && (
+          {timestamp.relativeDate && (
             <div
               data-open="open"
               className="summary-date"
@@ -128,7 +118,7 @@ function Card({
               onMouseOut={() => setShowTimestampTooltip(false)}
               style={{ position: 'relative' }}
             >
-              Osveženo: {relativeDate}
+              Osveženo: {timestamp.relativeDate}
               {showTimestampTooltip && (
                 <div
                   style={{
@@ -142,7 +132,7 @@ function Card({
                     borderRadius: '4px',
                   }}
                 >
-                  /{latestDate[0]}
+                  {timestamp.path}
                 </div>
               )}
             </div>
@@ -167,9 +157,32 @@ function Card({
   );
 }
 
+const getTimestamp = dates => {
+  const MILLISECONDS = 1000;
+  const latestDate =
+    dates && [...Object.entries(dates)].sort((a, b) => a[1] - b[1]).pop();
+  const relativeDate =
+    latestDate[1] !== null &&
+    formatRelative(new Date(latestDate[1] * MILLISECONDS), new Date(), {
+      locale: sl,
+    });
+  const timestampPath = `/${latestDate[0]}`;
+  return { relativeDate, path: timestampPath };
+};
+
 function withCardHOC(Component) {
-  const WithCard = ({ ...props }) => {
-    return <Component {...props} />;
+  const WithCard = ({ dates, ...props }) => {
+    const detailsRef = useRef();
+    const toClipboardButtonRef = useRef();
+
+    const { social } = useContext(SocialContext);
+
+    const newProps = {
+      social,
+      refs: { detailsRef, toClipboardButtonRef },
+      timestamp: getTimestamp(dates),
+    };
+    return <Component {...newProps} {...props} />;
   };
   return WithCard;
 }
