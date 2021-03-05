@@ -97,8 +97,6 @@ function withCardHOC(Component) {
       const { current: copyButton } = toClipboardButtonRef;
       const { current: details } = detailsRef;
 
-      console.log({ open: target.dataset.open, target });
-
       if (target.dataset.open !== 'open' && target.id !== copyButton.id) {
         return;
       }
