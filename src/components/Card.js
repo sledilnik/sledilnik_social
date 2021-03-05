@@ -64,7 +64,7 @@ function withCardHOC(Component) {
     const toClipboardButtonRef = useRef();
 
     const [showCharCount, setShowCharCount] = useState(null);
-    const [clipboard, setClipboard] = useState('');
+    const [clipboard, setClipboard] = useState(postRef.current?.innerText);
     const [showPopOut, setShowPopOut] = useState(false);
     const { social } = useContext(SocialContext);
 
@@ -74,11 +74,13 @@ function withCardHOC(Component) {
       setShowCharCount(social === 'TW' && isOpen && !noCount);
     }, [social, isOpen, noCount]);
 
-    // sets correct twitter char count
+    const text = postRef.current?.innerText;
     useEffect(() => {
-      const text = postRef.current.innerText;
+      if (!text) {
+        return;
+      }
       setClipboard(removeConsecutiveNewLines(text));
-    }, [postRef, social, showCharCount]);
+    }, [text]);
 
     const openPopOutHandler = () => {
       const article = postRef.current;
@@ -96,27 +98,21 @@ function withCardHOC(Component) {
       const { target } = event;
       const { current: copyButton } = toClipboardButtonRef;
       const { current: details } = detailsRef;
-
-      if (target.dataset.open !== 'open' && target.id !== copyButton.id) {
-        return;
-      }
-
       event.preventDefault();
-      if (target.id === copyButton.id) {
-        details.open = true;
-        return;
-      }
 
-      details.open = !details.open;
+      details.open =
+        target.id === copyButton.id ? (details.open = true) : !details.open;
       details.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
         inline: 'nearest',
       });
+
+      setClipboard(removeConsecutiveNewLines(postRef.current.innerText));
       setShowCharCount(social === 'TW' && details.open && !noCount);
     };
 
-    const cardTitle = <h2 data-open="open">{title}</h2>;
+    const cardTitle = <h2>{title}</h2>;
 
     const cardId = `card-${title.toLowerCase()}`;
     const copyId = `copy-${cardId}`;
@@ -141,23 +137,17 @@ function withCardHOC(Component) {
 
     const { relativeDate, path } = getTimestamp(dates);
     const timestamp = relativeDate && (
-      <TextWithTooltip
-        text={relativeDate}
-        tooltipText={path}
-        data-open="open"
-      />
+      <TextWithTooltip text={relativeDate} tooltipText={path} />
     );
 
     const summaryId = 'summary-' + cardId;
     const summary = (
-      <summary id={summaryId} data-open="open">
-        <div className="summary-row" data-open="open">
+      <summary id={summaryId}>
+        <div className="summary-row">
           {cardTitle}
           {buttons}
         </div>
-        <div className="summary-row " data-open="open">
-          {timestamp}
-        </div>
+        <div className="summary-row ">{timestamp}</div>
       </summary>
     );
 

@@ -7,10 +7,8 @@ const CharCount = ({ value, ...props }) => {
     alignItems: 'center',
   };
   return (
-    <div data-open="open" style={props.style}>
-      <div data-open="open" style={style}>
-        {value}
-      </div>
+    <div style={props.style}>
+      <div style={style}>{value}</div>
     </div>
   );
 };
@@ -53,7 +51,7 @@ function withCharCountHOC(Component) {
       border: getBorder(borderColor),
     };
 
-    const value = <span data-open="open">{diff < -20 ? '..' : diff}</span>;
+    const value = <span>{diff < -20 ? '..' : diff}</span>;
 
     return (
       <Component value={value} style={{ ...style, ...myStyle }} {...rest} />
