@@ -6,7 +6,6 @@ import { formatRelative } from 'date-fns';
 import { sl } from 'date-fns/locale';
 
 import sledilnikLogo from '../assets/svg/sledilnik-logo.svg';
-import copyIcon from '../assets/svg/copy.svg';
 
 import ToClipboard from './shared/ToClipboard';
 import TweetCount from './shared/TweetCount';
@@ -57,11 +56,13 @@ function withCardHOC(Component) {
     dates,
     open = false,
     noCount = true,
+    refreshHandler = () => {},
     ...props
   }) => {
     const { postRef } = props;
     const detailsRef = useRef();
     const toClipboardButtonRef = useRef();
+    const refreshButtonRef = useRef();
 
     const [showCharCount, setShowCharCount] = useState(null);
     const [clipboard, setClipboard] = useState(postRef.current?.innerText);
@@ -97,11 +98,14 @@ function withCardHOC(Component) {
     const onDetailsClick = event => {
       const { target } = event;
       const { current: copyButton } = toClipboardButtonRef;
+      const { current: refreshButton } = refreshButtonRef;
       const { current: details } = detailsRef;
       event.preventDefault();
 
       details.open =
-        target.id === copyButton.id ? (details.open = true) : !details.open;
+        target.id === copyButton.id || target.id === refreshButton.id
+          ? (details.open = true)
+          : !details.open;
       details.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
@@ -115,24 +119,25 @@ function withCardHOC(Component) {
     const cardTitle = <h2>{title}</h2>;
 
     const cardId = `card-${title.toLowerCase()}`;
-    const copyId = `copy-${cardId}`;
-
     const counter = showCharCount && (
-      <TweetCount key={cardId + '-counter'} text={clipboard} />
+      <TweetCount key={`${cardId}-counter`} text={clipboard} />
     );
+    const refreshId = `refresh-${cardId}`;
+    const copyId = `copy-${cardId}`;
     const buttons = [
       counter,
-      <img
-        key={`${cardId}-${copyId}`}
-        id={copyId}
-        ref={toClipboardButtonRef}
-        className="copy-icon"
-        src={copyIcon}
-        width={16}
-        height={16}
-        onClick={openPopOutHandler}
-        alt="copy icon"
-      />,
+      <div key={`${cardId}-btn-icons`} className="icons">
+        <span className="icon" onClick={refreshHandler}>
+          <i ref={refreshButtonRef} id={refreshId} className="fas fa-sync"></i>
+        </span>
+        <span className="icon" onClick={openPopOutHandler}>
+          <i
+            ref={toClipboardButtonRef}
+            id={copyId}
+            className="far fa-copy "
+          ></i>
+        </span>
+      </div>,
     ];
 
     const { relativeDate, path } = getTimestamp(dates);

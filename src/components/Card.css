@@ -21,6 +21,11 @@
   min-height: 15px;
 }
 
-.Card .copy-icon:hover {
+.Card .icons .icon {
+  padding: 0 6px;
+  font-size: 12px;
+}
+
+.Card .icons .icon:hover > i {
   transform: scale(1.2);
 }
