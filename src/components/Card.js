@@ -19,53 +19,24 @@ const removeConsecutiveNewLines = text => {
   return step1.slice(-1) === '\n' ? step1.slice(0, -1) : step1;
 };
 
-const SummaryRow = ({ title, counter, buttons, timestamp, ...props }) => {
-  return (
-    <div {...props}>
-      {title}
-      {counter}
-      {buttons}
-      {timestamp}
-    </div>
-  );
-};
-
-function Card({ id, children, open = false, ...props }) {
-  const {
-    refs: { detailsRef },
-  } = props;
-
-  const cardId = 'card-' + id;
-  const summaryId = 'summary-' + cardId;
-
-  return (
-    <details
-      ref={detailsRef}
-      id={cardId}
-      className="Card"
-      open={open}
-      onClick={props.onDetailsClick}
-    >
-      <summary id={summaryId} data-open="open">
-        <SummaryRow
-          className="summary-row"
-          data-open="open"
-          title={props.title}
-          counter={props.counter}
-          buttons={props.buttons}
-        />
-        <SummaryRow
-          className="summary-row "
-          data-open="open"
-          timestamp={props.timestamp}
-        />
-      </summary>
-      {children}
-      {props.footer}
-      {props.popout}
-    </details>
-  );
-}
+const Card = React.forwardRef(
+  ({ id, open, summary, footer, popout, ...props }, ref) => {
+    return (
+      <details
+        ref={ref}
+        id={id}
+        className="Card"
+        open={open}
+        onClick={props.onCLick}
+      >
+        {summary}
+        {props.children}
+        {footer}
+        {popout}
+      </details>
+    );
+  }
+);
 
 const getTimestamp = dates => {
   const MILLISECONDS = 1000;
@@ -81,7 +52,13 @@ const getTimestamp = dates => {
 };
 
 function withCardHOC(Component) {
-  const WithCard = ({ id, dates, noCount = true, ...props }) => {
+  const WithCard = ({
+    title,
+    dates,
+    open = false,
+    noCount = true,
+    ...props
+  }) => {
     const { postRef } = props;
     const detailsRef = useRef();
     const toClipboardButtonRef = useRef();
@@ -139,12 +116,19 @@ function withCardHOC(Component) {
       setShowCharCount(social === 'TW' && details.open && !noCount);
     };
 
-    const title = <h2 data-open="open">{props.summary}</h2>;
+    const cardTitle = <h2 data-open="open">{title}</h2>;
 
-    const buttonId = 'copy-card-' + id;
-    const buttons = (
+    const cardId = `card-${title.toLowerCase()}`;
+    const copyId = `copy-${cardId}`;
+
+    const counter = showCharCount && (
+      <TweetCount key={cardId + '-counter'} text={clipboard} />
+    );
+    const buttons = [
+      counter,
       <img
-        id={buttonId}
+        key={`${cardId}-${copyId}`}
+        id={copyId}
         ref={toClipboardButtonRef}
         className="copy-icon"
         src={copyIcon}
@@ -152,9 +136,30 @@ function withCardHOC(Component) {
         height={16}
         onClick={openPopOutHandler}
         alt="copy icon"
+      />,
+    ];
+
+    const { relativeDate, path } = getTimestamp(dates);
+    const timestamp = relativeDate && (
+      <TextWithTooltip
+        text={relativeDate}
+        tooltipText={path}
+        data-open="open"
       />
     );
-    const counter = showCharCount && <TweetCount text={clipboard} />;
+
+    const summaryId = 'summary-' + cardId;
+    const summary = (
+      <summary id={summaryId} data-open="open">
+        <div className="summary-row" data-open="open">
+          {cardTitle}
+          {buttons}
+        </div>
+        <div className="summary-row " data-open="open">
+          {timestamp}
+        </div>
+      </summary>
+    );
 
     const footer = (
       <img
@@ -175,28 +180,21 @@ function withCardHOC(Component) {
       />
     );
 
-    const { relativeDate, path } = getTimestamp(dates);
-    const timestamp = relativeDate && (
-      <TextWithTooltip
-        text={relativeDate}
-        tooltipText={path}
-        data-open="open"
-      />
-    );
-
-    const newProps = {
-      id,
-      social,
-      refs: { postRef, detailsRef, toClipboardButtonRef },
-      timestamp,
-      title,
-      buttons,
-      counter,
+    const cardProps = {
+      id: cardId,
+      open,
+      summary,
       footer,
       popout,
-      onDetailsClick,
     };
-    return <Component {...newProps} {...props} />;
+    return (
+      <Component
+        ref={detailsRef}
+        onClick={onDetailsClick}
+        {...cardProps}
+        {...props}
+      />
+    );
   };
   return WithCard;
 }
