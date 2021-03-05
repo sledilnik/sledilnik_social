@@ -20,4 +20,11 @@ function TextWithTooltip({ text, tooltipText, tooltipProps = {}, ...props }) {
   );
 }
 
-export default TextWithTooltip;
+function withTextWithTooltip(Component) {
+  const WithTextWithTooltip = ({ ...props }) => {
+    return <Component {...props} />;
+  };
+  return WithTextWithTooltip;
+}
+
+export default withTextWithTooltip(TextWithTooltip);
