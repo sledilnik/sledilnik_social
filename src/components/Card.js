@@ -27,7 +27,7 @@ const Card = React.forwardRef(
         id={id}
         className="Card"
         open={open}
-        onClick={props.onCLick}
+        onClick={props.onClick}
       >
         {summary}
         {props.children}
@@ -96,6 +96,8 @@ function withCardHOC(Component) {
       const { target } = event;
       const { current: copyButton } = toClipboardButtonRef;
       const { current: details } = detailsRef;
+
+      console.log({ open: target.dataset.open, target });
 
       if (target.dataset.open !== 'open' && target.id !== copyButton.id) {
         return;
