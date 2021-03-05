@@ -8,11 +8,12 @@ Endpoints for data fetch are set in `urlDict.js`.
 
 ### New Features
 
+- timestamps
+- count characters for twitter with twitter-text package
+
 ### Data
 
-#### Endpoints
-
-##### summary
+#### Endpoint: `/summary`
 
 1. PCR
    - `.testsToday`
@@ -37,7 +38,7 @@ Endpoints for data fetch are set in `urlDict.js`.
    - `.casesToDateSummary`
      - `.value`
 
-##### patients
+#### Endpoint: `/patients`
 
 1. Hospitalized
    - `.total.inHospital` & `.total.icu`
@@ -63,12 +64,12 @@ Endpoints for data fetch are set in `urlDict.js`.
        - `.in`
        - `.out`
 
-##### stats
+#### Endpoint: `/stats`
 
 1. PerAge
    - `statePerAgeToDate`
 
-##### municipalities
+#### Endpoint: `/municipalities`
 
 1. Municipalities
    - `.regions[region][town].confirmedToDate;`
