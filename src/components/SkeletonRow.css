@@ -20,6 +20,12 @@
   border-radius: 5px;
 }
 
+@media only screen and (min-width: 576px) {
+  .SkeletonRow {
+    min-height: 21px;
+  }
+}
+
 @keyframes move1 {
   0% {
     left: 0;
