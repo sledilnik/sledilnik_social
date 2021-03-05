@@ -7,8 +7,3 @@
   flex-direction: column;
   z-index: 100;
 }
-
-.Footer > .free-icons-credit {
-  font-size: 0.7em;
-  color: var(--menu-clr);
-}
