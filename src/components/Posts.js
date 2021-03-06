@@ -13,7 +13,7 @@ import PerAge from './PerAge';
 import InHospitals from './InHospitals';
 import Municipalities from './Municipalities';
 
-const LAB = () => {
+const LAB = ({ noTWCount }) => {
   const ref = useRef();
   const { labTests, cases } = useContext(TimestampsContext);
   const { data: labTestsTimestamp } = labTests;
@@ -28,13 +28,15 @@ const LAB = () => {
     summary.refetch();
   };
 
+  const noCount = noTWCount || summary.isLoading || summary.hasError;
+
   return (
     <Card
       postRef={ref}
       title="LAB"
       dates={dates}
       open
-      noCount={false}
+      noCount={noCount}
       refreshHandler={refreshHandler}
     >
       <Post forwardedRef={ref} id="post-lab" postNumber={1}>
@@ -46,7 +48,7 @@ const LAB = () => {
   );
 };
 
-const HOS = () => {
+const HOS = ({ noTWCount }) => {
   const ref = useRef();
   const { patients } = useContext(TimestampsContext);
   const { data: patientsTimestamp } = patients;
@@ -58,12 +60,15 @@ const HOS = () => {
     patients.refetch();
     patientsDataHook.refetch();
   };
+
+  const noCount = noTWCount || patients.isLoading || patients.hasError;
+
   return (
     <Card
       postRef={ref}
       title="HOS"
       dates={dates}
-      noCount={false}
+      noCount={noCount}
       refreshHandler={refreshHandler}
     >
       <Post forwardedRef={ref} id="post-hos" postNumber={2}>
@@ -76,7 +81,7 @@ const HOS = () => {
   );
 };
 
-const EPI = () => {
+const EPI = ({ noTWCount }) => {
   const ref = useRef();
   const { stats, labTests, cases, patients, munActive } = useContext(
     TimestampsContext
@@ -108,12 +113,20 @@ const EPI = () => {
     dataHooks.hospitalsList.refetch();
     dataHooks.municipalities.refetch();
   };
+
+  const noCount =
+    noTWCount ||
+    Object.values(dataHooks).filter(({ hasError, isLoading }) => {
+      return hasError || isLoading;
+    });
+
   return (
     <Card
       postRef={ref}
       title="EPI"
       dates={dates}
       open={false}
+      noCount={noCount}
       refreshHandler={refreshHandler}
     >
       <Post forwardedRef={ref} id="post-epi" postNumber={3}>
@@ -139,7 +152,7 @@ function Posts() {
     <section className="Posts">
       <LAB />
       <HOS />
-      <EPI />
+      <EPI noTWCount />
     </section>
   );
 }
