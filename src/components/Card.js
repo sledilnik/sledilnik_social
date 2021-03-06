@@ -111,10 +111,11 @@ function withCardHOC(Component) {
           ? (details.open = true)
           : !details.open;
 
-      if (target.id !== copyButton.id && target.id !== refreshButton.id) {
-        const rect = details.getBoundingClientRect();
-        details.open && document.documentElement.scrollTo(0, rect.height);
-      }
+      details.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+        inline: 'nearest',
+      });
 
       setClipboard(removeConsecutiveNewLines(postRef.current.innerText));
       setShowCharCount(social === 'TW' && details.open && !noCount);
