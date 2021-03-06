@@ -10,7 +10,7 @@
 .SkeletonRow::after {
   position: absolute;
   display: inline-block;
-  height: inherit;
+  height: 100%;
   top: 0;
   left: 0;
   content: '';
