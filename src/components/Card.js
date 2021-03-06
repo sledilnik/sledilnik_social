@@ -61,6 +61,7 @@ function withCardHOC(Component) {
   }) => {
     const { postRef } = props;
     const detailsRef = useRef();
+    const summaryRef = useRef();
     const toClipboardButtonRef = useRef();
     const refreshButtonRef = useRef();
 
@@ -100,17 +101,19 @@ function withCardHOC(Component) {
       const { current: copyButton } = toClipboardButtonRef;
       const { current: refreshButton } = refreshButtonRef;
       const { current: details } = detailsRef;
+
       event.preventDefault();
+      if (!summaryRef.current.contains(target)) {
+        return;
+      }
 
       details.open =
         target.id === copyButton.id || target.id === refreshButton.id
           ? (details.open = true)
           : !details.open;
-      details.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest',
-      });
+
+      const rect = details.getBoundingClientRect();
+      details.open && document.documentElement.scrollTo(0, rect.height);
 
       setClipboard(removeConsecutiveNewLines(postRef.current.innerText));
       setShowCharCount(social === 'TW' && details.open && !noCount);
@@ -147,7 +150,7 @@ function withCardHOC(Component) {
 
     const summaryId = 'summary-' + cardId;
     const summary = (
-      <summary id={summaryId}>
+      <summary ref={summaryRef} id={summaryId}>
         <div className="summary-row">
           {cardTitle}
           {buttons}
