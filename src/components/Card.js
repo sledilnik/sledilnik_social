@@ -71,7 +71,6 @@ function withCardHOC(Component) {
     const { social } = useContext(SocialContext);
 
     const isOpen = detailsRef?.current?.open;
-
     useEffect(() => {
       setShowCharCount(social === 'TW' && isOpen && !noCount);
     }, [social, isOpen, noCount]);
@@ -102,10 +101,10 @@ function withCardHOC(Component) {
       const { current: refreshButton } = refreshButtonRef;
       const { current: details } = detailsRef;
 
-      event.preventDefault();
       if (!summaryRef.current.contains(target)) {
         return;
       }
+      event.preventDefault();
 
       details.open =
         target.id === copyButton.id || target.id === refreshButton.id
