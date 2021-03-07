@@ -42,3 +42,10 @@
 .can-hover .checkbox-label:hover > span {
   width: 45px;
 }
+
+.can-hover .checkbox-label:hover > span.checked {
+  background-color: black;
+}
+.can-hover .checkbox-label:hover > :not(span.checked) {
+  color: black;
+}
