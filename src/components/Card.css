@@ -7,11 +7,22 @@
   border-radius: 6px;
 }
 
+.Card > summary {
+  border-radius: 6px;
+  transition: all 1s linear;
+}
+
+.can-hover .Card > summary:hover {
+  background: rgba(240, 240, 240, 0.85);
+}
+
 .Card .summary-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.8em;
+  margin: 0 8px;
+  padding: 4px 0;
 }
 
 .Card .summary-row:first-of-type {
