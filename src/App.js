@@ -9,6 +9,10 @@ import './App.css';
 import Footer from './components/Footer';
 
 function App() {
+  const canHover = !matchMedia('(hover: none)').matches;
+  if (canHover) {
+    document.body.classList.add('can-hover');
+  }
   return (
     <div className="App">
       <SocialProvider>
