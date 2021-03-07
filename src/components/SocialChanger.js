@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useContext, useRef } from 'react';
 import './SocialChanger.css';
 import { SocialContext } from '../context/SocialContext';
 
