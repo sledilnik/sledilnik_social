@@ -12,7 +12,7 @@
 }
 
 .PopOut .popout-container {
-  padding: 8px 16px 8px;
+  padding: 8px 12px;
   width: 95%;
   margin: 0 auto;
   display: flex;
@@ -49,6 +49,7 @@
 @media only screen and (min-width: 576px) {
   .PopOut .popout-container {
     width: 90%;
+    padding: 8px 16px;
   }
 }
 
