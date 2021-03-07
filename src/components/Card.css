@@ -12,10 +12,23 @@
   transition: all 0.7s linear;
 }
 
-.can-hover .Card > summary:hover {
-  background: rgba(245, 245, 245, 0.85);
-  -webkit-box-shadow: 0 1px 3px 0 var(--box-shadow);
-  box-shadow: 0 1px 3px 0 var(--box-shadow);
+.Card .card-title {
+  position: relative;
+}
+
+.Card .card-title:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  border-bottom: 3px solid var(--white);
+  animation: underline-normal 0.5s linear forwards;
+  border-bottom: 3px solid var(--bcg-header-clr);
+  width: 100%;
+}
+
+.Card > summary:hover .card-title:after {
+  animation: underline-hover 0.3s linear forwards;
 }
 
 .Card .summary-row {
@@ -41,4 +54,21 @@
 
 .Card .icons .icon:hover > i {
   transform: scale(1.2);
+}
+
+@keyframes underline-hover {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes underline-normal {
+  100% {
+    width: 0;
+  }
+  0% {
+    width: 100%;
+  }
 }
