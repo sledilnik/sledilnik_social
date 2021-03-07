@@ -69,7 +69,6 @@
   text-decoration: none;
   color: var(--menu-clr);
   transition: all 0.4s linear;
-  /* border: solid 2px black; */
 }
 
 .nav-link:focus,

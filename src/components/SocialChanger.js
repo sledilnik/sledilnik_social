@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import './SocialChanger.css';
 import { SocialContext } from '../context/SocialContext';
 
@@ -24,10 +24,10 @@ const SocialChanger = () => {
           defaultChecked={true}
         />
         <span ref={leftSpan} className="switch-left checked">
-          F
+          <i class="fab fa-facebook-f"></i>
         </span>
         <span ref={rightSpan} className="switch-right">
-          T
+          <i class="fab fa-twitter"></i>
         </span>
       </label>
     </div>
