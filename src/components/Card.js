@@ -7,8 +7,8 @@ import { sl } from 'date-fns/locale';
 
 import sledilnikLogo from '../assets/svg/sledilnik-logo.svg';
 
-import ToClipboard from './shared/ToClipboard';
-import TweetCount from './shared/TweetCount';
+import ToClipboard from './ToClipboard';
+import TweetCount from './TweetCount';
 import TextWithTooltip from './TextWithTooltip';
 
 import { SocialContext } from './../context/SocialContext';

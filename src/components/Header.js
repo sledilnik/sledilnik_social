@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import './Header.css';
-import Backdrop from './shared/Backdrop';
+import Backdrop from './Backdrop';
 import SocialChanger from './SocialChanger';
 
 function Header() {
