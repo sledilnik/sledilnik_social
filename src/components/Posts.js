@@ -13,7 +13,7 @@ import PerAge from './PerAge';
 import InHospitals from './InHospitals';
 import Municipalities from './Municipalities';
 
-const LAB = ({ noTWCount }) => {
+const LAB = ({ noTWCount, noClose }) => {
   const ref = useRef();
   const { labTests, cases } = useContext(TimestampsContext);
   const { data: labTestsTimestamp } = labTests;
@@ -37,6 +37,7 @@ const LAB = ({ noTWCount }) => {
       dates={dates}
       open
       noCount={noCount}
+      noClose={noClose}
       refreshHandler={refreshHandler}
     >
       <Post forwardedRef={ref} id="post-lab" postNumber={1}>
@@ -48,7 +49,7 @@ const LAB = ({ noTWCount }) => {
   );
 };
 
-const HOS = ({ noTWCount }) => {
+const HOS = ({ noTWCount, noClose }) => {
   const ref = useRef();
   const { patients } = useContext(TimestampsContext);
   const { data: patientsTimestamp } = patients;
@@ -70,6 +71,7 @@ const HOS = ({ noTWCount }) => {
       dates={dates}
       open
       noCount={noCount}
+      noClose={noClose}
       refreshHandler={refreshHandler}
     >
       <Post forwardedRef={ref} id="post-hos" postNumber={2}>
@@ -82,7 +84,7 @@ const HOS = ({ noTWCount }) => {
   );
 };
 
-const EPI = ({ noTWCount }) => {
+const EPI = ({ noTWCount, noClose }) => {
   const ref = useRef();
   const { stats, labTests, cases, patients, munActive } = useContext(
     TimestampsContext
@@ -117,7 +119,7 @@ const EPI = ({ noTWCount }) => {
 
   const noCount =
     noTWCount ||
-    Object.values(dataHooks).filter(({ hasError, isLoading }) => {
+    Object.values(dataHooks).some(({ hasError, isLoading }) => {
       return hasError || isLoading;
     });
 
@@ -128,6 +130,7 @@ const EPI = ({ noTWCount }) => {
       dates={dates}
       open
       noCount={noCount}
+      noClose={noClose}
       refreshHandler={refreshHandler}
     >
       <Post forwardedRef={ref} id="post-epi" postNumber={3}>
@@ -148,7 +151,11 @@ const EPI = ({ noTWCount }) => {
   );
 };
 
-const cards = { LAB: <LAB />, HOS: <HOS />, EPI: <EPI noTWCount /> };
+const cards = {
+  LAB: <LAB noClose />,
+  HOS: <HOS noClose />,
+  EPI: <EPI noClose />,
+};
 
 function Posts() {
   const tabRef = useRef();
