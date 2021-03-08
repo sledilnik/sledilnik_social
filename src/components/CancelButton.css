@@ -2,6 +2,7 @@
   cursor: pointer;
   height: 30px;
   width: 30px;
+  border-radius: 50%;
 }
 
 .CancelButton.top-right {
@@ -17,10 +18,10 @@
 }
 
 .CancelButton .line.line-1 {
-  transform: translate(5px, 15px) rotate(45deg);
+  transform: translate(5px, 14px) rotate(45deg);
 }
 .CancelButton .line.line-2 {
-  transform: translate(5px, 13px) rotate(-45deg);
+  transform: translate(5px, 12px) rotate(-45deg);
 }
 
 .CancelButton:hover .line {
