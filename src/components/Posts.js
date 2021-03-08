@@ -162,7 +162,7 @@ function Posts() {
   const [card, setCard] = useState('LAB');
   let post = cards[card];
 
-  const showCard = (event, card) => {
+  const changeCard = (event, card) => {
     const { childNodes } = tabRef.current;
     const { target } = event;
     [...childNodes].forEach(btn => {
@@ -177,14 +177,20 @@ function Posts() {
       <div ref={tabRef} className="tab">
         <button
           className="tablinks active"
-          onClick={event => showCard(event, 'LAB')}
+          onClick={event => changeCard(event, 'LAB')}
         >
           LAB
         </button>
-        <button className="tablinks" onClick={event => showCard(event, 'HOS')}>
+        <button
+          className="tablinks"
+          onClick={event => changeCard(event, 'HOS')}
+        >
           HOS
         </button>
-        <button className="tablinks" onClick={event => showCard(event, 'EPI')}>
+        <button
+          className="tablinks"
+          onClick={event => changeCard(event, 'EPI')}
+        >
           EPI
         </button>
       </div>
