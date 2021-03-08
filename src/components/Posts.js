@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 
 import './Posts.css';
 
@@ -68,6 +68,7 @@ const HOS = ({ noTWCount }) => {
       postRef={ref}
       title="HOS"
       dates={dates}
+      open
       noCount={noCount}
       refreshHandler={refreshHandler}
     >
@@ -125,7 +126,7 @@ const EPI = ({ noTWCount }) => {
       postRef={ref}
       title="EPI"
       dates={dates}
-      open={false}
+      open
       noCount={noCount}
       refreshHandler={refreshHandler}
     >
@@ -147,12 +148,40 @@ const EPI = ({ noTWCount }) => {
   );
 };
 
+const cards = { LAB: <LAB />, HOS: <HOS />, EPI: <EPI noTWCount /> };
+
 function Posts() {
+  const tabRef = useRef();
+  const [card, setCard] = useState('LAB');
+  let post = cards[card];
+
+  const showCard = (event, card) => {
+    const { childNodes } = tabRef.current;
+    const { target } = event;
+    [...childNodes].forEach(btn => {
+      target !== btn && btn.classList.remove('active');
+      target === btn && btn.classList.add('active');
+    });
+    setCard(card);
+  };
+
   return (
     <section className="Posts">
-      <LAB />
-      <HOS />
-      <EPI noTWCount />
+      <div ref={tabRef} className="tab">
+        <button
+          className="tablinks active"
+          onClick={event => showCard(event, 'LAB')}
+        >
+          LAB
+        </button>
+        <button className="tablinks" onClick={event => showCard(event, 'HOS')}>
+          HOS
+        </button>
+        <button className="tablinks" onClick={event => showCard(event, 'EPI')}>
+          EPI
+        </button>
+      </div>
+      {post}
     </section>
   );
 }
