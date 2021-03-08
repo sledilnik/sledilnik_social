@@ -12,6 +12,7 @@ import Patients from './Patients';
 import PerAge from './PerAge';
 import InHospitals from './InHospitals';
 import Municipalities from './Municipalities';
+import SocialChanger from './SocialChanger';
 
 const LAB = ({ noTWCount, noClose }) => {
   const ref = useRef();
@@ -194,6 +195,7 @@ function Posts() {
           EPI
         </button>
       </div>
+        <SocialChanger />
       {post}
     </section>
   );

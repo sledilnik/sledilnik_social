@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import './Header.css';
 import Backdrop from './Backdrop';
-import SocialChanger from './SocialChanger';
 
 function Header() {
   const [open, setOpen] = useState(false);
@@ -37,7 +36,6 @@ function Header() {
   return (
     <header id="header" className="Header">
       <h1 className="logo">Covid-19 Sledilnik Social</h1>
-      <SocialChanger />
       <div className="🍔" onClick={onHamburgerClick}>
         <div className="line line-1"></div>
         <div className="line line-2"></div>

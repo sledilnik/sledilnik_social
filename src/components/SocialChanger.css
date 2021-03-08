@@ -1,6 +1,5 @@
 .SocialChanger {
   position: relative;
-  margin: 0 auto;
   --radius: 16px;
 }
 
@@ -36,12 +35,12 @@
 
 .checkbox-label > span.checked {
   background-color: var(--menu-clr);
-  color: var(--bcg-header-clr);
+  color: var(--bcg-body-clr);
 }
 
-.can-hover .checkbox-label:hover > span {
+/* .can-hover .checkbox-label:hover > span {
   width: 45px;
-}
+} */
 
 .can-hover .checkbox-label:hover > span.checked {
   background-color: black;
