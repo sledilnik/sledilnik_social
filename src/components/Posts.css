@@ -5,6 +5,12 @@
   max-width: 95%;
 }
 
+.Posts .posts-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* Style the tab */
 .Posts .tab {
   overflow: hidden;
@@ -21,7 +27,7 @@
   outline: none;
   cursor: pointer;
   margin: 8px 4px;
-  padding: 6px 0 2px;
+  padding: 6px 0;
   transition: 0.3s;
   letter-spacing: 1.2px;
 }
@@ -30,7 +36,7 @@
   content: '';
   position: absolute;
   left: 0;
-  bottom: -2px;
+  bottom: 2px;
   animation: underline-normal 0.5s linear forwards;
   border-bottom: 3px solid var(--bcg-header-clr);
   width: 100%;

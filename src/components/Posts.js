@@ -159,12 +159,12 @@ const cards = {
 };
 
 function Posts() {
-  const tabRef = useRef();
+  const tabButtonsRef = useRef();
   const [card, setCard] = useState('LAB');
   let post = cards[card];
 
   const changeCard = (event, card) => {
-    const { childNodes } = tabRef.current;
+    const { childNodes } = tabButtonsRef.current;
     const { target } = event;
     [...childNodes].forEach(btn => {
       target !== btn && btn.classList.remove('active');
@@ -175,27 +175,29 @@ function Posts() {
 
   return (
     <section className="Posts">
-      <div ref={tabRef} className="tab">
-        <button
-          className="tablinks active"
-          onClick={event => changeCard(event, 'LAB')}
-        >
-          LAB
-        </button>
-        <button
-          className="tablinks"
-          onClick={event => changeCard(event, 'HOS')}
-        >
-          HOS
-        </button>
-        <button
-          className="tablinks"
-          onClick={event => changeCard(event, 'EPI')}
-        >
-          EPI
-        </button>
-      </div>
+      <div className="posts-buttons-container">
+        <div ref={tabButtonsRef} className="tab">
+          <button
+            className="tablinks active"
+            onClick={event => changeCard(event, 'LAB')}
+          >
+            LAB
+          </button>
+          <button
+            className="tablinks"
+            onClick={event => changeCard(event, 'HOS')}
+          >
+            HOS
+          </button>
+          <button
+            className="tablinks"
+            onClick={event => changeCard(event, 'EPI')}
+          >
+            EPI
+          </button>
+        </div>
         <SocialChanger />
+      </div>
       {post}
     </section>
   );
