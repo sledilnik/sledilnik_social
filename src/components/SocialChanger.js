@@ -24,10 +24,10 @@ const SocialChanger = () => {
           defaultChecked={true}
         />
         <span ref={leftSpan} className="switch-left checked">
-          <i class="fab fa-facebook-f"></i>
+          <i className="fab fa-facebook-f"></i>
         </span>
         <span ref={rightSpan} className="switch-right">
-          <i class="fab fa-twitter"></i>
+          <i className="fab fa-twitter"></i>
         </span>
       </label>
     </div>
