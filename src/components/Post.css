@@ -2,10 +2,6 @@
   padding: 16px 8px;
   margin: 8px 0;
   background: var(--white);
-  -webkit-box-shadow: 0 1px 3px 0 var(--box-shadow),
-    0 2px 5px 0 var(--box-shadow2);
-  box-shadow: 0 1px 3px 0 var(--box-shadow), 0 2px 5px 0 var(--box-shadow2);
-  border-radius: 6px;
   user-select: text;
 }
 
@@ -34,11 +30,9 @@
 }
 
 .Post .summary-with-after > * {
-  position: relative;
   display: inline-block;
 }
 .Post .summary-with-after::after {
-  display: inline-block;
   font-size: 0.85em;
   content: '\00A0\00A0↘️';
 }
