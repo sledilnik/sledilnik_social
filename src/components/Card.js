@@ -56,6 +56,7 @@ function withCardHOC(Component) {
     dates,
     open = false,
     noCount = true,
+    noClose,
     refreshHandler = () => {},
     ...props
   }) => {
@@ -109,14 +110,7 @@ function withCardHOC(Component) {
       details.open =
         target.id === copyButton.id || target.id === refreshButton.id
           ? (details.open = true)
-          : !details.open;
-
-      details.open &&
-        details.scrollIntoView({
-          behavior: 'smooth',
-          block: 'end',
-          inline: 'nearest',
-        });
+          : noClose || !details.open;
 
       setClipboard(removeConsecutiveNewLines(postRef.current.innerText));
       setShowCharCount(social === 'TW' && details.open && !noCount);
