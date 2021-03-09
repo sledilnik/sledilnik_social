@@ -63,7 +63,7 @@ function CITIES_SOCIAL_FRIENDLY({
           Skrij ikone
         </button>
       )}
-      {show && (
+      {show && showIcons && (
         <button
           id="cities-icons-btn"
           className="btn social"
