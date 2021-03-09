@@ -29,7 +29,13 @@ const LAB = ({ noTWCount, noClose }) => {
     summary.refetch();
   };
 
-  const noCount = noTWCount || summary.isLoading || summary.hasError;
+  const loadingOrError = [labTests, cases, summary].some(
+    ({ hasError, isLoading }) => {
+      return hasError || isLoading;
+    }
+  );
+
+  const noCount = noTWCount || loadingOrError;
 
   return (
     <Card
@@ -63,7 +69,13 @@ const HOS = ({ noTWCount, noClose }) => {
     patientsDataHook.refetch();
   };
 
-  const noCount = noTWCount || patients.isLoading || patients.hasError;
+  const loadingOrError = [patients, patientsDataHook].some(
+    ({ hasError, isLoading }) => {
+      return hasError || isLoading;
+    }
+  );
+
+  const noCount = noTWCount || loadingOrError;
 
   return (
     <Card
@@ -118,11 +130,18 @@ const EPI = ({ noTWCount, noClose }) => {
     dataHooks.municipalities.refetch();
   };
 
-  const noCount =
-    noTWCount ||
-    Object.values(dataHooks).some(({ hasError, isLoading }) => {
-      return hasError || isLoading;
-    });
+  const loadingOrError = [
+    stats,
+    labTests,
+    cases,
+    patients,
+    munActive,
+    ...Object.values(dataHooks),
+  ].some(({ hasError, isLoading }) => {
+    return hasError || isLoading;
+  });
+
+  const noCount = noTWCount || loadingOrError;
 
   return (
     <Card
