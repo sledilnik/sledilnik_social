@@ -15,17 +15,17 @@ function App() {
   }
   return (
     <div className="App">
-      <SocialProvider>
-        <Header />
-        <main>
-          <TimestampsProvider>
-            <DataProvider>
+      <Header />
+      <main>
+        <TimestampsProvider>
+          <DataProvider>
+            <SocialProvider>
               <Posts />
-            </DataProvider>
-          </TimestampsProvider>
-        </main>
-        <Footer />
-      </SocialProvider>
+            </SocialProvider>
+          </DataProvider>
+        </TimestampsProvider>
+      </main>
+      <Footer />
     </div>
   );
 }
