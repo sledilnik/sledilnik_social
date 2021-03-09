@@ -44,6 +44,7 @@
 .Card .icons .icon {
   padding: 0 6px;
   font-size: 12px;
+  cursor: pointer;
 }
 
 .Card .icons .icon:hover > i {
