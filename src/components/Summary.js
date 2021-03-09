@@ -14,6 +14,8 @@ import Output from './Output';
 import FetchBoundary from './FetchBoundary';
 import SomethingWentWrong from './SomethingWentWrong';
 
+import SummaryData from '../dicts/SummaryDataDict';
+
 function Summary({ hook, title, outputProps, ...props }) {
   return (
     <FetchBoundary hook={hook} title={title} {...props}>
@@ -93,31 +95,6 @@ const getValuesType = (type, mandatoryProperties, values) => {
     return acc && !!values[item];
   }, true);
   return result ? type.default : type.fallback;
-};
-
-const SummaryData = {
-  PCR: {
-    field: 'testsToday',
-    types: { default: 'percentage', fallback: 'onlyValue' },
-    mandatoryProperties: ['value', 'positive', 'percent'],
-  },
-  HAT: {
-    field: 'testsTodayHAT',
-    types: { default: 'percentage', fallback: 'onlyValue' },
-    mandatoryProperties: ['value', 'positive', 'percent'],
-  },
-  ActiveCases: {
-    field: 'casesActive',
-    types: { default: 'bracketsInOut', fallback: null },
-  },
-  Vaccination: {
-    field: 'vaccinationSummary',
-    types: { default: 'onlyIn', fallback: null },
-  },
-  ConfirmedToDate: {
-    field: 'casesToDateSummary',
-    types: { default: 'onlyValue', fallback: null },
-  },
 };
 
 const getOutputProps = (data, title) => {
