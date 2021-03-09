@@ -10,6 +10,7 @@ import { SocialContext } from '../context/SocialContext';
 import DataRow from './DataRow';
 import { differenceInDays } from 'date-fns/esm';
 import { getDate } from '../utils/dates';
+import FetchBoundary from './FetchBoundary';
 
 // platform friendly icons
 const FB_ICONS = {
@@ -255,7 +256,11 @@ function withMunicipalitiesHOC(Component) {
       ...rest,
     };
 
-    return <Component hook={hook} {...newProps} />;
+    return (
+      <FetchBoundary hook={hook} title={'Po krajih'}>
+        <Component hook={hook} {...newProps} />
+      </FetchBoundary>
+    );
   };
   return WithMunicipalities;
 }
