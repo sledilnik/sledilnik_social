@@ -52,15 +52,15 @@ function withToClipboardHOC(Component) {
       navigator.clipboard && (await navigator.clipboard.writeText(''));
       textarea.value = '';
       !navigator.clipboard && selectAndCopy(textarea);
-      clear();
-      close();
+      clear instanceof Function && clear();
+      close instanceof Function && close();
     };
 
     const toClipboardHandler = async textarea => {
       navigator.clipboard &&
         (await navigator.clipboard.writeText(textarea.value));
       !navigator.clipboard && selectAndCopy(textarea.current);
-      close();
+      close instanceof Function && close();
     };
 
     return (

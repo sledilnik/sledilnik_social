@@ -170,7 +170,6 @@ function withCardHOC(Component) {
       <ToClipboard
         open={showPopOut}
         defaultValue={clipboard}
-        clear={() => setClipboard('')}
         close={() => setShowPopOut(false)}
       />
     );
