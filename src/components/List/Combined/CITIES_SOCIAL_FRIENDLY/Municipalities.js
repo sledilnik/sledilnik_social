@@ -25,9 +25,13 @@ const ICONS = {
   TW: TW_ICONS,
 };
 
-const setPlatformFriendlyIcon = (iconsVersion = 'FB', trend) => {
+const setPlatformFriendlyIcon = (
+  iconsVersion = 'FB',
+  trend,
+  weekly = false
+) => {
   const selectedIcons = ICONS[iconsVersion];
-  const getIconKey = trend => {
+  const getTrendIconKey = trend => {
     if (trend < -0.03) {
       return 'down';
     }
@@ -43,15 +47,33 @@ const setPlatformFriendlyIcon = (iconsVersion = 'FB', trend) => {
     return 'dots';
   };
 
-  const iconKey = getIconKey(trend);
+  const getWeeklyGrowthIconKey = trend => {
+    if (trend < 0) {
+      return 'down';
+    }
+    if (trend === 0) {
+      return 'between';
+    }
+    if (trend > 0) {
+      return 'up';
+    }
+    if (trend === 'no') {
+      return 'no';
+    }
+    return 'dots';
+  };
+
+  const iconKey = weekly
+    ? getWeeklyGrowthIconKey(trend)
+    : getTrendIconKey(trend);
 
   return selectedIcons[iconKey];
 };
 
-const getIconOrTrend = (icons, trend, showTrend, showIcon = false) =>
+const getIconOrTrend = (icons, trend, showTrend, showIcon = false, weekly) =>
   showTrend === 'y' ? (
     showIcon ? (
-      setPlatformFriendlyIcon(icons, trend)
+      setPlatformFriendlyIcon(icons, trend, weekly)
     ) : (
       ''
     )
@@ -66,12 +88,19 @@ const Municipalities = ({
   showTrend = 'y',
   icons = '',
   showIcons,
+  weekly,
 }) => {
   const memoDisplay = useMemo(() => {
     const display = [];
     for (const [count, townsByDiff] of data) {
       const sameDiffTownsLabel = townsByDiff.map(town => {
-        const icon = getIconOrTrend(icons, town.trend, showTrend, showIcons);
+        const icon = getIconOrTrend(
+          icons,
+          town.trend,
+          showTrend,
+          showIcons,
+          weekly
+        );
         return (
           <span key={town.key}>
             {town.name} {icon}
@@ -87,7 +116,7 @@ const Municipalities = ({
     }
 
     return display;
-  }, [data, icons, showTrend, showIcons]);
+  }, [data, icons, showTrend, showIcons, weekly]);
   return memoDisplay;
 };
 
@@ -189,11 +218,44 @@ function withMunicipalitiesHOC(Component) {
       return [town, trend];
     };
 
+    const getWeeklyGrowth = (town, calculatedPerDayRegions) => {
+      const townConfirmedToDate = Object.entries(
+        calculatedPerDayRegions
+      ).reduce((acc, [day, regionData]) => {
+        if (day === 'd16') {
+          return acc; // last value; can not subtract
+        }
+
+        acc.push(regionData[town]);
+        return acc;
+      }, []);
+
+      const casesNow = townConfirmedToDate[0];
+      const cases7dAgo = townConfirmedToDate[7];
+      const cases14dAgo = townConfirmedToDate[14];
+
+      const incidenceThisWeek = casesNow - cases7dAgo;
+      const incidenceLastWeek = cases7dAgo - cases14dAgo;
+      const weeklyGrowth = incidenceThisWeek / incidenceLastWeek - 1;
+
+      return [town, weeklyGrowth];
+    };
+
+    const getTownWeeklyGrowth = calculatedPerDayRegions => town => {
+      const weeklyGrowth = getWeeklyGrowth(
+        town,
+        calculatedPerDayRegions
+      ).filter(item => item !== null);
+      return weeklyGrowth;
+    };
+
+    const calcData = props.weekly ? getTownWeeklyGrowth : getTownTrend;
+
     const data = Object.entries(townsByDifference)
       .reverse()
       .reduce((acc1, [count, towns]) => {
         const townsLabelData = towns
-          .map(getTownTrend(calculatedPerDayRegions))
+          .map(calcData(calculatedPerDayRegions))
           .reduce((acc, townWithTrend, index) => {
             // townWithTrend = ["Murska Sobota",  -0.031660708691416684];
             const townLabel = {
@@ -214,6 +276,7 @@ function withMunicipalitiesHOC(Component) {
       showTrend: props.showTrend,
       icons: props.icons,
       showIcons: props.showIcons,
+      weekly: props.weekly,
     };
 
     return <Component {...newProps} />;
