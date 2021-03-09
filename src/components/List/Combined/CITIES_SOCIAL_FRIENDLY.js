@@ -8,6 +8,7 @@ function CITIES_SOCIAL_FRIENDLY({
   title,
   municipalities,
   showIcons,
+  weekly,
 }) {
   const [icons, setIcons] = useState('FB');
 
@@ -20,11 +21,12 @@ function CITIES_SOCIAL_FRIENDLY({
             showTrend="y"
             icons={icons}
             showIcons={showIcons}
+            weekly={weekly}
           ></Municipalities>
         </ul>
       </>
     );
-  }, [icons, municipalities, showIcons]);
+  }, [icons, municipalities, showIcons, weekly]);
 
   const clickHandler = event => {
     const { target } = event;
