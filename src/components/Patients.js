@@ -10,6 +10,8 @@ import Output from './Output';
 import FetchBoundary from './FetchBoundary';
 import SomethingWentWrong from './SomethingWentWrong';
 
+import PatientsData from '../dicts/PatientsDataDict';
+
 function Patients({ hook, title, outputProps, ...props }) {
   return (
     <FetchBoundary hook={hook} title={title} {...props}>
@@ -100,25 +102,6 @@ const getValuesType = (type, mandatoryProperties, values) => {
     return acc && !!values[item];
   }, true);
   return result ? type.default : type.fallback;
-};
-
-const PatientsData = {
-  Hospitalized: {
-    field: 'hospitalized',
-    types: { default: 'twoBracketsLastSingle', fallback: null },
-  },
-  OnRespiratory: {
-    field: 'onRespiratory',
-    types: { default: 'twoSingleBrackets', fallback: null },
-  },
-  Care: {
-    field: 'care',
-    types: { default: 'bracketsInOut', fallback: null },
-  },
-  Deceased: {
-    field: 'deceased',
-    types: { default: 'twoFirstWithSign', fallback: null },
-  },
 };
 
 const isDaysDiffGreater = (date, compare) => {
