@@ -2,7 +2,7 @@ export const formatNumberWithSign = number => {
   const result = new Intl.NumberFormat('sl-SL', {
     signDisplay: 'always',
   }).format(number);
-  // {signDisplay: 'always'} not working on mobile
+  // option {signDisplay: 'always'} not working on IE, Safari, iOS Safari
   const isMobile = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
   let isChrome = navigator.userAgent.indexOf('Chrome') > -1;
