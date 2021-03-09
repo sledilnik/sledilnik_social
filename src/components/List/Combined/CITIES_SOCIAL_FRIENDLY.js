@@ -11,6 +11,7 @@ function CITIES_SOCIAL_FRIENDLY({
   weekly,
 }) {
   const [icons, setIcons] = useState('FB');
+  const [show, setShow] = useState(true);
 
   const munVer = useMemo(() => {
     return (
@@ -20,38 +21,58 @@ function CITIES_SOCIAL_FRIENDLY({
             data={municipalities}
             showTrend="y"
             icons={icons}
-            showIcons={showIcons}
+            showIcons={showIcons && show}
             weekly={weekly}
           ></Municipalities>
         </ul>
       </>
     );
-  }, [icons, municipalities, showIcons, weekly]);
+  }, [icons, municipalities, showIcons, weekly, show]);
 
-  const clickHandler = event => {
+  const toggleSocialIcons = event => {
     const { target } = event;
 
     if (icons === 'FB') {
       setIcons('TW');
-      target.innerHTML = 'Prikaži FB ikone';
+      target.innerText = 'Prikaži FB ikone';
       return;
     }
     if (icons === 'TW') {
       setIcons('FB');
-      target.innerHTML = 'Prikaži TW ikone';
+      target.innerText = 'Prikaži TW ikone';
       return;
     }
   };
 
+  const toggleShowIcons = event => {
+    const { target } = event;
+    setShow(prev => {
+      target.innerText = !prev ? 'Skrij ikone' : 'Prikaži ikone';
+      return !prev;
+    });
+  };
+
   return (
     <div className={`cities ${check_municipalities}`}>
-      <button
-        id="cities-icons-btn"
-        className="btn social"
-        onClick={clickHandler}
-      >
-        Prikaži TW ikone
-      </button>
+      {showIcons && (
+        <button
+          id="cities-icons-show-btn"
+          className="btn"
+          onClick={toggleShowIcons}
+        >
+          Skrij ikone
+        </button>
+      )}
+      {show && (
+        <button
+          id="cities-icons-btn"
+          className="btn social"
+          onClick={toggleSocialIcons}
+        >
+          Prikaži TW ikone
+        </button>
+      )}
+
       <Row end={false}>{title}: </Row>
       {munVer}
     </div>
