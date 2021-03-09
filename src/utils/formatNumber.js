@@ -17,7 +17,6 @@ export const formatNumberWithSign = number => {
   if (noSupport) {
     if (result.charCodeAt(0) === 8722 || result.charCodeAt(0) === 43) {
       // 8772 = '-', 43 = '+'
-      console.log(result.charCodeAt(0), result[0]);
       return result;
     }
     const charCode = result.charCodeAt(0);
