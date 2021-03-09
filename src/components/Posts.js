@@ -165,7 +165,7 @@ const EPI = ({ noTWCount, noClose }) => {
         <Patients title="Care" />
         <Patients title="Deceased" />
         <InHospitals />
-        <Municipalities icons="FB" />
+        <Municipalities icons="FB" showIcons what="weeklyGrowth" />
       </Post>
     </Card>
   );
