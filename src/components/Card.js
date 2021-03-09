@@ -72,17 +72,16 @@ function withCardHOC(Component) {
     const { social } = useContext(SocialContext);
 
     const isOpen = detailsRef?.current?.open;
-    useEffect(() => {
-      setShowCharCount(social === 'TW' && isOpen && !noCount);
-    }, [social, isOpen, noCount]);
+    useEffect(() => setShowCharCount(social === 'TW' && isOpen && !noCount), [
+      social,
+      isOpen,
+      noCount,
+    ]);
 
     const text = postRef.current?.innerText;
-    useEffect(() => {
-      if (!text) {
-        return;
-      }
-      setClipboard(removeConsecutiveNewLines(text));
-    }, [text]);
+    useEffect(() => text && setClipboard(removeConsecutiveNewLines(text)), [
+      text,
+    ]);
 
     const openPopOutHandler = () => {
       const article = postRef.current;
