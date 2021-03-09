@@ -64,14 +64,6 @@ summary::-webkit-details-marker {
   display: none;
 }
 
-summary {
-  cursor: pointer;
-}
-
-summary:hover {
-  opacity: 0.8;
-}
-
 summary:focus {
   outline: none;
 }
