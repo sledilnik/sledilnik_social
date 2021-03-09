@@ -34,22 +34,28 @@ const LegendTable = ({ data = [{}] }) => {
   );
 };
 
-function RatioTrends({ municipalities, errors }) {
+function RatioTrends({ municipalities, errors, weekly }) {
   const [show, setShow] = useState(false);
-  const munVer = <Municipalities data={municipalities} showTrend="n" />;
+  const munVer = (
+    <Municipalities data={municipalities} showTrend="n" weekly={weekly} />
+  );
   return (
     <Error hasData={!!municipalities} hasError={errors.municipalities}>
-      <LegendSection
-        title={'Trend rasti potrjenih primerov v posamezni občini'}
-      >
-        <LegendTable data={trendsLegendDict} />
-      </LegendSection>
-      <LegendSection title={'Formula za izračun trenda'}>
-        <h4>trend = ( log(y1) + 3 * log(y3) - 4*log(y2) ) / 8</h4>
-        <p className="text">y1 = vsota novih primerov za dneve (-14..-8)</p>
-        <p className="text">y2 = vsota novih primerov za dneve (-10..-4)</p>
-        <p className="text">y3 = vsota novih primerov za dneve (-6..0)</p>
-      </LegendSection>
+      {!weekly && (
+        <>
+          <LegendSection
+            title={'Trend rasti potrjenih primerov v posamezni občini'}
+          >
+            <LegendTable data={trendsLegendDict} />
+          </LegendSection>
+          <LegendSection title={'Formula za izračun trenda'}>
+            <h4>trend = ( log(y1) + 3 * log(y3) - 4*log(y2) ) / 8</h4>
+            <p className="text">y1 = vsota novih primerov za dneve (-14..-8)</p>
+            <p className="text">y2 = vsota novih primerov za dneve (-10..-4)</p>
+            <p className="text">y3 = vsota novih primerov za dneve (-6..0)</p>
+          </LegendSection>
+        </>
+      )}
       <LegendSection title={'Občine CHECK ratio'}>
         <button className="btn" onClick={() => setShow(prev => !prev)}>
           {show ? 'Zapri' : 'Odpri'}
