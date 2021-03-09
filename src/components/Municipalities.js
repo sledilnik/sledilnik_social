@@ -34,43 +34,70 @@ const ICONS = {
   TW: TW_ICONS,
 };
 
-const setPlatformFriendlyIcon = (iconsVersion = 'FB', trend) => {
-  const selectedIcons = ICONS[iconsVersion];
-  const getIconKey = trend => {
-    if (trend < -0.03) {
-      return 'down';
-    }
-    if (trend > 0.03) {
-      return 'up';
-    }
-    if (trend === 'no') {
-      return 'no';
-    }
-    if (trend >= -0.03 || trend <= 0.03) {
-      return 'between';
-    }
-    return 'dots';
-  };
+const get14dTrendIconKey = num => {
+  if (num < -0.03) {
+    return 'down';
+  }
+  if (num > 0.03) {
+    return 'up';
+  }
+  if (num === 'no') {
+    return 'no';
+  }
+  if (num >= -0.03 || num <= 0.03) {
+    return 'between';
+  }
+  return 'dots';
+};
 
-  const iconKey = getIconKey(trend);
+const getWeeklyGrowthIconKey = num => {
+  if (num < 0) {
+    return 'down';
+  }
+  if (num === 0) {
+    return 'between';
+  }
+  if (num > 0) {
+    return 'up';
+  }
+  if (num === 'no') {
+    return 'no';
+  }
+  return 'dots';
+};
+
+const GetIcons = {
+  trend14: get14dTrendIconKey,
+  weeklyGrowth: getWeeklyGrowthIconKey,
+};
+
+const setPlatformFriendlyIcon = (
+  iconsVersion = 'FB',
+  num,
+  what = 'trend14'
+) => {
+  const hasFunc = Object.keys(GetIcons).includes(what);
+
+  if (!hasFunc) {
+    return 'dots';
+  }
+
+  const selectedIcons = ICONS[iconsVersion];
+  const getIcons = GetIcons[what];
+  const iconKey = getIcons(num);
 
   return selectedIcons[iconKey];
 };
 
-const getIconOrTrend = (icons, trend, showTrend, showIcon) => {
-  const trendIcon =
-    showTrend && showIcon && setPlatformFriendlyIcon(icons, trend);
-  const _trendNumber = Math.round((trend + Number.EPSILON) * 100000) / 100000;
-  const trendNumber = isNaN(_trendNumber) ? '-' : _trendNumber;
+const getIconOrNum = (icons, num, showNum, showIcon, what) => {
+  const icon = showNum && showIcon && setPlatformFriendlyIcon(icons, num, what);
+  const roundedNum = Math.round((num + Number.EPSILON) * 100000) / 100000;
+  const output = isNaN(roundedNum) ? '-' : roundedNum;
 
-  return showTrend === 'y' ? (
-    trendIcon
+  return showNum === 'y' ? (
+    icon
   ) : (
-    <i>
-      {trend !== 'no' && trendIcon
-        ? trendIcon + ' ' + trendNumber
-        : trendNumber}
-    </i>
+    <i>{num !== 'no' && icon ? icon + ' ' + output : output}</i>
   );
 };
 
@@ -118,7 +145,73 @@ const createCalculatedRegions = perDayRegions => {
   return obj;
 };
 
-const getMunicipalitiesData = data => {
+const getTrend = deltas => {
+  // prepare params to calculate trend
+  const addValue = (acc, value) => acc + value;
+  const y3 = deltas.slice(0, 7).reduce(addValue, 0);
+  const y2 = deltas.slice(4, 11).reduce(addValue, 0);
+  const y1 = deltas.slice(8, 15).reduce(addValue, 0);
+
+  // calculate trend
+  const oneTrendArgIsUndefined = y1 === 0 || y2 === 0 || y3 === 0;
+  const calcTrend = (y1, y2, y3) =>
+    (Math.log(y1) + 3 * Math.log(y3) - 4 * Math.log(y2)) / 8;
+  const trend = oneTrendArgIsUndefined ? 'no' : calcTrend(y1, y2, y3);
+  return trend;
+};
+
+const getDeltas = (town, calculatedPerDayRegions) =>
+  Object.entries(calculatedPerDayRegions).map(
+    ([day, regionData], index, days) => {
+      if (day === 'd16') {
+        return null; // last value; can not subtract
+      }
+      const regionDataDayBefore = days[index + 1][1];
+      return regionData[town] - regionDataDayBefore[town];
+    }
+  );
+
+const get14dTownTrend = calculatedPerDayRegions => town => {
+  // prepare data to calculate trend
+  const deltas = getDeltas(town, calculatedPerDayRegions).filter(
+    item => item !== null
+  );
+  const trend = getTrend(deltas);
+  return [town, trend];
+};
+
+const getWeeklyGrowth = (town, calculatedPerDayRegions) => {
+  const townConfirmedToDate = Object.entries(calculatedPerDayRegions).reduce(
+    (acc, [day, regionData]) => {
+      if (day === 'd16') {
+        return acc; // last value; can not subtract
+      }
+
+      acc.push(regionData[town]);
+      return acc;
+    },
+    []
+  );
+
+  const casesNow = townConfirmedToDate[0];
+  const cases7dAgo = townConfirmedToDate[7];
+  const cases14dAgo = townConfirmedToDate[14];
+
+  const incidenceThisWeek = casesNow - cases7dAgo;
+  const incidenceLastWeek = cases7dAgo - cases14dAgo;
+  const weeklyGrowth = incidenceThisWeek / incidenceLastWeek - 1;
+
+  return [town, weeklyGrowth];
+};
+
+const getTownWeeklyGrowth = calculatedPerDayRegions => town => {
+  const weeklyGrowth = getWeeklyGrowth(town, calculatedPerDayRegions).filter(
+    item => item !== null
+  );
+  return weeklyGrowth;
+};
+
+const getMunicipalitiesData = (data, mapFunc) => {
   const perDayRegions = data
     .map(item => item.regions)
     .reverse()
@@ -147,46 +240,11 @@ const getMunicipalitiesData = data => {
       return acc;
     }, {});
 
-  const getTrend = deltas => {
-    // prepare params to calculate trend
-    const addValue = (acc, value) => acc + value;
-    const y3 = deltas.slice(0, 7).reduce(addValue, 0);
-    const y2 = deltas.slice(4, 11).reduce(addValue, 0);
-    const y1 = deltas.slice(8, 15).reduce(addValue, 0);
-
-    // calculate trend
-    const oneTrendArgIsUndefined = y1 === 0 || y2 === 0 || y3 === 0;
-    const calcTrend = (y1, y2, y3) =>
-      (Math.log(y1) + 3 * Math.log(y3) - 4 * Math.log(y2)) / 8;
-    const trend = oneTrendArgIsUndefined ? 'no' : calcTrend(y1, y2, y3);
-    return trend;
-  };
-
-  const getDeltas = (town, calculatedPerDayRegions) =>
-    Object.entries(calculatedPerDayRegions).map(
-      ([day, regionData], index, days) => {
-        if (day === 'd16') {
-          return null; // last value; can not subtract
-        }
-        const regionDataDayBefore = days[index + 1][1];
-        return regionData[town] - regionDataDayBefore[town];
-      }
-    );
-
-  const getTownTrend = calculatedPerDayRegions => town => {
-    // prepare data to calculate trend
-    const deltas = getDeltas(town, calculatedPerDayRegions).filter(
-      item => item !== null
-    );
-    const trend = getTrend(deltas);
-    return [town, trend];
-  };
-
   const munData = Object.entries(townsByDifference)
     .reverse()
     .reduce((acc1, [count, towns]) => {
       const townsLabelData = towns
-        .map(getTownTrend(calculatedPerDayRegions))
+        .map(mapFunc(calculatedPerDayRegions))
         .reduce((acc, townWithTrend, index) => {
           // townWithTrend = ["Murska Sobota",  -0.031660708691416684];
           const townLabel = {
@@ -205,12 +263,32 @@ const getMunicipalitiesData = data => {
   return munData;
 };
 
+const GetFunc = {
+  trend14: get14dTownTrend,
+  weeklyGrowth: getTownWeeklyGrowth,
+};
+
 function withMunicipalitiesHOC(Component) {
-  const WithMunicipalities = ({ showTrend = 'y', showIcons, ...rest }) => {
+  const WithMunicipalities = ({
+    showTrend = 'y',
+    showIcons,
+    what = 'trend14',
+    ...rest
+  }) => {
+    const hasFunc = Object.keys(GetFunc).includes(what);
+    if (!hasFunc) {
+      throw new Error(`Missing function for keyword: ${what}!`);
+    }
+    const mapFunc = GetFunc[what];
+    const isFunc = mapFunc instanceof Function;
+    if (!isFunc) {
+      throw new Error(mapFunc + ' is not a function!');
+    }
+
     const { municipalities: hook } = useContext(DataContext);
     const { social } = useContext(SocialContext);
 
-    const data = hook.data && getMunicipalitiesData(hook.data);
+    const data = hook.data && getMunicipalitiesData(hook.data, mapFunc);
 
     const isWrongDate =
       hook.data &&
@@ -224,7 +302,13 @@ function withMunicipalitiesHOC(Component) {
 
       for (const [count, townsByDiff] of data) {
         const sameDiffTownsLabel = townsByDiff.map(town => {
-          const icon = getIconOrTrend(social, town.trend, showTrend, showIcons);
+          const icon = getIconOrNum(
+            social,
+            town.trend,
+            showTrend,
+            showIcons,
+            what
+          );
           return (
             <span key={town.key}>
               {town.name} {icon}
@@ -253,6 +337,7 @@ function withMunicipalitiesHOC(Component) {
     const newProps = {
       memoDisplay,
       isWrongDate,
+      what,
       ...rest,
     };
 
