@@ -71,7 +71,8 @@ function Combined({
           title={'Po krajih'}
           check_municipalities={combined.css.check_municipalities}
           municipalities={combined.municipalities}
-          showIcons={false}
+          showIcons={true}
+          weekly={true}
         />
       </Error>
     </>
