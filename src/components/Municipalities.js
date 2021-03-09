@@ -332,7 +332,7 @@ function withMunicipalitiesHOC(Component) {
       }
 
       return display;
-    }, [data, social, showTrend, isWrongDate, showIcons]);
+    }, [data, social, showTrend, isWrongDate, showIcons, what]);
 
     const newProps = {
       memoDisplay,
