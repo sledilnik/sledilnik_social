@@ -8,8 +8,12 @@ Endpoints for data fetch are set in `urlDict.js`.
 
 ### New Features
 
-- timestamps
+- timestamps contexts
+- data context
+- social context
 - count characters for twitter with twitter-text package
+- weekly growth per town
+- show only one post at the time
 
 ### Data
 
