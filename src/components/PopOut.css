@@ -1,3 +1,7 @@
+.PopOut > * {
+  color: black;
+}
+
 .PopOut.Backdrop {
   position: fixed;
   top: 0;
