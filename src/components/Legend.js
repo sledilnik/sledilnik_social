@@ -16,7 +16,7 @@ function Legend({ pathsDatesHooks, municipalitiesHook }) {
     <div className="post Legend">
       <h2 id="legenda">Legenda</h2>
       <PathsDates hooks={pathsDatesHooks} />
-      <RatioTrends municipalitiesHook={municipalitiesHook} />
+      <RatioTrends municipalitiesHook={municipalitiesHook} weekly />
     </div>
   );
 }
