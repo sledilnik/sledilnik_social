@@ -1,4 +1,4 @@
-import React, { useMemo, useContext } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
 import _ from 'lodash';
 import municipalitiesDict from '../dicts/MunicipalitiesDict';
 
@@ -15,6 +15,7 @@ import { differenceInDays } from 'date-fns/esm';
 import { getDate } from '../utils/dates';
 import FetchBoundary from './FetchBoundary';
 import TextWithTooltip from './TextWithTooltip';
+import MunPopOut from './MunPopOut';
 
 // platform friendly icons
 const FB_ICONS = {
@@ -96,22 +97,44 @@ const setPlatformFriendlyIcon = (
 const getIconOrNum = (icons, num, showNum, showIcon, what) => {
   const icon = showNum && showIcon && setPlatformFriendlyIcon(icons, num, what);
   const roundedNum = Math.round((num + Number.EPSILON) * 100000) / 100000;
-  const output = isNaN(roundedNum) ? '-' : roundedNum;
+  const output =
+    what === 'weeklyGrowth'
+      ? formatPercentage(num)
+      : isNaN(roundedNum)
+      ? '-'
+      : roundedNum;
 
   return showNum === 'y' ? (
     icon
+  ) : num !== 'no' && icon ? (
+    <span style={{ fontWeight: 700 }}>
+      {icon} <i>{output}</i>
+    </span>
   ) : (
-    <i>{num !== 'no' && icon ? icon + ' ' + output : output}</i>
+    <i>{output}</i>
   );
 };
 
-const Municipalities = ({ isWrongDate, memoDisplay }) => {
+const Municipalities = ({ isWrongDate, memoDisplay, ...props }) => {
+  const [showPopOut, setShowPopOut] = useState(false);
+  const onListClickHandler = () => {
+    setShowPopOut(true);
+  };
+
+  const onClosePopOutHandler = () => {
+    setShowPopOut(false);
+  };
   return (
     <details>
       <summary className="summary-with-after">
         <DataRow markFail={isWrongDate}>Po krajih:</DataRow>
       </summary>
-      <ul>{memoDisplay}</ul>
+      <ul onClickCapture={onListClickHandler}>{memoDisplay}</ul>
+      <MunPopOut
+        open={showPopOut}
+        onCancel={onClosePopOutHandler}
+        output={props.popOutOutput}
+      />
     </details>
   );
 };
@@ -298,55 +321,67 @@ function withMunicipalitiesHOC(Component) {
       hook.data &&
       differenceInDays(new Date(), getDate(hook.data.slice(-1).pop())) > 1;
 
-    const memoDisplay = useMemo(() => {
-      const display = [];
-      if (!data) {
+    const memoDisplay = useCallback(
+      (social, showIcons, showTrend, what, noTooltip) => {
+        const display = [];
+        if (!data) {
+          return display;
+        }
+
+        for (const [count, townsByDiff] of data) {
+          const sameDiffTownsLabel = townsByDiff.map(town => {
+            const icon = getIconOrNum(
+              social,
+              town.trend,
+              showTrend,
+              showIcons,
+              what
+            );
+
+            const formatedTrend = formatPercentage(town.trend);
+            const formatedCount = formatNumberWithSign(count);
+
+            return (
+              <span key={town.key}>
+                {noTooltip ? (
+                  <span>
+                    {town.name} {icon}
+                  </span>
+                ) : (
+                  <TextWithTooltip
+                    className="up"
+                    text={`${town.name} ${icon}`}
+                    tooltipText={formatedTrend}
+                  />
+                )}
+                {town.next ? (
+                  ', '
+                ) : (
+                  <span style={{ fontWeight: 700 }}> {formatedCount}</span>
+                )}
+              </span>
+            );
+          });
+          const color = isWrongDate ? 'var(--red)' : 'initial';
+          display.push(
+            <li key={`${count}-${{ social }}`} style={{ color }}>
+              {sameDiffTownsLabel}
+            </li>
+          );
+        }
+
         return display;
-      }
+      },
+      [data, isWrongDate]
+    );
 
-      for (const [count, townsByDiff] of data) {
-        const sameDiffTownsLabel = townsByDiff.map(town => {
-          const icon = getIconOrNum(
-            social,
-            town.trend,
-            showTrend,
-            showIcons,
-            what
-          );
-
-          const formatedTrend = formatPercentage(town.trend);
-          const formatedCount = formatNumberWithSign(count);
-
-          return (
-            <span key={town.key}>
-              <TextWithTooltip
-                className="up"
-                text={`${town.name} ${icon}`}
-                tooltipText={formatedTrend}
-              />
-              {town.next ? (
-                ', '
-              ) : (
-                <span style={{ fontWeight: 700 }}> {formatedCount}</span>
-              )}
-            </span>
-          );
-        });
-        const color = isWrongDate ? 'var(--red)' : 'initial';
-        display.push(
-          <li key={`${count}-${{ social }}`} style={{ color }}>
-            {sameDiffTownsLabel}
-          </li>
-        );
-      }
-
-      return display;
-    }, [data, social, showTrend, isWrongDate, showIcons, what]);
+    const popOutOutput = memoDisplay(social, true, 'no', what, true);
 
     const newProps = {
-      memoDisplay,
+      memoDisplay: memoDisplay(social, showIcons, showTrend, what),
       isWrongDate,
       what,
+      popOutOutput,
       ...rest,
     };
 
