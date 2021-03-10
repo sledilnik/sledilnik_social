@@ -5,5 +5,8 @@
   overflow-y: auto;
   max-height: 75vh;
   padding: 8px;
-  line-height: 1.2em;
+}
+
+.MunPopOut li {
+  padding-bottom: 8px;
 }
