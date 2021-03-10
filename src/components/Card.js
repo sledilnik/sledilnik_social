@@ -141,7 +141,12 @@ function withCardHOC(Component) {
 
     const { relativeDate, path } = getTimestamp(dates);
     const timestamp = relativeDate && (
-      <TextWithTooltip text={relativeDate} tooltipText={path} />
+      <TextWithTooltip
+        text={relativeDate}
+        tooltipText={path}
+        style={{ color: 'var(--menu-clr)' }}
+        className="up"
+      />
     );
 
     const summaryId = 'summary-' + cardId;
