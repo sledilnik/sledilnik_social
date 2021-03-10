@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import './TextWithTooltip.css';
 
-function TextWithTooltip({ text, tooltipText, tooltipProps = {}, ...props }) {
-  const [showTooltip, setShowTooltip] = useState(false);
+function TextWithTooltip({
+  text,
+  tooltipText,
+  tooltipProps = {},
+  className,
+  ...props
+}) {
+  const ref = useRef();
+
   return (
-    <div
-      className="TextWithTooltip"
-      onMouseOver={() => setShowTooltip(true)}
-      onMouseOut={() => setShowTooltip(false)}
+    <span
+      ref={ref}
+      data-text={tooltipText}
+      className={`TextWithTooltip ${className}`}
       {...props}
     >
       {text}
-      {showTooltip && (
-        <div className="tooltip" {...tooltipProps}>
-          {tooltipText}
-        </div>
-      )}
-    </div>
+    </span>
   );
 }
 
