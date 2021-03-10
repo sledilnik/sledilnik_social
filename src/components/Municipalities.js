@@ -2,7 +2,10 @@ import React, { useMemo, useContext } from 'react';
 import _ from 'lodash';
 import municipalitiesDict from '../dicts/MunicipalitiesDict';
 
-import { formatNumberWithSign } from './../utils/formatNumber';
+import {
+  formatNumberWithSign,
+  formatPercentage,
+} from './../utils/formatNumber';
 
 import { DataContext } from '../context/DataContext';
 import { SocialContext } from '../context/SocialContext';
@@ -11,6 +14,7 @@ import DataRow from './DataRow';
 import { differenceInDays } from 'date-fns/esm';
 import { getDate } from '../utils/dates';
 import FetchBoundary from './FetchBoundary';
+import TextWithTooltip from './TextWithTooltip';
 
 // platform friendly icons
 const FB_ICONS = {
@@ -309,16 +313,21 @@ function withMunicipalitiesHOC(Component) {
             showIcons,
             what
           );
+
+          const formatedTrend = formatPercentage(town.trend);
+          const formatedCount = formatNumberWithSign(count);
+
           return (
             <span key={town.key}>
-              {town.name} {icon}
+              <TextWithTooltip
+                className="up"
+                text={`${town.name} ${icon}`}
+                tooltipText={formatedTrend}
+              />
               {town.next ? (
                 ', '
               ) : (
-                <span style={{ fontWeight: 700 }}>
-                  {' '}
-                  {formatNumberWithSign(count)}
-                </span>
+                <span style={{ fontWeight: 700 }}> {formatedCount}</span>
               )}
             </span>
           );
