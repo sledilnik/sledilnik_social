@@ -1,0 +1,100 @@
+.Posts {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 95%;
+}
+
+.Posts .posts-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Style the tab */
+.Posts .tab {
+  overflow: hidden;
+  margin: 8px 0;
+  padding: 8px 0;
+}
+
+/* Style the buttons that are used to open the tab content */
+.Posts .tab button {
+  position: relative;
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 8px 4px;
+  padding: 6px 0;
+  transition: 0.3s;
+  letter-spacing: 1.2px;
+}
+
+.Posts .tab button:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  animation: underline-normal 0.5s linear forwards;
+  border-bottom: 3px solid var(--bcg-header-clr);
+  width: 100%;
+}
+
+/* Change background color of buttons on hover */
+.Posts .tab button:hover:after {
+  animation: underline-hover 0.3s linear forwards;
+}
+
+.Posts .tab button.active {
+  font-weight: 700;
+}
+
+/* Create an active/current tablink class */
+.Posts .tab button.active:after {
+  border-bottom: 3px solid var(--bcg-header-clr);
+  animation: underline-hover 0.3s linear forwards;
+  width: 100%;
+}
+
+@media only screen and (min-width: 576px) {
+  .Posts {
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .Posts {
+    width: 85%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .Posts {
+    width: 75%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .Posts {
+    width: 65%;
+  }
+}
+
+@keyframes underline-hover {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes underline-normal {
+  100% {
+    width: 0;
+  }
+  0% {
+    width: 100%;
+  }
+}

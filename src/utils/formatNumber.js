@@ -2,19 +2,27 @@ export const formatNumberWithSign = number => {
   const result = new Intl.NumberFormat('sl-SL', {
     signDisplay: 'always',
   }).format(number);
-  // {signDisplay: 'always'} not working on mobile
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  );
+  // option {signDisplay: 'always'} not working on IE, Safari, iOS Safari
+  const isMobile = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-  if (isMobile) {
-    if (result.charCodeAt(0) === 8722) {
+  let isChrome = navigator.userAgent.indexOf('Chrome') > -1;
+  const isExplorer = navigator.userAgent.indexOf('MSIE') > -1;
+  let isSafari = navigator.userAgent.indexOf('Safari') > -1;
+  if (isChrome && isSafari) {
+    isSafari = false;
+  }
+
+  const noSupport = isSafari || isExplorer || isMobile;
+
+  if (noSupport) {
+    if (result.charCodeAt(0) === 8722 || result.charCodeAt(0) === 43) {
+      // 8772 = '-', 43 = '+'
       return result;
     }
     const charCode = result.charCodeAt(0);
     return 48 <= charCode <= 57 ? '+' + result : result;
   }
-  if (!isMobile) {
+  if (!noSupport) {
     return result;
   }
 };

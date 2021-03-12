@@ -1,0 +1,76 @@
+.PopOut > * {
+  color: black;
+}
+
+.PopOut.Backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.PopOut .popout-container {
+  padding: 8px 12px;
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: var(--bcg-body-clr);
+  -webkit-box-shadow: 0 1px 3px 0 var(--box-shadow);
+  box-shadow: 0 1px 3px 0 var(--box-shadow);
+  border-radius: 6px;
+}
+
+.PopOut .children-container {
+  width: 100%;
+}
+
+.PopOut .popout-header-container,
+.PopOut .popout-footer-container {
+  padding: 8px 0;
+  display: flex;
+  font-size: 0.85em;
+}
+
+.PopOut .popout-header-container {
+  align-self: start;
+  margin-left: auto;
+}
+
+.PopOut .popout-header-container button,
+.PopOut .popout-footer-container button {
+  font-size: 0.85em;
+}
+
+@media only screen and (min-width: 576px) {
+  .PopOut .popout-container {
+    width: 90%;
+    padding: 8px 16px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .PopOut .popout-container {
+    width: 85%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .PopOut .popout-container {
+    width: 75%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .PopOut .popout-container {
+    width: 65%;
+  }
+}

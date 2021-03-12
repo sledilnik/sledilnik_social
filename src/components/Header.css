@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 10vh;
+  height: 8vh;
   background-color: var(--bcg-header-clr);
   display: flex;
   align-items: center;
@@ -12,6 +12,8 @@
 }
 
 .Header > .logo {
+  font-size: 0.85em;
+  font-weight: normal;
   margin-left: 1em;
 }
 
@@ -39,7 +41,6 @@
 
 /* NAVIGATION */
 .nav-container {
-  margin-left: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -54,6 +55,7 @@
   overflow: auto;
   transition: all 0.4s ease-in-out;
   will-change: transform;
+  margin-left: auto;
 }
 
 .nav-container .nav-heading {
@@ -68,7 +70,6 @@
   text-decoration: none;
   color: var(--menu-clr);
   transition: all 0.4s linear;
-  /* border: solid 2px black; */
 }
 
 .nav-link:focus,
