@@ -81,9 +81,9 @@ const setPlatformFriendlyIcon = (
   num,
   what = 'trend14'
 ) => {
-  const hasFunc = Object.keys(GetIcons).includes(what);
+  const hasIcons = GetIcons.hasOwnProperty('what');
 
-  if (!hasFunc) {
+  if (!hasIcons) {
     return 'dots';
   }
 
@@ -302,7 +302,7 @@ function withMunicipalitiesHOC(Component) {
     what = 'trend14',
     ...rest
   }) => {
-    const hasFunc = Object.keys(GetFunc).includes(what);
+    const hasFunc = GetFunc.hasOwnProperty(what);
     if (!hasFunc) {
       throw new Error(`Missing function for keyword: ${what}!`);
     }
