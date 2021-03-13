@@ -50,6 +50,14 @@ const getTimestamp = dates => {
   return { relativeDate, path: timestampPath };
 };
 
+const IconButton = React.forwardRef((props, ref) => {
+  return (
+    <span ref={ref} className="icon">
+      <i className={props.fontAwesome}></i>
+    </span>
+  );
+});
+
 function withCardHOC(Component) {
   const WithCard = ({
     title,
@@ -136,6 +144,9 @@ function withCardHOC(Component) {
             className="far fa-copy "
           ></i>
         </span>
+        {props.settingsRef && (
+          <IconButton ref={props.settingsRef} fontAwesome="fas fa-cog" />
+        )}
       </div>,
     ];
 
