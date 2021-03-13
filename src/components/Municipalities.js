@@ -308,15 +308,16 @@ function withMunicipalitiesHOC(Component) {
 
         for (const [count, townsByDiff] of data) {
           const sameDiffTownsLabel = townsByDiff.map(town => {
-            const icon =
-              showIcons && setPlatformFriendlyIcon(social, town.trend, what);
+            const icon = showIcons
+              ? setPlatformFriendlyIcon(social, town.trend, what)
+              : '';
 
             const formatedTrend =
               what === 'weeklyGrowth'
                 ? formatPercentage(town.trend)
                 : isNaN(town.trend)
-                ? Math.round((town.trend + Number.EPSILON) * 100000) / 100000
-                : '-';
+                ? '-'
+                : Math.round((town.trend + Number.EPSILON) * 100000) / 100000;
             const formatedCount = formatNumberWithSign(count);
 
             return (
