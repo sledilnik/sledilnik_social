@@ -58,6 +58,59 @@
   width: 100%;
 }
 
+.Posts .settings-container {
+  padding: 8px 8px;
+  font-size: 0.8em;
+}
+
+.Posts .settings {
+  padding: 8px 0;
+}
+
+.Posts .settings summary {
+  cursor: pointer;
+}
+
+.Posts .settings-options {
+  color: var(--menu-clr);
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  min-height: 30px;
+}
+
+.Posts .settings-options label {
+  margin-right: 4px;
+}
+.Posts .settings-options label + * {
+  margin-right: 8px;
+}
+
+.Posts .settings-options .settings-btn:focus {
+  outline: none;
+}
+
+.Posts .settings button {
+  display: block;
+  margin: 4px 16px 4px auto;
+  padding: 2px 8px;
+  cursor: pointer;
+  color: var(--menu-clr);
+  background-color: var(--bcg-body-clr);
+  border: 1px solid var(--menu-clr);
+  border-radius: 6px;
+}
+
+.Posts .settings button:hover {
+  color: black;
+  border: 1px solid black;
+}
+.Posts .settings button:focus {
+  outline: none;
+  color: black;
+  border: 1px solid black;
+}
+
 @media only screen and (min-width: 576px) {
   .Posts {
     width: 90%;
