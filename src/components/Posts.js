@@ -103,6 +103,8 @@ const HOS = ({ noTWCount, noClose }) => {
 
 const EPI = ({ noTWCount, noClose }) => {
   const ref = useRef();
+  const [showIcons, setShowIcons] = useState(true);
+  const [what, setWhat] = useState('weeklyGrowth');
   const { stats, labTests, cases, patients, munActive } = useContext(
     TimestampsContext
   );
@@ -148,6 +150,10 @@ const EPI = ({ noTWCount, noClose }) => {
 
   const noCount = noTWCount || loadingOrError || timestampsLoading;
 
+  const showIconsHandler = event => setShowIcons(event.target.checked);
+
+  const onWhatChangeHandler = event => setWhat(event.target.value);
+
   return (
     <Card
       postRef={ref}
@@ -158,6 +164,26 @@ const EPI = ({ noTWCount, noClose }) => {
       noClose={noClose}
       refreshHandler={refreshHandler}
     >
+      <details id="municipalities-buttons">
+        <summary>Nastavitve</summary>
+        Po krajih
+        <label htmlFor="show-icons">Ikone</label>
+        <input
+          name="show-icons"
+          type="checkbox"
+          checked={showIcons}
+          onChange={showIconsHandler}
+        />
+        {showIcons && (
+          <>
+            <label htmlFor="what">Trend</label>
+            <select name="what" onChange={onWhatChangeHandler} value={what}>
+              <option value="weeklyGrowth">Tedenski prirast</option>
+              <option value="trend14">14d trend</option>
+            </select>
+          </>
+        )}
+      </details>
       <Post forwardedRef={ref} id="post-epi" postNumber={3}>
         <Summary title="PCR" />
         <Summary title="HAT" />
@@ -170,7 +196,7 @@ const EPI = ({ noTWCount, noClose }) => {
         <Patients title="Care" />
         <Patients title="Deceased" />
         <InHospitals />
-        <Municipalities icons="FB" showIcons what="weeklyGrowth" />
+        <Municipalities icons="FB" showIcons={showIcons} what={what} />
       </Post>
     </Card>
   );
