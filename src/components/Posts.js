@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useState, useEffect } from 'react';
 
 import './Posts.css';
 
@@ -13,6 +13,7 @@ import PerAge from './PerAge';
 import InHospitals from './InHospitals';
 import Municipalities from './Municipalities';
 import SocialChanger from './SocialChanger';
+import CancelButton from './CancelButton';
 
 const LAB = ({ noTWCount, noClose }) => {
   const ref = useRef();
@@ -103,6 +104,10 @@ const HOS = ({ noTWCount, noClose }) => {
 
 const EPI = ({ noTWCount, noClose }) => {
   const ref = useRef();
+  const settingsRef = useRef();
+  const [showIcons, setShowIcons] = useState(true);
+  const [what, setWhat] = useState('weeklyGrowth');
+  const [showSettings, setShowSettings] = useState(false);
   const { stats, labTests, cases, patients, munActive } = useContext(
     TimestampsContext
   );
@@ -120,6 +125,10 @@ const EPI = ({ noTWCount, noClose }) => {
   };
 
   const dataHooks = useContext(DataContext);
+  const showSettingsHandler = () => setShowSettings(prev => !prev);
+  useEffect(() => {
+    settingsRef.current.onclick = showSettingsHandler;
+  }, []);
 
   const refreshHandler = () => {
     stats.refetch();
@@ -148,6 +157,10 @@ const EPI = ({ noTWCount, noClose }) => {
 
   const noCount = noTWCount || loadingOrError || timestampsLoading;
 
+  const showIconsHandler = event => setShowIcons(event.target.checked);
+
+  const onWhatChangeHandler = event => setWhat(event.target.value);
+
   return (
     <Card
       postRef={ref}
@@ -157,7 +170,45 @@ const EPI = ({ noTWCount, noClose }) => {
       noCount={noCount}
       noClose={noClose}
       refreshHandler={refreshHandler}
+      settingsRef={settingsRef}
     >
+      {showSettings && (
+        <div className="settings-container">
+          <h3>Nastavitve</h3>
+          <CancelButton handleClick={showSettingsHandler} position="" black />
+          <div className="settings">
+            <details open>
+              <summary>
+                <h4>Po krajih</h4>
+              </summary>
+              <div className="settings-options">
+                <label htmlFor="show-icons">Ikone</label>
+                <input
+                  name="show-icons"
+                  type="checkbox"
+                  checked={showIcons}
+                  onChange={showIconsHandler}
+                  className="settings-btn"
+                />
+                {showIcons && (
+                  <>
+                    <label htmlFor="what">Trend</label>
+                    <select
+                      name="what"
+                      onChange={onWhatChangeHandler}
+                      value={what}
+                      className="settings-btn"
+                    >
+                      <option value="weeklyGrowth">Tedenski prirast</option>
+                      <option value="trend14">14d trend</option>
+                    </select>
+                  </>
+                )}
+              </div>
+            </details>
+          </div>
+        </div>
+      )}
       <Post forwardedRef={ref} id="post-epi" postNumber={3}>
         <Summary title="PCR" />
         <Summary title="HAT" />
@@ -170,7 +221,7 @@ const EPI = ({ noTWCount, noClose }) => {
         <Patients title="Care" />
         <Patients title="Deceased" />
         <InHospitals />
-        <Municipalities icons="FB" showIcons what="weeklyGrowth" />
+        <Municipalities icons="FB" showIcons={showIcons} what={what} />
       </Post>
     </Card>
   );

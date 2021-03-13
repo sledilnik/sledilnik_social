@@ -79,12 +79,12 @@ const GetIcons = {
 const setPlatformFriendlyIcon = (
   iconsVersion = 'FB',
   num,
-  what = 'trend14'
+  what = 'weeklyGrowth'
 ) => {
-  const hasIcons = GetIcons.hasOwnProperty('what');
+  const hasIcons = GetIcons.hasOwnProperty(what);
 
   if (!hasIcons) {
-    return 'dots';
+    return null;
   }
 
   const selectedIcons = ICONS[iconsVersion];
@@ -92,27 +92,6 @@ const setPlatformFriendlyIcon = (
   const iconKey = getIcons(num);
 
   return selectedIcons[iconKey];
-};
-
-const getIconOrNum = (icons, num, showNum, showIcon, what) => {
-  const icon = showNum && showIcon && setPlatformFriendlyIcon(icons, num, what);
-  const roundedNum = Math.round((num + Number.EPSILON) * 100000) / 100000;
-  const output =
-    what === 'weeklyGrowth'
-      ? formatPercentage(num)
-      : isNaN(roundedNum)
-      ? '-'
-      : roundedNum;
-
-  return showNum === 'y' ? (
-    icon
-  ) : num !== 'no' && icon ? (
-    <span style={{ fontWeight: 700 }}>
-      {icon} <i>{output}</i>
-    </span>
-  ) : (
-    <i>{output}</i>
-  );
 };
 
 const Municipalities = ({ isWrongDate, memoDisplay, ...props }) => {
@@ -172,7 +151,7 @@ const createCalculatedRegions = perDayRegions => {
   return obj;
 };
 
-const getTrend = deltas => {
+const get14dTrend = deltas => {
   // prepare params to calculate trend
   const addValue = (acc, value) => acc + value;
   const y3 = deltas.slice(0, 7).reduce(addValue, 0);
@@ -203,7 +182,7 @@ const get14dTownTrend = calculatedPerDayRegions => town => {
   const deltas = getDeltas(town, calculatedPerDayRegions).filter(
     item => item !== null
   );
-  const trend = getTrend(deltas);
+  const trend = get14dTrend(deltas);
   return [town, trend];
 };
 
@@ -297,9 +276,8 @@ const GetFunc = {
 
 function withMunicipalitiesHOC(Component) {
   const WithMunicipalities = ({
-    showTrend = 'y',
     showIcons,
-    what = 'trend14',
+    what = 'weeklyGrowth',
     ...rest
   }) => {
     const hasFunc = GetFunc.hasOwnProperty(what);
@@ -309,7 +287,7 @@ function withMunicipalitiesHOC(Component) {
     const mapFunc = GetFunc[what];
     const isFunc = mapFunc instanceof Function;
     if (!isFunc) {
-      throw new Error(mapFunc + ' is not a function!');
+      throw new Error(`${mapFunc} is not a function!`);
     }
 
     const { municipalities: hook } = useContext(DataContext);
@@ -322,7 +300,7 @@ function withMunicipalitiesHOC(Component) {
       differenceInDays(new Date(), getDate(hook.data.slice(-1).pop())) > 1;
 
     const memoDisplay = useCallback(
-      (social, showIcons, showTrend, what, noTooltip) => {
+      (social, showIcons, what, noTooltip) => {
         const display = [];
         if (!data) {
           return display;
@@ -330,15 +308,16 @@ function withMunicipalitiesHOC(Component) {
 
         for (const [count, townsByDiff] of data) {
           const sameDiffTownsLabel = townsByDiff.map(town => {
-            const icon = getIconOrNum(
-              social,
-              town.trend,
-              showTrend,
-              showIcons,
-              what
-            );
+            const icon = showIcons
+              ? setPlatformFriendlyIcon(social, town.trend, what)
+              : '';
 
-            const formatedTrend = formatPercentage(town.trend);
+            const formatedTrend =
+              what === 'weeklyGrowth'
+                ? formatPercentage(town.trend)
+                : isNaN(town.trend)
+                ? '-'
+                : Math.round((town.trend + Number.EPSILON) * 100000) / 100000;
             const formatedCount = formatNumberWithSign(count);
 
             return (
@@ -378,7 +357,7 @@ function withMunicipalitiesHOC(Component) {
     const popOutOutput = memoDisplay(social, true, 'no', what, true);
 
     const newProps = {
-      memoDisplay: memoDisplay(social, showIcons, showTrend, what),
+      memoDisplay: memoDisplay(social, showIcons, what),
       isWrongDate,
       what,
       popOutOutput,
