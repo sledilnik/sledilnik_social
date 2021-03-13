@@ -55,14 +55,6 @@ main {
   z-index: 100;
 }
 
-details summary {
-  list-style-type: none;
-} /* Firefox Edge*/
-
-summary::marker {
-  display: none;
-}
-
 summary:focus {
   outline: none;
 }

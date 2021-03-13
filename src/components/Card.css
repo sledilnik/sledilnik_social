@@ -7,6 +7,14 @@
   border-radius: 6px;
 }
 
+.Card summary {
+  list-style-type: none;
+} /* Firefox Edge*/
+
+.Card details summary::marker {
+  display: none;
+}
+
 .Card > summary {
   border-radius: 6px;
   transition: all 0.7s linear;
