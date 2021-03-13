@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useState, useEffect } from 'react';
 
 import './Posts.css';
 
@@ -103,8 +103,10 @@ const HOS = ({ noTWCount, noClose }) => {
 
 const EPI = ({ noTWCount, noClose }) => {
   const ref = useRef();
+  const settingsRef = useRef();
   const [showIcons, setShowIcons] = useState(true);
   const [what, setWhat] = useState('weeklyGrowth');
+  const [showSettings, setShowSettings] = useState(false);
   const { stats, labTests, cases, patients, munActive } = useContext(
     TimestampsContext
   );
@@ -122,6 +124,10 @@ const EPI = ({ noTWCount, noClose }) => {
   };
 
   const dataHooks = useContext(DataContext);
+  const showSettingsHandler = () => setShowSettings(prev => !prev);
+  useEffect(() => {
+    settingsRef.current.onclick = showSettingsHandler;
+  }, []);
 
   const refreshHandler = () => {
     stats.refetch();
@@ -163,27 +169,45 @@ const EPI = ({ noTWCount, noClose }) => {
       noCount={noCount}
       noClose={noClose}
       refreshHandler={refreshHandler}
+      settingsRef={settingsRef}
     >
-      <details id="municipalities-buttons">
-        <summary>Nastavitve</summary>
-        Po krajih
-        <label htmlFor="show-icons">Ikone</label>
-        <input
-          name="show-icons"
-          type="checkbox"
-          checked={showIcons}
-          onChange={showIconsHandler}
-        />
-        {showIcons && (
-          <>
-            <label htmlFor="what">Trend</label>
-            <select name="what" onChange={onWhatChangeHandler} value={what}>
-              <option value="weeklyGrowth">Tedenski prirast</option>
-              <option value="trend14">14d trend</option>
-            </select>
-          </>
-        )}
-      </details>
+      {showSettings && (
+        <div className="settings-container">
+          <h3>Nastavitve</h3>
+          <div className="settings">
+            <details open>
+              <summary>
+                <h4>Po krajih</h4>
+              </summary>
+              <div className="settings-options">
+                <label htmlFor="show-icons">Ikone</label>
+                <input
+                  name="show-icons"
+                  type="checkbox"
+                  checked={showIcons}
+                  onChange={showIconsHandler}
+                  className="settings-btn"
+                />
+                {showIcons && (
+                  <>
+                    <label htmlFor="what">Trend</label>
+                    <select
+                      name="what"
+                      onChange={onWhatChangeHandler}
+                      value={what}
+                      className="settings-btn"
+                    >
+                      <option value="weeklyGrowth">Tedenski prirast</option>
+                      <option value="trend14">14d trend</option>
+                    </select>
+                  </>
+                )}
+              </div>
+            </details>
+            <button onClick={showSettingsHandler}>Zapri</button>
+          </div>
+        </div>
+      )}
       <Post forwardedRef={ref} id="post-epi" postNumber={3}>
         <Summary title="PCR" />
         <Summary title="HAT" />
