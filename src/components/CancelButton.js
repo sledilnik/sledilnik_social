@@ -2,11 +2,11 @@ import React, { useCallback, useEffect } from 'react';
 
 import './CancelButton.css';
 
-function CancelButton({ handleClick }) {
+function CancelButton({ handleClick, position = 'top-right', black }) {
   return (
-    <div className="CancelButton top-right" onClick={handleClick}>
-      <div className="line line-1"></div>
-      <div className="line line-2"></div>
+    <div className={`CancelButton ${position}`} onClick={handleClick}>
+      <div className={`line line-1 ${black ? 'black' : ''}`}></div>
+      <div className={`line line-2 ${black ? 'black' : ''}`}></div>
     </div>
   );
 }

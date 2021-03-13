@@ -3,6 +3,7 @@
   height: 30px;
   width: 30px;
   border-radius: 50%;
+  display: inline-block;
 }
 
 .CancelButton.top-right {
@@ -26,4 +27,11 @@
 
 .CancelButton:hover .line {
   background: var(--bcg-header-clr);
+}
+
+.CancelButton .line.black {
+  background: var(--menu-clr);
+}
+.CancelButton:hover .line.black {
+  background: black;
 }

@@ -13,6 +13,7 @@ import PerAge from './PerAge';
 import InHospitals from './InHospitals';
 import Municipalities from './Municipalities';
 import SocialChanger from './SocialChanger';
+import CancelButton from './CancelButton';
 
 const LAB = ({ noTWCount, noClose }) => {
   const ref = useRef();
@@ -174,6 +175,7 @@ const EPI = ({ noTWCount, noClose }) => {
       {showSettings && (
         <div className="settings-container">
           <h3>Nastavitve</h3>
+          <CancelButton handleClick={showSettingsHandler} position="" black />
           <div className="settings">
             <details open>
               <summary>
@@ -204,7 +206,6 @@ const EPI = ({ noTWCount, noClose }) => {
                 )}
               </div>
             </details>
-            <button onClick={showSettingsHandler}>Zapri</button>
           </div>
         </div>
       )}
