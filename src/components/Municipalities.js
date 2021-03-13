@@ -81,10 +81,10 @@ const setPlatformFriendlyIcon = (
   num,
   what = 'trend14'
 ) => {
-  const hasIcons = GetIcons.hasOwnProperty('what');
+  const hasIcons = GetIcons.hasOwnProperty(what);
 
   if (!hasIcons) {
-    return 'dots';
+    return null;
   }
 
   const selectedIcons = ICONS[iconsVersion];
