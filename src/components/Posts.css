@@ -5,7 +5,7 @@
   max-width: 95%;
 }
 
-.Posts .posts-buttons-container {
+*/ .Posts .posts-buttons-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -58,6 +58,7 @@
   width: 100%;
 }
 
+/*  */
 .Posts .settings-container {
   padding: 8px 8px;
   font-size: 0.8em;
@@ -88,7 +89,6 @@
 .Posts .settings-options {
   color: var(--menu-clr);
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   min-height: 30px;
 }

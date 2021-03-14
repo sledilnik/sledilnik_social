@@ -29,10 +29,6 @@
   background: var(--white);
 }
 
-.Post summary {
-  cursor: pointer;
-}
-
 .Post .summary-with-after > * {
   display: inline-block;
 }

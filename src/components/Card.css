@@ -8,16 +8,13 @@
 }
 
 .Card summary {
-  list-style-type: none;
-} /* Firefox Edge*/
-
-.Card details summary::marker {
-  display: none;
+  cursor: pointer;
+  list-style-type: none; /* Firefox Edge ::marker */
+  transition: all 0.7s linear;
 }
 
-.Card > summary {
-  border-radius: 6px;
-  transition: all 0.7s linear;
+.Card summary::marker {
+  display: none;
 }
 
 .Card .card-title {
