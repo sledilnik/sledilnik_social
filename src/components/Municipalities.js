@@ -104,7 +104,7 @@ const Municipalities = ({ isWrongDate, memoDisplay, ...props }) => {
     setShowPopOut(false);
   };
   return (
-    <details>
+    <details open={true}>
       <summary className="summary-with-after">
         <DataRow markFail={isWrongDate}>Po krajih:</DataRow>
       </summary>
