@@ -66,6 +66,7 @@ function withCardHOC(Component) {
     noCount = true,
     noClose,
     refreshHandler = () => {},
+    settingsOutput = [],
     ...props
   }) => {
     const { postRef } = props;
@@ -185,6 +186,7 @@ function withCardHOC(Component) {
       <ToClipboard
         open={showPopOut}
         defaultValue={clipboard}
+        settingsOutput={settingsOutput}
         close={() => setShowPopOut(false)}
       />
     );
