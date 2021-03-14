@@ -67,7 +67,7 @@ function InHospitals({ hook, perHospitalChanges, isWrongDate }) {
 
   return (
     <FetchBoundary hook={hook}>
-      <details>
+      <details open={true}>
         <summary className="summary-with-after">
           <DataRow markFail={isWrongDate}>Stanje po bolnišnicah:</DataRow>
         </summary>
