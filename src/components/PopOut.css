@@ -40,10 +40,10 @@
   font-size: 0.85em;
 }
 
-.PopOut .popout-header-container {
+/* .PopOut .popout-header-container {
   align-self: start;
   margin-left: auto;
-}
+} */
 
 .PopOut .popout-header-container button,
 .PopOut .popout-footer-container button {
