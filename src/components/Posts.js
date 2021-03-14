@@ -183,7 +183,7 @@ const EPI = ({ noTWCount, noClose }) => {
           <h3>Nastavitve</h3>
           <CancelButton handleClick={showSettingsHandler} position="" black />
           <div className="settings">
-            <details open>
+            <details open={true}>
               <summary>
                 <h4>Po krajih</h4>
               </summary>
