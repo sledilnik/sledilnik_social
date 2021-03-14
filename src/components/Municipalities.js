@@ -112,7 +112,7 @@ const Municipalities = ({ isWrongDate, memoDisplay, ...props }) => {
       <MunPopOut
         open={showPopOut}
         onCancel={onClosePopOutHandler}
-        output={props.popOutOutput}
+        output={props.popoutOutput}
       />
     </details>
   );
@@ -354,13 +354,13 @@ function withMunicipalitiesHOC(Component) {
       [data, isWrongDate]
     );
 
-    const popOutOutput = memoDisplay(social, true, 'no', what, true);
+    const popoutOutput = memoDisplay(social, true, what, true);
 
     const newProps = {
       memoDisplay: memoDisplay(social, showIcons, what),
       isWrongDate,
       what,
-      popOutOutput,
+      popoutOutput,
       ...rest,
     };
 
