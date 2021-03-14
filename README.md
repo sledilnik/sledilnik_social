@@ -8,12 +8,15 @@ Endpoints for data fetch are set in `urlDict.js`.
 
 ### New Features
 
+- show only one post at the time
 - timestamps contexts
 - data context
 - social context
 - count characters for twitter with twitter-text package
 - weekly growth per town
-- show only one post at the time
+- toggle Municipalities icons show/hide
+- toggle show trend weekly growth/15d trend
+- show social and in ToClipboard
 
 ### Data
 
