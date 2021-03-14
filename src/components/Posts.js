@@ -161,6 +161,11 @@ const EPI = ({ noTWCount, noClose }) => {
 
   const onWhatChangeHandler = event => setWhat(event.target.value);
 
+  const whatTranslate =
+    what === 'weeklyGrowth' ? 'tedenski prirast' : '14d trend';
+
+  const settingsOutput = ['po krajih: ' + whatTranslate];
+
   return (
     <Card
       postRef={ref}
@@ -171,6 +176,7 @@ const EPI = ({ noTWCount, noClose }) => {
       noClose={noClose}
       refreshHandler={refreshHandler}
       settingsRef={settingsRef}
+      settingsOutput={settingsOutput}
     >
       {showSettings && (
         <div className="settings-container">
