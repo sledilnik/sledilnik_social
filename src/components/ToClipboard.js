@@ -48,9 +48,13 @@ const selectAndCopy = textarea => {
 };
 
 function withToClipboardHOC(Component) {
-  const WithToClipboard = ({ ...props }) => {
+  const WithToClipboard = ({ settingsOutput, ...props }) => {
     const { close, clear, ...rest } = props;
     const { social } = useContext(SocialContext);
+
+    const displaySettings = settingsOutput.map((item, index) => {
+      return <span key={`${props.title}-${item}-${index}`}>{item}</span>;
+    });
 
     const socialStyle = {
       display: 'flex',
@@ -61,6 +65,8 @@ function withToClipboardHOC(Component) {
       width: '24px',
       height: '24px',
       borderRadius: '50%',
+      alignSelf: 'center',
+      marginBottom: '4px',
     };
 
     const socialIcon =
@@ -69,10 +75,22 @@ function withToClipboardHOC(Component) {
           <i className="fab fa-facebook-f"></i>
         </span>
       ) : (
-        <span>
+        <span style={socialStyle}>
           <i className="fab fa-twitter"></i>
         </span>
       );
+
+    const popoutHeader = (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        {socialIcon}
+        {displaySettings}
+      </div>
+    );
 
     const cancelHandler = async textarea => {
       navigator.clipboard && (await navigator.clipboard.writeText(''));
@@ -93,7 +111,7 @@ function withToClipboardHOC(Component) {
       <Component
         onCancel={cancelHandler}
         onConfirm={toClipboardHandler}
-        popoutHeader={socialIcon}
+        popoutHeader={popoutHeader}
         {...rest}
       />
     );
