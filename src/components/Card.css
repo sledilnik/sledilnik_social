@@ -13,6 +13,7 @@
   transition: all 0.7s linear;
 }
 
+.Card summary::-webkit-details-marker, /*? mobile iOS */
 .Card summary::marker {
   display: none;
 }
