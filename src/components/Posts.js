@@ -162,7 +162,7 @@ const EPI = ({ noTWCount, noClose }) => {
   const onWhatChangeHandler = event => setWhat(event.target.value);
 
   const whatTranslate =
-    what === 'weeklyGrowth' ? 'tedenski prirast' : '14d trend';
+    what === 'weeklyGrowth' ? 'tedenski prirast' : '15d trend';
 
   const settingsOutput = ['po krajih: ' + whatTranslate];
 
@@ -206,7 +206,7 @@ const EPI = ({ noTWCount, noClose }) => {
                       className="settings-btn"
                     >
                       <option value="weeklyGrowth">Tedenski prirast</option>
-                      <option value="trend14">14d trend</option>
+                      <option value="trend15">15d trend</option>
                     </select>
                   </>
                 )}

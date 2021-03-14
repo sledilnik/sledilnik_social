@@ -39,7 +39,7 @@ const ICONS = {
   TW: TW_ICONS,
 };
 
-const get14dTrendIconKey = num => {
+const get15dTrendIconKey = num => {
   if (num < -0.03) {
     return 'down';
   }
@@ -72,7 +72,7 @@ const getWeeklyGrowthIconKey = num => {
 };
 
 const GetIcons = {
-  trend14: get14dTrendIconKey,
+  trend15: get15dTrendIconKey,
   weeklyGrowth: getWeeklyGrowthIconKey,
 };
 
@@ -151,7 +151,7 @@ const createCalculatedRegions = perDayRegions => {
   return obj;
 };
 
-const get14dTrend = deltas => {
+const get15dTrend = deltas => {
   // prepare params to calculate trend
   const addValue = (acc, value) => acc + value;
   const y3 = deltas.slice(0, 7).reduce(addValue, 0);
@@ -177,12 +177,12 @@ const getDeltas = (town, calculatedPerDayRegions) =>
     }
   );
 
-const get14dTownTrend = calculatedPerDayRegions => town => {
+const get15dTownTrend = calculatedPerDayRegions => town => {
   // prepare data to calculate trend
   const deltas = getDeltas(town, calculatedPerDayRegions).filter(
     item => item !== null
   );
-  const trend = get14dTrend(deltas);
+  const trend = get15dTrend(deltas);
   return [town, trend];
 };
 
@@ -270,7 +270,7 @@ const getMunicipalitiesData = (data, mapFunc) => {
 };
 
 const GetFunc = {
-  trend14: get14dTownTrend,
+  trend15: get15dTownTrend,
   weeklyGrowth: getTownWeeklyGrowth,
 };
 
