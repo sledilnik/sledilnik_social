@@ -1,4 +1,10 @@
-import React, { useContext, useState, useCallback } from 'react';
+import React, {
+  useContext,
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+} from 'react';
 import _ from 'lodash';
 import municipalitiesDict from '../dicts/MunicipalitiesDict';
 
@@ -95,7 +101,10 @@ const setPlatformFriendlyIcon = (
 };
 
 const Municipalities = ({ isWrongDate, memoDisplay, ...props }) => {
+  const ref = useRef();
+  const [expand, setExpand] = useState(true);
   const [showPopOut, setShowPopOut] = useState(false);
+
   const onListClickHandler = () => {
     setShowPopOut(true);
   };
@@ -103,10 +112,17 @@ const Municipalities = ({ isWrongDate, memoDisplay, ...props }) => {
   const onClosePopOutHandler = () => {
     setShowPopOut(false);
   };
+
+  const clickSummaryHandler = () => {
+    setExpand(prev => !prev);
+  };
+
   return (
-    <details open={true}>
-      <summary className="summary-with-after">
+    <details ref={ref} open={expand}>
+      {/* <i class="fas fa-arrows-alt-v"></i> */}
+      <summary className="summary-with-after" onClick={clickSummaryHandler}>
         <DataRow markFail={isWrongDate}>Po krajih:</DataRow>
+        {!expand && <i className="fas fa-expand-alt"></i>}
       </summary>
       <ul onClickCapture={onListClickHandler}>{memoDisplay}</ul>
       <MunPopOut
@@ -279,7 +295,7 @@ function withMunicipalitiesHOC(Component) {
     showIcons,
     what = 'weeklyGrowth',
     showTrend,
-    noTooltip,
+    noTooltip = false,
     ...rest
   }) => {
     const hasFunc = GetFunc.hasOwnProperty(what);
