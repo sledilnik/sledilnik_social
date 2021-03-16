@@ -30,14 +30,23 @@ function PopOut({
 function withPopOutHOC(Component) {
   const WithPopOut = ({ open, ...props }) => {
     const [show, setShow] = useState(open);
-    useEffect(() => setShow(open), [open]);
+    useEffect(() => {
+      // Prevents window from moving on touch on newer browsers.
+      const noScroll = event => {
+        event.preventDefault();
+      };
+      document.body.addEventListener('touchmove', noScroll, { passive: false });
+      setShow(open);
+      return document.body.removeEventListener('touchmove', noScroll);
+    }, [open]);
 
     if (show) {
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
       const newProps = { ...props, setShow };
       return <Component {...newProps} />;
     }
-    document.body.style.overflow = 'visible';
+    document.body.classList.remove('modal-open');
+
     return null;
   };
   return WithPopOut;

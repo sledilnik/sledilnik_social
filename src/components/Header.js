@@ -6,8 +6,8 @@ import Backdrop from './Backdrop';
 function Header() {
   const [open, setOpen] = useState(false);
 
-  if (open) document.body.style.overflow = 'hidden';
-  if (!open) document.body.style.overflow = 'visible';
+  if (open) document.body.classList.add('modal-open');
+  if (!open) document.body.classList.remove('modal-open');
 
   const onHamburgerClick = event => {
     const header = document.getElementById('header');
