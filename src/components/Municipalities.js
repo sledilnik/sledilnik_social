@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useState,
-  useCallback,
-  useRef,
-  useEffect,
-} from 'react';
+import React, { useContext, useState, useCallback, useRef } from 'react';
 import _ from 'lodash';
 import municipalitiesDict from '../dicts/MunicipalitiesDict';
 
