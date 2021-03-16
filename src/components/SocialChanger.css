@@ -1,0 +1,50 @@
+.SocialChanger {
+  position: relative;
+  --radius: 16px;
+}
+
+.SocialChanger input[type='checkbox'] {
+  position: absolute;
+  top: -100vh;
+}
+
+.checkbox-label > span {
+  cursor: pointer;
+  padding: 4px 8px;
+  border-top: 1px solid var(--menu-clr);
+  border-bottom: 1px solid var(--menu-clr);
+  transition: all 0.7s linear;
+  color: var(--menu-clr);
+  width: 35px;
+  display: inline-block;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+.switch-left {
+  border-left: 1px solid var(--menu-clr);
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
+}
+
+.switch-right {
+  border-right: 1px solid var(--menu-clr);
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+}
+
+.checkbox-label > span.checked {
+  background-color: var(--menu-clr);
+  color: var(--bcg-body-clr);
+}
+
+/* .can-hover .checkbox-label:hover > span {
+  width: 45px;
+} */
+
+.can-hover .checkbox-label:hover > span.checked {
+  background-color: black;
+}
+.can-hover .checkbox-label:hover > :not(span.checked) {
+  color: black;
+}

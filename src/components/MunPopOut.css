@@ -1,0 +1,12 @@
+.MunPopOut .children-container {
+  background-color: var(--white);
+  font-size: 0.9em;
+
+  overflow-y: auto;
+  max-height: 75vh;
+  padding: 8px;
+}
+
+.MunPopOut li {
+  padding-bottom: 8px;
+}

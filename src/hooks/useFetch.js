@@ -11,8 +11,9 @@ const useFetch = (
   const [url, updateUrl] = useState(initialUrl);
   const [params, updateParams] = useState(initialParams);
   const [options, updateOptions] = useState(initialOptions);
+  const [skipFetch, setSkipFetch] = useState(skip);
   const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(!skip);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [refetchIndex, setRefetchIndex] = useState(0);
@@ -26,7 +27,7 @@ const useFetch = (
 
   useEffect(() => {
     const fetchData = async () => {
-      if (skip) return;
+      if (skipFetch) return;
       setIsLoading(true);
       try {
         const response = await fetch(`${url}?${queryString}`, options);
@@ -47,7 +48,7 @@ const useFetch = (
 
     fetchData();
     // setTimeout(() => fetchData(), 3000);
-  }, [url, params, refetchIndex, queryString, options, skip]);
+  }, [url, params, refetchIndex, queryString, options, skipFetch]);
 
   return {
     data,
@@ -57,6 +58,7 @@ const useFetch = (
     updateUrl,
     updateParams,
     updateOptions,
+    setSkip: setSkipFetch,
     refetch,
   };
 };

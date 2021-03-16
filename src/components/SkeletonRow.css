@@ -1,0 +1,65 @@
+.SkeletonRow {
+  position: relative;
+  margin: 4px 0;
+  background-color: var(--bcg-body-clr);
+  width: 100%;
+  min-height: 18px;
+  border-radius: 5px;
+}
+
+.SkeletonRow::after {
+  position: absolute;
+  display: inline-block;
+  height: 100%;
+  top: 0;
+  left: 0;
+  content: '';
+  width: 5%;
+  background: rgba(0, 0, 0, 0.2);
+  animation: move2 1.5s linear infinite;
+  border-radius: 5px;
+}
+
+@media only screen and (min-width: 576px) {
+  .SkeletonRow {
+    min-height: 21px;
+  }
+}
+
+@keyframes move1 {
+  0% {
+    left: 0;
+    width: 0%;
+  }
+  5% {
+    left: 5%;
+    width: 5%;
+  }
+  95% {
+    left: 95%;
+    width: 5%;
+  }
+  100% {
+    left: 100%;
+    width: 0;
+  }
+}
+
+@keyframes move2 {
+  0% {
+    left: 0;
+    width: 0%;
+  }
+  50% {
+    left: 0;
+    width: 50%;
+  }
+  95% {
+    left: 95%;
+    width: 5%;
+  }
+  100% {
+    left: 100%;
+    width: 0;
+  }
+}
