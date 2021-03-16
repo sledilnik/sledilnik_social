@@ -278,6 +278,8 @@ function withMunicipalitiesHOC(Component) {
   const WithMunicipalities = ({
     showIcons,
     what = 'weeklyGrowth',
+    showTrend,
+    noTooltip,
     ...rest
   }) => {
     const hasFunc = GetFunc.hasOwnProperty(what);
@@ -300,7 +302,7 @@ function withMunicipalitiesHOC(Component) {
       differenceInDays(new Date(), getDate(hook.data.slice(-1).pop())) > 1;
 
     const memoDisplay = useCallback(
-      (social, showIcons, what, noTooltip) => {
+      (social, showIcons, what, noTooltip, showTrend = false) => {
         const display = [];
         if (!data) {
           return display;
@@ -324,12 +326,14 @@ function withMunicipalitiesHOC(Component) {
               <span key={town.key}>
                 {noTooltip ? (
                   <span>
-                    {town.name} {icon}
+                    {town.name} {showTrend && formatedTrend} {icon}
                   </span>
                 ) : (
                   <TextWithTooltip
                     className="up"
-                    text={`${town.name} ${icon}`}
+                    text={`${town.name} ${
+                      showTrend ? formatedTrend : ''
+                    } ${icon}`}
                     tooltipText={formatedTrend}
                   />
                 )}
@@ -354,10 +358,10 @@ function withMunicipalitiesHOC(Component) {
       [data, isWrongDate]
     );
 
-    const popoutOutput = memoDisplay(social, true, what, true);
+    const popoutOutput = memoDisplay(social, true, what, true, true);
 
     const newProps = {
-      memoDisplay: memoDisplay(social, showIcons, what),
+      memoDisplay: memoDisplay(social, showIcons, what, noTooltip, showTrend),
       isWrongDate,
       what,
       popoutOutput,
