@@ -53,6 +53,6 @@
   transform: translate(-50%);
 }
 
-.TextWithTooltip:hover:before {
+.can-hover .TextWithTooltip:hover:before {
   display: block;
 }

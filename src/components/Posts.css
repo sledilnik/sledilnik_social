@@ -43,7 +43,7 @@
 }
 
 /* Change background color of buttons on hover */
-.Posts .tab button:hover:after {
+.can-hover .Posts .tab button:hover:after {
   animation: underline-hover 0.3s linear forwards;
 }
 
@@ -115,7 +115,7 @@
   border-radius: 6px;
 }
 
-.Posts .settings button:hover {
+.can-hover .Posts .settings button:hover {
   color: black;
   border: 1px solid black;
 }

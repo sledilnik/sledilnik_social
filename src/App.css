@@ -46,7 +46,7 @@
   border: solid 1px #1877f2;
 }
 
-.btn:hover {
+.can-hover .btn:hover {
   opacity: 1;
 }
 

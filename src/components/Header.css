@@ -73,7 +73,7 @@
 }
 
 .nav-link:focus,
-.nav-link:hover {
+.can-hover .nav-link:hover {
   color: var(--black);
   outline: none;
 }

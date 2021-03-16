@@ -52,6 +52,6 @@
   cursor: pointer;
 }
 
-.Card .icons .icon:hover > i {
+.can-hover .Card .icons .icon:hover > i {
   transform: scale(1.2);
 }

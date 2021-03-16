@@ -25,13 +25,13 @@
   transform: translate(5px, 12px) rotate(-45deg);
 }
 
-.CancelButton:hover .line {
+.can-hover .CancelButton:hover .line {
   background: var(--bcg-header-clr);
 }
 
 .CancelButton .line.black {
   background: var(--menu-clr);
 }
-.CancelButton:hover .line.black {
+.can-hover .CancelButton:hover .line.black {
   background: black;
 }

@@ -23,7 +23,7 @@
   font-weight: 700;
 }
 
-.ToClipboard button:hover {
+.can-hover .ToClipboard button:hover {
   background-color: var(--bcg-header-clr);
   border: 1px solid var(--bcg-header-clr);
 }
