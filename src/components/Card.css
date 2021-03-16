@@ -10,6 +10,7 @@
 .Card summary {
   list-style-type: none; /* Firefox Edge ::marker */
   transition: all 0.7s linear;
+  cursor: pointer;
 }
 
 .Card summary::-webkit-details-marker, /*? mobile iOS */
