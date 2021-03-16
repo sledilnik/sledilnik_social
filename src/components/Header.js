@@ -6,6 +6,9 @@ import Backdrop from './Backdrop';
 function Header() {
   const [open, setOpen] = useState(false);
 
+  if (open) document.body.style.overflow = 'hidden';
+  if (!open) document.body.style.overflow = 'visible';
+
   const onHamburgerClick = event => {
     const header = document.getElementById('header');
     setOpen(prev => !prev);
