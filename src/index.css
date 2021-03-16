@@ -48,8 +48,9 @@ code {
 }
 
 main {
-  min-height: 84vh;
+  min-height: 80vh;
   margin-top: 8vh;
+  margin-bottom: 4vh;
   z-index: 100;
 }
 
