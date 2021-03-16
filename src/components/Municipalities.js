@@ -96,7 +96,6 @@ const setPlatformFriendlyIcon = (
 
 const Municipalities = ({ isWrongDate, memoDisplay, ...props }) => {
   const ref = useRef();
-  const [expand, setExpand] = useState(true);
   const [showPopOut, setShowPopOut] = useState(false);
 
   const onListClickHandler = () => {
@@ -107,16 +106,10 @@ const Municipalities = ({ isWrongDate, memoDisplay, ...props }) => {
     setShowPopOut(false);
   };
 
-  const clickSummaryHandler = () => {
-    setExpand(prev => !prev);
-  };
-
   return (
-    <details ref={ref} open={expand}>
-      {/* <i class="fas fa-arrows-alt-v"></i> */}
-      <summary className="summary-with-after" onClick={clickSummaryHandler}>
+    <details ref={ref} open={true}>
+      <summary className="summary-with-after">
         <DataRow markFail={isWrongDate}>Po krajih:</DataRow>
-        {!expand && <i className="fas fa-expand-alt"></i>}
       </summary>
       <ul onClickCapture={onListClickHandler}>{memoDisplay}</ul>
       <MunPopOut
