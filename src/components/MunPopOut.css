@@ -1,5 +1,5 @@
-.MunPopOut {
-  min-height: 70vh;
+.MunPopOut .popout-container {
+  max-height: 75vh;
 }
 
 .MunPopOut .CancelButton {
@@ -21,8 +21,8 @@
 }
 
 @media only screen and (min-width: 576px) {
-  .MunPopOut {
-    min-height: 80vh;
+  .MunPopOut .popout-container {
+    max-height: 80vh;
   }
 
   .MunPopOut .CancelButton {
