@@ -1,3 +1,12 @@
+.MunPopOut {
+  max-height: 75vh;
+}
+
+.MunPopOut .CancelButton {
+  top: 12px;
+  right: 12px;
+}
+
 .MunPopOut .children-container {
   background-color: var(--white);
   font-size: 0.9em;
