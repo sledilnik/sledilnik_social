@@ -40,6 +40,9 @@ const ICONS = {
 };
 
 const get15dTrendIconKey = num => {
+  if (num >= -0.03 && num <= 0.03) {
+    return 'between';
+  }
   if (num < -0.03) {
     return 'down';
   }
@@ -48,9 +51,6 @@ const get15dTrendIconKey = num => {
   }
   if (num === 'no') {
     return 'no';
-  }
-  if (num >= -0.03 || num <= 0.03) {
-    return 'between';
   }
   return 'dots';
 };
