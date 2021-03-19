@@ -20,11 +20,9 @@ export const formatNumberWithSign = number => {
       return result;
     }
     const charCode = result.charCodeAt(0);
-    return 48 <= charCode <= 57 ? '+' + result : result;
+    return 48 <= charCode && charCode <= 57 ? '+' + result : result;
   }
-  if (!noSupport) {
-    return result;
-  }
+  return result;
 };
 export const formatNumber = number =>
   new Intl.NumberFormat('sl-SL').format(number);
