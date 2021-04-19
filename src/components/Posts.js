@@ -82,11 +82,24 @@ const LAB = ({ noTWCount, noClose }) => {
 
 const HOS = ({ noTWCount, noClose }) => {
   const ref = useRef();
+  const downloadRef = useRef();
   const { patients } = useContext(TimestampsContext);
   const { data: patientsTimestamp } = patients;
   const dates = { patients: patientsTimestamp };
 
   const { patients: patientsDataHook } = useContext(DataContext);
+
+  useEffect(() => {
+    downloadRef.current.onclick = async () => {
+      downloadScreenshot(
+        'https://iy0qntj1j8.execute-api.eu-west-1.amazonaws.com/SledilnikScreenshot?screen=homeLast5Cards'
+      );
+
+      // downloadScreenshot(
+      //   'https://iy0qntj1j8.execute-api.eu-west-1.amazonaws.com/SledilnikScreenshot?screen=IcuPatients'
+      // );
+    };
+  }, []);
 
   const refreshHandler = () => {
     patients.refetch();
@@ -113,6 +126,7 @@ const HOS = ({ noTWCount, noClose }) => {
       noCount={noCount}
       noClose={noClose}
       refreshHandler={refreshHandler}
+      downloadRef={downloadRef}
     >
       <Post forwardedRef={ref} id="post-hos" postNumber={2}>
         <Patients title="Hospitalized" />
