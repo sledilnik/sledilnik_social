@@ -46,7 +46,7 @@ const getValues = data => {
 };
 
 const isDaysDiffGreater = (date, compare) => {
-  if (date === 'Invalid Date') {
+  if (date && isNaN(date.getTime())) {
     throw new Error('Invalid Date');
   }
   return differenceInDays(new Date(), date) > compare;
@@ -126,6 +126,7 @@ function withSummary_HOC(Component) {
         hook.data[field] &&
         getOutputProps(hook.data[field], title);
     } catch (error) {
+      console.log(error);
       return <SomethingWentWrong title={title} />;
     }
 
