@@ -67,6 +67,7 @@ function withCardHOC(Component) {
     noClose,
     refreshHandler = () => {},
     settingsOutput = [],
+    download = [],
     ...props
   }) => {
     const { postRef } = props;
@@ -132,9 +133,25 @@ function withCardHOC(Component) {
     );
     const refreshId = `refresh-${cardId}`;
     const copyId = `copy-${cardId}`;
+    console.log(download);
     const buttons = [
       counter,
       <div key={`${cardId}-btn-icons`} className="icons">
+        {download.length > 0 &&
+          download.map((ref, index) => (
+            <TextWithTooltip
+              className="left"
+              text={
+                <IconButton
+                  // key={index}
+                  ref={ref[0]}
+                  fontAwesome="fas fa-file-download"
+                />
+              }
+              key={index}
+              tooltipText={ref[1]}
+            />
+          ))}
         <span className="icon" onClick={refreshHandler}>
           <i ref={refreshButtonRef} id={refreshId} className="fas fa-sync"></i>
         </span>

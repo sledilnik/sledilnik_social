@@ -15,14 +15,29 @@ import Municipalities from './Municipalities';
 import SocialChanger from './SocialChanger';
 import CancelButton from './CancelButton';
 
+const downloadScreenshot = href => {
+  const link = document.createElement('a');
+  link.href = href;
+  link.click();
+};
+
 const LAB = ({ noTWCount, noClose }) => {
   const ref = useRef();
+  const download1Ref = useRef();
   const { labTests, cases } = useContext(TimestampsContext);
   const { data: labTestsTimestamp } = labTests;
   const { data: casesTimestamp } = cases;
   const dates = { 'lab-tests': labTestsTimestamp, cases: casesTimestamp };
 
   const { summary } = useContext(DataContext);
+
+  useEffect(() => {
+    download1Ref.current.onclick = async () => {
+      downloadScreenshot(
+        'https://iy0qntj1j8.execute-api.eu-west-1.amazonaws.com/SledilnikScreenshot?screen=homeTop4Cards'
+      );
+    };
+  }, []);
 
   const refreshHandler = () => {
     labTests.refetch();
@@ -48,6 +63,7 @@ const LAB = ({ noTWCount, noClose }) => {
       noCount={noCount}
       noClose={noClose}
       refreshHandler={refreshHandler}
+      download={[[download1Ref, 'top4Cards']]}
     >
       <Post forwardedRef={ref} id="post-lab" postNumber={1}>
         <Summary title="PCR" />
@@ -60,11 +76,26 @@ const LAB = ({ noTWCount, noClose }) => {
 
 const HOS = ({ noTWCount, noClose }) => {
   const ref = useRef();
+  const download1Ref = useRef();
+  const download2Ref = useRef();
   const { patients } = useContext(TimestampsContext);
   const { data: patientsTimestamp } = patients;
   const dates = { patients: patientsTimestamp };
 
   const { patients: patientsDataHook } = useContext(DataContext);
+
+  useEffect(() => {
+    download1Ref.current.onclick = async () => {
+      downloadScreenshot(
+        'https://iy0qntj1j8.execute-api.eu-west-1.amazonaws.com/SledilnikScreenshot?screen=homeLast5Cards'
+      );
+    };
+    download2Ref.current.onclick = async () => {
+      downloadScreenshot(
+        'https://iy0qntj1j8.execute-api.eu-west-1.amazonaws.com/SledilnikScreenshot?screen=IcuPatients'
+      );
+    };
+  }, []);
 
   const refreshHandler = () => {
     patients.refetch();
@@ -91,6 +122,10 @@ const HOS = ({ noTWCount, noClose }) => {
       noCount={noCount}
       noClose={noClose}
       refreshHandler={refreshHandler}
+      download={[
+        [download1Ref, 'last5Cards'],
+        [download2Ref, 'IcuPatients'],
+      ]}
     >
       <Post forwardedRef={ref} id="post-hos" postNumber={2}>
         <Patients title="Hospitalized" />

@@ -105,7 +105,7 @@ const getValuesType = (type, mandatoryProperties, values) => {
 };
 
 const isDaysDiffGreater = (date, compare) => {
-  if (date === 'Invalid Date') {
+  if (date && isNaN(date.getTime())) {
     throw new Error('Invalid Date');
   }
   return differenceInDays(new Date(), date) > compare;
