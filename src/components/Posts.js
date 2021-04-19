@@ -23,12 +23,21 @@ const downloadScreenshot = href => {
 
 const LAB = ({ noTWCount, noClose }) => {
   const ref = useRef();
+  const downloadRef = useRef();
   const { labTests, cases } = useContext(TimestampsContext);
   const { data: labTestsTimestamp } = labTests;
   const { data: casesTimestamp } = cases;
   const dates = { 'lab-tests': labTestsTimestamp, cases: casesTimestamp };
 
   const { summary } = useContext(DataContext);
+
+  useEffect(() => {
+    downloadRef.current.onclick = event => {
+      downloadScreenshot(
+        'https://iy0qntj1j8.execute-api.eu-west-1.amazonaws.com/SledilnikScreenshot?screen=homeTop4Cards'
+      );
+    };
+  }, []);
 
   const refreshHandler = () => {
     labTests.refetch();
@@ -54,6 +63,7 @@ const LAB = ({ noTWCount, noClose }) => {
       noCount={noCount}
       noClose={noClose}
       refreshHandler={refreshHandler}
+      downloadRef={downloadRef}
     >
       <Post forwardedRef={ref} id="post-lab" postNumber={1}>
         <Summary title="PCR" />
