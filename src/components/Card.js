@@ -135,6 +135,12 @@ function withCardHOC(Component) {
     const buttons = [
       counter,
       <div key={`${cardId}-btn-icons`} className="icons">
+        {props.downloadRef && (
+          <IconButton
+            ref={props.downloadRef}
+            fontAwesome="fas fa-file-download"
+          />
+        )}
         <span className="icon" onClick={refreshHandler}>
           <i ref={refreshButtonRef} id={refreshId} className="fas fa-sync"></i>
         </span>
