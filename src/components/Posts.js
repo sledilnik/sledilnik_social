@@ -15,6 +15,12 @@ import Municipalities from './Municipalities';
 import SocialChanger from './SocialChanger';
 import CancelButton from './CancelButton';
 
+const downloadScreenshot = href => {
+  const link = document.createElement('a');
+  link.href = href;
+  link.click();
+};
+
 const LAB = ({ noTWCount, noClose }) => {
   const ref = useRef();
   const { labTests, cases } = useContext(TimestampsContext);
