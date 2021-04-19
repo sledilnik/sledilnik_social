@@ -70,12 +70,6 @@ const LAB = ({ noTWCount, noClose }) => {
         <Summary title="HAT" />
         <Summary title="ActiveCases" />
       </Post>
-      <a
-        href="https://iy0qntj1j8.execute-api.eu-west-1.amazonaws.com/SledilnikScreenshot?screen=homeTop4Cards"
-        download
-      >
-        LAB screenshot
-      </a>
     </Card>
   );
 };
@@ -134,13 +128,6 @@ const HOS = ({ noTWCount, noClose }) => {
         <Patients title="Care" />
         <Patients title="Deceased" />
       </Post>
-      <a
-        href="https://iy0qntj1j8.execute-api.eu-west-1.amazonaws.com/SledilnikScreenshot?screen=homeLast5Cards"
-        download
-      >
-        HOS screenshot
-      </a>
-      <br />
       <a
         href="https://iy0qntj1j8.execute-api.eu-west-1.amazonaws.com/SledilnikScreenshot?screen=IcuPatients"
         download
