@@ -133,7 +133,6 @@ function withCardHOC(Component) {
     );
     const refreshId = `refresh-${cardId}`;
     const copyId = `copy-${cardId}`;
-    console.log(download);
     const buttons = [
       counter,
       <div key={`${cardId}-btn-icons`} className="icons">
