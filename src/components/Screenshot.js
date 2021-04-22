@@ -17,8 +17,7 @@ const Screenshot = ({ params = { type: '', screen: '' } }) => {
         >
           <img
             src={`data:image/jpeg;base64,${data.body}`}
-            alt="card"
-            style={{ maxWidth: '100%' }}
+            alt={'card-' + params.screen}
           />
         </a>
       )}
