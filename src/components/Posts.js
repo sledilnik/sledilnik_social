@@ -14,7 +14,7 @@ import InHospitals from './InHospitals';
 import Municipalities from './Municipalities';
 import SocialChanger from './SocialChanger';
 import CancelButton from './CancelButton';
-import useFetch from '../hooks/useFetch';
+import Screenshots from './Screenshots';
 
 const downloadScreenshot = href => {
   const link = document.createElement('a');
@@ -273,29 +273,7 @@ const cards = {
   LAB: <LAB noClose />,
   HOS: <HOS noClose />,
   EPI: <EPI noClose />,
-};
-
-const Screenshot = ({ params = { type: '', screen: '' } }) => {
-  const { data, isLoading } = useFetch(
-    'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot',
-    params
-  );
-
-  return (
-    <div>
-      {isLoading && <div>loading</div>}
-      {!isLoading && data.body && (
-        <div>
-          <a
-            href={`data:image/jpeg;base64,${data.body}`}
-            download={params.screen}
-          >
-            <img src={`data:image/jpeg;base64,${data.body}`} alt="card" />
-          </a>
-        </div>
-      )}
-    </div>
-  );
+  SCREENSHOTS: <Screenshots />,
 };
 
 function Posts() {
@@ -335,13 +313,16 @@ function Posts() {
           >
             EPI
           </button>
+          <button
+            className="tablinks"
+            onClick={event => changeCard(event, 'SCREENSHOTS')}
+          >
+            IMAGES
+          </button>
         </div>
         <SocialChanger />
       </div>
       {post}
-      <Screenshot params={{ type: 'card', screen: 'testsToday' }} />
-      <Screenshot params={{ type: 'card', screen: 'testsTodayHAT' }} />
-      <Screenshot params={{ type: 'chart', screen: 'IcuPatients' }} />
     </section>
   );
 }
