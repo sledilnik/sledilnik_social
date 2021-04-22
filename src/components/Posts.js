@@ -15,6 +15,7 @@ import Municipalities from './Municipalities';
 import SocialChanger from './SocialChanger';
 import CancelButton from './CancelButton';
 import Screenshots from './Screenshots';
+import EmbeddedChart from './EmbeddedChart';
 
 const downloadScreenshot = href => {
   const link = document.createElement('a');
@@ -274,6 +275,7 @@ const cards = {
   HOS: <HOS noClose />,
   EPI: <EPI noClose />,
   SCREENSHOTS: <Screenshots />,
+  CHARTS: <EmbeddedChart />,
 };
 
 function Posts() {
@@ -318,6 +320,12 @@ function Posts() {
             onClick={event => changeCard(event, 'SCREENSHOTS')}
           >
             IMAGES
+          </button>
+          <button
+            className="tablinks"
+            onClick={event => changeCard(event, 'CHARTS')}
+          >
+            CHARTS
           </button>
         </div>
         <SocialChanger />
