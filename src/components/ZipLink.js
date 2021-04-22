@@ -2,6 +2,7 @@ import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 import React from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
+import './ZipLink.css';
 
 function ZipLink() {
   const testsToday = useLocalStorage(null, 'testsToday');
@@ -40,7 +41,11 @@ function ZipLink() {
     FileSaver.saveAs(content, 'screenshots.zip');
   };
 
-  return <button onClick={onClickHandler}>Download ZIP</button>;
+  return (
+    <button className="ZipLink" onClick={onClickHandler}>
+      DOWNLOAD
+    </button>
+  );
 }
 
 export default ZipLink;

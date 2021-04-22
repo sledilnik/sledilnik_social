@@ -6,7 +6,9 @@ import ZipLink from './ZipLink';
 function Screenshots() {
   return (
     <div className="Screenshots">
-      <ZipLink />
+      <div className="buttons-container">
+        <ZipLink />
+      </div>
       <h2>LAB</h2>
       <div className="cards">
         <Screenshot params={{ type: 'card', screen: 'testsToday' }} />

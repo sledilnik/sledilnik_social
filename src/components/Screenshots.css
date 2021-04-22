@@ -2,6 +2,13 @@
   max-width: 100%;
 }
 
+.Screenshots .buttons-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 8px;
+}
+
 .Screenshots > .cards {
   display: flex;
   flex-wrap: wrap;
