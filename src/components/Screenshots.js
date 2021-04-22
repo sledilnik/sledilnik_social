@@ -31,6 +31,8 @@ function Screenshots() {
         <Screenshot params={{ type: 'chart', screen: 'Patients' }} />
         <h2>Intezivna terapija</h2>
         <Screenshot params={{ type: 'chart', screen: 'IcuPatients' }} />
+        <h2>Primer po občinah</h2>
+        <Screenshot params={{ type: 'chart', screen: 'Municipalities' }} />
       </div>
     </div>
   );

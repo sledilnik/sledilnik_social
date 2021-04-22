@@ -15,6 +15,7 @@ function ZipLink() {
   const vaccinationSummary = useLocalStorage(null, 'vaccinationSummary');
   const Patients = useLocalStorage(null, 'Patients');
   const IcuPatients = useLocalStorage(null, 'IcuPatients');
+  const Municipalities = useLocalStorage(null, 'Municipalities');
 
   const screenshotsStateHooks = {
     testsToday,
@@ -27,6 +28,7 @@ function ZipLink() {
     vaccinationSummary,
     Patients,
     IcuPatients,
+    Municipalities,
   };
 
   const onClickHandler = async () => {

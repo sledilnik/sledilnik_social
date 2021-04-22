@@ -25,6 +25,7 @@ export const TimestampsProvider = ({ children }) => {
   const vaccinationSummary = useLocalStorage(null, 'vaccinationSummary');
   const Patients = useLocalStorage(null, 'Patients');
   const IcuPatients = useLocalStorage(null, 'IcuPatients');
+  const Municipalities = useLocalStorage(null, 'Municipalities');
 
   const screenshotsStateHooks = [
     testsToday,
@@ -37,6 +38,7 @@ export const TimestampsProvider = ({ children }) => {
     vaccinationSummary,
     Patients,
     IcuPatients,
+    Municipalities,
   ];
 
   const ts = stats.data;
