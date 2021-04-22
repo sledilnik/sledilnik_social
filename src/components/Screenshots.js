@@ -1,10 +1,12 @@
 import React from 'react';
 import Screenshot from './Screenshot';
 import './Screenshots.css';
+import ZipLink from './ZipLink';
 
 function Screenshots() {
   return (
     <div className="Screenshots">
+      <ZipLink />
       <h2>LAB</h2>
       <div className="cards">
         <Screenshot params={{ type: 'card', screen: 'testsToday' }} />
