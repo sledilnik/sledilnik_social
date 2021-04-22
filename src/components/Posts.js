@@ -14,6 +14,7 @@ import InHospitals from './InHospitals';
 import Municipalities from './Municipalities';
 import SocialChanger from './SocialChanger';
 import CancelButton from './CancelButton';
+import useFetch from '../hooks/useFetch';
 
 const downloadScreenshot = href => {
   const link = document.createElement('a');
@@ -274,6 +275,29 @@ const cards = {
   EPI: <EPI noClose />,
 };
 
+const Screenshot = ({ params = { type: '', screen: '' } }) => {
+  const { data, isLoading } = useFetch(
+    'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot',
+    params
+  );
+
+  return (
+    <div>
+      {isLoading && <div>loading</div>}
+      {!isLoading && data.body && (
+        <div>
+          <a
+            href={`data:image/jpeg;base64,${data.body}`}
+            download={params.screen}
+          >
+            <img src={`data:image/jpeg;base64,${data.body}`} alt="card" />
+          </a>
+        </div>
+      )}
+    </div>
+  );
+};
+
 function Posts() {
   const tabButtonsRef = useRef();
   const [card, setCard] = useState('LAB');
@@ -315,6 +339,9 @@ function Posts() {
         <SocialChanger />
       </div>
       {post}
+      <Screenshot params={{ type: 'card', screen: 'testsToday' }} />
+      <Screenshot params={{ type: 'card', screen: 'testsTodayHAT' }} />
+      <Screenshot params={{ type: 'chart', screen: 'IcuPatients' }} />
     </section>
   );
 }
