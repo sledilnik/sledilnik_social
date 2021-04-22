@@ -1,0 +1,12 @@
+.EmbeddedChart {
+  min-width: 100%;
+}
+
+.EmbeddedChart > iframe {
+  min-height: 200vh;
+}
+
+.EmbeddedChart label {
+  font-size: 0.8em;
+  padding-right: 4px;
+}
