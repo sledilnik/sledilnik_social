@@ -10,3 +10,13 @@
   font-size: 0.8em;
   padding-right: 4px;
 }
+
+.EmbeddedChart .button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.EmbeddedChart img {
+  max-width: 300px;
+  display: block;
+}
