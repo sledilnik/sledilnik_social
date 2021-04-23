@@ -26,6 +26,10 @@ export const TimestampsProvider = ({ children }) => {
   const Patients = useLocalStorage(null, 'Patients');
   const IcuPatients = useLocalStorage(null, 'IcuPatients');
   const Municipalities = useLocalStorage(null, 'Municipalities');
+  const HOS = useLocalStorage(null, 'HOS');
+  const LAB = useLocalStorage(null, 'LAB');
+  const ALL = useLocalStorage(null, 'ALL');
+  const Map_weeklyGrowth = useLocalStorage(null, 'Map_weeklyGrowth');
 
   const screenshotsStateHooks = [
     testsToday,
@@ -39,6 +43,10 @@ export const TimestampsProvider = ({ children }) => {
     Patients,
     IcuPatients,
     Municipalities,
+    HOS,
+    LAB,
+    ALL,
+    Map_weeklyGrowth,
   ];
 
   const ts = stats.data;
