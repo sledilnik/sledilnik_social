@@ -2,23 +2,24 @@ import React, { useEffect } from 'react';
 import useFetch from '../hooks/useFetch';
 import useLocalStorage from '../hooks/useLocalStorage';
 
-const Screenshot = ({ params = { type: '', screen: '' } }) => {
+const Screenshot = ({ params = { type: '', screen: '' }, noSkip }) => {
   const [value, setValue] = useLocalStorage(null, params.screen);
-  const { data, isLoading, setSkip } = useFetch(
+  const { data, isLoading, setSkip, updateParams } = useFetch(
     'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot',
     params,
     {},
-    !!value
+    !!value && !noSkip
   );
 
-  const href = value || data?.body;
+  const href = noSkip ? data?.body : value || data?.body;
 
   useEffect(() => {
-    if (href) {
+    if (href && !noSkip) {
       setValue(href);
       setSkip(true);
     }
-  });
+    noSkip && updateParams(params);
+  }, [href, params, noSkip, setValue, setSkip, updateParams]);
 
   return (
     <>
