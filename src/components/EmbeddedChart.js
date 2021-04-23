@@ -17,7 +17,7 @@ function EmbeddedChart() {
     setSrc(getChartUrl(value));
   }, [value]);
 
-  const options = Object.entries(CHARTS).map(([key, item]) => {
+  const chartPickerOptions = Object.entries(CHARTS).map(([key, item]) => {
     const { name, text } = item;
     const displayName = text || name;
     return (
@@ -27,13 +27,13 @@ function EmbeddedChart() {
     );
   });
 
-  const changeHandler = event => {
+  const changeChartHandler = event => {
     setScreen(event.target.value);
     setSrc(event.target.value);
     setShow(false);
   };
 
-  const showHandler = () => setShow(true);
+  const showScreenshotHandler = () => setShow(true);
 
   return (
     <div className="EmbeddedChart">
@@ -43,13 +43,13 @@ function EmbeddedChart() {
           ref={ref}
           name="chart-picker"
           id="chart-picker"
-          onChange={changeHandler}
+          onChange={changeChartHandler}
           defaultValue="Map"
         >
-          {options}
+          {chartPickerOptions}
         </select>
       </div>
-      <button onClick={showHandler}>Show</button>
+      <button onClick={showScreenshotHandler}>Show</button>
       {show && screen && (
         <Screenshot params={{ type: 'chart', screen: screen }} noSkip />
       )}
