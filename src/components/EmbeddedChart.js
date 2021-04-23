@@ -2,14 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import './EmbeddedChart.css';
 
 import CHARTS, { getChartUrl } from './../dicts/ChartsDict';
+import Screenshot from './Screenshot';
 
 function EmbeddedChart() {
   const [src, setSrc] = useState(null);
   const ref = useRef();
+  const [screen, setScreen] = useState(null);
+  const [show, setShow] = useState(false);
 
   const value = ref.current?.value;
 
   useEffect(() => {
+    setScreen(value);
     setSrc(getChartUrl(value));
   }, [value]);
 
@@ -24,24 +28,31 @@ function EmbeddedChart() {
   });
 
   const changeHandler = event => {
-    console.log(event.target.value);
+    setScreen(event.target.value);
     setSrc(event.target.value);
+    setShow(false);
   };
+
+  const showHandler = () => setShow(true);
 
   return (
     <div className="EmbeddedChart">
-      <div>
+      <div className="button-container">
         <label htmlFor="chart-picker">Izberi graf</label>
         <select
           ref={ref}
           name="chart-picker"
           id="chart-picker"
           onChange={changeHandler}
-          defaultValue="MetricsComparison"
+          defaultValue="Map"
         >
           {options}
         </select>
       </div>
+      <button onClick={showHandler}>Show</button>
+      {show && screen && (
+        <Screenshot params={{ type: 'chart', screen: screen }} noSkip />
+      )}
       <iframe
         src={src}
         frameBorder="0"
