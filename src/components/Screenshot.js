@@ -2,8 +2,15 @@ import React, { useEffect } from 'react';
 import useFetch from '../hooks/useFetch';
 import useLocalStorage from '../hooks/useLocalStorage';
 
-const Screenshot = ({ params = { type: '', screen: '' }, noSkip }) => {
-  const [value, setValue] = useLocalStorage(null, params.screen);
+const Screenshot = ({
+  params = { type: '', screen: '', custom: '' },
+  noSkip,
+}) => {
+  const filename = params.custom
+    ? params.screen + '_' + params.custom
+    : params.screen;
+
+  const [value, setValue] = useLocalStorage(null, filename);
   const { data, isLoading, setSkip, updateParams } = useFetch(
     'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot',
     params,
@@ -25,7 +32,7 @@ const Screenshot = ({ params = { type: '', screen: '' }, noSkip }) => {
     <>
       {isLoading && <div>loading</div>}
       {!isLoading && href && (
-        <a href={`data:image/jpeg;base64,${href}`} download={params.screen}>
+        <a href={`data:image/jpeg;base64,${href}`} download={filename}>
           <img
             src={`data:image/jpeg;base64,${href}`}
             alt={'card-' + params.screen}
