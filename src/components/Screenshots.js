@@ -27,12 +27,18 @@ function Screenshots() {
         <Screenshot params={{ type: 'card', screen: 'vaccinationSummary' }} />
       </div>
       <div className="charts">
-        <h2>Hospitalizirani</h2>
-        <Screenshot params={{ type: 'chart', screen: 'Patients' }} />
-        <h2>Intezivna terapija</h2>
-        <Screenshot params={{ type: 'chart', screen: 'IcuPatients' }} />
-        <h2>Primeri po občinah</h2>
-        <Screenshot params={{ type: 'chart', screen: 'Municipalities' }} />
+        <div className="chart">
+          <h2>Hospitalizirani</h2>
+          <Screenshot params={{ type: 'chart', screen: 'Patients' }} />
+        </div>
+        <div className="chart">
+          <h2>Intezivna terapija</h2>
+          <Screenshot params={{ type: 'chart', screen: 'IcuPatients' }} />
+        </div>
+        <div className="chart">
+          <h2>Primeri po občinah</h2>
+          <Screenshot params={{ type: 'chart', screen: 'Municipalities' }} />
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,15 @@
 .Screenshots img {
-  max-width: 100%;
+  max-width: 295px;
+}
+
+.Screenshots h2 {
+  font-size: 1em;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.Screenshots h2:first-of-type {
+  margin-top: 0;
 }
 
 .Screenshots .buttons-container {
@@ -9,7 +19,8 @@
   padding: 8px;
 }
 
-.Screenshots > .cards {
+.Screenshots > .cards,
+.Screenshots > .charts {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -17,17 +28,9 @@
   margin-bottom: 16px;
 }
 
-.Screenshots h2 {
-  font-size: 1em;
-  margin-top: 16px;
-  margin-bottom: 8px;
-}
-.Screenshots h2:first-of-type {
-  margin-top: 0;
-}
-
 @media only screen and (min-width: 576px) {
-  .Screenshots > .cards {
+  .Screenshots > .cards,
+  .Screenshots > .charts {
     justify-content: space-between;
   }
 }
