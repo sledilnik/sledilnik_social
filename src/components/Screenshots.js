@@ -9,6 +9,12 @@ function Screenshots() {
       <div className="buttons-container">
         <ZipLink />
       </div>
+      <h2>MULTI</h2>
+      <div className="cards">
+        <Screenshot params={{ type: 'multicard', screen: 'LAB' }} />
+        <Screenshot params={{ type: 'multicard', screen: 'HOS' }} />
+        <Screenshot params={{ type: 'multicard', screen: 'ALL' }} />
+      </div>
       <h2>LAB</h2>
       <div className="cards">
         <Screenshot params={{ type: 'card', screen: 'testsToday' }} />
@@ -38,6 +44,12 @@ function Screenshots() {
         <div className="chart">
           <h2>Primeri po občinah</h2>
           <Screenshot params={{ type: 'chart', screen: 'Municipalities' }} />
+        </div>
+        <div className="chart">
+          <h2>Zemljevid po občinah - tedenski prirast</h2>
+          <Screenshot
+            params={{ type: 'chart', screen: 'Map', custom: 'weeklyGrowth' }}
+          />
         </div>
       </div>
     </div>
