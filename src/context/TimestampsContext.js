@@ -1,4 +1,5 @@
 import React, { createContext, useEffect } from 'react';
+import ScreenshotGetUseLocalStorage from '../dicts/ScreenshotGetUseLocalStorage';
 import { TIMESTAMP_URL } from '../dicts/URL_Dict';
 import useFetch from '../hooks/useFetch';
 import useLocalStorage from '../hooks/useLocalStorage';
@@ -14,58 +15,28 @@ export const TimestampsProvider = ({ children }) => {
   const cases = useFetch(TIMESTAMP_URL.CASES, params);
   const munActive = useFetch(TIMESTAMP_URL.MUN, params);
 
-  const [value, setValue] = useLocalStorage(stats.data, 'statsTimestamp');
-  const testsToday = useLocalStorage(null, 'testsToday');
-  const testsTodayHAT = useLocalStorage(null, 'testsTodayHAT');
-  const casesActive = useLocalStorage(null, 'casesActive');
-  const hospitalizedCurrent = useLocalStorage(null, 'hospitalizedCurrent');
-  const icuCurrent = useLocalStorage(null, 'icuCurrent');
-  const deceasedToDate = useLocalStorage(null, 'deceasedToDate');
-  const casesAvg7Days = useLocalStorage(null, 'casesAvg7Days');
-  const vaccinationSummary = useLocalStorage(null, 'vaccinationSummary');
-  const Patients = useLocalStorage(null, 'Patients');
-  const IcuPatients = useLocalStorage(null, 'IcuPatients');
-  const Municipalities = useLocalStorage(null, 'Municipalities');
-  const HOS = useLocalStorage(null, 'HOS');
-  const LAB = useLocalStorage(null, 'LAB');
-  const ALL = useLocalStorage(null, 'ALL');
-  const Map_weeklyGrowth = useLocalStorage(null, 'Map_weeklyGrowth');
+  const [localTs, setLocalTs] = useLocalStorage(stats.data, 'statsTimestamp');
 
-  const screenshotsStateHooks = [
-    testsToday,
-    testsTodayHAT,
-    casesActive,
-    hospitalizedCurrent,
-    icuCurrent,
-    deceasedToDate,
-    casesAvg7Days,
-    vaccinationSummary,
-    Patients,
-    IcuPatients,
-    Municipalities,
-    HOS,
-    LAB,
-    ALL,
-    Map_weeklyGrowth,
-  ];
+  const screenshotsUseLocalStorageHooks = Object.entries(
+    ScreenshotGetUseLocalStorage
+  ).reduce((acc, [key, binddedUseLocalStorage]) => {
+    acc[key] = binddedUseLocalStorage();
+    return acc;
+  }, {});
 
   const ts = stats.data;
 
   useEffect(() => {
-    if (value < ts) {
-      setValue(ts);
+    if (localTs < ts) {
+      setLocalTs(ts);
     }
 
-    if (value === null || value < ts) {
-      const screenshotsSetState = screenshotsStateHooks.map(item => {
-        return item[1];
-      });
-
-      for (let setState of screenshotsSetState) {
-        setState(null);
+    if (localTs === null || localTs < ts) {
+      for (let item of Object.entries(screenshotsUseLocalStorageHooks)) {
+        item[1][1](null);
       }
     }
-  }, [value, ts, setValue, screenshotsStateHooks]);
+  }, [localTs, ts, setLocalTs, screenshotsUseLocalStorageHooks]);
 
   return (
     <TimestampsContext.Provider
