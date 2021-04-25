@@ -1,0 +1,34 @@
+import useLocalStorage from '../hooks/useLocalStorage';
+
+const createScreenshotUseLocalStorage = name =>
+  useLocalStorage.bind(null, null, name);
+
+export const ScreenshotNames = {
+  CARDS: [
+    'testsToday',
+    'testsTodayHAT',
+    'casesActive',
+    'hospitalizedCurrent',
+    'icuCurrent',
+    'deceasedToDate',
+    'casesAvg7Days',
+    'vaccinationSummary',
+  ],
+  CHARTS: ['Patients', 'IcuPatients', 'Municipalities', 'Map_weeklyGrowth'],
+  MULTICARD: ['LAB', 'HOS', 'ALL'],
+};
+
+const screenshotTypes = Object.values(ScreenshotNames);
+
+const createGetScreenshotUseLocalStorage = () => {
+  const obj = screenshotTypes.reduce((acc, item) => {
+    for (let name of item) {
+      acc[name] = createScreenshotUseLocalStorage(name);
+    }
+    return acc;
+  }, {});
+  return obj;
+};
+
+const ScreenshotGetUseLocalStorage = createGetScreenshotUseLocalStorage();
+export default ScreenshotGetUseLocalStorage;
