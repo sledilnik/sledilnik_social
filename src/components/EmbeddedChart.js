@@ -52,9 +52,12 @@ function EmbeddedChart() {
       })
     : null;
 
-  const customChartHoverIndexOptions = chartData?.customCharts[
-    customChartPickerRef.current?.value
-  ]?.hasHoverIndex
+  const hasHoverIndex =
+    customChartPickerRef?.current?.value &&
+    chartData?.customCharts &&
+    chartData?.customCharts[customChartPickerRef.current?.value]?.hasHoverIndex;
+
+  const customChartHoverIndexOptions = hasHoverIndex
     ? [...Array(chartData.customCharts[custom].days).keys()].map(item => {
         const { days } = chartData?.customCharts[
           customChartPickerRef.current.value
