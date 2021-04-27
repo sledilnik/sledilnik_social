@@ -28,6 +28,10 @@
   margin-bottom: 16px;
 }
 
+.Screenshots > .charts > .chart {
+  margin: 8px 0;
+}
+
 @media only screen and (min-width: 576px) {
   .Screenshots > .cards,
   .Screenshots > .charts {

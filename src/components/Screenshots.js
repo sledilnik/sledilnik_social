@@ -11,50 +11,94 @@ function Screenshots() {
       </div>
       <h2>MULTI</h2>
       <div className="cards">
-        <Screenshot params={{ type: 'multicard', screen: 'LAB' }} />
-        <Screenshot params={{ type: 'multicard', screen: 'HOS' }} />
-        <Screenshot params={{ type: 'multicard', screen: 'ALL' }} />
+        <Screenshot
+          params={{ type: 'multicard', screen: 'LAB' }}
+          captionBottom
+        />
+        <Screenshot
+          params={{ type: 'multicard', screen: 'HOS' }}
+          captionBottom
+        />
+        <Screenshot
+          params={{ type: 'multicard', screen: 'ALL' }}
+          captionBottom
+        />
       </div>
       <h2>LAB</h2>
       <div className="cards">
-        <Screenshot params={{ type: 'card', screen: 'testsToday' }} />
-        <Screenshot params={{ type: 'card', screen: 'testsTodayHAT' }} />
-        <Screenshot params={{ type: 'card', screen: 'casesActive' }} />
+        <Screenshot
+          params={{ type: 'card', screen: 'testsToday' }}
+          captionBottom
+        />
+        <Screenshot
+          params={{ type: 'card', screen: 'testsTodayHAT' }}
+          captionBottom
+        />
+        <Screenshot
+          params={{ type: 'card', screen: 'casesActive' }}
+          captionBottom
+        />
       </div>
       <h2>HOS</h2>
       <div className="cards">
-        <Screenshot params={{ type: 'card', screen: 'hospitalizedCurrent' }} />
-        <Screenshot params={{ type: 'card', screen: 'icuCurrent' }} />
-        <Screenshot params={{ type: 'card', screen: 'deceasedToDate' }} />
+        <Screenshot
+          params={{ type: 'card', screen: 'hospitalizedCurrent' }}
+          captionBottom
+        />
+        <Screenshot
+          params={{ type: 'card', screen: 'icuCurrent' }}
+          captionBottom
+        />
+        <Screenshot
+          params={{ type: 'card', screen: 'deceasedToDate' }}
+          captionBottom
+        />
       </div>
       <h2>Ostalo</h2>
       <div className="cards">
-        <Screenshot params={{ type: 'card', screen: 'casesAvg7Days' }} />
-        <Screenshot params={{ type: 'card', screen: 'vaccinationSummary' }} />
+        <Screenshot
+          params={{ type: 'card', screen: 'casesAvg7Days' }}
+          captionBottom
+        />
+        <Screenshot
+          params={{ type: 'card', screen: 'vaccinationSummary' }}
+          captionBottom
+        />
       </div>
       <div className="charts">
         <div className="chart">
           <h2>Hospitalizirani</h2>
-          <Screenshot params={{ type: 'chart', screen: 'Patients' }} />
+          <Screenshot
+            params={{ type: 'chart', screen: 'Patients' }}
+            captionBottom
+          />
         </div>
         <div className="chart">
           <h2>Intezivna terapija</h2>
-          <Screenshot params={{ type: 'chart', screen: 'IcuPatients' }} />
+          <Screenshot
+            params={{ type: 'chart', screen: 'IcuPatients' }}
+            captionBottom
+          />
         </div>
         <div className="chart">
           <h2>Primeri po občinah</h2>
-          <Screenshot params={{ type: 'chart', screen: 'Municipalities' }} />
+          <Screenshot
+            params={{ type: 'chart', screen: 'Municipalities' }}
+            captionBottom
+          />
         </div>
         <div className="chart">
           <h2>Zemljevid po občinah - tedenski prirast</h2>
           <Screenshot
             params={{ type: 'chart', screen: 'Map', custom: 'weeklyGrowth' }}
+            captionBottom
           />
         </div>
         <div className="chart">
           <h2>Zemljevid po občinah - absolutno 1 dan</h2>
           <Screenshot
             params={{ type: 'chart', screen: 'Map', custom: 'absolute1Day' }}
+            captionBottom
           />
         </div>
         <div className="chart">
@@ -65,6 +109,7 @@ function Screenshots() {
               screen: 'Map',
               custom: 'distribution1Day',
             }}
+            captionBottom
           />
         </div>
       </div>
