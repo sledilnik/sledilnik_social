@@ -3,8 +3,7 @@
 }
 
 .EmbeddedChart > iframe {
-  min-height: 100vh;
-  max-height: 720px;
+  min-height: 120vh;
   max-width: 1140px;
 }
 
