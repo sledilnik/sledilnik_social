@@ -5,12 +5,21 @@ export const getChartUrl = name => `${CHART_BASE_URL}${name}`;
 export default {
   IcuPatients: {
     name: 'IcuPatients',
+    customCharts: {
+      twoMonthsTooltip: { hasHoverIndex: true, days: 60 },
+    },
   },
   Patients: {
     name: 'Patients',
+    customCharts: {
+      twoMonthsTooltip: { hasHoverIndex: true, days: 60 },
+    },
   },
   MetricsComparison: {
     name: 'MetricsComparison',
+  },
+  DailyComparison: {
+    name: 'DailyComparison',
   },
   EuropeMap: {
     name: 'EuropeMap',
@@ -47,6 +56,11 @@ export default {
   },
   Map: {
     name: 'Map',
+    customCharts: {
+      weeklyGrowth: { hasHoverIndex: false },
+      absolute1Day: { hasHoverIndex: false },
+      distribution1Day: { hasHoverIndex: false },
+    },
   },
   Municipalities: {
     name: 'Municipalities',
@@ -56,5 +70,8 @@ export default {
   },
   AgeGroups: {
     name: 'AgeGroups',
+  },
+  AgeGroupsTimeline: {
+    name: 'AgeGroupsTimeline',
   },
 };
