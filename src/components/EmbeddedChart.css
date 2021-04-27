@@ -3,7 +3,7 @@
 }
 
 .EmbeddedChart > iframe {
-  min-height: 200vh;
+  min-height: 100vh;
 }
 
 .EmbeddedChart label {
@@ -17,6 +17,6 @@
 }
 
 .EmbeddedChart img {
-  max-width: 295px;
+  width: 100%;
   display: block;
 }
