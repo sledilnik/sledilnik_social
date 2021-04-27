@@ -4,6 +4,8 @@
 
 .EmbeddedChart > iframe {
   min-height: 100vh;
+  max-height: 720px;
+  max-width: 1140px;
 }
 
 .EmbeddedChart label {
