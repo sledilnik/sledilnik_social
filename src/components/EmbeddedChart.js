@@ -137,17 +137,21 @@ function EmbeddedChart() {
         )}
       </div>
       <button onClick={showScreenshotHandler}>Show screenshot</button>
-      {show && screen && (
-        <Screenshot
-          params={{
-            type: 'chart',
-            screen: screen,
-            custom: custom,
-            hoverIndex: hoverIndex,
-          }}
-          noSkip
-        />
-      )}
+      <div className="image-container">
+        {show && screen && (
+          <Screenshot
+            params={{
+              type: 'chart',
+              screen: screen,
+              custom: custom,
+              hoverIndex: hoverIndex,
+            }}
+            noSkip
+            captionTop
+            captionBottom
+          />
+        )}
+      </div>
       <iframe
         ref={iframeRef}
         id="neki"

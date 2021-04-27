@@ -19,6 +19,7 @@
 .EmbeddedChart img {
   width: 100%;
   display: block;
+  margin: 4px 0;
 }
 
 .EmbeddedChart label {
@@ -49,4 +50,8 @@
   border-radius: 8px;
   color: var(--bcg-body-clr);
   border-color: var(--bcg-body-clr);
+}
+
+.EmbeddedChart .image-container {
+  margin: 8px 0;
 }
