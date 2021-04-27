@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
+import './Screenshot.css';
 import useFetch from '../hooks/useFetch';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 const Screenshot = ({
-  params = { type: '', screen: '', custom: '' },
+  params = { type: '', screen: '', custom: '', hoverIndex: '' },
   noSkip,
+  captionTop,
+  captionBottom,
 }) => {
-  const filename = params.custom
-    ? params.screen + '_' + params.custom
-    : params.screen;
+  const { type, screen, custom, hoverIndex } = params;
+  let filename = custom ? screen + '_' + custom : screen;
+  filename = hoverIndex ? filename + '_' + hoverIndex : filename;
 
   const [value, setValue] = useLocalStorage(null, filename);
   const { data, isLoading, setSkip, updateParams } = useFetch(
@@ -28,15 +31,21 @@ const Screenshot = ({
     noSkip && updateParams(params);
   }, [href, params, noSkip, setValue, setSkip, updateParams]);
 
+  const alt = `${type}-${filename}`;
+  const figCaptionText = `${type} ${filename}`;
+
   return (
     <>
       {isLoading && <div>loading</div>}
       {!isLoading && href && (
-        <a href={`data:image/jpeg;base64,${href}`} download={filename}>
-          <img
-            src={`data:image/jpeg;base64,${href}`}
-            alt={'card-' + params.screen}
-          />
+        <a
+          className="Screenshot"
+          href={`data:image/jpeg;base64,${href}`}
+          download={filename}
+        >
+          {captionTop && <figcaption>{figCaptionText}</figcaption>}
+          <img src={`data:image/jpeg;base64,${href}`} alt={alt} />
+          {captionBottom && <figcaption>{figCaptionText}</figcaption>}
         </a>
       )}
     </>
