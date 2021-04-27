@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import './Screenshot.css';
 import useFetch from '../hooks/useFetch';
 import useLocalStorage from '../hooks/useLocalStorage';
+import Loader from './Loader';
 
 const Screenshot = ({
   params = { type: '', screen: '', custom: '', hoverIndex: '' },
@@ -36,7 +37,23 @@ const Screenshot = ({
 
   return (
     <>
-      {isLoading && <div>loading</div>}
+      {isLoading && (
+        <div
+          className="loader-constainer"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minWidth: '325px',
+            minHeight: '165px',
+            backgroundColor: 'var(--white)',
+            borderRadius: '6px',
+            margin: '4px 0',
+          }}
+        >
+          <Loader />
+        </div>
+      )}
       {!isLoading && href && (
         <a
           className="Screenshot"
