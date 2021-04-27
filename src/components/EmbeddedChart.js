@@ -132,9 +132,8 @@ function EmbeddedChart() {
             </select>
           </>
         )}
-        <button onClick={showScreenshotHandler}>Show</button>
       </div>
-
+      <button onClick={showScreenshotHandler}>Show screenshot</button>
       {show && screen && (
         <Screenshot
           params={{

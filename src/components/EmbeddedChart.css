@@ -20,3 +20,33 @@
   width: 100%;
   display: block;
 }
+
+.EmbeddedChart label {
+  margin-bottom: 4px;
+}
+
+.EmbeddedChart select {
+  padding: 4px 0;
+  font-size: 1em;
+  margin-bottom: 8px;
+}
+
+.EmbeddedChart button {
+  padding: 8px 16px;
+  background-color: var(--bcg-body-clr);
+  border-radius: 8px;
+  color: var(--menu-clr);
+  border: 2px solid var(--menu-clr);
+  cursor: pointer;
+  transition: all 1.2s;
+  display: block;
+  margin: 0 auto;
+}
+
+.EmbeddedChart button:hover,
+.EmbeddedChart button:focus {
+  background-color: var(--menu-clr);
+  border-radius: 8px;
+  color: var(--bcg-body-clr);
+  border-color: var(--bcg-body-clr);
+}
