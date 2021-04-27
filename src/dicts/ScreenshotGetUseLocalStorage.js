@@ -14,7 +14,14 @@ export const ScreenshotNames = {
     'casesAvg7Days',
     'vaccinationSummary',
   ],
-  CHARTS: ['Patients', 'IcuPatients', 'Municipalities', 'Map_weeklyGrowth'],
+  CHARTS: [
+    'Patients',
+    'IcuPatients',
+    'Municipalities',
+    'Map_weeklyGrowth',
+    'Map_absolute1Day',
+    'Map_distribution1Day',
+  ],
   MULTICARD: ['LAB', 'HOS', 'ALL'],
 };
 
