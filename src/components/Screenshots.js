@@ -51,6 +51,22 @@ function Screenshots() {
             params={{ type: 'chart', screen: 'Map', custom: 'weeklyGrowth' }}
           />
         </div>
+        <div className="chart">
+          <h2>Zemljevid po občinah - absolutno 1 dan</h2>
+          <Screenshot
+            params={{ type: 'chart', screen: 'Map', custom: 'absolute1Day' }}
+          />
+        </div>
+        <div className="chart">
+          <h2>Zemljevid po občinah - porazdelitev 1 dan</h2>
+          <Screenshot
+            params={{
+              type: 'chart',
+              screen: 'Map',
+              custom: 'distribution1Day',
+            }}
+          />
+        </div>
       </div>
     </div>
   );
