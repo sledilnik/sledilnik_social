@@ -83,7 +83,9 @@ function EmbeddedChart() {
 
   const changeCustomChartHandler = event => {
     setCustom(event.target.value);
-    const { hasHoverIndex, days } = chartData?.customCharts[event.target.value];
+    const { hasHoverIndex, days } = chartData?.customCharts[
+      event.target.value
+    ] || { hasHoverIndex: 'false', days: 0 };
     hasHoverIndex && setHoverIndex(days - 1);
     setShow(false);
   };
