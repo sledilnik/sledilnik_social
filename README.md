@@ -2,6 +2,10 @@
 
 Basic API extraction to serve Sledilnik's API data in a Social media form.
 
+## ver 0.5.0
+
+Add Covid-10 Sledilnik chart and card screenshots.
+
 ## ver 0.4.0
 
 Endpoints for data fetch are set in `urlDict.js`.
