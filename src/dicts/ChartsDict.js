@@ -6,20 +6,43 @@ export default {
   IcuPatients: {
     name: 'IcuPatients',
     customCharts: {
-      twoMonthsTooltip: { hasHoverIndex: true, days: 60 },
+      twoMonthsTooltip: { hasHoverIndex: true, days: 60, tsName: 'patients' },
     },
   },
   Patients: {
     name: 'Patients',
     customCharts: {
-      twoMonthsTooltip: { hasHoverIndex: true, days: 60 },
+      twoMonthsTooltip: { hasHoverIndex: true, days: 60, tsName: 'patients' },
+    },
+  },
+
+  DailyComparison: {
+    name: 'DailyComparison',
+    customCharts: {
+      casesConfirmedTooltip: {
+        hasHoverIndex: true,
+        days: 35,
+        tsName: 'labTests',
+      },
+      casesActiveTooltip: { hasHoverIndex: true, days: 35, tsName: 'labTests' },
+      performedPCRTooltip: {
+        hasHoverIndex: true,
+        days: 35,
+        tsName: 'labTests',
+      },
+      sharePCRTooltip: { hasHoverIndex: true, days: 35, tsName: 'labTests' },
+    },
+  },
+  Map: {
+    name: 'Map',
+    customCharts: {
+      weeklyGrowth: { hasHoverIndex: false },
+      absolute1Day: { hasHoverIndex: false },
+      distribution1Day: { hasHoverIndex: false },
     },
   },
   MetricsComparison: {
     name: 'MetricsComparison',
-  },
-  DailyComparison: {
-    name: 'DailyComparison',
   },
   EuropeMap: {
     name: 'EuropeMap',
@@ -54,14 +77,7 @@ export default {
   RegionMap: {
     name: 'RegionMap',
   },
-  Map: {
-    name: 'Map',
-    customCharts: {
-      weeklyGrowth: { hasHoverIndex: false },
-      absolute1Day: { hasHoverIndex: false },
-      distribution1Day: { hasHoverIndex: false },
-    },
-  },
+
   Municipalities: {
     name: 'Municipalities',
   },
