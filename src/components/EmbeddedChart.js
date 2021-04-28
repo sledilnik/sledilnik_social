@@ -98,9 +98,9 @@ function EmbeddedChart() {
   const changeChartHandler = event => {
     customChartPickerRef.current.value = '';
     setHoverIndex('');
-    setChartData(event.target.value);
+    setChartData(CHARTS[event.target.value]);
     setScreen(event.target.value);
-    setSrc(event.target.value);
+    setSrc(getChartUrl(event.target.value));
     setShow(false);
     setShowChartOptions(false);
   };
@@ -120,7 +120,7 @@ function EmbeddedChart() {
   };
 
   const showScreenshotHandler = () => setShow(true);
-
+  console.log(src);
   return (
     <div className="EmbeddedChart">
       <div className="button-container">
