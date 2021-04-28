@@ -39,7 +39,7 @@ const Screenshot = ({
     <>
       {isLoading && (
         <div
-          className="loader-constainer"
+          className="loader-container"
           style={{
             display: 'flex',
             justifyContent: 'center',
