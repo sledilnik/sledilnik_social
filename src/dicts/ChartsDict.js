@@ -41,6 +41,16 @@ export default {
       distribution1Day: { hasHoverIndex: false },
     },
   },
+  AgeGroupsTimeline: {
+    name: 'AgeGroupsTimeline',
+    customCharts: {
+      twoMonthsNewCasesTooltip: {
+        hasHoverIndex: true,
+        days: 60,
+        tsName: 'cases',
+      },
+    },
+  },
   MetricsComparison: {
     name: 'MetricsComparison',
   },
@@ -86,8 +96,5 @@ export default {
   },
   AgeGroups: {
     name: 'AgeGroups',
-  },
-  AgeGroupsTimeline: {
-    name: 'AgeGroupsTimeline',
   },
 };
