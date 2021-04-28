@@ -38,19 +38,7 @@ const Screenshot = ({
   return (
     <>
       {isLoading && (
-        <div
-          className="loader-container"
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            minWidth: '325px',
-            minHeight: '165px',
-            backgroundColor: 'var(--white)',
-            borderRadius: '6px',
-            margin: '4px 0',
-          }}
-        >
+        <div className="Screenshot loader-container">
           <Loader />
         </div>
       )}

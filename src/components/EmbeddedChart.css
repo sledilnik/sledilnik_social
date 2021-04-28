@@ -56,3 +56,8 @@
 .EmbeddedChart .image-container {
   margin: 8px 0;
 }
+
+.EmbeddedChart .Screenshot.loader-container {
+  width: 100%;
+  height: 420px;
+}

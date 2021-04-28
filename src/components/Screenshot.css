@@ -2,3 +2,14 @@
   font-size: 0.8em;
   margin: 16px 0;
 }
+
+.Screenshot.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 325px;
+  min-height: 165px;
+  background-color: var(--white);
+  border-radius: 6px;
+  margin: 4px 0;
+}
