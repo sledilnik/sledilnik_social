@@ -1,12 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { addDays } from 'date-fns';
 import './EmbeddedChart.css';
 
 import CHARTS, { getChartUrl } from './../dicts/ChartsDict';
 import Screenshot from './Screenshot';
 import { formatToLocaleDateString } from '../utils/dates';
+import { TimestampsContext } from './../context/TimestampsContext';
+
+const AddDays = {
+  patients: 0,
+  labTests: -1,
+};
+
+const SeriesLength = {
+  patients: days => days,
+  labTests: (days, num) => days + num,
+};
 
 function EmbeddedChart() {
+  const ts = useContext(TimestampsContext);
   const [src, setSrc] = useState(null);
   const chartPickerRef = useRef();
   const customChartPickerRef = useRef();
@@ -19,6 +31,7 @@ function EmbeddedChart() {
   const [showChartOptions, setShowChartOptions] = useState(false);
 
   const value = chartPickerRef.current?.value;
+  const customChartPickerValue = customChartPickerRef.current?.value;
 
   useEffect(() => {
     setScreen(value);
@@ -52,29 +65,40 @@ function EmbeddedChart() {
       })
     : null;
 
-  const hasHoverIndex =
-    customChartPickerRef?.current?.value &&
-    chartData?.customCharts &&
-    chartData?.customCharts[customChartPickerRef.current?.value]?.hasHoverIndex;
+  const customChart =
+    customChartPickerValue && chartData?.customCharts[customChartPickerValue];
 
-  const customChartHoverIndexOptions = hasHoverIndex
-    ? [...Array(chartData.customCharts[custom].days).keys()].map(item => {
-        const { days } = chartData?.customCharts[
-          customChartPickerRef.current.value
-        ];
-        const text = formatToLocaleDateString(
-          addDays(new Date(), -days + item + 1)
-        );
+  const getHoverIndexOptions = (customChart, tsHooks, custom) => {
+    const { days, tsName } = customChart;
+    const { data: customTs } = tsHooks[tsName];
+    const customTsDate = new Date(customTs * 1000);
+    const addDaysToCalculateChartEndDate = AddDays[tsName];
+    const chartEndDate = addDays(customTsDate, addDaysToCalculateChartEndDate);
+    const daysToAddToSeries = chartEndDate.getDay();
+    const seriesLength = SeriesLength[tsName](days, daysToAddToSeries);
 
-        return (
-          <option key={`${screen}-${custom}-${item}`} value={item}>
-            {text}
-          </option>
-        );
-      })
+    const newArray = [...Array(seriesLength).keys()];
+    return newArray.map(item => {
+      const text = formatToLocaleDateString(
+        addDays(chartEndDate, -seriesLength + item + 1)
+      );
+
+      return (
+        <option key={`${screen}-${custom}-${item}`} value={item}>
+          {text}
+        </option>
+      );
+    });
+  };
+
+  const customChartHoverIndexOptions = customChart?.hasHoverIndex
+    ? getHoverIndexOptions(customChart, ts, custom)
     : null;
 
   const changeChartHandler = event => {
+    customChartPickerRef.current.value = '';
+    setHoverIndex('');
+    setChartData(event.target.value);
     setScreen(event.target.value);
     setSrc(event.target.value);
     setShow(false);
@@ -83,10 +107,10 @@ function EmbeddedChart() {
 
   const changeCustomChartHandler = event => {
     setCustom(event.target.value);
-    const { hasHoverIndex, days } = chartData?.customCharts[
-      event.target.value
-    ] || { hasHoverIndex: 'false', days: 0 };
-    hasHoverIndex && setHoverIndex(days - 1);
+    const hasHoverIndex =
+      chartData?.customCharts[event.target.value]?.hasHoverIndex;
+
+    hasHoverIndex ? setHoverIndex(0) : setHoverIndex('');
     setShow(false);
   };
 
@@ -106,7 +130,7 @@ function EmbeddedChart() {
           name="chart-picker"
           id="chart-picker"
           onChange={changeChartHandler}
-          defaultValue="Map"
+          defaultValue={screen}
         >
           {chartPickerOptions}
         </select>
@@ -118,6 +142,7 @@ function EmbeddedChart() {
               name="custom-chart-picker"
               id="custom-chart-picker"
               onChange={changeCustomChartHandler}
+              defaultValue={custom}
             >
               <option value="">default</option>
               {customChartOptions}
