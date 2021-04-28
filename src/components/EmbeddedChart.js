@@ -10,11 +10,13 @@ import { TimestampsContext } from './../context/TimestampsContext';
 const AddDays = {
   patients: 0,
   labTests: -1,
+  cases: -1,
 };
 
 const SeriesLength = {
   patients: days => days,
   labTests: (days, num) => days + num,
+  cases: days => days,
 };
 
 function EmbeddedChart() {
@@ -120,7 +122,6 @@ function EmbeddedChart() {
   };
 
   const showScreenshotHandler = () => setShow(true);
-  console.log(src);
   return (
     <div className="EmbeddedChart">
       <div className="button-container">
