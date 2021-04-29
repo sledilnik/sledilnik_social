@@ -98,7 +98,7 @@ function EmbeddedChart() {
     : null;
 
   const changeChartHandler = event => {
-    customChartPickerRef.current.value = '';
+    setCustom('');
     setHoverIndex('');
     setChartData(CHARTS[event.target.value]);
     setScreen(event.target.value);
