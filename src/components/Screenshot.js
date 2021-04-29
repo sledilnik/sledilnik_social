@@ -15,7 +15,14 @@ const Screenshot = ({
   filename = !isNaN(hoverIndex) ? filename + '_' + hoverIndex : filename;
 
   const [value, setValue] = useLocalStorage(null, filename);
-  const { data, isLoading, setSkip, updateParams } = useFetch(
+  const {
+    data,
+    isLoading,
+    hasError,
+    refetch,
+    setSkip,
+    updateParams,
+  } = useFetch(
     'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot',
     params,
     {},
@@ -37,12 +44,19 @@ const Screenshot = ({
 
   return (
     <>
+      {hasError && !isLoading && !href && (
+        <div className="Screenshot loader-container">
+          <h3>Something went wrong!</h3>
+          <button onClick={refetch}>Try again</button>
+        </div>
+      )}
+
       {isLoading && (
         <div className="Screenshot loader-container">
           <Loader />
         </div>
       )}
-      {!isLoading && href && (
+      {!isLoading && href && !hasError && (
         <a
           className="Screenshot"
           href={`data:image/jpeg;base64,${href}`}
