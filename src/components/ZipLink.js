@@ -18,7 +18,7 @@ function ZipLink({ filenames = [] }) {
 
   return (
     <button className="ZipLink" onClick={onClickHandler}>
-      DOWNLOAD
+      Prenesi ZIP
     </button>
   );
 }
