@@ -35,8 +35,22 @@
 }
 
 .EmbeddedChart select {
-  padding: 4px 0;
+  color: var(--menu-clr);
+  height: calc(1.5em + 0.5rem + 2px);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
   margin-bottom: 8px;
+  border-color: var(--box-shadow);
+}
+
+.EmbeddedChart select:focus {
+  color: var(--black);
+  outline: 0;
+  border-color: var(--box-shadow);
+  -webkit-box-shadow: 0 0 0 0.15rem var(--box-shadow);
+  box-shadow: 0 0 0 0.15rem var(--box-shadow);
 }
 
 .EmbeddedChart button {
