@@ -169,7 +169,7 @@ function EmbeddedChart() {
 
       <div className="image-container">
         {!show && (
-          <button onClick={showScreenshotHandler}>Show screenshot</button>
+          <button onClick={showScreenshotHandler}>Naredi posnetek grafa</button>
         )}
         {show && screen && (
           <Screenshot
