@@ -14,7 +14,14 @@
 
 .EmbeddedChart .button-container {
   display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.EmbeddedChart .button-container .select-container {
+  display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .EmbeddedChart img {
@@ -29,7 +36,6 @@
 
 .EmbeddedChart select {
   padding: 4px 0;
-  font-size: 1em;
   margin-bottom: 8px;
 }
 
@@ -55,9 +61,19 @@
 
 .EmbeddedChart .image-container {
   margin: 8px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .EmbeddedChart .Screenshot.loader-container {
   width: 100%;
   height: 420px;
+}
+
+@media only screen and (min-width: 576px) {
+  .EmbeddedChart .button-container .select-container {
+    width: initial;
+    margin-right: 8px;
+  }
 }

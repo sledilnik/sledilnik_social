@@ -125,19 +125,21 @@ function EmbeddedChart() {
   return (
     <div className="EmbeddedChart">
       <div className="button-container">
-        <label htmlFor="chart-picker">Izberi graf</label>
-        <select
-          ref={chartPickerRef}
-          name="chart-picker"
-          id="chart-picker"
-          onChange={changeChartHandler}
-          defaultValue={screen}
-        >
-          {chartPickerOptions}
-        </select>
+        <div className="select-container">
+          <label htmlFor="chart-picker">Izberi graf</label>
+          <select
+            ref={chartPickerRef}
+            name="chart-picker"
+            id="chart-picker"
+            onChange={changeChartHandler}
+            defaultValue={screen}
+          >
+            {chartPickerOptions}
+          </select>
+        </div>
         {showChartOptions && (
-          <>
-            <label htmlFor="custom-chart-picker">Custom</label>
+          <div className="select-container">
+            <label htmlFor="custom-chart-picker">Opcija</label>
             <select
               ref={customChartPickerRef}
               name="custom-chart-picker"
@@ -148,11 +150,11 @@ function EmbeddedChart() {
               <option value="">default</option>
               {customChartOptions}
             </select>
-          </>
+          </div>
         )}
         {showChartOptions && customChartHoverIndexOptions && (
-          <>
-            <label htmlFor="custom-chart-hoverIndex-picker">Day</label>
+          <div className="select-container">
+            <label htmlFor="custom-chart-hoverIndex-picker">Dan</label>
             <select
               name="custom-chart-hoverIndex-picker"
               id="custom-chart-hoverIndex-picker"
@@ -161,11 +163,14 @@ function EmbeddedChart() {
             >
               {customChartHoverIndexOptions}
             </select>
-          </>
+          </div>
         )}
       </div>
-      <button onClick={showScreenshotHandler}>Show screenshot</button>
+
       <div className="image-container">
+        {!show && (
+          <button onClick={showScreenshotHandler}>Show screenshot</button>
+        )}
         {show && screen && (
           <Screenshot
             params={{
