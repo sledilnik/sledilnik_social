@@ -147,7 +147,7 @@ function EmbeddedChart() {
               onChange={changeCustomChartHandler}
               defaultValue={custom}
             >
-              <option value="">default</option>
+              <option value="">osnoven</option>
               {customChartOptions}
             </select>
           </div>
