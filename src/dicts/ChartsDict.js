@@ -5,46 +5,93 @@ export const getChartUrl = name => `${CHART_BASE_URL}${name}`;
 export default {
   IcuPatients: {
     name: 'IcuPatients',
+    text: 'Intenzivna',
     customCharts: {
-      twoMonthsTooltip: { hasHoverIndex: true, days: 60, tsName: 'patients' },
+      twoMonthsTooltip: {
+        name: 'twoMonthsTooltip',
+        text: 'Vse bolnišnice - 2m',
+        hasHoverIndex: true,
+        days: 60,
+        tsName: 'patients',
+      },
     },
   },
   Patients: {
     name: 'Patients',
+    text: 'Hospitalizirani',
     customCharts: {
-      twoMonthsTooltip: { hasHoverIndex: true, days: 60, tsName: 'patients' },
+      twoMonthsTooltip: {
+        name: 'twoMonthsTooltip',
+        text: 'Vse bolnišnice - 2m',
+        hasHoverIndex: true,
+        days: 60,
+        tsName: 'patients',
+      },
     },
   },
 
   DailyComparison: {
     name: 'DailyComparison',
+    text: 'Primerjava po dnevih v tednu',
     customCharts: {
       casesConfirmedTooltip: {
+        name: 'casesConfirmedTooltip',
+        text: 'Potrjeni',
         hasHoverIndex: true,
         days: 35,
         tsName: 'labTests',
       },
-      casesActiveTooltip: { hasHoverIndex: true, days: 35, tsName: 'labTests' },
+      casesActiveTooltip: {
+        name: 'casesActiveTooltip',
+        text: 'Aktivni',
+        hasHoverIndex: true,
+        days: 35,
+        tsName: 'labTests',
+      },
       performedPCRTooltip: {
+        name: 'performedPCRTooltip',
+        text: 'Testi: PCR',
         hasHoverIndex: true,
         days: 35,
         tsName: 'labTests',
       },
-      sharePCRTooltip: { hasHoverIndex: true, days: 35, tsName: 'labTests' },
+      sharePCRTooltip: {
+        name: 'sharePCRTooltip',
+        text: 'Delež pozitivnih: PCR',
+        hasHoverIndex: true,
+        days: 35,
+        tsName: 'labTests',
+      },
     },
   },
   Map: {
     name: 'Map',
+    text: 'Zemljevid po občinah',
     customCharts: {
-      weeklyGrowth: { hasHoverIndex: false },
-      absolute1Day: { hasHoverIndex: false },
-      distribution1Day: { hasHoverIndex: false },
+      weeklyGrowth: {
+        name: 'weeklyGrowth',
+        text: 'Tedenski prirast',
+        hasHoverIndex: false,
+      },
+      absolute1Day: {
+        name: 'absolute1Day',
+        text: 'Absolutno - 1d',
+        hasHoverIndex: false,
+      },
+      distribution1Day: {
+        name: 'distribution1Day',
+        text: 'Porazdelitev - 1d',
+        hasHoverIndex: false,
+      },
     },
   },
   AgeGroupsTimeline: {
     name: 'AgeGroupsTimeline',
+    text: 'Potrjeni primeri po starostnih skupinah',
     customCharts: {
       twoMonthsNewCasesTooltip: {
+        name: 'twoMonthsNewCasesTooltip',
+        text: 'Novi primeri - 2m',
         hasHoverIndex: true,
         days: 60,
         tsName: 'cases',
@@ -53,48 +100,62 @@ export default {
   },
   MetricsComparison: {
     name: 'MetricsComparison',
+    text: 'Stanje COVID-19 v Sloveniji',
   },
   EuropeMap: {
     name: 'EuropeMap',
+    text: 'Stanje COVID-19 v Evropi',
   },
   WorldMap: {
     name: 'WorldMap',
+    text: 'Stanje COVID-19 v Svetu',
   },
   CarePatients: {
     name: 'CarePatients',
+    text: 'Negovalne bolnišnice',
   },
   Ratios: {
     name: 'Ratios',
+    text: 'Delež resnih primerov',
   },
   Tests: {
     name: 'Tests',
+    text: 'Testiranje',
   },
   HCenters: {
     name: 'HCenters',
+    text: 'Obravnava v ZD',
   },
   Cases: {
     name: 'Cases',
+    text: 'Potrjeni primeri',
   },
   Spread: {
     name: 'Spread',
+    text: 'Prirast potrjenih primerov',
   },
   Infections: {
     name: 'Infections',
+    text: 'Struktura potrjenih primerov',
   },
   Regions: {
     name: 'Regions',
+    text: 'Primeri po regijah',
   },
   RegionMap: {
     name: 'RegionMap',
+    text: 'Zemljevid po regijah',
   },
-
   Municipalities: {
     name: 'Municipalities',
+    text: 'Primeri po občinah',
   },
   SchoolStatus: {
     name: 'SchoolStatus',
+    text: 'Primeri po šolah in vrtcih',
   },
   AgeGroups: {
     name: 'AgeGroups',
+    text: 'Po starostnih skupinah',
   },
 };
