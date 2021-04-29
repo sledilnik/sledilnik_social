@@ -12,7 +12,7 @@ const Screenshot = ({
 }) => {
   const { type, screen, custom, hoverIndex } = params;
   let filename = custom ? screen + '_' + custom : screen;
-  filename = hoverIndex ? filename + '_' + hoverIndex : filename;
+  filename = !isNaN(hoverIndex) ? filename + '_' + hoverIndex : filename;
 
   const [value, setValue] = useLocalStorage(null, filename);
   const { data, isLoading, setSkip, updateParams } = useFetch(
