@@ -22,8 +22,11 @@ const useFetch = (
     .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
     .join('&');
 
-  const refetch = () =>
+  const refetch = () => {
+    setHasError(false);
+    setSkipFetch(false);
     setRefetchIndex(prevRefetchIndex => prevRefetchIndex + 1);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
