@@ -319,13 +319,13 @@ function Posts() {
             className="tablinks"
             onClick={event => changeCard(event, 'SCREENSHOTS')}
           >
-            IMAGES
+            Posnetki
           </button>
           <button
             className="tablinks"
             onClick={event => changeCard(event, 'CHARTS')}
           >
-            CHARTS
+            Grafi
           </button>
         </div>
         <SocialChanger />
