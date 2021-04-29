@@ -4,7 +4,30 @@ Basic API extraction to serve Sledilnik's API data in a Social media form.
 
 ## ver 0.5.0
 
-Add Covid-10 Sledilnik chart and card screenshots.
+Two new tabs: 'Posnetki' in 'Grafi'.
+
+Add Covid-10 Sledilnik chart and card screenshots. Screenshots are created with [sledilnik-screnshots AWS Lambda Function](https://github.com/jalezi/sledilnik-screenshots).
+
+In tabs 'LAB' are 'HOS' are links (icon: 'file-download'). Clicking on link will download screenshot. Those screenshots are made with [SledilnikScreenshots AWS Lambda Function](https://github.com/VesterDe/SledilnikScreenshots).
+
+### 'Posnetki' tab
+
+Screenshots are stored in browser local storage `base64` encoded. If local storage value is `null` then it will call [sledilnik-screnshots AWS Lambda Function](https://github.com/jalezi/sledilnik-screenshots).
+
+Clicking on `image` should start download.
+Clicking on `button` 'Prenesi ZIP' should `zip` all `images` and download `zip` file.
+
+We are also storing last [timestamp](https://github.com/sledilnik/data/blob/master/csv/stats.csv.timestamp). If `timestamp` is old then we re-fetch all screenshots.
+
+### 'Grafi' tab
+
+At the bottom of the page is `iframe` with selected [`chart`](https://github.com/sledilnik/website/blob/master/examples/README.md).
+
+Select your choice and click `button` 'Naredi posnetek grafa'.
+
+Clicking on `button` will call [SledilnikScreenshots AWS Lambda Function](https://github.com/VesterDe/SledilnikScreenshots). Clicking on `image` should start download.
+
+Those screenshots are not stored in local storage.
 
 ## ver 0.4.0
 
