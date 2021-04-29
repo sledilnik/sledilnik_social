@@ -1,13 +1,15 @@
 import React from 'react';
+import ScreenshotGetUseLocalStorage from '../dicts/ScreenshotGetUseLocalStorage';
 import Screenshot from './Screenshot';
 import './Screenshots.css';
 import ZipLink from './ZipLink';
 
 function Screenshots() {
+  const filenames = Object.keys(ScreenshotGetUseLocalStorage);
   return (
     <div className="Screenshots">
       <div className="buttons-container">
-        <ZipLink />
+        <ZipLink filenames={filenames} />
       </div>
       <h2>MULTI</h2>
       <div className="cards">

@@ -1,23 +1,15 @@
+import React from 'react';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
-import React from 'react';
-import ScreenshotGetUseLocalStorage from '../dicts/ScreenshotGetUseLocalStorage';
 
 import './ZipLink.css';
-
-function ZipLink() {
-  const screenshotsUseLocalStorageHooks = Object.entries(
-    ScreenshotGetUseLocalStorage
-  ).reduce((acc, [key, binddedUseLocalStorage]) => {
-    acc[key] = binddedUseLocalStorage();
-    return acc;
-  }, {});
-
+function ZipLink({ filenames = [] }) {
   const onClickHandler = async () => {
     const zip = new JSZip();
-
-    for (let [key, item] of Object.entries(screenshotsUseLocalStorageHooks)) {
-      zip.file(key + '.png', item[0], { base64: true });
+    for (let filename of filenames) {
+      const image = window.localStorage.getItem(filename);
+      console.log(filename, image);
+      zip.file(filename + '.png', image, { base64: true });
     }
 
     const content = await zip.generateAsync({ type: 'blob' });
