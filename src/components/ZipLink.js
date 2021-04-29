@@ -8,7 +8,6 @@ function ZipLink({ filenames = [] }) {
     const zip = new JSZip();
     for (let filename of filenames) {
       const image = window.localStorage.getItem(filename);
-      console.log(filename, image);
       zip.file(filename + '.png', image, { base64: true });
     }
 
