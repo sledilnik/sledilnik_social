@@ -12,6 +12,7 @@ const Screenshot = ({
   noSkip,
   captionTop,
   captionBottom,
+  captionText = '',
 }) => {
   const { type, screen, custom, hoverIndex } = params;
   let filename = custom ? screen + '_' + custom : screen;
@@ -38,7 +39,7 @@ const Screenshot = ({
   }, [href, params, noSkip, setValue, setSkip, updateParams]);
 
   const alt = `${type}-${filename}`;
-  const figCaptionText = `${type} ${filename}`;
+  const figCaptionText = captionText || `${type} ${filename}`;
 
   return (
     <>
