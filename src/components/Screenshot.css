@@ -8,7 +8,7 @@
   justify-content: space-evenly;
   align-items: center;
   flex-direction: column;
-  min-width: 325px;
+  min-width: 295px;
   min-height: 165px;
   background-color: var(--white);
   border-radius: 6px;
