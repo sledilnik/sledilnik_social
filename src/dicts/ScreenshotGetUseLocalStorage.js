@@ -4,7 +4,7 @@ const createScreenshotUseLocalStorage = name =>
   useLocalStorage.bind(null, null, name);
 
 export const ScreenshotNames = {
-  CARDS: [
+  CARD: [
     'testsToday',
     'testsTodayHAT',
     'casesActive',
@@ -14,7 +14,7 @@ export const ScreenshotNames = {
     'casesAvg7Days',
     'vaccinationSummary',
   ],
-  CHARTS: [
+  CHART: [
     'Patients',
     'IcuPatients',
     'Municipalities',

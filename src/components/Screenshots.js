@@ -4,13 +4,13 @@ import Screenshot from './Screenshot';
 import './Screenshots.css';
 import ZipLink from './ZipLink';
 
-import CHARTS from '../dicts/ChartsDict';
-import CARDS from '../dicts/CardsDict';
+import CHART from '../dicts/ChartsDict';
+import CARD from '../dicts/CardsDict';
 import MULTICARD from '../dicts/MulticardDict';
 
 const typesDict = {
-  CHARTS,
-  CARDS,
+  CHART,
+  CARD,
   MULTICARD,
 };
 
@@ -20,12 +20,12 @@ const translatedNames = Object.entries(ScreenshotNames).reduce(
       const indexOf = name.indexOf('_');
 
       const types = typesDict[type.toUpperCase()];
-      const [_name, _custom] = name.split('_');
+      const [screen, custom] = name.split('_');
 
       let text =
         indexOf < 0
           ? types[name].text
-          : types[_name].customCharts[_custom].text;
+          : types[screen].customCharts[custom].text;
       nestedAcc[name] = text;
       return nestedAcc;
     }, {});
@@ -42,27 +42,18 @@ function ScreenshotsByType({ title, type, ...props }) {
     const indexOf = name.indexOf('_');
 
     const types = typesDict[type.toUpperCase()];
-    const [_name, _custom] = name.split('_');
+    const [screen, custom] = name.split('_');
 
     let text =
-      indexOf < 0 ? types[name].text : types[_name].customCharts[_custom].text;
-
-    const myTypes = {
-      cards: 'card',
-      charts: 'chart',
-      multicard: 'multicard',
-    };
+      indexOf < 0 ? types[name].text : types[screen].customCharts[custom].text;
 
     return (
-      <div
-        key={`${myTypes[type.toLowerCase()]}-${name}`}
-        className="screenshot-container"
-      >
+      <div key={`${type}-${name}`} className="screenshot-container">
         <Screenshot
           params={{
-            type: myTypes[type.toLowerCase()],
-            screen: indexOf < 0 ? name : _name,
-            custom: _custom || '',
+            type: type,
+            screen: indexOf < 0 ? name : screen,
+            custom: custom || '',
           }}
           captionTop
           captionText={text}
@@ -97,13 +88,13 @@ function Screenshots() {
         />
         <ZipLink
           text="Grafi"
-          filenames={ScreenshotNames.CHARTS}
+          filenames={ScreenshotNames.CHART}
           translated={translatedNames}
           zipName={'charts_screeenshots'}
         />
         <ZipLink
           text="Kartice"
-          filenames={ScreenshotNames.CARDS}
+          filenames={ScreenshotNames.CARD}
           translated={translatedNames}
           zipName={'cards_screeenshots'}
         />
@@ -111,10 +102,10 @@ function Screenshots() {
       <ScreenshotsByType title="Multi" type="multicard" className="multicard" />
       <ScreenshotsByType
         title="Posamezne kartice"
-        type="cards"
+        type="card"
         className="cards"
       />
-      <ScreenshotsByType title="Grafi" type="charts" className="charts" />
+      <ScreenshotsByType title="Grafi" type="chart" className="charts" />
     </div>
   );
 }
