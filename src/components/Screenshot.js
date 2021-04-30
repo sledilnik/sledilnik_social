@@ -4,6 +4,9 @@ import useFetch from '../hooks/useFetch';
 import useLocalStorage from '../hooks/useLocalStorage';
 import Loader from './Loader';
 
+const awsLambdaURL =
+  'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot';
+
 const Screenshot = ({
   params = { type: '', screen: '', custom: '', hoverIndex: '' },
   noSkip,
@@ -22,12 +25,7 @@ const Screenshot = ({
     refetch,
     setSkip,
     updateParams,
-  } = useFetch(
-    'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot',
-    params,
-    {},
-    !!value && !noSkip
-  );
+  } = useFetch(awsLambdaURL, params, {}, !!value && !noSkip);
 
   const href = noSkip ? data?.body : value || data?.body;
 
