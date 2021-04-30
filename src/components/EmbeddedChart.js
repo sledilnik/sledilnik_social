@@ -24,7 +24,6 @@ function EmbeddedChart() {
   const [src, setSrc] = useState(null);
   const chartPickerRef = useRef();
   const customChartPickerRef = useRef();
-  const iframeRef = useRef();
   const [screen, setScreen] = useState(null);
   const [custom, setCustom] = useState('');
   const [hoverIndex, setHoverIndex] = useState('');
@@ -32,14 +31,14 @@ function EmbeddedChart() {
   const [chartData, setChartData] = useState(null);
   const [showChartOptions, setShowChartOptions] = useState(false);
 
-  const value = chartPickerRef.current?.value;
+  const chartPickerValue = chartPickerRef.current?.value;
   const customChartPickerValue = customChartPickerRef.current?.value;
 
   useEffect(() => {
-    setScreen(value);
-    setChartData(CHARTS[value]);
-    setSrc(getChartUrl(value));
-  }, [value]);
+    setScreen(chartPickerValue);
+    setChartData(CHARTS[chartPickerValue]);
+    setSrc(getChartUrl(chartPickerValue));
+  }, [chartPickerValue]);
 
   useEffect(() => {
     setShowChartOptions(!!chartData?.customCharts);
@@ -55,7 +54,7 @@ function EmbeddedChart() {
     );
   });
 
-  const customChartOptions = chartData?.customCharts
+  const customChartPickerOptions = chartData?.customCharts
     ? Object.entries(chartData?.customCharts).map(([key, item]) => {
         const { name, text } = item;
         const displayName = text || name || key;
@@ -148,7 +147,7 @@ function EmbeddedChart() {
               defaultValue={custom}
             >
               <option value="">osnoven</option>
-              {customChartOptions}
+              {customChartPickerOptions}
             </select>
           </div>
         )}
@@ -186,8 +185,7 @@ function EmbeddedChart() {
         )}
       </div>
       <iframe
-        ref={iframeRef}
-        id="neki"
+        id="embedded-chart"
         src={src}
         frameBorder="0"
         title="embedded-chart"
