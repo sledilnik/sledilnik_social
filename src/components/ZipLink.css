@@ -1,5 +1,5 @@
 .ZipLink {
-  padding: 8px 16px;
+  padding: 4px 8px;
   background-color: var(--bcg-body-clr);
   border-radius: 8px;
   color: var(--menu-clr);
@@ -14,4 +14,10 @@
   border-radius: 8px;
   color: var(--bcg-body-clr);
   border-color: var(--bcg-body-clr);
+}
+
+@media only screen and (min-width: 576px) {
+  .ZipLink {
+    padding: 8px 16px;
+  }
 }
