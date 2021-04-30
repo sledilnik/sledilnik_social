@@ -1,40 +1,44 @@
-.Screenshots img {
-  max-width: 295px;
-}
-
-.Screenshots h2 {
-  font-size: 1em;
-  margin-top: 16px;
-  margin-bottom: 8px;
-}
-
-.Screenshots h2:first-of-type {
-  margin-top: 0;
+.Screenshots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .Screenshots .buttons-container {
   display: flex;
   justify-content: center;
-  align-content: center;
-  padding: 8px;
-}
-
-.Screenshots > .cards,
-.Screenshots > .charts {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
-  margin-bottom: 16px;
 }
 
-.Screenshots > .charts > .chart {
-  margin: 8px 0;
+.Screenshots .multicard,
+.Screenshots .cards,
+.Screenshots .charts {
+  max-width: 640px;
 }
 
-@media only screen and (min-width: 576px) {
-  .Screenshots > .cards,
-  .Screenshots > .charts {
-    justify-content: space-between;
-  }
+.Screenshots .screenshots-container img {
+  max-width: 295px;
+  margin: 4px 0;
+}
+
+.Screenshots .cards img {
+  max-width: 140px;
+}
+
+.Screenshots .multicard .screenshots-container,
+.Screenshots .cards .screenshots-container,
+.Screenshots .charts .screenshots-container {
+  padding: 8px 4px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.Screenshots .screenshot-container {
+  margin: 8px 0 0 0;
+  padding: 4px;
+}
+
+.Screenshots .cards .screenshot-container {
+  margin: 0 auto;
 }
