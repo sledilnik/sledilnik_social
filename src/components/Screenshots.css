@@ -19,7 +19,7 @@
 .Screenshots .multicard,
 .Screenshots .cards,
 .Screenshots .charts {
-  max-width: 640px;
+  max-width: 95%;
 }
 
 .Screenshots .screenshots-container img {
