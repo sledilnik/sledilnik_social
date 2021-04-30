@@ -13,12 +13,14 @@ function ZipLink({ onClickHandler, text }) {
   );
 }
 
-const zipNoFolders = (filenames = []) => {
+const zipNoFolders = (filenames = [], translated = {}) => {
   if (isArray(filenames)) {
     const zip = new JSZip();
     for (let filename of filenames) {
+      const myFilename = translated[filename] || filename;
+      const safeFilename = myFilename.split(':').join('_');
       const image = window.localStorage.getItem(filename);
-      zip.file(filename + '.png', image, { base64: true });
+      zip.file(safeFilename + '.png', image, { base64: true });
     }
 
     return zip;
@@ -27,15 +29,17 @@ const zipNoFolders = (filenames = []) => {
   throw new Error('Argument "filenames" must be an array!');
 };
 
-const zipWithFolders = (filenames = {}) => {
+const zipWithFolders = (filenames = {}, translated = {}) => {
   if (isObject(filenames)) {
     const zip = new JSZip();
     for (const [folderName, fileNames] of Object.entries(filenames)) {
       const folder = zip.folder(folderName);
       if (isArray(fileNames)) {
         for (const filename of fileNames) {
+          const myFilename = translated[filename] || filename;
+          const safeFilename = myFilename.split(':').join('_');
           const image = window.localStorage.getItem(filename);
-          folder.file(filename + '.png', image, { base64: true });
+          folder.file(safeFilename + '.png', image, { base64: true });
         }
       }
     }
@@ -53,8 +57,9 @@ const ClickHandlers = {
 function withZipLinkHOC(Component) {
   const WithZipLink = ({
     filenames,
+    translated,
     text,
-    zipName = 'screenshots.zip',
+    zipName = 'screenshots',
     ...props
   }) => {
     if (!filenames) {
@@ -74,12 +79,12 @@ function withZipLinkHOC(Component) {
     }
 
     const onClickHandler = async () => {
-      const zip = func(filenames);
+      const zip = func(filenames, translated);
       if (!zip) {
         return;
       }
       const content = await zip.generateAsync({ type: 'blob' });
-      FileSaver.saveAs(content, zipName);
+      FileSaver.saveAs(content, `${zipName}.zip`);
     };
 
     const newProps = { text, onClickHandler, ...props };
