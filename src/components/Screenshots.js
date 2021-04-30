@@ -47,10 +47,23 @@ function ScreenshotsByType({ title, type, ...props }) {
     let text =
       indexOf < 0 ? types[name].text : types[_name].customCharts[_custom].text;
 
+    const myTypes = {
+      cards: 'card',
+      charts: 'chart',
+      multicard: 'multicard',
+    };
+
     return (
-      <div key={`${type}-${name}`} className="screenshot-container">
+      <div
+        key={`${myTypes[type.toLowerCase()]}-${name}`}
+        className="screenshot-container"
+      >
         <Screenshot
-          params={{ type: type, screen: name }}
+          params={{
+            type: myTypes[type.toLowerCase()],
+            screen: indexOf < 0 ? name : _name,
+            custom: _custom || '',
+          }}
           captionTop
           captionText={text}
         />
