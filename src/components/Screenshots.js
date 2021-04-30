@@ -14,19 +14,16 @@ const typesDict = {
   MULTICARD,
 };
 
+const getTranslatedScreenshotName = (name, type, typesDict) => {
+  const [screen, custom] = name.split('_');
+  const types = typesDict[type.toUpperCase()];
+  return !custom ? types[screen].text : types[screen].customCharts[custom].text;
+};
+
 const translatedNames = Object.entries(ScreenshotNames).reduce(
   (acc, [type, names]) => {
     const translated = names.reduce((nestedAcc, name) => {
-      const indexOf = name.indexOf('_');
-
-      const types = typesDict[type.toUpperCase()];
-      const [screen, custom] = name.split('_');
-
-      let text =
-        indexOf < 0
-          ? types[name].text
-          : types[screen].customCharts[custom].text;
-      nestedAcc[name] = text;
+      nestedAcc[name] = getTranslatedScreenshotName(name, type, typesDict);
       return nestedAcc;
     }, {});
     acc = { ...acc, ...translated };
@@ -39,20 +36,15 @@ function ScreenshotsByType({ title, type, ...props }) {
   const names = ScreenshotNames[type.toUpperCase()];
 
   const screenshots = names.map(name => {
-    const indexOf = name.indexOf('_');
-
-    const types = typesDict[type.toUpperCase()];
     const [screen, custom] = name.split('_');
-
-    let text =
-      indexOf < 0 ? types[name].text : types[screen].customCharts[custom].text;
+    const text = getTranslatedScreenshotName(name, type, typesDict);
 
     return (
       <div key={`${type}-${name}`} className="screenshot-container">
         <Screenshot
           params={{
             type: type,
-            screen: indexOf < 0 ? name : screen,
+            screen: screen,
             custom: custom || '',
           }}
           captionTop
