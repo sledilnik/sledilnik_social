@@ -25,6 +25,10 @@
 .Screenshots .screenshots-container img {
   max-width: 295px;
   margin: 4px 0;
+}
+
+.Screenshots .Screenshot.loader-container,
+.Screenshots .screenshots-container a img {
   border: 2px solid var(--menu-clr);
   border-radius: 6px;
 }
