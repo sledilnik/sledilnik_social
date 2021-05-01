@@ -19,12 +19,14 @@
 .Screenshots .multicard,
 .Screenshots .cards,
 .Screenshots .charts {
-  max-width: 95%;
+  width: 98%;
 }
 
 .Screenshots .screenshots-container img {
   max-width: 295px;
   margin: 4px 0;
+  border: 2px solid var(--menu-clr);
+  border-radius: 6px;
 }
 
 .Screenshots .multicard .screenshots-container,
@@ -37,13 +39,13 @@
 }
 
 .Screenshots .screenshot-container {
-  margin: 8px 0 0 0;
+  margin: 8px auto;
   padding: 4px;
 }
 
-.Screenshots .cards .screenshot-container {
+/* .Screenshots .cards .screenshot-container {
   margin: 0 auto;
-}
+} */
 
 .Screenshots .ZipLink {
   margin: 0 4px;
