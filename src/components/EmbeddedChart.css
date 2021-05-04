@@ -28,6 +28,12 @@
   width: 100%;
   display: block;
   margin: 4px 0;
+  border-radius: 6px;
+}
+
+.EmbeddedChart a:focus img {
+  -webkit-box-shadow: 0 0 0 0.15rem var(--box-shadow);
+  box-shadow: 0 0 0 0.15rem var(--box-shadow);
 }
 
 .EmbeddedChart label {
@@ -75,14 +81,16 @@
 
 .EmbeddedChart .image-container {
   margin: 8px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .EmbeddedChart .Screenshot.loader-container {
   width: 100%;
   height: 420px;
+}
+
+.EmbeddedChart .Screenshot:focus img {
+  -webkit-box-shadow: 0 1px 3px 0 var(--box-shadow);
+  box-shadow: 0 1px 3px 0 var(--box-shadow);
 }
 
 @media only screen and (min-width: 360px) {
