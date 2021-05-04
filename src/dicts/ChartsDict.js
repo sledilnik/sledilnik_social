@@ -5,7 +5,7 @@ export const getChartUrl = name => `${CHART_BASE_URL}${name}`;
 export default {
   IcuPatients: {
     name: 'IcuPatients',
-    text: 'Intenzivna',
+    text: 'Intenzivna terapija',
     customCharts: {
       twoMonthsTooltip: {
         name: 'twoMonthsTooltip',
