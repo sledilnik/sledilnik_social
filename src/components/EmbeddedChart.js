@@ -24,6 +24,7 @@ function EmbeddedChart() {
   const [src, setSrc] = useState(null);
   const chartPickerRef = useRef();
   const customChartPickerRef = useRef();
+  const hoverIndexPickerRef = useRef();
   const [screen, setScreen] = useState(null);
   const [custom, setCustom] = useState('');
   const [hoverIndex, setHoverIndex] = useState('');
@@ -78,8 +79,6 @@ function EmbeddedChart() {
     const daysToAddToSeries = chartEndDate.getDay();
     const seriesLength = SeriesLength[tsName](days(), daysToAddToSeries);
 
-    console.log(days());
-
     const newArray = [...Array(seriesLength).keys()];
     return newArray.map(item => {
       const text = formatToLocaleDateString(
@@ -123,6 +122,27 @@ function EmbeddedChart() {
   };
 
   const showScreenshotHandler = () => setShow(true);
+
+  const getCaptionText = () => {
+    const chartValue = chartPickerRef.current?.selectedIndex;
+    const customValue = customChartPickerRef.current?.selectedIndex;
+    const hoverValue = hoverIndexPickerRef.current?.selectedIndex;
+
+    const chartName = chartPickerRef.current?.options[chartValue]?.innerText;
+    const customName =
+      customValue !== 0
+        ? customChartPickerRef.current?.options[customValue]?.innerText
+        : '';
+    let hoverName = hoverIndexPickerRef.current?.options[hoverValue]?.innerText;
+
+    hoverName = hoverName && hoverName.split('.').join('_');
+
+    let captionText = customName ? chartName + '_' + customName : chartName;
+    captionText = hoverName ? captionText + '_' + hoverName : captionText;
+
+    return captionText;
+  };
+
   return (
     <div className="EmbeddedChart">
       <div className="button-container">
@@ -157,6 +177,7 @@ function EmbeddedChart() {
           <div className="select-container">
             <label htmlFor="custom-chart-hoverIndex-picker">Dan</label>
             <select
+              ref={hoverIndexPickerRef}
               name="custom-chart-hoverIndex-picker"
               id="custom-chart-hoverIndex-picker"
               onChange={changeCustomChartHoverIndexHandler}
@@ -183,6 +204,7 @@ function EmbeddedChart() {
             noSkip
             captionTop
             captionBottom
+            captionText={getCaptionText()}
           />
         )}
       </div>
