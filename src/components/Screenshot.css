@@ -3,6 +3,10 @@
   margin: 16px 0;
 }
 
+div > figcaption {
+  font-size: 0.8em;
+}
+
 .Screenshot.loader-container {
   display: flex;
   justify-content: space-evenly;
