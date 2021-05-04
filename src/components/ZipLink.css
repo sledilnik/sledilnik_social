@@ -1,0 +1,23 @@
+.ZipLink {
+  padding: 4px 8px;
+  background-color: var(--bcg-body-clr);
+  border-radius: 8px;
+  color: var(--menu-clr);
+  border: 2px solid var(--menu-clr);
+  cursor: pointer;
+  transition: all 1.2s;
+}
+
+.ZipLink:hover,
+.ZipLink:focus {
+  background-color: var(--menu-clr);
+  border-radius: 8px;
+  color: var(--bcg-body-clr);
+  border-color: var(--bcg-body-clr);
+}
+
+@media only screen and (min-width: 576px) {
+  .ZipLink {
+    padding: 8px 16px;
+  }
+}
