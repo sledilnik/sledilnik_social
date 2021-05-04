@@ -16,7 +16,11 @@ const Screenshot = ({
 }) => {
   const { type, screen, custom, hoverIndex } = params;
   let filename = custom ? screen + '_' + custom : screen;
-  filename = !isNaN(hoverIndex) ? filename + '_' + hoverIndex : filename;
+  filename =
+    !isNaN(hoverIndex) && hoverIndex !== ''
+      ? filename + '_' + hoverIndex
+      : filename;
+  filename = captionText || filename;
 
   const [value, setValue] = useLocalStorage(null, filename);
   const {
@@ -70,7 +74,7 @@ const Screenshot = ({
             src={`data:image/jpeg;base64,${href}`}
             alt={alt}
             loading="lazy"
-            decoding
+            decoding="true"
             async
           />
           {captionBottom && <figcaption>{figCaptionText}</figcaption>}
