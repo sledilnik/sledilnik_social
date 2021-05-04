@@ -15,7 +15,8 @@ In tabs 'LAB' are 'HOS' are links (icon: 'file-download'). Clicking on link will
 Screenshots are stored in browser local storage `base64` encoded. If local storage value is `null` then it will call [sledilnik-screnshots AWS Lambda Function](https://github.com/jalezi/sledilnik-screenshots).
 
 Clicking on `image` should start download.
-Clicking on `button` 'Prenesi ZIP' should `zip` all `images` and download `zip` file.
+Clicking on `button` 'Vse' should `zip` all `images` and download `zip` file.
+Clicking on `button` 'Multi kartice', 'Grafi' or 'Kartice' should `zip` and download just images in each section.
 
 We are also storing last [timestamp](https://github.com/sledilnik/data/blob/master/csv/stats.csv.timestamp). If `timestamp` is old then we re-fetch all screenshots.
 
@@ -28,6 +29,46 @@ Select your choice and click `button` 'Naredi posnetek grafa'.
 Clicking on `button` will call [SledilnikScreenshots AWS Lambda Function](https://github.com/VesterDe/SledilnikScreenshots). Clicking on `image` should start download.
 
 Those screenshots are not stored in local storage.
+
+#### Charts
+
+- IcuPatients
+- Patients
+- DailyComparison
+- Map
+- AgeGroupsTimeline
+- MetricsComparison
+- EuropeMap
+- WorldMap
+- CarePatients
+- Ratios
+- Tests
+- HCenters
+- Spread
+- Infections
+- Regions
+- RegionMap
+- Municipalities
+- SchoolStatus
+- AgeGroups
+
+#### Custom charts
+
+- IcuPatients:
+  - twoMonthsTooltip
+- Patients:
+  - twoMonthsTooltip
+- DailyComparison:
+  - casesConfirmedTooltip
+  - casesActiveTooltip
+  - performedPCRTooltip
+  - sharePCRTooltip
+- Map:
+  - weeklyGrowth
+  - absolute1Day
+  - distribution1Day
+- AgeGroupsTimeline:
+  - twoMonthsNewCasesTooltip
 
 ## ver 0.4.0
 
