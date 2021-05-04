@@ -51,18 +51,28 @@ const Screenshot = ({
       )}
 
       {isLoading && (
-        <div className="Screenshot loader-container">
-          <Loader />
-        </div>
+        <>
+          {captionTop && <figcaption>{figCaptionText}</figcaption>}
+          <div className="Screenshot loader-container">
+            <Loader />
+          </div>
+          {captionBottom && <figcaption>{figCaptionText}</figcaption>}
+        </>
       )}
       {!isLoading && href && !hasError && (
         <a
           className="Screenshot"
-          href={`data:image/jpeg;base64,${href}`}
+          href={`data:image/png;base64,${href}`}
           download={filename}
         >
           {captionTop && <figcaption>{figCaptionText}</figcaption>}
-          <img src={`data:image/jpeg;base64,${href}`} alt={alt} />
+          <img
+            src={`data:image/jpeg;base64,${href}`}
+            alt={alt}
+            loading="lazy"
+            decoding
+            async
+          />
           {captionBottom && <figcaption>{figCaptionText}</figcaption>}
         </a>
       )}
