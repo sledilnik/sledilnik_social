@@ -76,7 +76,9 @@ function EmbeddedChart() {
     const addDaysToCalculateChartEndDate = AddDays[tsName];
     const chartEndDate = addDays(customTsDate, addDaysToCalculateChartEndDate);
     const daysToAddToSeries = chartEndDate.getDay();
-    const seriesLength = SeriesLength[tsName](days, daysToAddToSeries);
+    const seriesLength = SeriesLength[tsName](days(), daysToAddToSeries);
+
+    console.log(days());
 
     const newArray = [...Array(seriesLength).keys()];
     return newArray.map(item => {

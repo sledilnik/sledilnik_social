@@ -1,4 +1,16 @@
+import { differenceInDays, addMonths } from 'date-fns';
 const CHART_BASE_URL = 'https://covid-19.sledilnik.org/embed.html#/chart/';
+
+const getDaysDiffOnDifferentMonth = (
+  monthsToAdd = 1,
+  dateLeft = new Date()
+) => {
+  const dateRight = addMonths(dateLeft, monthsToAdd);
+  return differenceInDays(dateLeft, dateRight) + 1;
+};
+
+const return2Months = () => getDaysDiffOnDifferentMonth(-2);
+const return35 = () => 35;
 
 export const getChartUrl = name => `${CHART_BASE_URL}${name}`;
 
@@ -11,7 +23,7 @@ export default {
         name: 'twoMonthsTooltip',
         text: 'Vse bolnišnice - 2m',
         hasHoverIndex: true,
-        days: 60,
+        days: return2Months,
         tsName: 'patients',
       },
     },
@@ -24,7 +36,7 @@ export default {
         name: 'twoMonthsTooltip',
         text: 'Vse bolnišnice - 2m',
         hasHoverIndex: true,
-        days: 60,
+        days: return2Months,
         tsName: 'patients',
       },
     },
@@ -38,28 +50,28 @@ export default {
         name: 'casesConfirmedTooltip',
         text: 'Potrjeni',
         hasHoverIndex: true,
-        days: 35,
+        days: return35,
         tsName: 'labTests',
       },
       casesActiveTooltip: {
         name: 'casesActiveTooltip',
         text: 'Aktivni',
         hasHoverIndex: true,
-        days: 35,
+        days: return35,
         tsName: 'labTests',
       },
       performedPCRTooltip: {
         name: 'performedPCRTooltip',
         text: 'Testi: PCR',
         hasHoverIndex: true,
-        days: 35,
+        days: return35,
         tsName: 'labTests',
       },
       sharePCRTooltip: {
         name: 'sharePCRTooltip',
         text: 'Delež pozitivnih: PCR',
         hasHoverIndex: true,
-        days: 35,
+        days: return35,
         tsName: 'labTests',
       },
     },
@@ -93,7 +105,7 @@ export default {
         name: 'twoMonthsNewCasesTooltip',
         text: 'Novi primeri - 2m',
         hasHoverIndex: true,
-        days: 60,
+        days: return2Months,
         tsName: 'cases',
       },
     },
