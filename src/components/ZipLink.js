@@ -84,7 +84,17 @@ function withZipLinkHOC(Component) {
         return;
       }
       const content = await zip.generateAsync({ type: 'blob' });
-      FileSaver.saveAs(content, `${zipName}.zip`);
+
+      const isFileSaverSupported = () => {
+        try {
+          return !!Blob;
+        } catch (error) {
+          return false;
+        }
+      };
+
+      isFileSaverSupported() && FileSaver.saveAs(content, `${zipName}.zip`);
+      !isFileSaverSupported() && console.warn('Blob Not supported!');
     };
 
     const newProps = { text, onClickHandler, ...props };
