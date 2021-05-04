@@ -31,12 +31,14 @@
   border-radius: 6px;
 }
 
-.EmbeddedChart a img {
+.EmbeddedChart .Screenshot.loader-container,
+.EmbeddedChart .image-container > .Screenshot > img {
+  border-radius: 6px;
   -webkit-box-shadow: 0 1px 3px 0 var(--box-shadow);
   box-shadow: 0 1px 3px 0 var(--box-shadow);
 }
 
-.EmbeddedChart a:focus img {
+.EmbeddedChart .image-container a:focus img {
   -webkit-box-shadow: 0 0 0 0.15rem var(--box-shadow);
   box-shadow: 0 0 0 0.15rem var(--box-shadow);
 }
