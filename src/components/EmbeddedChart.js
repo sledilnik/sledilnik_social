@@ -55,7 +55,7 @@ function EmbeddedChart() {
   });
 
   const customChartPickerOptions = chartData?.customCharts
-    ? Object.entries(chartData?.customCharts).map(([key, item]) => {
+    ? Object.entries(chartData.customCharts).map(([key, item]) => {
         const { name, text } = item;
         const displayName = text || name || key;
         return (
