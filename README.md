@@ -6,9 +6,12 @@ Basic API extraction to serve Sledilnik's API data in a Social media form.
 
 Two new tabs: 'Posnetki' and 'Grafi'.
 
-Add Covid-10 Sledilnik chart and card screenshots. Screenshots are created with [sledilnik-screnshots AWS Lambda Function](https://github.com/jalezi/sledilnik-screenshots).
+Add Covid-10 Sledilnik chart and card screenshots.
+Screenshots are created with two different AWS lambda functions.
 
-In tabs 'LAB' are 'HOS' are links (icon: 'file-download'). Clicking on link will download screenshot. Those screenshots are made with [SledilnikScreenshots AWS Lambda Function](https://github.com/VesterDe/SledilnikScreenshots).
+Screenshots in tabs 'Posnetki' and 'Grafi' are created with [sledilnik-screnshots AWS Lambda Function](https://github.com/jalezi/sledilnik-screenshots). Download will start by clicking on image.
+
+Screenshots in tabs 'LAB' are 'HOS' are created with [SledilnikScreenshots AWS Lambda Function](https://github.com/VesterDe/SledilnikScreenshots). Download will start by clicking on appropriate icon.
 
 ### 'Posnetki' tab
 
