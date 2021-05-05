@@ -2,6 +2,77 @@
 
 Basic API extraction to serve Sledilnik's API data in a Social media form.
 
+## ver 0.5.0
+
+Two new tabs: 'Posnetki' and 'Grafi'.
+
+Add Covid-10 Sledilnik chart and card screenshots.
+Screenshots are created with two different AWS lambda functions.
+
+Screenshots in tabs 'Posnetki' and 'Grafi' are created with [sledilnik-screnshots AWS Lambda Function](https://github.com/jalezi/sledilnik-screenshots). Download will start by clicking on image.
+
+Screenshots in tabs 'LAB' are 'HOS' are created with [SledilnikScreenshots AWS Lambda Function](https://github.com/VesterDe/SledilnikScreenshots). Download will start by clicking on appropriate icon.
+
+### 'Posnetki' tab
+
+Screenshots are stored in browser local storage `base64` encoded. If local storage value is `null` then it will call [sledilnik-screnshots AWS Lambda Function](https://github.com/jalezi/sledilnik-screenshots).
+
+Clicking on `image` should start download.
+Clicking on `button` 'Vse' should `zip` all `images` and download `zip` file.
+Clicking on `button` 'Multi kartice', 'Grafi' or 'Kartice' should `zip` and download just images in each section.
+
+We are also storing last [timestamp](https://github.com/sledilnik/data/blob/master/csv/stats.csv.timestamp). If `timestamp` is old then we re-fetch all screenshots.
+
+### 'Grafi' tab
+
+At the bottom of the page is `iframe` with selected [`chart`](https://github.com/sledilnik/website/blob/master/examples/README.md).
+
+Select your choice and click `button` 'Naredi posnetek grafa'.
+
+Clicking on `button` will call [SledilnikScreenshots AWS Lambda Function](https://github.com/VesterDe/SledilnikScreenshots). Clicking on `image` should start download.
+
+Those screenshots are not stored in local storage.
+
+#### Charts
+
+- IcuPatients
+- Patients
+- DailyComparison
+- Map
+- AgeGroupsTimeline
+- MetricsComparison
+- EuropeMap
+- WorldMap
+- CarePatients
+- Ratios
+- Tests
+- HCenters
+- Spread
+- Infections
+- Regions
+- RegionMap
+- Municipalities
+- SchoolStatus
+- AgeGroups
+
+#### Custom charts
+
+- IcuPatients:
+  - twoMonthsTooltip
+- Patients:
+  - twoMonthsTooltip
+- DailyComparison:
+  - casesConfirmedTooltip
+  - casesActiveTooltip
+  - performedPCRTooltip
+  - sharePCRTooltip
+- Map:
+  - weeklyGrowth
+  - absolute1Day
+  - distribution1Day
+- AgeGroupsTimeline:
+  - twoMonthsNewCasesTooltip
+
 ## ver 0.4.0
 
 Endpoints for data fetch are set in `urlDict.js`.

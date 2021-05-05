@@ -14,6 +14,8 @@ import InHospitals from './InHospitals';
 import Municipalities from './Municipalities';
 import SocialChanger from './SocialChanger';
 import CancelButton from './CancelButton';
+import Screenshots from './Screenshots';
+import EmbeddedChart from './EmbeddedChart';
 
 const downloadScreenshot = href => {
   const link = document.createElement('a');
@@ -272,6 +274,8 @@ const cards = {
   LAB: <LAB noClose />,
   HOS: <HOS noClose />,
   EPI: <EPI noClose />,
+  SCREENSHOTS: <Screenshots />,
+  CHARTS: <EmbeddedChart />,
 };
 
 function Posts() {
@@ -310,6 +314,18 @@ function Posts() {
             onClick={event => changeCard(event, 'EPI')}
           >
             EPI
+          </button>
+          <button
+            className="tablinks"
+            onClick={event => changeCard(event, 'SCREENSHOTS')}
+          >
+            Posnetki
+          </button>
+          <button
+            className="tablinks"
+            onClick={event => changeCard(event, 'CHARTS')}
+          >
+            Grafi
           </button>
         </div>
         <SocialChanger />
