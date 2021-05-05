@@ -36,6 +36,12 @@ const Screenshot = ({
   const href = noSkip ? data?.body : value || data?.body;
   for (const pickerRef of Object.values(pickers)) {
     pickerRef.current && (pickerRef.current.disabled = isLoading);
+    const labels = document.querySelectorAll('.select-container label');
+    labels &&
+      [...labels].map(
+        label =>
+          (label.style.color = isLoading ? 'var(--box-shadow)' : 'initial')
+      );
   }
 
   useEffect(() => {

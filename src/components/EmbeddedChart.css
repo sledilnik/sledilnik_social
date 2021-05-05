@@ -18,6 +18,7 @@
 
 .EmbeddedChart label {
   font-size: 0.8em;
+  margin-bottom: 4px;
   padding-right: 4px;
 }
 
@@ -50,10 +51,6 @@
 .EmbeddedChart .image-container a:focus img {
   -webkit-box-shadow: 0 0 0 0.15rem var(--box-shadow);
   box-shadow: 0 0 0 0.15rem var(--box-shadow);
-}
-
-.EmbeddedChart label {
-  margin-bottom: 4px;
 }
 
 .EmbeddedChart select {
