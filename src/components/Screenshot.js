@@ -34,7 +34,6 @@ const Screenshot = ({
   } = useFetch(awsLambdaURL, params, {}, !!value && !noSkip);
 
   const href = noSkip ? data?.body : value || data?.body;
-  console.log(pickers);
   for (const pickerRef of Object.values(pickers)) {
     pickerRef.current && (pickerRef.current.disabled = isLoading);
   }
