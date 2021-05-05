@@ -2,7 +2,15 @@
   min-width: 100%;
 }
 
-.EmbeddedChart > iframe {
+.EmbeddedChart h2 {
+  font-size: 1em;
+}
+
+.EmbeddedChart figcaption {
+  font-size: 0.8em;
+}
+
+.EmbeddedChart iframe {
   min-height: 120vh;
   max-width: 1140px;
 }

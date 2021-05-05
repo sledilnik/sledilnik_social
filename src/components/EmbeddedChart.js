@@ -213,13 +213,17 @@ function EmbeddedChart() {
           />
         )}
       </div>
-      <iframe
-        id="embedded-chart"
-        src={src}
-        frameBorder="0"
-        title="embedded-chart"
-        width="100%"
-      ></iframe>
+      <h2>Vgrajen graf</h2>
+      <figure>
+        <figcaption>{chartData?.text || chartData?.name}</figcaption>
+        <iframe
+          id="embedded-chart"
+          src={src}
+          frameBorder="0"
+          title="embedded-chart"
+          width="100%"
+        ></iframe>
+      </figure>
     </div>
   );
 }
