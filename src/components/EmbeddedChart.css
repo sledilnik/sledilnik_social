@@ -66,6 +66,10 @@
   box-shadow: 0 0 0 0.15rem var(--box-shadow);
 }
 
+.EmbeddedChart select:disabled {
+  color: var(--box-shadow);
+}
+
 .EmbeddedChart button {
   padding: 8px 16px;
   background-color: var(--bcg-body-clr);

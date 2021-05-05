@@ -205,6 +205,11 @@ function EmbeddedChart() {
             captionTop
             captionBottom
             captionText={getCaptionText()}
+            pickers={{
+              chartPickerRef,
+              customChartPickerRef,
+              hoverIndexPickerRef,
+            }}
           />
         )}
       </div>
