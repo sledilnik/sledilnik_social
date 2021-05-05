@@ -4,7 +4,7 @@ Basic API extraction to serve Sledilnik's API data in a Social media form.
 
 ## ver 0.5.0
 
-Two new tabs: 'Posnetki' in 'Grafi'.
+Two new tabs: 'Posnetki' and 'Grafi'.
 
 Add Covid-10 Sledilnik chart and card screenshots. Screenshots are created with [sledilnik-screnshots AWS Lambda Function](https://github.com/jalezi/sledilnik-screenshots).
 
