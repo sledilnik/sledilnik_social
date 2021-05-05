@@ -13,6 +13,7 @@ const Screenshot = ({
   captionTop,
   captionBottom,
   captionText = '',
+  pickers = {},
 }) => {
   const { type, screen, custom, hoverIndex } = params;
   let filename = custom ? screen + '_' + custom : screen;
@@ -33,6 +34,10 @@ const Screenshot = ({
   } = useFetch(awsLambdaURL, params, {}, !!value && !noSkip);
 
   const href = noSkip ? data?.body : value || data?.body;
+  console.log(pickers);
+  for (const pickerRef of Object.values(pickers)) {
+    pickerRef.current && (pickerRef.current.disabled = isLoading);
+  }
 
   useEffect(() => {
     if (href && !noSkip) {
