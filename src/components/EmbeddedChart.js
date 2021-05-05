@@ -194,23 +194,26 @@ function EmbeddedChart() {
           <button onClick={showScreenshotHandler}>Naredi posnetek grafa</button>
         )}
         {show && screen && (
-          <Screenshot
-            params={{
-              type: 'chart',
-              screen: screen,
-              custom: custom,
-              hoverIndex: hoverIndex,
-            }}
-            noSkip
-            captionTop
-            captionBottom
-            captionText={getCaptionText()}
-            pickers={{
-              chartPickerRef,
-              customChartPickerRef,
-              hoverIndexPickerRef,
-            }}
-          />
+          <>
+            <h2>Posnetek grafa</h2>
+            <Screenshot
+              params={{
+                type: 'chart',
+                screen: screen,
+                custom: custom,
+                hoverIndex: hoverIndex,
+              }}
+              noSkip
+              captionTop
+              captionBottom
+              captionText={getCaptionText()}
+              pickers={{
+                chartPickerRef,
+                customChartPickerRef,
+                hoverIndexPickerRef,
+              }}
+            />
+          </>
         )}
       </div>
       <h2>Vgrajen graf</h2>
