@@ -170,4 +170,40 @@ export default {
     name: 'AgeGroups',
     text: 'Po starostnih skupinah',
   },
+  PhaseDiagram: {
+    name: 'PhaseDiagram',
+    text: 'Fazni diagram',
+  },
+  Sources: {
+    name: 'Sources',
+    text: 'Viri in lokacije okužb, tedensko',
+  },
+  HcCases: {
+    name: 'HcCases',
+    text: 'Primeri v zdravstvu in domovih za starejše občane, tedensko',
+  },
+  ExcessDeaths: {
+    name: 'ExcessDeaths',
+    text: 'Presežne smrti',
+  },
+  Deceased: {
+    name: 'Deceased',
+    text: 'Umrli',
+  },
+  MetricsCorrelation: {
+    name: 'MetricsCorrelation',
+    text: 'Soodvisnost primerov, hospitaliziranih in umrlih',
+  },
+  WeeklyDemographics: {
+    name: 'WeeklyDemographics',
+    text: 'Demografija potrjenih primerov, tedensko',
+  },
+  Schools: {
+    name: 'Schools',
+    text: 'Primeri v šolah in vrtcih',
+  },
+  Sewage: {
+    name: 'Sewage',
+    text: 'Virus v odpadnih vodah',
+  },
 };
