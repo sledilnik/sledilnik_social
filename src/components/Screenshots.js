@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { formatRelative } from 'date-fns';
-import { sl } from 'date-fns/locale';
+// import { formatRelative } from 'date-fns';
+// import { sl } from 'date-fns/locale';
 
 import { ScreenshotNames } from '../dicts/ScreenshotGetUseLocalStorage';
 import Screenshot from './Screenshot';
@@ -99,13 +99,13 @@ function Screenshots() {
     }
   }, [localTs, ts, setLocalTs, screenshotsUseLocalStorageHooks]);
 
-  const relateiveDate = formatRelative(new Date(ts * 1000), new Date(), {
-    locale: sl,
-  });
+  // const relateiveDate = formatRelative(new Date(ts * 1000), new Date(), {
+  //   locale: sl,
+  // });
 
   return (
     <div className="Screenshots">
-      <span className="timestamp">{relateiveDate}</span>
+      {/* <span className="timestamp">{relateiveDate}</span> */}
       <div className="buttons-container">
         <ZipLink
           text="Vse"

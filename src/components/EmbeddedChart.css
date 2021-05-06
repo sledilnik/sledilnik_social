@@ -46,11 +46,13 @@
   border-radius: 6px;
   -webkit-box-shadow: 0 1px 3px 0 var(--box-shadow);
   box-shadow: 0 1px 3px 0 var(--box-shadow);
+  border: 0.5px solid var(--menu-clr);
 }
 
 .EmbeddedChart .image-container a:focus img {
   -webkit-box-shadow: 0 0 0 0.15rem var(--box-shadow);
   box-shadow: 0 0 0 0.15rem var(--box-shadow);
+  border: none;
 }
 
 .EmbeddedChart select {
