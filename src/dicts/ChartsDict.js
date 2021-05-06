@@ -137,6 +137,7 @@ export default {
   HCenters: {
     name: 'HCenters',
     text: 'Obravnava v ZD',
+    noShow: true,
   },
   Cases: {
     name: 'Cases',
