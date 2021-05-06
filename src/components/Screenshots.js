@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { formatRelative } from 'date-fns';
+import { sl } from 'date-fns/locale';
+
 import { ScreenshotNames } from '../dicts/ScreenshotGetUseLocalStorage';
 import Screenshot from './Screenshot';
 import './Screenshots.css';
 import ZipLink from './ZipLink';
+import ScreenshotGetUseLocalStorage from '../dicts/ScreenshotGetUseLocalStorage';
 
 import CHART from '../dicts/ChartsDict';
 import CARD from '../dicts/CardsDict';
 import MULTICARD from '../dicts/MulticardDict';
+import { TimestampsContext } from '../context/TimestampsContext';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const typesDict = {
   CHART,
@@ -63,8 +69,43 @@ function ScreenshotsByType({ title, type, ...props }) {
 }
 
 function Screenshots() {
+  const { stats } = useContext(TimestampsContext);
+  const [localTs, setLocalTs] = useLocalStorage(stats.data, 'statsTimestamp');
+  const [show, setShow] = useState(true);
+
+  const screenshotsUseLocalStorageHooks = Object.entries(
+    ScreenshotGetUseLocalStorage
+  ).reduce((acc, [key, binddedUseLocalStorage]) => {
+    acc[key] = binddedUseLocalStorage();
+    return acc;
+  }, {});
+
+  const ts = stats.data;
+
+  useEffect(() => {
+    if (localTs < ts) {
+      setLocalTs(ts);
+      setShow(false);
+    }
+
+    if (localTs === null || localTs < ts) {
+      for (let item of Object.entries(screenshotsUseLocalStorageHooks)) {
+        item[1][1](null);
+      }
+    }
+
+    if (localTs === ts) {
+      setShow(true);
+    }
+  }, [localTs, ts, setLocalTs, screenshotsUseLocalStorageHooks]);
+
+  const relateiveDate = formatRelative(new Date(ts * 1000), new Date(), {
+    locale: sl,
+  });
+
   return (
     <div className="Screenshots">
+      <span className="timestamp">{relateiveDate}</span>
       <div className="buttons-container">
         <ZipLink
           text="Vse"
@@ -91,13 +132,21 @@ function Screenshots() {
           zipName={'cards_screeenshots'}
         />
       </div>
-      <ScreenshotsByType title="Multi" type="multicard" className="multicard" />
-      <ScreenshotsByType
-        title="Posamezne kartice"
-        type="card"
-        className="cards"
-      />
-      <ScreenshotsByType title="Grafi" type="chart" className="charts" />
+      {show && (
+        <>
+          <ScreenshotsByType
+            title="Multi"
+            type="multicard"
+            className="multicard"
+          />
+          <ScreenshotsByType
+            title="Posamezne kartice"
+            type="card"
+            className="cards"
+          />
+          <ScreenshotsByType title="Grafi" type="chart" className="charts" />
+        </>
+      )}
     </div>
   );
 }
