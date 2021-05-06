@@ -21,9 +21,10 @@ const Screenshot = ({
     !isNaN(hoverIndex) && hoverIndex !== ''
       ? filename + '_' + hoverIndex
       : filename;
-  filename = captionText || filename;
 
   const [value, setValue] = useLocalStorage(null, filename);
+  filename = captionText || filename; // ! must be after useLocalStorage
+
   const {
     data,
     isLoading,
