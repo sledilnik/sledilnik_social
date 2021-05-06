@@ -45,26 +45,34 @@ function EmbeddedChart() {
     setShowChartOptions(!!chartData?.customCharts);
   }, [chartData]);
 
-  const chartPickerOptions = Object.entries(CHARTS).map(([key, item]) => {
-    const { name, text } = item;
-    const displayName = text || name || key;
-    return (
-      <option key={name || key} value={name || key}>
-        {displayName}
-      </option>
-    );
-  });
+  const chartPickerOptions = Object.entries(CHARTS)
+    .filter(item => {
+      return !item[1].noShow;
+    })
+    .map(([key, item]) => {
+      const { name, text } = item;
+      const displayName = text || name || key;
+      return (
+        <option key={name || key} value={name || key}>
+          {displayName}
+        </option>
+      );
+    });
 
   const customChartPickerOptions = chartData?.customCharts
-    ? Object.entries(chartData.customCharts).map(([key, item]) => {
-        const { name, text } = item;
-        const displayName = text || name || key;
-        return (
-          <option key={name || key} value={name || key}>
-            {displayName}
-          </option>
-        );
-      })
+    ? Object.entries(chartData.customCharts)
+        .filter(item => {
+          return !item[1].noShow;
+        })
+        .map(([key, item]) => {
+          const { name, text } = item;
+          const displayName = text || name || key;
+          return (
+            <option key={name || key} value={name || key}>
+              {displayName}
+            </option>
+          );
+        })
     : null;
 
   const customChart =
