@@ -151,6 +151,20 @@ function EmbeddedChart() {
     return captionText;
   };
 
+  const resizeFrame = event => {
+    if (event.data.type === 'embed-size') {
+      console.log('resize event received', event.data);
+      var iframe = document.querySelector(
+        "iframe[name='" + event.data.name + "']"
+      );
+      if (iframe != null) {
+        iframe.style.height = event.data.height + 'px';
+      }
+    }
+  };
+
+  window.addEventListener('message', resizeFrame);
+
   return (
     <div className="EmbeddedChart">
       <div className="button-container">
@@ -233,6 +247,7 @@ function EmbeddedChart() {
           frameBorder="0"
           title="embedded-chart"
           width="100%"
+          name="embeddeed-chart"
         ></iframe>
       </figure>
     </div>
