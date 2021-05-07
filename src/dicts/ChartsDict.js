@@ -14,6 +14,19 @@ const return35 = () => 35;
 
 export const getChartUrl = name => `${CHART_BASE_URL}${name}`;
 
+const CUSTOM_CHART_OPTIONS = {
+  patients2Months: {
+    hasHoverIndex: true,
+    days: return2Months,
+    tsName: 'patients',
+  },
+  labTests35: {
+    hasHoverIndex: true,
+    days: return35,
+    tsName: 'labTests',
+  },
+};
+
 export default {
   IcuPatients: {
     name: 'IcuPatients',
@@ -22,9 +35,7 @@ export default {
       twoMonthsTooltip: {
         name: 'twoMonthsTooltip',
         text: 'Vse bolnišnice - 2m',
-        hasHoverIndex: true,
-        days: return2Months,
-        tsName: 'patients',
+        ...CUSTOM_CHART_OPTIONS.patients2Months,
       },
     },
   },
@@ -35,13 +46,10 @@ export default {
       twoMonthsTooltip: {
         name: 'twoMonthsTooltip',
         text: 'Vse bolnišnice - 2m',
-        hasHoverIndex: true,
-        days: return2Months,
-        tsName: 'patients',
+        ...CUSTOM_CHART_OPTIONS.patients2Months,
       },
     },
   },
-
   DailyComparison: {
     name: 'DailyComparison',
     text: 'Primerjava po dnevih v tednu',
@@ -49,30 +57,52 @@ export default {
       casesConfirmedTooltip: {
         name: 'casesConfirmedTooltip',
         text: 'Potrjeni',
-        hasHoverIndex: true,
-        days: return35,
-        tsName: 'labTests',
+        ...CUSTOM_CHART_OPTIONS.labTests35,
       },
       casesActiveTooltip: {
         name: 'casesActiveTooltip',
         text: 'Aktivni',
-        hasHoverIndex: true,
-        days: return35,
-        tsName: 'labTests',
+        ...CUSTOM_CHART_OPTIONS.labTests35,
       },
       performedPCRTooltip: {
         name: 'performedPCRTooltip',
         text: 'Testi: PCR',
-        hasHoverIndex: true,
-        days: return35,
-        tsName: 'labTests',
+        ...CUSTOM_CHART_OPTIONS.labTests35,
       },
       sharePCRTooltip: {
         name: 'sharePCRTooltip',
         text: 'Delež pozitivnih: PCR',
-        hasHoverIndex: true,
-        days: return35,
-        tsName: 'labTests',
+        ...CUSTOM_CHART_OPTIONS.labTests35,
+      },
+      testsHATTooltip: {
+        name: 'testsHATTooltip',
+        text: 'Testi: HAT',
+        ...CUSTOM_CHART_OPTIONS.labTests35,
+      },
+      vaccinesUsedTooltip: {
+        name: 'vaccinesUsedTooltip',
+        text: 'Uporabljeni odmerki cepiva',
+        ...CUSTOM_CHART_OPTIONS.labTests35,
+      },
+      admittedHospitalsTooltip: {
+        name: 'admittedHospitalsTooltip',
+        text: 'Sprejeti v bonišnico',
+        ...CUSTOM_CHART_OPTIONS.labTests35,
+      },
+      dischargedHospitalsTooltip: {
+        name: 'dischargedHospitalsTooltip',
+        text: 'Odpuščeni iz bolnišnice',
+        ...CUSTOM_CHART_OPTIONS.labTests35,
+      },
+      admittedICUTooltip: {
+        name: 'admittedICUTooltip',
+        text: 'Sprejeti v intenzivno',
+        ...CUSTOM_CHART_OPTIONS.labTests35,
+      },
+      deceasedTooltip: {
+        name: 'deceasedTooltip',
+        text: 'Umrli',
+        ...CUSTOM_CHART_OPTIONS.labTests35,
       },
     },
   },
