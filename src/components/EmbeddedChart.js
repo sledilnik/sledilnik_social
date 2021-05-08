@@ -193,7 +193,14 @@ function EmbeddedChart() {
     <div className="EmbeddedChart">
       <div className="button-container">
         <div className="select-container">
-          <label htmlFor="chart-picker">Izberi graf</label>
+          <label htmlFor="chart-picker">
+            Izberi graf{' '}
+            <div className="option-legend has-custom-charts">Opcija</div>
+            <div className="option-legend has-not-custom-charts">
+              Brez opcij
+            </div>
+          </label>
+
           <select
             ref={chartPickerRef}
             name="chart-picker"
