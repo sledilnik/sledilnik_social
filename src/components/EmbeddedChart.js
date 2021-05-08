@@ -59,6 +59,20 @@ function EmbeddedChart() {
       );
     });
 
+  const chartPickerOptionsArchived = Object.entries(CHARTS)
+    .filter(item => {
+      return item[1].noShow;
+    })
+    .map(([key, item]) => {
+      const { name, text } = item;
+      const displayName = text || name || key;
+      return (
+        <option key={name || key} value={name || key}>
+          {displayName}
+        </option>
+      );
+    });
+
   const customChartPickerOptions = chartData?.customCharts
     ? Object.entries(chartData.customCharts)
         .filter(item => {
@@ -177,7 +191,8 @@ function EmbeddedChart() {
             onChange={changeChartHandler}
             defaultValue={screen}
           >
-            {chartPickerOptions}
+            <optgroup label="Aktivni">{chartPickerOptions}</optgroup>
+            <optgroup label="Arhiv">{chartPickerOptionsArchived}</optgroup>
           </select>
         </div>
         {showChartOptions && (
