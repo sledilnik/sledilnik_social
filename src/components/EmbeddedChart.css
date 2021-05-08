@@ -106,6 +106,14 @@
   height: 420px;
 }
 
+.EmbeddedChart option[data-has-custom-charts='true'] {
+  background-color: var(--box-shadow);
+}
+
+.EmbeddedChart option[data-has-custom-charts='false'] {
+  background-color: var(--bcg-body-clr);
+}
+
 @media only screen and (min-width: 360px) {
   .EmbeddedChart .button-container .select-container {
     width: initial;
