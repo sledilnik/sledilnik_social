@@ -2,167 +2,152 @@
 
 Basic API extraction to serve Sledilnik's API data in a Social media form.
 
-## ver: 0.3.0
+## ver 0.5.0
+
+Two new tabs: 'Posnetki' and 'Grafi'.
+
+Add Covid-10 Sledilnik chart and card screenshots.
+Screenshots are created with two different AWS lambda functions.
+
+Screenshots in tabs 'Posnetki' and 'Grafi' are created with [sledilnik-screnshots AWS Lambda Function](https://github.com/jalezi/sledilnik-screenshots). Download will start by clicking on image.
+
+Screenshots in tabs 'LAB' are 'HOS' are created with [SledilnikScreenshots AWS Lambda Function](https://github.com/VesterDe/SledilnikScreenshots). Download will start by clicking on appropriate icon.
+
+### 'Posnetki' tab
+
+Screenshots are stored in browser local storage `base64` encoded. If local storage value is `null` then it will call [sledilnik-screnshots AWS Lambda Function](https://github.com/jalezi/sledilnik-screenshots).
+
+Clicking on `image` should start download.
+Clicking on `button` 'Vse' should `zip` all `images` and download `zip` file.
+Clicking on `button` 'Multi kartice', 'Grafi' or 'Kartice' should `zip` and download just images in each section.
+
+We are also storing last [timestamp](https://github.com/sledilnik/data/blob/master/csv/stats.csv.timestamp). If `timestamp` is old then we re-fetch all screenshots.
+
+### 'Grafi' tab
+
+At the bottom of the page is `iframe` with selected [`chart`](https://github.com/sledilnik/website/blob/master/examples/README.md).
+
+Select your choice and click `button` 'Naredi posnetek grafa'.
+
+Clicking on `button` will call [SledilnikScreenshots AWS Lambda Function](https://github.com/VesterDe/SledilnikScreenshots). Clicking on `image` should start download.
+
+Those screenshots are not stored in local storage.
+
+#### Charts
+
+- IcuPatients
+- Patients
+- DailyComparison
+- Map
+- AgeGroupsTimeline
+- MetricsComparison
+- EuropeMap
+- WorldMap
+- CarePatients
+- Ratios
+- Tests
+- HCenters
+- Spread
+- Infections
+- Regions
+- RegionMap
+- Municipalities
+- SchoolStatus
+- AgeGroups
+
+#### Custom charts
+
+- IcuPatients:
+  - twoMonthsTooltip
+- Patients:
+  - twoMonthsTooltip
+- DailyComparison:
+  - casesConfirmedTooltip
+  - casesActiveTooltip
+  - performedPCRTooltip
+  - sharePCRTooltip
+- Map:
+  - weeklyGrowth
+  - absolute1Day
+  - distribution1Day
+- AgeGroupsTimeline:
+  - twoMonthsNewCasesTooltip
+
+## ver 0.4.0
 
 Endpoints for data fetch are set in `urlDict.js`.
 
 ### New Features
 
-- Displaying data as it is fetched.
-- Refresh each post separately.
-- Simple text editor with option to trim redundant new lines before posting on social media.
-- Twitter #Covid-19 button
-- Switch between Facebook and Twitter icons.
-- Show/Hide ratio trend check.
-- Post 2/3 (HOS): different text for FB and TW
-
-## ver: 0.2.1
-
-Endpoints for data fetch are set in `apiPathObject.js`.
-
-### API Paths
-
-- stats
-- patients
-- municipalities
-- hospitals-list
-- lab-tests
-- summary
+- show only one post at the time
+- timestamps contexts
+- data context
+- social context
+- count characters for twitter with twitter-text package
+- weekly growth per town
+- toggle Municipalities icons show/hide
+- toggle show trend weekly growth/15d trend
+- show social and in ToClipboard
 
 ### Data
 
-- Today: `array.slice(-1)`
-- Yesterday: `array.slice(-2, -1)`
-- Two days ago: `array.slice(-3, -2)`
+#### Endpoint: `/summary`
 
-#### Test and active cases
+1. PCR
+   - `.testsToday`
+     - `.value`
+     - `.subValues.positive`
+     - `.subValues.percent`
+2. HAT
+   - `.testsTodayHAT`
+     - `.value`
+     - `.subValues.positive`
+     - `.subValues.percent`
+3. ActiveCases
+   - `.casesActive`
+     - `value`
+     - `.subValues.in`
+     - `.subValues.out`
+4. Vaccination
+   - `.vaccinationSummary`
+     - `.value`
+     - `.subValues.in`
+5. ConfirmedToDate
+   - `.casesToDateSummary`
+     - `.value`
 
-Component: `<TESTS_ACTIVE/>`:
+#### Endpoint: `/patients`
 
-1. PCR tests `<PercentageRow/>`:
-   - Today:
-     - `/lab-tests.data`
-       - `.regular.positive.today`
-       - `.regular.performed.today`
-2. HAT tests `<PercentageRow/>`:
-   - Today:
-     - `/lab-tests.data`
-       - `.hagt.positive.today`
-       - `.hagt.performed.today`
-3. Active cases:
-   - Today:
-   - `/summary.casesActive.value`
-   - `/summary.casesActive.subValues`
+1. Hospitalized
+   - `.total.inHospital` & `.total.icu`
+     - `.today`
      - `.in`
      - `.out`
-
-#### Hospitalized and deceased (HOS)
-
-Component: `<HOSPITALIZED_DECEASED/>`:
-
-1. Hospitalized `<Hospitalized/>`:
-
-   - Today:
-     - `/patients.total.inHospital`
-       - `.today`
-       - `.in`
-       - `.put`
-     - `/patients.total.icu.today`
-   - Yesterday:
-     - `/patients.total.icu.today`
-
-2. On respiratory `<OnRespiratory/>`:
-   - Today & Yesterday:
-     - `/patients.total.critical.today`
-     - `/patients.total.niv.today`
-3. InCare `<InCare/>`:
-   - Today:
-     - `/patients.total.care`
+2. OnRespiratory
+   - `.total.critical` & `.total.niv`
+     - `.today`
+3. Care
+   - `.total.care`
+     - `today`
+     - `.in`
+     - `.out`
+4. Deceased
+   - `.total.deceased`
+     - `.today`
+     - `.toDate`
+5. InHospitals
+   - `.facilities[code]`
+     - `.inHospital` & `.icu`
        - `.today`
        - `.in`
        - `.out`
-4. Deceased `<Deceased/>`:
-   - `/patients.total.deceased`
-     - `.today`
-     - `.toDate`
 
-Combined `<Combined/>`
+#### Endpoint: `/stats`
 
-1. [Test and active cases](####Test-and-active-cases)
-2. Vaccination `<Vaccination/>`
+1. PerAge
+   - `statePerAgeToDate`
 
-   - Yesterday:
-     - `/stats.vaccination.administrated.toDate`
-     - `/stats.vaccination.administrated2nd.toDate`
+#### Endpoint: `/municipalities`
 
-3. Comfirmed `<Comfirmed/>`
-   - Yesterday:
-     - `/stats.vaccination.cases.confirmedToDate`
-4. Per age `<PerAge/>`
-   - Yesterday & Two days ago:
-     - `/stats.statePerAgeToDate`
-5. [Hospitalized and deceased (HOS)](<####Hospitalized-and-deceased-(HOS)>)
-6. By hospitals `<InHospitals/>`
-   - Today:
-     - `/patients.facilities`
-     - `/hospital-list`
-     - `/patients.facilities[<code>]`
-       - `.inHospital` & `.icu`
-         - `.today`
-         - `.in`
-         - `.out`
-7. By cities `<CITIES_SOCIAL_FRIENDLY/>`
-   - For 16 Days:
-     - `/municipalities.regions`
-     - `/municipalities.regions[region][town].confirmedToDate;`
-
----
-
-### Components
-
-### Main
-
-There are 3 main components: `<TESTS_ACTIVE>`, `<HOSPITALIZED_DECEASED>` and `<Combined>`
-
-#### TESTS_ACTIVE
-
-Display 3 sets of data:
-
-1. PCR tests.
-2. HAT tests.
-3. Active cases:
-
-Tests data includes: positive, performed and percentage.
-Active cases: total, increased and decreased.
-
-#### HOSPITALIZED_DECEASED
-
-Display 3 sets of data:
-
-1. How many persons need hospital treatment.
-2. How many person are on respirators.
-3. Number of deceased.
-
-#### Combined
-
-1. Data in TESTS_ACTIVE.
-2. Vaccination.
-3. Confirmed.
-4. Segments per age.
-5. Data in HOSPITALIZED_DECEASED
-6. Number of patients in hospitals by hospital.
-7. Data by municipalities with social friendly icons (Facebook, Twitter) for each social platform.
-
----
-
-## ver: 0.1.0
-
-- APIs are set in App.js
-- ./components/List.js - parse data
-  - if you want to disable "Moralec" comment out RandomGenerator start and end
-  - there are subcomponents for Delta and Percentage
-- municipalities have a complex algorithm, check Array
-
-```
-
-```
+1. Municipalities
+   - `.regions[region][town].confirmedToDate;`

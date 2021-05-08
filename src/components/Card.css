@@ -1,0 +1,58 @@
+.Card {
+  margin: 8px 0;
+  padding: 16px 16px;
+  background: var(--white);
+  -webkit-box-shadow: 0 1px 3px 0 var(--box-shadow);
+  box-shadow: 0 1px 3px 0 var(--box-shadow);
+  border-radius: 6px;
+}
+
+.Card summary {
+  list-style-type: none; /* Firefox Edge ::marker */
+  transition: all 0.7s linear;
+  cursor: pointer;
+}
+
+.Card summary::-webkit-details-marker, /*? mobile iOS */
+.Card summary::marker {
+  display: none;
+}
+
+.Card .card-title {
+  position: relative;
+}
+
+.Card .card-title:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  border-bottom: 3px solid var(--bcg-header-clr);
+  width: 100%;
+}
+
+.Card .summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8em;
+  margin: 0 8px;
+  padding: 4px 0;
+}
+
+.Card .summary-row:first-of-type {
+  min-height: 40px;
+}
+.Card .summary-row:last-of-type {
+  min-height: 15px;
+}
+
+.Card .icons .icon {
+  padding: 0 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.can-hover .Card .icons .icon:hover > i {
+  transform: scale(1.2);
+}

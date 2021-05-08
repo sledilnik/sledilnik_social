@@ -1,0 +1,41 @@
+.Post {
+  padding: 8px 8px;
+  margin: 4px 0;
+  background: var(--white);
+  user-select: text;
+}
+
+.Post h3 {
+  font-size: 1em;
+}
+
+.Post > p {
+  margin: 4px 0;
+  text-indent: -26px;
+  padding-left: 26px;
+}
+
+.Post li {
+  margin: 4px 0;
+  padding: 0 26px;
+}
+
+.Post details {
+  margin: 4px 0;
+  background: var(--bcg-body-clr);
+}
+
+.Post details[open] {
+  background: var(--white);
+}
+
+.Post .summary-with-after > * {
+  display: inline-block;
+}
+.Post .summary-with-after::after {
+  font-size: 0.85em;
+  content: '\00A0\00A0↘️';
+}
+.Post details[open] > .summary-with-after::after {
+  content: '';
+}

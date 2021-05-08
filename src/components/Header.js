@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 
 import './Header.css';
-import Backdrop from './shared/Backdrop';
+import Backdrop from './Backdrop';
 
 function Header() {
   const [open, setOpen] = useState(false);
+
+  if (open) document.body.classList.add('modal-open');
+  if (!open) document.body.classList.remove('modal-open');
 
   const onHamburgerClick = event => {
     const header = document.getElementById('header');
@@ -22,14 +25,6 @@ function Header() {
   };
 
   const onLinkClick = event => {
-    const { target } = event;
-    if (target.id === 'legend-link') {
-      event.preventDefault();
-      const legend = document.getElementById('legenda');
-      legend.scrollIntoView({
-        block: 'center',
-      });
-    }
     const header = document.getElementById('header');
     setOpen(false);
     header.classList.remove('menuOpen');
@@ -43,7 +38,7 @@ function Header() {
 
   return (
     <header id="header" className="Header">
-      <div className="logo">Covid-19 Sledilnik Social</div>
+      <h1 className="logo">Covid-19 Sledilnik Social</h1>
       <div className="🍔" onClick={onHamburgerClick}>
         <div className="line line-1"></div>
         <div className="line line-2"></div>
@@ -51,14 +46,6 @@ function Header() {
       </div>
       <nav className="nav-container" onClick={onCloseHandler}>
         <div className="nav-heading">Meni</div>
-        <a
-          id="legend-link"
-          className="nav-link"
-          href="#legenda"
-          onClick={onLinkClick}
-        >
-          Legenda
-        </a>
         <a
           className="nav-link"
           href="https://covid-19.sledilnik.org/"
@@ -76,15 +63,6 @@ function Header() {
           onClick={onLinkClick}
         >
           <div className="logo">Spark</div>
-        </a>
-        <a
-          className="nav-link"
-          href="https://sledilnik-social-ver-0-1-0.netlify.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={onLinkClick}
-        >
-          ver 0.1.0
         </a>
       </nav>
       <Backdrop

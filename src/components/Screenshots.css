@@ -1,0 +1,71 @@
+.Screenshots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: var(--bcg-body-clr); */
+}
+
+.Screenshots h2 {
+  font-size: 1em;
+}
+
+.Screenshots .buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 8px 0 8px 0;
+}
+
+.Screenshots .multicard,
+.Screenshots .cards,
+.Screenshots .charts {
+  width: 98%;
+}
+
+.Screenshots .screenshots-container img {
+  max-width: 295px;
+  margin: 4px 0;
+}
+
+.Screenshots .Screenshot.loader-container,
+.Screenshots .screenshots-container a img {
+  border-radius: 6px;
+  -webkit-box-shadow: 0 1px 3px 0 var(--box-shadow);
+  box-shadow: 0 1px 3px 0 var(--box-shadow);
+  border: 0.5px solid var(--box-shadow);
+}
+
+.Screenshots .screenshots-container a:focus img {
+  -webkit-box-shadow: 0 0 0 0.15rem var(--box-shadow);
+  box-shadow: 0 0 0 0.15rem var(--box-shadow);
+  border: none;
+}
+
+.Screenshots .multicard .screenshots-container,
+.Screenshots .cards .screenshots-container,
+.Screenshots .charts .screenshots-container {
+  padding: 8px 4px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.Screenshots .screenshot-container {
+  margin: 8px auto;
+  padding: 4px;
+}
+
+/* .Screenshots .cards .screenshot-container {
+  margin: 0 auto;
+} */
+
+.Screenshots .ZipLink {
+  margin: 0 4px;
+}
+
+.Screenshots .timestamp {
+  font-size: 0.8em;
+  color: var(--menu-clr);
+  align-self: flex-start;
+}

@@ -1,7 +1,9 @@
 .Footer {
-  height: 10vh;
+  height: 8vh;
   background-color: var(--white);
   display: flex;
   align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
   z-index: 100;
 }

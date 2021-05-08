@@ -2,16 +2,6 @@
   font-family: 'Roboto', serif;
 }
 
-.main {
-  min-height: 80vh;
-  margin-top: 10vh;
-  background-color: var(--bcg-body-clr);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  z-index: 100;
-}
-
 .text {
   font-weight: 400;
   letter-spacing: 0.05em;
@@ -26,6 +16,10 @@
 }
 
 /* BUTTONS */
+button {
+  outline: none;
+}
+
 .btn {
   padding: 4px 8px;
   font-size: 11px;
@@ -46,7 +40,7 @@
   border: solid 1px #1877f2;
 }
 
-.btn:hover {
+.can-hover .btn:hover {
   opacity: 1;
 }
 
@@ -81,6 +75,7 @@
 
 .cities .btn {
   margin-top: 16px;
+  margin-right: 8px;
 }
 
 .logoCenter {

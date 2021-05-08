@@ -1,0 +1,58 @@
+.TextWithTooltip {
+  position: relative;
+  cursor: help;
+}
+
+.TextWithTooltip:before {
+  content: attr(data-text);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size: 0.8rem;
+  font-weight: 700;
+
+  white-space: normal;
+  width: fit-content;
+  max-width: 150px;
+  height: fit-content;
+  padding: 4px 8px;
+  border: 2px solid var(--menu-clr);
+  border-radius: 10px;
+  background: var(--bcg-body-clr);
+  color: black;
+  text-align: center;
+
+  display: none;
+  z-index: 5000;
+}
+
+.TextWithTooltip.down:before {
+  transform: translate(-50%, 50%);
+}
+.TextWithTooltip.up:before {
+  transform: translate(-50%, -150%);
+}
+.TextWithTooltip.left:before {
+  left: -4px;
+  transform: translate(-100%, -50%);
+}
+.TextWithTooltip.right:before {
+  left: 100%;
+  transform: translate(0, -50%);
+  margin-left: 4px;
+}
+
+.TextWithTooltip.fixed:before {
+  position: fixed;
+  bottom: auto;
+  top: 50%;
+  left: 50%;
+  text-align: left;
+  transform: translate(-50%);
+}
+
+.can-hover .TextWithTooltip:hover:before {
+  display: block;
+}
