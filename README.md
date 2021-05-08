@@ -66,6 +66,12 @@ Those screenshots are not stored in local storage.
   - casesActiveTooltip
   - performedPCRTooltip
   - sharePCRTooltip
+  - testsHATTooltip
+  - vaccinesUsedTooltip
+  - admittedHospitalsTooltip
+  - dischargedHospitalsTooltip
+  - admittedICUTooltip
+  - deceasedTooltip
 - Map:
   - weeklyGrowth
   - absolute1Day
