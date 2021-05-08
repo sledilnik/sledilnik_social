@@ -52,8 +52,13 @@ function EmbeddedChart() {
     .map(([key, item]) => {
       const { name, text } = item;
       const displayName = text || name || key;
+      const hasCustomCharts = !!item.customCharts;
       return (
-        <option key={name || key} value={name || key}>
+        <option
+          key={name || key}
+          value={name || key}
+          data-has-custom-charts={hasCustomCharts}
+        >
           {displayName}
         </option>
       );
@@ -66,8 +71,13 @@ function EmbeddedChart() {
     .map(([key, item]) => {
       const { name, text } = item;
       const displayName = text || name || key;
+      const hasCustomCharts = !!item.customCharts;
       return (
-        <option key={name || key} value={name || key}>
+        <option
+          key={name || key}
+          value={name || key}
+          data-has-custom-charts={hasCustomCharts}
+        >
           {displayName}
         </option>
       );
