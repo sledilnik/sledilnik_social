@@ -85,6 +85,10 @@ function withCardHOC(Component) {
     const [showPopOut, setShowPopOut] = useState(false);
     const { social } = useContext(SocialContext);
 
+    if (noClose) {
+      summaryRef.current && (summaryRef.current.style.cursor = 'initial');
+    }
+
     const isOpen = detailsRef?.current?.open;
     useEffect(() => setShowCharCount(social === 'TW' && isOpen && !noCount), [
       social,
