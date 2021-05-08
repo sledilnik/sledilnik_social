@@ -121,11 +121,12 @@ function withCardHOC(Component) {
       event.preventDefault();
 
       details.open =
-        target.id === copyButton.id || target.id === refreshButton.id
+        target.id === copyButton?.id || target.id === refreshButton?.id
           ? (details.open = true)
           : noClose || !details.open;
 
-      setClipboard(removeConsecutiveNewLines(postRef.current.innerText));
+      postRef &&
+        setClipboard(removeConsecutiveNewLines(postRef.current.innerText));
       setShowCharCount(social === 'TW' && details.open && !noCount);
     };
 
