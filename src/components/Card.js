@@ -38,10 +38,14 @@ const Card = React.forwardRef(
 );
 
 const getTimestamp = dates => {
+  if (!dates) {
+    return { relativeDate: null, path: null };
+  }
   const MILLISECONDS = 1000;
   const latestDate =
     dates && [...Object.entries(dates)].sort((a, b) => a[1] - b[1]).pop();
   const relativeDate =
+    latestDate &&
     latestDate[1] !== null &&
     formatRelative(new Date(latestDate[1] * MILLISECONDS), new Date(), {
       locale: sl,
@@ -77,7 +81,7 @@ function withCardHOC(Component) {
     const refreshButtonRef = useRef();
 
     const [showCharCount, setShowCharCount] = useState(null);
-    const [clipboard, setClipboard] = useState(postRef.current?.innerText);
+    const [clipboard, setClipboard] = useState(postRef?.current?.innerText);
     const [showPopOut, setShowPopOut] = useState(false);
     const { social } = useContext(SocialContext);
 
@@ -88,7 +92,7 @@ function withCardHOC(Component) {
       noCount,
     ]);
 
-    const text = postRef.current?.innerText;
+    const text = postRef?.current?.innerText;
     useEffect(() => text && setClipboard(removeConsecutiveNewLines(text)), [
       text,
     ]);
@@ -127,7 +131,7 @@ function withCardHOC(Component) {
 
     const cardTitle = <h2 className="card-title">{title}</h2>;
 
-    const cardId = `card-${title.toLowerCase()}`;
+    const cardId = `card-${title?.toLowerCase()}`;
     const counter = showCharCount && (
       <TweetCount key={`${cardId}-counter`} text={clipboard} />
     );
@@ -151,16 +155,24 @@ function withCardHOC(Component) {
               tooltipText={ref[1]}
             />
           ))}
-        <span className="icon" onClick={refreshHandler}>
-          <i ref={refreshButtonRef} id={refreshId} className="fas fa-sync"></i>
-        </span>
-        <span className="icon" onClick={openPopOutHandler}>
-          <i
-            ref={toClipboardButtonRef}
-            id={copyId}
-            className="far fa-copy "
-          ></i>
-        </span>
+        {!props.noRefresh && (
+          <span className="icon" onClick={refreshHandler}>
+            <i
+              ref={refreshButtonRef}
+              id={refreshId}
+              className="fas fa-sync"
+            ></i>
+          </span>
+        )}
+        {!props.noToClipboard && (
+          <span className="icon" onClick={openPopOutHandler}>
+            <i
+              ref={toClipboardButtonRef}
+              id={copyId}
+              className="far fa-copy "
+            ></i>
+          </span>
+        )}
         {props.settingsRef && (
           <IconButton ref={props.settingsRef} fontAwesome="fas fa-cog" />
         )}

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* background-color: var(--bcg-body-clr); */
 }
 
 .Screenshots h2 {
@@ -13,7 +14,7 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin: 0 0 8px 0;
+  margin: 8px 0 8px 0;
 }
 
 .Screenshots .multicard,
@@ -32,11 +33,13 @@
   border-radius: 6px;
   -webkit-box-shadow: 0 1px 3px 0 var(--box-shadow);
   box-shadow: 0 1px 3px 0 var(--box-shadow);
+  border: 0.5px solid var(--box-shadow);
 }
 
 .Screenshots .screenshots-container a:focus img {
   -webkit-box-shadow: 0 0 0 0.15rem var(--box-shadow);
   box-shadow: 0 0 0 0.15rem var(--box-shadow);
+  border: none;
 }
 
 .Screenshots .multicard .screenshots-container,
@@ -59,4 +62,10 @@
 
 .Screenshots .ZipLink {
   margin: 0 4px;
+}
+
+.Screenshots .timestamp {
+  font-size: 0.8em;
+  color: var(--menu-clr);
+  align-self: flex-start;
 }

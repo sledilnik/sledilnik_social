@@ -270,12 +270,41 @@ const EPI = ({ noTWCount, noClose }) => {
   );
 };
 
+const ScreenshotsCard = () => {
+  const { stats } = useContext(TimestampsContext);
+  const { data: statsTimestamp } = stats;
+  const dates = {
+    stats: statsTimestamp,
+  };
+  return (
+    <Card
+      title="Posnetki"
+      dates={dates}
+      open
+      noClose
+      noRefresh
+      noToClipboard
+      noCount
+    >
+      <Screenshots />
+    </Card>
+  );
+};
+
+const EmbeddedChartCard = () => {
+  return (
+    <Card title="Grafi" open noClose noRefresh noToClipboard noCount>
+      <EmbeddedChart />
+    </Card>
+  );
+};
+
 const cards = {
   LAB: <LAB noClose />,
   HOS: <HOS noClose />,
   EPI: <EPI noClose />,
-  SCREENSHOTS: <Screenshots />,
-  CHARTS: <EmbeddedChart />,
+  SCREENSHOTS: <ScreenshotsCard />,
+  CHARTS: <EmbeddedChartCard />,
 };
 
 function Posts() {
