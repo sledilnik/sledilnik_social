@@ -85,6 +85,10 @@ function withCardHOC(Component) {
     const [showPopOut, setShowPopOut] = useState(false);
     const { social } = useContext(SocialContext);
 
+    if (noClose) {
+      summaryRef.current && (summaryRef.current.style.cursor = 'initial');
+    }
+
     const isOpen = detailsRef?.current?.open;
     useEffect(() => setShowCharCount(social === 'TW' && isOpen && !noCount), [
       social,
@@ -121,11 +125,12 @@ function withCardHOC(Component) {
       event.preventDefault();
 
       details.open =
-        target.id === copyButton.id || target.id === refreshButton.id
+        target.id === copyButton?.id || target.id === refreshButton?.id
           ? (details.open = true)
           : noClose || !details.open;
 
-      setClipboard(removeConsecutiveNewLines(postRef.current.innerText));
+      postRef &&
+        setClipboard(removeConsecutiveNewLines(postRef.current.innerText));
       setShowCharCount(social === 'TW' && details.open && !noCount);
     };
 

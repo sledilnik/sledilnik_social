@@ -35,25 +35,42 @@ Those screenshots are not stored in local storage.
 
 #### Charts
 
-- IcuPatients
-- Patients
-- DailyComparison
-- Map
-- AgeGroupsTimeline
-- MetricsComparison
-- EuropeMap
-- WorldMap
-- CarePatients
-- Ratios
-- Tests
-- HCenters
-- Spread
-- Infections
-- Regions
-- RegionMap
-- Municipalities
-- SchoolStatus
-- AgeGroups
+##### Active
+
+1. MetricsComparison
+2. DailyComparison
+3. Tests
+4. Vaccinations
+5. Regions100k
+6. Map
+7. Municipalities
+8. Sewage
+9. Schools
+10. SchoolStatus
+11. Patients
+12. IcuPatients
+13. CarePatients
+14. AgeGroupsTimeline
+15. WeeklyDemographic
+16. AgeGroups
+17. MetricsCorrelation
+18. Deceased
+19. ExcessDeaths
+20. Infections
+21. HcCases
+22. EuropeMap
+23. Sources
+24. Cases
+25. RegionMap
+26. Regions
+27. PhaseDiagram
+28. Spread
+
+##### Archived
+
+1. WorldMap
+2. Ratios
+3. HCenters
 
 #### Custom charts
 
@@ -66,6 +83,12 @@ Those screenshots are not stored in local storage.
   - casesActiveTooltip
   - performedPCRTooltip
   - sharePCRTooltip
+  - testsHATTooltip
+  - vaccinesUsedTooltip
+  - admittedHospitalsTooltip
+  - dischargedHospitalsTooltip
+  - admittedICUTooltip
+  - deceasedTooltip
 - Map:
   - weeklyGrowth
   - absolute1Day

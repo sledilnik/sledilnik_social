@@ -52,8 +52,32 @@ function EmbeddedChart() {
     .map(([key, item]) => {
       const { name, text } = item;
       const displayName = text || name || key;
+      const hasCustomCharts = !!item.customCharts;
       return (
-        <option key={name || key} value={name || key}>
+        <option
+          key={name || key}
+          value={name || key}
+          data-has-custom-charts={hasCustomCharts}
+        >
+          {displayName}
+        </option>
+      );
+    });
+
+  const chartPickerOptionsArchived = Object.entries(CHARTS)
+    .filter(item => {
+      return item[1].noShow;
+    })
+    .map(([key, item]) => {
+      const { name, text } = item;
+      const displayName = text || name || key;
+      const hasCustomCharts = !!item.customCharts;
+      return (
+        <option
+          key={name || key}
+          value={name || key}
+          data-has-custom-charts={hasCustomCharts}
+        >
           {displayName}
         </option>
       );
@@ -169,7 +193,14 @@ function EmbeddedChart() {
     <div className="EmbeddedChart">
       <div className="button-container">
         <div className="select-container">
-          <label htmlFor="chart-picker">Izberi graf</label>
+          <label htmlFor="chart-picker">
+            Izberi graf{' '}
+            <div className="option-legend has-custom-charts">Opcija</div>
+            <div className="option-legend has-not-custom-charts">
+              Brez opcij
+            </div>
+          </label>
+
           <select
             ref={chartPickerRef}
             name="chart-picker"
@@ -177,7 +208,8 @@ function EmbeddedChart() {
             onChange={changeChartHandler}
             defaultValue={screen}
           >
-            {chartPickerOptions}
+            <optgroup label="Aktivni">{chartPickerOptions}</optgroup>
+            <optgroup label="Arhiv">{chartPickerOptionsArchived}</optgroup>
           </select>
         </div>
         {showChartOptions && (

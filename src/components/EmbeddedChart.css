@@ -19,6 +19,8 @@
   font-size: 0.8em;
   margin-bottom: 4px;
   padding-right: 4px;
+  display: flex;
+  align-items: center;
 }
 
 .EmbeddedChart .button-container {
@@ -104,6 +106,28 @@
 .EmbeddedChart .Screenshot.loader-container {
   width: 100%;
   height: 420px;
+}
+
+.EmbeddedChart option[data-has-custom-charts='true'] {
+  background-color: var(--box-shadow);
+}
+
+.EmbeddedChart option[data-has-custom-charts='false'] {
+  background-color: var(--bcg-body-clr);
+}
+
+.EmbeddedChart .option-legend {
+  display: inline-block;
+  font-size: 0.8em;
+  margin: 0px 4px;
+  padding: 2px 8px;
+}
+
+.EmbeddedChart .option-legend.has-custom-charts {
+  background-color: var(--box-shadow);
+}
+.EmbeddedChart .option-legend.has-not-custom-charts {
+  background-color: var(--bcg-body-clr);
 }
 
 @media only screen and (min-width: 360px) {
