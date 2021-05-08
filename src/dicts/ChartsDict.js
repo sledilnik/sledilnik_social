@@ -28,27 +28,9 @@ const CUSTOM_CHART_OPTIONS = {
 };
 
 export default {
-  IcuPatients: {
-    name: 'IcuPatients',
-    text: 'Intenzivna terapija',
-    customCharts: {
-      twoMonthsTooltip: {
-        name: 'twoMonthsTooltip',
-        text: 'Vse bolnišnice - 2m',
-        ...CUSTOM_CHART_OPTIONS.patients2Months,
-      },
-    },
-  },
-  Patients: {
-    name: 'Patients',
-    text: 'Hospitalizirani',
-    customCharts: {
-      twoMonthsTooltip: {
-        name: 'twoMonthsTooltip',
-        text: 'Vse bolnišnice - 2m',
-        ...CUSTOM_CHART_OPTIONS.patients2Months,
-      },
-    },
+  MetricsComparison: {
+    name: 'MetricsComparison',
+    text: 'Stanje COVID-19 v Sloveniji',
   },
   DailyComparison: {
     name: 'DailyComparison',
@@ -106,6 +88,18 @@ export default {
       },
     },
   },
+  Tests: {
+    name: 'Tests',
+    text: 'Testiranje',
+  },
+  Vaccinations: {
+    name: 'Vaccinations',
+    text: 'Cepljenje',
+  },
+  Regions100k: {
+    name: 'Regions100k',
+    text: 'Primeri po regijah (na 100k prebivalcev)',
+  },
   Map: {
     name: 'Map',
     text: 'Zemljevid po občinah',
@@ -127,6 +121,48 @@ export default {
       },
     },
   },
+  Municipalities: {
+    name: 'Municipalities',
+    text: 'Primeri po občinah',
+  },
+  Sewage: {
+    name: 'Sewage',
+    text: 'Virus v odpadnih vodah',
+  },
+  Schools: {
+    name: 'Schools',
+    text: 'Primeri v šolah in vrtcih',
+  },
+  SchoolStatus: {
+    name: 'SchoolStatus',
+    text: 'Primeri po šolah in vrtcih',
+  },
+  Patients: {
+    name: 'Patients',
+    text: 'Hospitalizirani',
+    customCharts: {
+      twoMonthsTooltip: {
+        name: 'twoMonthsTooltip',
+        text: 'Vse bolnišnice - 2m',
+        ...CUSTOM_CHART_OPTIONS.patients2Months,
+      },
+    },
+  },
+  IcuPatients: {
+    name: 'IcuPatients',
+    text: 'Intenzivna terapija',
+    customCharts: {
+      twoMonthsTooltip: {
+        name: 'twoMonthsTooltip',
+        text: 'Vse bolnišnice - 2m',
+        ...CUSTOM_CHART_OPTIONS.patients2Months,
+      },
+    },
+  },
+  CarePatients: {
+    name: 'CarePatients',
+    text: 'Negovalne bolnišnice',
+  },
   AgeGroupsTimeline: {
     name: 'AgeGroupsTimeline',
     text: 'Potrjeni primeri po starostnih skupinah',
@@ -140,101 +176,75 @@ export default {
       },
     },
   },
-  MetricsComparison: {
-    name: 'MetricsComparison',
-    text: 'Stanje COVID-19 v Sloveniji',
-  },
-  EuropeMap: {
-    name: 'EuropeMap',
-    text: 'Stanje COVID-19 v Evropi',
-  },
-  WorldMap: {
-    name: 'WorldMap',
-    text: 'Stanje COVID-19 v Svetu',
-  },
-  CarePatients: {
-    name: 'CarePatients',
-    text: 'Negovalne bolnišnice',
-  },
-  Ratios: {
-    name: 'Ratios',
-    text: 'Delež resnih primerov',
-  },
-  Tests: {
-    name: 'Tests',
-    text: 'Testiranje',
-  },
-  HCenters: {
-    name: 'HCenters',
-    text: 'Obravnava v ZD',
-    noShow: true,
-  },
-  Cases: {
-    name: 'Cases',
-    text: 'Potrjeni primeri',
-  },
-  Spread: {
-    name: 'Spread',
-    text: 'Prirast potrjenih primerov',
-  },
-  Infections: {
-    name: 'Infections',
-    text: 'Struktura potrjenih primerov',
-  },
-  Regions: {
-    name: 'Regions',
-    text: 'Primeri po regijah',
-  },
-  RegionMap: {
-    name: 'RegionMap',
-    text: 'Zemljevid po regijah',
-  },
-  Municipalities: {
-    name: 'Municipalities',
-    text: 'Primeri po občinah',
-  },
-  SchoolStatus: {
-    name: 'SchoolStatus',
-    text: 'Primeri po šolah in vrtcih',
+  WeeklyDemographics: {
+    name: 'WeeklyDemographics',
+    text: 'Demografija potrjenih primerov, tedensko',
   },
   AgeGroups: {
     name: 'AgeGroups',
     text: 'Po starostnih skupinah',
   },
-  PhaseDiagram: {
-    name: 'PhaseDiagram',
-    text: 'Fazni diagram',
-  },
-  Sources: {
-    name: 'Sources',
-    text: 'Viri in lokacije okužb, tedensko',
-  },
-  HcCases: {
-    name: 'HcCases',
-    text: 'Primeri v zdravstvu in domovih za starejše občane, tedensko',
-  },
-  ExcessDeaths: {
-    name: 'ExcessDeaths',
-    text: 'Presežne smrti',
+  MetricsCorrelation: {
+    name: 'MetricsCorrelation',
+    text: 'Soodvisnost primerov, hospitaliziranih in umrlih',
   },
   Deceased: {
     name: 'Deceased',
     text: 'Umrli',
   },
-  MetricsCorrelation: {
-    name: 'MetricsCorrelation',
-    text: 'Soodvisnost primerov, hospitaliziranih in umrlih',
+  ExcessDeaths: {
+    name: 'ExcessDeaths',
+    text: 'Presežne smrti',
   },
-  WeeklyDemographics: {
-    name: 'WeeklyDemographics',
-    text: 'Demografija potrjenih primerov, tedensko',
+  Infections: {
+    name: 'Infections',
+    text: 'Struktura potrjenih primerov',
   },
-  Schools: {
-    name: 'Schools',
-    text: 'Primeri v šolah in vrtcih',
+  HcCases: {
+    name: 'HcCases',
+    text: 'Primeri v zdravstvu in domovih za starejše občane, tedensko',
   },
-  Sewage: {
-    name: 'Sewage',
-    text: 'Virus v odpadnih vodah',
+  EuropeMap: {
+    name: 'EuropeMap',
+    text: 'Stanje COVID-19 v Evropi',
+  },
+  Sources: {
+    name: 'Sources',
+    text: 'Viri in lokacije okužb, tedensko',
+  },
+  Cases: {
+    name: 'Cases',
+    text: 'Potrjeni primeri',
+  },
+  RegionMap: {
+    name: 'RegionMap',
+    text: 'Zemljevid po regijah',
+  },
+  Regions: {
+    name: 'Regions',
+    text: 'Primeri po regijah',
+  },
+  PhaseDiagram: {
+    name: 'PhaseDiagram',
+    text: 'Fazni diagram',
+  },
+  Spread: {
+    name: 'Spread',
+    text: 'Prirast potrjenih primerov',
+  },
+  WorldMap: {
+    name: 'WorldMap',
+    text: 'Stanje COVID-19 v Svetu',
+    noShow: true,
+  },
+  Ratios: {
+    name: 'Ratios',
+    text: 'Delež resnih primerov',
+    noShow: true,
+  },
+  HCenters: {
+    name: 'HCenters',
+    text: 'Obravnava v ZD',
+    noShow: true,
   },
 };
