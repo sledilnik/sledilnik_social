@@ -120,7 +120,7 @@
   display: inline-block;
   font-size: 0.8em;
   margin: 0px 4px;
-  padding: 2px 8px;
+  padding: 0px 8px;
 }
 
 .EmbeddedChart .option-legend.has-custom-charts {
