@@ -99,6 +99,7 @@ export default {
   Regions100k: {
     name: 'Regions100k',
     text: 'Primeri po regijah (na 100k prebivalcev)',
+    shortText: 'Primeri po regijah/100k',
   },
   Map: {
     name: 'Map',
@@ -166,6 +167,7 @@ export default {
   AgeGroupsTimeline: {
     name: 'AgeGroupsTimeline',
     text: 'Potrjeni primeri po starostnih skupinah',
+    shortText: 'Potrjeni po starostnih sk.',
     customCharts: {
       twoMonthsNewCasesTooltip: {
         name: 'twoMonthsNewCasesTooltip',
@@ -179,6 +181,7 @@ export default {
   WeeklyDemographics: {
     name: 'WeeklyDemographics',
     text: 'Demografija potrjenih primerov, tedensko',
+    shortText: 'Demografija potrjenih, tedensko',
   },
   AgeGroups: {
     name: 'AgeGroups',
@@ -187,6 +190,7 @@ export default {
   MetricsCorrelation: {
     name: 'MetricsCorrelation',
     text: 'Soodvisnost primerov, hospitaliziranih in umrlih',
+    shortText: 'Soodvisnost primerov, hosp. in umrlih',
   },
   Deceased: {
     name: 'Deceased',
@@ -203,6 +207,7 @@ export default {
   HcCases: {
     name: 'HcCases',
     text: 'Primeri v zdravstvu in domovih za starejše občane, tedensko',
+    shortText: 'Primeri v zdr. in DSO, tedensko',
   },
   EuropeMap: {
     name: 'EuropeMap',
