@@ -92,8 +92,8 @@ export default {
     name: 'Tests',
     text: 'Testiranje',
   },
-  Vaccinations: {
-    name: 'Vaccinations',
+  Vaccination: {
+    name: 'Vaccination',
     text: 'Cepljenje',
   },
   Regions100k: {
