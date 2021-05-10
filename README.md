@@ -89,6 +89,14 @@ Those screenshots are not stored in local storage.
   - dischargedHospitalsTooltip
   - admittedICUTooltip
   - deceasedTooltip
+- Regions100k:
+  - casesConfirmed7DayAvg,
+  - casesConfrimedActive,
+  - casesConfirmedAll,
+  - vaccinated7DayAvg
+  - vaccinatedDose1
+  - vaccinatedDose2
+  - deceased
 - Map:
   - weeklyGrowth
   - absolute1Day
