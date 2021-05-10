@@ -93,6 +93,19 @@ Those screenshots are not stored in local storage.
   - weeklyGrowth
   - absolute1Day
   - distribution1Day
+- Municipalities:
+  - gorenjskaSortByLast
+  - goriskaSortByLast
+  - jvSlovenijaSortByLast
+  - koroskaSortByLast
+  - obalnoKraskaSortByLast
+  - osrednjeSlovenskaSortByLast
+  - podravskaSortByLast
+  - pomurskaSortByLast
+  - posavskaSortByLast
+  - primorskoNotranjskaSortByLast
+  - savinjskaSortByLast
+  - zasavskaSortByLast
 - AgeGroupsTimeline:
   - twoMonthsNewCasesTooltip
 
