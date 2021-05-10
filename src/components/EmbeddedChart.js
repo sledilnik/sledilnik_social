@@ -101,7 +101,9 @@ function EmbeddedChart() {
     : null;
 
   const customChart =
-    customChartPickerValue && chartData?.customCharts[customChartPickerValue];
+    customChartPickerValue &&
+    chartData?.customCharts &&
+    chartData?.customCharts[customChartPickerValue];
 
   const getHoverIndexOptions = (customChart, tsHooks, custom) => {
     const { days, tsName } = customChart;
@@ -133,8 +135,8 @@ function EmbeddedChart() {
   const changeChartHandler = event => {
     setCustom('');
     setHoverIndex('');
-    setChartData(CHARTS[event.target.value]);
     setScreen(event.target.value);
+    setChartData(CHARTS[event.target.value]);
     setSrc(getChartUrl(event.target.value));
     setShow(false);
     setShowChartOptions(false);
@@ -189,7 +191,7 @@ function EmbeddedChart() {
   };
 
   const changeHideLegendHandler = () => {
-    setShow(false);
+    show && setShow(false);
   };
 
   window.addEventListener('message', resizeFrame);
