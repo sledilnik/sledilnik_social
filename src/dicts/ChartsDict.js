@@ -125,6 +125,68 @@ export default {
   Municipalities: {
     name: 'Municipalities',
     text: 'Primeri po občinah',
+    customCharts: {
+      gorenjskaSortByLast: {
+        name: 'gorenjskaSortByLast',
+        text: 'Gorenjska - razvrsti po "Zadnji',
+        shortText: 'Gorenjska ("Zadnji")',
+      },
+      goriskaSortByLast: {
+        name: 'goriskaSortByLast',
+        text: 'Goriška - razvrsti po "Zadnji',
+        shortText: 'Goriška ("Zadnji")',
+      },
+      jvSlovenijaSortByLast: {
+        name: 'jvSlovenijaSortByLast',
+        text: 'Jugovzhodna Slovenija - razvrsti po "Zadnji',
+        shortText: 'JV Slovenija ("Zadnji")',
+      },
+      koroskaSortByLast: {
+        name: 'koroskaSortByLast',
+        text: 'Koroška - razvrsti po "Zadnji',
+        shortText: 'Koroška ("Zadnji")',
+      },
+      obalnoKraskaSortByLast: {
+        name: 'obalnoKraskaSortByLast',
+        text: 'Obalno-kraška - razvrsti po "Zadnji',
+        shortText: 'Obalno-kraška ("Zadnji")',
+      },
+      osrednjeSlovenskaSortByLast: {
+        name: 'osrednjeSlovenskaSortByLast',
+        text: 'Osrednjeslovenska - razvrsti po "Zadnji',
+        shortText: 'Osrednjeslovenska ("Zadnji")',
+      },
+      podravskaSortByLast: {
+        name: 'podravskaSortByLast',
+        text: 'Podravska - razvrsti po "Zadnji',
+        shortText: 'Podravska ("Zadnji")',
+      },
+      pomurskaSortByLast: {
+        name: 'pomurskaSortByLast',
+        text: 'Pomurska - razvrsti po "Zadnji',
+        shortText: 'Pomurska ("Zadnji")',
+      },
+      posavskaSortByLast: {
+        name: 'posavskaSortByLast',
+        text: 'Posavska - razvrsti po "Zadnji',
+        shortText: 'Posavska ("Zadnji")',
+      },
+      primorskoNotranjskaSortByLast: {
+        name: 'posavskaSortByLast',
+        text: 'Primorsko-notranjska - razvrsti po "Zadnji',
+        shortText: 'Primorsko-notranjska ("Zadnji")',
+      },
+      savinjskaSortByLast: {
+        name: 'savinjskaSortByLast',
+        text: 'Savinjska - razvrsti po "Zadnji',
+        shortText: 'Savinjska ("Zadnji")',
+      },
+      zasavskaSortByLast: {
+        name: 'zasavskaSortByLast',
+        text: 'Zasavska - razvrsti po "Zadnji',
+        shortText: 'Zasavska ("Zadnji")',
+      },
+    },
   },
   Sewage: {
     name: 'Sewage',
