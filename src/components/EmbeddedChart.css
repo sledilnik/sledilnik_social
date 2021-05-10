@@ -19,8 +19,6 @@
   font-size: 0.8em;
   margin-bottom: 4px;
   padding-right: 4px;
-  display: flex;
-  align-items: center;
 }
 
 .EmbeddedChart .button-container {

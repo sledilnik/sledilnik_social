@@ -25,6 +25,7 @@ function EmbeddedChart() {
   const chartPickerRef = useRef();
   const customChartPickerRef = useRef();
   const hoverIndexPickerRef = useRef();
+  const hideLegendCheckboxRef = useRef();
   const [screen, setScreen] = useState(null);
   const [custom, setCustom] = useState('');
   const [hoverIndex, setHoverIndex] = useState('');
@@ -187,6 +188,10 @@ function EmbeddedChart() {
     }
   };
 
+  const changeHideLegendHandler = () => {
+    setShow(false);
+  };
+
   window.addEventListener('message', resizeFrame);
 
   return (
@@ -242,6 +247,14 @@ function EmbeddedChart() {
           </div>
         )}
       </div>
+      <div className="select-container">
+        <label htmlFor="hide-label-checkbox">Brez legende</label>
+        <input
+          ref={hideLegendCheckboxRef}
+          type="checkbox"
+          onChange={changeHideLegendHandler}
+        />
+      </div>
 
       <div className="image-container">
         {!show && (
@@ -256,6 +269,7 @@ function EmbeddedChart() {
                 screen: screen,
                 custom: custom,
                 hoverIndex: hoverIndex,
+                hideLegend: hideLegendCheckboxRef?.current.checked,
               }}
               noSkip
               captionTop
@@ -265,6 +279,7 @@ function EmbeddedChart() {
                 chartPickerRef,
                 customChartPickerRef,
                 hoverIndexPickerRef,
+                hideLegendCheckboxRef,
               }}
             />
           </>
