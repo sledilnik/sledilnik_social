@@ -100,6 +100,40 @@ export default {
     name: 'Regions100k',
     text: 'Po regijah (na 100k prebivalcev)',
     shortText: 'Po regijah/100k',
+    customCharts: {
+      casesConfirmed7DayAvg: {
+        name: 'casesConfirmed7DayAvg',
+        text: 'Potrjeni primeri - Novi(7-dnevno povprečje)',
+        shortText: 'Novi potrjeni -7dAVG',
+      },
+      casesConfirmedActive: {
+        name: 'casesConfirmedActive',
+        text: 'Potrjeni primeri - Aktivni',
+        shortText: 'Aktivni potrjeni',
+      },
+      casesConfirmedAll: {
+        name: 'casesConfirmedAll',
+        text: 'Potrjeni primeri - Vsi',
+        shortText: 'Vsi potrjeni',
+      },
+      vaccinated7DayAvg: {
+        name: 'vaccinated7DayAvg',
+        text: 'Cepljeni - Na dan(7-dnevno povprečje)',
+        shortText: 'Cepljeni -7dAVG',
+      },
+      vaccinatedDose1: {
+        name: 'vaccinatedDose1',
+        text: 'Cepljeni - 1. odmerek',
+      },
+      vaccinatedDose2: {
+        name: 'vaccinatedDose2',
+        text: 'Cepljeni - 2. odmerek',
+      },
+      deceased: {
+        name: 'deceased',
+        text: 'Umrli',
+      },
+    },
   },
   Map: {
     name: 'Map',
