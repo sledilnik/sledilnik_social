@@ -227,7 +227,7 @@ export default {
   },
   Regions: {
     name: 'Regions',
-    text: 'Primeri po regijah',
+    text: 'Po regijah',
   },
   PhaseDiagram: {
     name: 'PhaseDiagram',
