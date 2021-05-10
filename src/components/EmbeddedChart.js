@@ -89,8 +89,8 @@ function EmbeddedChart() {
           return !item[1].noShow;
         })
         .map(([key, item]) => {
-          const { name, text } = item;
-          const displayName = text || name || key;
+          const { name, text, shortText } = item;
+          const displayName = shortText || text || name || key;
           return (
             <option key={name || key} value={name || key}>
               {displayName}
