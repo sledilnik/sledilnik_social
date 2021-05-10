@@ -98,7 +98,7 @@ export default {
   },
   Regions100k: {
     name: 'Regions100k',
-    text: 'Primeri po regijah (na 100k prebivalcev)',
+    text: 'Po regijah (na 100k prebivalcev)',
     shortText: 'Primeri po regijah/100k',
   },
   Map: {
