@@ -25,6 +25,13 @@ const CUSTOM_CHART_OPTIONS = {
     days: return35,
     tsName: 'labTests',
   },
+  twoMonthsNewCasesTooltip: {
+    hasHoverIndex: true,
+    days: return2Months,
+    tsName: 'cases',
+    defaultValuesKey: 'days',
+    labelText: 'Datum',
+  },
   municipality: {
     hasHoverIndex: true,
     municipalities: true,
@@ -155,10 +162,65 @@ export default {
         text: 'Absolutno - 1d',
         hasHoverIndex: false,
       },
+      populationShare1Day: {
+        name: 'populationShare1Day',
+        text: 'Delež prebivalstva - 1d',
+        hasHoverIndex: false,
+      },
       distribution1Day: {
         name: 'distribution1Day',
         text: 'Porazdelitev - 1d',
         hasHoverIndex: false,
+      },
+      absolute7Days: {
+        name: 'absolute7Days',
+        text: 'Absolutno - 7d',
+        hasHoverIndex: false,
+      },
+      populationShare7Days: {
+        name: 'populationShare7Days',
+        text: 'Delež prebivalstva - 7d',
+        hasHoverIndex: false,
+      },
+      distribution7Days: {
+        name: 'distribution7Days',
+        text: 'Porazdelitev - 7d',
+        hasHoverIndex: false,
+      },
+      weeklyGrowthTooltip: {
+        name: 'weeklyGrowthTooltip',
+        text: 'Tedenski prirast - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      absolute1DayTooltip: {
+        name: 'absolute1DayTooltip',
+        text: 'Absolutno - 1d - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      populationShare1DayTooltip: {
+        name: 'populationShare1DayTooltip',
+        text: 'Delež prebivalstva - 1d - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      distribution1DayTooltip: {
+        name: 'distribution1DayTooltip',
+        text: 'Porazdelitev - 1d - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      absolute7DaysTooltip: {
+        name: 'absolute7DaysTooltip',
+        text: 'Absolutno - 7d - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      populationShare7DaysTooltip: {
+        name: 'populationShare7DaysTooltip',
+        text: 'Delež prebivalstva - 7d - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      distribution7DaysTooltip: {
+        name: 'distribution7DaysTooltip',
+        text: 'Porazdelitev - 7d - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
       },
     },
   },
@@ -274,9 +336,7 @@ export default {
       twoMonthsNewCasesTooltip: {
         name: 'twoMonthsNewCasesTooltip',
         text: 'Novi primeri - 2m',
-        hasHoverIndex: true,
-        days: return2Months,
-        tsName: 'cases',
+        ...CUSTOM_CHART_OPTIONS.twoMonthsNewCasesTooltip,
       },
     },
   },
