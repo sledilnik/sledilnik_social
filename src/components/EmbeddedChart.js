@@ -6,6 +6,7 @@ import CHARTS, { getChartUrl } from './../dicts/ChartsDict';
 import Screenshot from './Screenshot';
 import { formatToLocaleDateString } from '../utils/dates';
 import { TimestampsContext } from './../context/TimestampsContext';
+import { DataContext } from './../context/DataContext';
 
 const AddDays = {
   patients: 0,
@@ -19,8 +20,23 @@ const SeriesLength = {
   cases: days => days,
 };
 
+const DefaultHoverValues = {
+  days: '0',
+  municipalities: 'ajdovščina',
+};
+
+const replaceAll = (text, string, replaceValue) => {
+  const newText = text.replace(string, replaceValue);
+  const indexOf = newText.indexOf(string);
+  if (indexOf > -1) {
+    return replaceAll(newText, string, replaceValue);
+  }
+  return newText;
+};
+
 function EmbeddedChart() {
   const ts = useContext(TimestampsContext);
+  const dataHooks = useContext(DataContext);
   const [src, setSrc] = useState(null);
   const chartPickerRef = useRef();
   const customChartPickerRef = useRef();
@@ -106,26 +122,48 @@ function EmbeddedChart() {
     chartData?.customCharts[customChartPickerValue];
 
   const getHoverIndexOptions = (customChart, tsHooks, custom) => {
-    const { days, tsName } = customChart;
-    const { data: customTs } = tsHooks[tsName];
-    const customTsDate = new Date(customTs * 1000);
-    const addDaysToCalculateChartEndDate = AddDays[tsName];
-    const chartEndDate = addDays(customTsDate, addDaysToCalculateChartEndDate);
-    const daysToAddToSeries = chartEndDate.getDay();
-    const seriesLength = SeriesLength[tsName](days(), daysToAddToSeries);
+    if (customChart.days) {
+      const { days, tsName } = customChart;
+      const { data: customTs } = tsHooks[tsName];
+      const customTsDate = new Date(customTs * 1000);
+      const addDaysToCalculateChartEndDate = AddDays[tsName];
+      const chartEndDate = addDays(
+        customTsDate,
+        addDaysToCalculateChartEndDate
+      );
+      const daysToAddToSeries = chartEndDate.getDay();
+      const seriesLength = SeriesLength[tsName](days(), daysToAddToSeries);
 
-    const newArray = [...Array(seriesLength).keys()];
-    return newArray.map(item => {
-      const text = formatToLocaleDateString(
-        addDays(chartEndDate, -seriesLength + item + 1)
+      const newArray = [...Array(seriesLength).keys()];
+      return newArray.map(item => {
+        const text = formatToLocaleDateString(
+          addDays(chartEndDate, -seriesLength + item + 1)
+        );
+
+        return (
+          <option key={`${screen}-${custom}-${item}`} value={item}>
+            {text}
+          </option>
+        );
+      });
+    }
+
+    if (customChart.municipalities) {
+      const municipalities = dataHooks.municipalitiesList.data.slice(
+        1,
+        dataHooks.municipalitiesList.data.length
       );
 
-      return (
-        <option key={`${screen}-${custom}-${item}`} value={item}>
-          {text}
-        </option>
-      );
-    });
+      return municipalities.map(item => {
+        const text = item.name;
+        const value = replaceAll(item.id, '_', '-');
+        return (
+          <option key={`${screen}-${custom}-${item.id}`} value={value}>
+            {text}
+          </option>
+        );
+      });
+    }
   };
 
   const customChartHoverIndexOptions = customChart?.hasHoverIndex
@@ -147,7 +185,13 @@ function EmbeddedChart() {
     const hasHoverIndex =
       chartData?.customCharts[event.target.value]?.hasHoverIndex;
 
-    hasHoverIndex ? setHoverIndex(0) : setHoverIndex('');
+    const defaultValuesKey =
+      chartData?.customCharts[event.target.value]?.defaultValuesKey;
+
+    let hoverValue = hasHoverIndex && DefaultHoverValues[defaultValuesKey];
+    hasHoverIndex && hasHoverIndex
+      ? setHoverIndex(hoverValue)
+      : setHoverIndex('');
     setShow(false);
   };
 
@@ -181,7 +225,7 @@ function EmbeddedChart() {
   const resizeFrame = event => {
     if (event.data.type === 'embed-size') {
       console.log('resize event received', event.data);
-      var iframe = document.querySelector(
+      const iframe = document.querySelector(
         "iframe[name='" + event.data.name + "']"
       );
       if (iframe != null) {
@@ -236,7 +280,9 @@ function EmbeddedChart() {
         )}
         {showChartOptions && customChartHoverIndexOptions && (
           <div className="select-container">
-            <label htmlFor="custom-chart-hoverIndex-picker">Dan</label>
+            <label htmlFor="custom-chart-hoverIndex-picker">
+              {customChart.labelText}
+            </label>
             <select
               ref={hoverIndexPickerRef}
               name="custom-chart-hoverIndex-picker"
