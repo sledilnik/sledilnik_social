@@ -100,7 +100,18 @@ Those screenshots are not stored in local storage.
 - Map:
   - weeklyGrowth
   - absolute1Day
+  - populationsShare1Day
   - distribution1Day
+  - absolute7Days
+  - populationShare7Days
+  - distribution7Days
+  - weeklyGrowthTooltip
+  - absolute1DayTooltip
+  - populationShare1DayTooltip
+  - distribution1DayTooltip
+  - absolute7DaysTooltip
+  - populationShare7DaysTooltip
+  - distribution7DaysTooltip
 - Municipalities:
   - gorenjskaSortByLast
   - goriskaSortByLast
