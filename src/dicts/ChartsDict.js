@@ -19,11 +19,15 @@ const CUSTOM_CHART_OPTIONS = {
     hasHoverIndex: true,
     days: return2Months,
     tsName: 'patients',
+    defaultValuesKey: 'days',
+    labelText: 'Datum',
   },
   labTests35: {
     hasHoverIndex: true,
     days: return35,
     tsName: 'labTests',
+    defaultValuesKey: 'days',
+    labelText: 'Datum',
   },
   twoMonthsNewCasesTooltip: {
     hasHoverIndex: true,
