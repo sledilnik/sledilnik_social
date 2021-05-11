@@ -25,6 +25,12 @@ const CUSTOM_CHART_OPTIONS = {
     days: return35,
     tsName: 'labTests',
   },
+  municipality: {
+    hasHoverIndex: true,
+    municipalities: true,
+    defaultValuesKey: 'municipalities',
+    labelText: 'Občina',
+  },
 };
 
 export default {
