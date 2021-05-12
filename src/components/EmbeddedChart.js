@@ -342,7 +342,7 @@ function EmbeddedChart() {
           frameBorder="0"
           title="embedded-chart"
           width="100%"
-          name="embeddeed-chart"
+          name="embedded-chart"
         ></iframe>
       </figure>
     </div>
