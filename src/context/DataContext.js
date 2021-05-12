@@ -10,8 +10,16 @@ export const DataProvider = ({ children }) => {
   const stats = useFetch(API_URL.STATS, API_PARAMS.STATS);
   const hospitalsList = useFetch(API_URL.HOSPITALS_LIST);
   const municipalities = useFetch(API_URL.MUN, API_PARAMS.MUN);
+  const municipalitiesList = useFetch(API_URL.MUN_LIST);
 
-  const value = { summary, patients, stats, hospitalsList, municipalities };
+  const value = {
+    summary,
+    patients,
+    stats,
+    hospitalsList,
+    municipalities,
+    municipalitiesList,
+  };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 };

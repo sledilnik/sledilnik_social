@@ -19,11 +19,28 @@ const CUSTOM_CHART_OPTIONS = {
     hasHoverIndex: true,
     days: return2Months,
     tsName: 'patients',
+    defaultValuesKey: 'days',
+    labelText: 'Datum',
   },
   labTests35: {
     hasHoverIndex: true,
     days: return35,
     tsName: 'labTests',
+    defaultValuesKey: 'days',
+    labelText: 'Datum',
+  },
+  twoMonthsNewCasesTooltip: {
+    hasHoverIndex: true,
+    days: return2Months,
+    tsName: 'cases',
+    defaultValuesKey: 'days',
+    labelText: 'Datum',
+  },
+  municipality: {
+    hasHoverIndex: true,
+    municipalities: true,
+    defaultValuesKey: 'municipalities',
+    labelText: 'Občina',
   },
 };
 
@@ -100,6 +117,40 @@ export default {
     name: 'Regions100k',
     text: 'Po regijah (na 100k prebivalcev)',
     shortText: 'Po regijah/100k',
+    customCharts: {
+      casesConfirmed7DayAvg: {
+        name: 'casesConfirmed7DayAvg',
+        text: 'Potrjeni primeri - Novi(7-dnevno povprečje)',
+        shortText: 'Novi potrjeni -7dAVG',
+      },
+      casesConfirmedActive: {
+        name: 'casesConfirmedActive',
+        text: 'Potrjeni primeri - Aktivni',
+        shortText: 'Aktivni potrjeni',
+      },
+      casesConfirmedAll: {
+        name: 'casesConfirmedAll',
+        text: 'Potrjeni primeri - Vsi',
+        shortText: 'Vsi potrjeni',
+      },
+      vaccinated7DayAvg: {
+        name: 'vaccinated7DayAvg',
+        text: 'Cepljeni - Na dan(7-dnevno povprečje)',
+        shortText: 'Cepljeni -7dAVG',
+      },
+      vaccinatedDose1: {
+        name: 'vaccinatedDose1',
+        text: 'Cepljeni - 1. odmerek',
+      },
+      vaccinatedDose2: {
+        name: 'vaccinatedDose2',
+        text: 'Cepljeni - 2. odmerek',
+      },
+      deceased: {
+        name: 'deceased',
+        text: 'Umrli',
+      },
+    },
   },
   Map: {
     name: 'Map',
@@ -110,15 +161,118 @@ export default {
         text: 'Tedenski prirast',
         hasHoverIndex: false,
       },
+      weeklyGrowthTooltip: {
+        name: 'weeklyGrowthTooltip',
+        text: 'Tedenski prirast - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
       absolute1Day: {
         name: 'absolute1Day',
         text: 'Absolutno - 1d',
         hasHoverIndex: false,
       },
+      absolute1DayTooltip: {
+        name: 'absolute1DayTooltip',
+        text: 'Absolutno - 1d - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      absolute7Days: {
+        name: 'absolute7Days',
+        text: 'Absolutno - 7d',
+        hasHoverIndex: false,
+      },
+      absolute7DaysTooltip: {
+        name: 'absolute7DaysTooltip',
+        text: 'Absolutno - 7d - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      populationShare1Day: {
+        name: 'populationShare1Day',
+        text: 'Delež prebivalstva - 1d',
+        hasHoverIndex: false,
+      },
+      populationShare1DayTooltip: {
+        name: 'populationShare1DayTooltip',
+        text: 'Delež prebivalstva - 1d - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      populationShare7Days: {
+        name: 'populationShare7Days',
+        text: 'Delež prebivalstva - 7d',
+        hasHoverIndex: false,
+      },
+      populationShare7DaysTooltip: {
+        name: 'populationShare7DaysTooltip',
+        text: 'Delež prebivalstva - 7d - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
       distribution1Day: {
         name: 'distribution1Day',
         text: 'Porazdelitev - 1d',
         hasHoverIndex: false,
+      },
+      distribution1DayTooltip: {
+        name: 'distribution1DayTooltip',
+        text: 'Porazdelitev - 1d - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      distribution7Days: {
+        name: 'distribution7Days',
+        text: 'Porazdelitev - 7d',
+        hasHoverIndex: false,
+      },
+      distribution7DaysTooltip: {
+        name: 'distribution7DaysTooltip',
+        text: 'Porazdelitev - 7d - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      vaccinated1stPopulationShare: {
+        name: 'vaccinated1stPopulationShare',
+        text: 'Cepljeni - 1.odmerek - delež prebivalstva',
+        shortText: '1.odmerek - delež preb.',
+        hasHoverIndex: false,
+      },
+      vaccinated1stPopulationShareTooltip: {
+        name: 'vaccinated1stPopulationShareTooltip',
+        text: 'Cepljeni - 1.odmerek - delež prebivalstva - občina',
+        shortText: '1.odmerek - delež preb - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      vaccinated1stAbsolute: {
+        name: 'vaccinated1stAbsolute',
+        text: 'Cepljeni - 1.odmerek - absolutno',
+        shortText: '1.odmerek - absolutno',
+        hasHoverIndex: false,
+      },
+      vaccinated1stAbsoluteTooltip: {
+        name: 'vaccinated1stAbsoluteTooltip',
+        text: 'Cepljeni - 1.odmerek - absolutno - občina',
+        shortText: '1.odmerek - absolutno - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      vaccinated2ndPopulationShare: {
+        name: 'vaccinated2ndPopulationShare',
+        text: 'Cepljeni - 2.odmerek - delež prebivalstva',
+        shortText: '2.odmerek - delež preb.',
+        hasHoverIndex: false,
+      },
+      vaccinated2ndPopulationShareTooltip: {
+        name: 'vaccinated2ndPopulationShareTooltip',
+        text: 'Cepljeni - 2.odmerek - delež prebivalstva - občina',
+        shortText: '2.odmerek - delež preb. - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      vaccinated2ndAbsolute: {
+        name: 'vaccinated2ndAbsolute',
+        text: 'Cepljeni - 2.odmerek - absolutno',
+        shortText: '2.odmerek - absolutno',
+        hasHoverIndex: false,
+      },
+      vaccinated2ndAbsoluteTooltip: {
+        name: 'vaccinated2ndAbsoluteTooltip',
+        text: 'Cepljeni - 2.odmerek - absolutno - občina',
+        shortText: '2.odmerek - absolutno - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
       },
     },
   },
@@ -234,9 +388,7 @@ export default {
       twoMonthsNewCasesTooltip: {
         name: 'twoMonthsNewCasesTooltip',
         text: 'Novi primeri - 2m',
-        hasHoverIndex: true,
-        days: return2Months,
-        tsName: 'cases',
+        ...CUSTOM_CHART_OPTIONS.twoMonthsNewCasesTooltip,
       },
     },
   },

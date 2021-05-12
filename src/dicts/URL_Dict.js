@@ -12,6 +12,7 @@ export const API_URL = {
   STATS: `${BASE_API_URL}/api/stats`,
   HOSPITALS_LIST: `${BASE_API_URL}/api/hospitals-list`,
   MUN: `${BASE_API_URL}/api/municipalities`,
+  MUN_LIST: `${BASE_API_URL}/api/municipalities-list`,
 };
 
 export const API_PARAMS = {

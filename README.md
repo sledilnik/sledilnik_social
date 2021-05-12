@@ -89,10 +89,37 @@ Those screenshots are not stored in local storage.
   - dischargedHospitalsTooltip
   - admittedICUTooltip
   - deceasedTooltip
+- Regions100k:
+  - casesConfirmed7DayAvg,
+  - casesConfrimedActive,
+  - casesConfirmedAll,
+  - vaccinated7DayAvg
+  - vaccinatedDose1
+  - vaccinatedDose2
+  - deceased
 - Map:
   - weeklyGrowth
   - absolute1Day
+  - populationsShare1Day
   - distribution1Day
+  - absolute7Days
+  - populationShare7Days
+  - distribution7Days
+  - weeklyGrowthTooltip
+  - absolute1DayTooltip
+  - populationShare1DayTooltip
+  - distribution1DayTooltip
+  - absolute7DaysTooltip
+  - populationShare7DaysTooltip
+  - distribution7DaysTooltip
+  - vaccinated1stPopulationShare
+  - vaccinated1stPopulationShareTooltip
+  - vaccinated1stAbsolute
+  - vaccinated1stAbsoluteTooltip
+  - vaccinated2ndPopulationShare
+  - vaccinated2ndPopulationShareTooltip
+  - vaccinated2ndAbsolute
+  - vaccinated2ndAbsoluteTooltip
 - Municipalities:
   - gorenjskaSortByLast
   - goriskaSortByLast
