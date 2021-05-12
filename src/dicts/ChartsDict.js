@@ -161,65 +161,65 @@ export default {
         text: 'Tedenski prirast',
         hasHoverIndex: false,
       },
-      absolute1Day: {
-        name: 'absolute1Day',
-        text: 'Absolutno - 1d',
-        hasHoverIndex: false,
-      },
-      populationShare1Day: {
-        name: 'populationShare1Day',
-        text: 'Delež prebivalstva - 1d',
-        hasHoverIndex: false,
-      },
-      distribution1Day: {
-        name: 'distribution1Day',
-        text: 'Porazdelitev - 1d',
-        hasHoverIndex: false,
-      },
-      absolute7Days: {
-        name: 'absolute7Days',
-        text: 'Absolutno - 7d',
-        hasHoverIndex: false,
-      },
-      populationShare7Days: {
-        name: 'populationShare7Days',
-        text: 'Delež prebivalstva - 7d',
-        hasHoverIndex: false,
-      },
-      distribution7Days: {
-        name: 'distribution7Days',
-        text: 'Porazdelitev - 7d',
-        hasHoverIndex: false,
-      },
       weeklyGrowthTooltip: {
         name: 'weeklyGrowthTooltip',
         text: 'Tedenski prirast - občina',
         ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      absolute1Day: {
+        name: 'absolute1Day',
+        text: 'Absolutno - 1d',
+        hasHoverIndex: false,
       },
       absolute1DayTooltip: {
         name: 'absolute1DayTooltip',
         text: 'Absolutno - 1d - občina',
         ...CUSTOM_CHART_OPTIONS.municipality,
       },
-      populationShare1DayTooltip: {
-        name: 'populationShare1DayTooltip',
-        text: 'Delež prebivalstva - 1d - občina',
-        ...CUSTOM_CHART_OPTIONS.municipality,
-      },
-      distribution1DayTooltip: {
-        name: 'distribution1DayTooltip',
-        text: 'Porazdelitev - 1d - občina',
-        ...CUSTOM_CHART_OPTIONS.municipality,
+      absolute7Days: {
+        name: 'absolute7Days',
+        text: 'Absolutno - 7d',
+        hasHoverIndex: false,
       },
       absolute7DaysTooltip: {
         name: 'absolute7DaysTooltip',
         text: 'Absolutno - 7d - občina',
         ...CUSTOM_CHART_OPTIONS.municipality,
       },
+      populationShare1Day: {
+        name: 'populationShare1Day',
+        text: 'Delež prebivalstva - 1d',
+        hasHoverIndex: false,
+      },
+      populationShare1DayTooltip: {
+        name: 'populationShare1DayTooltip',
+        text: 'Delež prebivalstva - 1d - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      populationShare7Days: {
+        name: 'populationShare7Days',
+        text: 'Delež prebivalstva - 7d',
+        hasHoverIndex: false,
+      },
       populationShare7DaysTooltip: {
         name: 'populationShare7DaysTooltip',
         text: 'Delež prebivalstva - 7d - občina',
         ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      distribution1Day: {
+        name: 'distribution1Day',
+        text: 'Porazdelitev - 1d',
+        hasHoverIndex: false,
+      },
+      distribution1DayTooltip: {
+        name: 'distribution1DayTooltip',
+        text: 'Porazdelitev - 1d - občina',
+        ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      distribution7Days: {
+        name: 'distribution7Days',
+        text: 'Porazdelitev - 7d',
+        hasHoverIndex: false,
       },
       distribution7DaysTooltip: {
         name: 'distribution7DaysTooltip',
@@ -232,17 +232,17 @@ export default {
         shortText: '1.odmerek - delež preb.',
         hasHoverIndex: false,
       },
-      vaccinated1stAbsolute: {
-        name: 'vaccinated1stAbsolute',
-        text: 'Cepljeni - 1.odmerek - absolutno',
-        shortText: '1.odmerek - absolutno',
-        hasHoverIndex: false,
-      },
       vaccinated1stPopulationShareTooltip: {
         name: 'vaccinated1stPopulationShareTooltip',
         text: 'Cepljeni - 1.odmerek - delež prebivalstva - občina',
         shortText: '1.odmerek - delež preb - občina',
         ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      vaccinated1stAbsolute: {
+        name: 'vaccinated1stAbsolute',
+        text: 'Cepljeni - 1.odmerek - absolutno',
+        shortText: '1.odmerek - absolutno',
+        hasHoverIndex: false,
       },
       vaccinated1stAbsoluteTooltip: {
         name: 'vaccinated1stAbsoluteTooltip',
@@ -256,17 +256,17 @@ export default {
         shortText: '2.odmerek - delež preb.',
         hasHoverIndex: false,
       },
-      vaccinated2ndAbsolute: {
-        name: 'vaccinated2ndAbsolute',
-        text: 'Cepljeni - 2.odmerek - absolutno',
-        shortText: '2.odmerek - absolutno',
-        hasHoverIndex: false,
-      },
       vaccinated2ndPopulationShareTooltip: {
         name: 'vaccinated2ndPopulationShareTooltip',
         text: 'Cepljeni - 2.odmerek - delež prebivalstva - občina',
         shortText: '2.odmerek - delež preb. - občina',
         ...CUSTOM_CHART_OPTIONS.municipality,
+      },
+      vaccinated2ndAbsolute: {
+        name: 'vaccinated2ndAbsolute',
+        text: 'Cepljeni - 2.odmerek - absolutno',
+        shortText: '2.odmerek - absolutno',
+        hasHoverIndex: false,
       },
       vaccinated2ndAbsoluteTooltip: {
         name: 'vaccinated2ndAbsoluteTooltip',
