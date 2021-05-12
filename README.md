@@ -112,6 +112,14 @@ Those screenshots are not stored in local storage.
   - absolute7DaysTooltip
   - populationShare7DaysTooltip
   - distribution7DaysTooltip
+  - vaccinated1stPopulationShare
+  - vaccinated1stPopulationShareTooltip
+  - vaccinated1stAbsolute
+  - vaccinated1stAbsoluteTooltip
+  - vaccinated2ndPopulationShare
+  - vaccinated2ndPopulationShareTooltip
+  - vaccinated2ndAbsolute
+  - vaccinated2ndAbsoluteTooltip
 - Municipalities:
   - gorenjskaSortByLast
   - goriskaSortByLast
