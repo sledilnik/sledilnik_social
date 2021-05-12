@@ -4,6 +4,15 @@ import useFetch from '../hooks/useFetch';
 import useLocalStorage from '../hooks/useLocalStorage';
 import Loader from './Loader';
 
+const replaceAll = (text, string, replaceValue) => {
+  const newText = text.replace(string, replaceValue);
+  const indexOf = newText.indexOf(string);
+  if (indexOf > -1) {
+    return replaceAll(newText, string, replaceValue);
+  }
+  return newText;
+};
+
 const awsLambdaURL =
   'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot';
 
@@ -25,14 +34,8 @@ const Screenshot = ({
   const [value, setValue] = useLocalStorage(null, filename);
   filename = captionText || filename; // ! must be after useLocalStorage
 
-  const {
-    data,
-    isLoading,
-    hasError,
-    refetch,
-    setSkip,
-    updateParams,
-  } = useFetch(awsLambdaURL, params, {}, !!value && !noSkip);
+  const { data, isLoading, hasError, refetch, setSkip, updateParams } =
+    useFetch(awsLambdaURL, params, {}, !!value && !noSkip);
 
   const href = noSkip ? data?.body : value || data?.body;
   for (const pickerRef of Object.values(pickers)) {
@@ -55,6 +58,8 @@ const Screenshot = ({
 
   const alt = `${type}-${filename}`;
   const figCaptionText = captionText || `${type} ${filename}`;
+
+  filename = replaceAll(filename, '.', '_');
 
   return (
     <>
