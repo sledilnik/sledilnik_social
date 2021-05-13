@@ -17,55 +17,28 @@ const awsLambdaURL =
   'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot';
 
 const Screenshot = ({
-  params = { type: '', screen: '', custom: '', hoverIndex: '' },
-  noSkip,
   captionTop,
   captionBottom,
   captionText = '',
-  pickers = {},
   ...props
 }) => {
-  const { type } = params;
-  const [value, setValue] = useLocalStorage(null, props.localStorageName);
-  const { data, isLoading, hasError, refetch, setSkip, updateParams } =
-    useFetch(awsLambdaURL, params, {}, !!value && !noSkip);
-
-  const href = noSkip ? data?.body : value || data?.body;
-  for (const pickerRef of Object.values(pickers)) {
-    pickerRef.current && (pickerRef.current.disabled = isLoading);
-    const labels = document.querySelectorAll('.select-container label');
-    labels &&
-      [...labels].map(
-        label =>
-          (label.style.color = isLoading ? 'var(--box-shadow)' : 'initial')
-      );
-  }
-
-  useEffect(() => {
-    if (href && !noSkip) {
-      setValue(href);
-      setSkip(true);
-    }
-    noSkip && updateParams(params);
-  }, [href, params, noSkip, setValue, setSkip, updateParams]);
-
-  const alt = `${type}-${props.filename}`;
-  const figCaptionText = captionText || `${type} ${props.filename}`;
+  const alt = `${props.type}-${props.filename}`;
+  const figCaptionText = captionText || `${props.type} ${props.filename}`;
 
   return (
     <>
-      {hasError && !isLoading && !href && (
+      {props.hasError && !props.isLoading && !props.href && (
         <>
           {captionTop && <figcaption>{figCaptionText}</figcaption>}
           <div className="Screenshot loader-container">
             <h3>Something went wrong!</h3>
-            <button onClick={refetch}>Try again</button>
+            <button onClick={props.refetch}>Try again</button>
           </div>
           {captionBottom && <figcaption>{figCaptionText}</figcaption>}
         </>
       )}
 
-      {isLoading && (
+      {props.isLoading && (
         <>
           {captionTop && <figcaption>{figCaptionText}</figcaption>}
           <div className="Screenshot loader-container">
@@ -74,15 +47,15 @@ const Screenshot = ({
           {captionBottom && <figcaption>{figCaptionText}</figcaption>}
         </>
       )}
-      {!isLoading && href && !hasError && (
+      {!props.isLoading && props.href && !props.hasError && (
         <a
           className="Screenshot"
-          href={`data:image/png;base64,${href}`}
+          href={`data:image/png;base64,${props.href}`}
           download={props.filename}
         >
           {captionTop && <figcaption>{figCaptionText}</figcaption>}
           <img
-            src={`data:image/jpeg;base64,${href}`}
+            src={`data:image/jpeg;base64,${props.href}`}
             alt={alt}
             loading="lazy"
             decoding="true"
@@ -119,15 +92,38 @@ function withScreenshotHOC(Component) {
     filename = replaceAll(filename, '.', '_');
     console.log(localStorageName);
 
+    const [value, setValue] = useLocalStorage(null, props.localStorageName);
+    const { data, isLoading, hasError, refetch, setSkip, updateParams } =
+      useFetch(awsLambdaURL, params, {}, !!value && !noSkip);
+
+    const href = noSkip ? data?.body : value || data?.body;
+    for (const pickerRef of Object.values(pickers)) {
+      pickerRef.current && (pickerRef.current.disabled = isLoading);
+      const labels = document.querySelectorAll('.select-container label');
+      labels &&
+        [...labels].map(
+          label =>
+            (label.style.color = isLoading ? 'var(--box-shadow)' : 'initial')
+        );
+    }
+
+    useEffect(() => {
+      if (href && !noSkip) {
+        setValue(href);
+        setSkip(true);
+      }
+      noSkip && updateParams(params);
+    }, [href, params, noSkip, setValue, setSkip, updateParams]);
+
     const newProps = {
-      params,
-      noSkip,
       captionTop,
       captionBottom,
       captionText,
-      pickers,
-      localStorageName,
       filename,
+      hasError,
+      isLoading,
+      href,
+      refetch,
       ...props,
     };
 
