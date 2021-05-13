@@ -5,30 +5,36 @@ import useFetch from '../hooks/useFetch';
 import useLocalStorage from '../hooks/useLocalStorage';
 import Loader from './Loader';
 
-const Screenshot = ({
+const ScreenshotContainer = ({
   captionTop,
   captionBottom,
-  base64Img,
-  alt,
   figCaptionText,
-  filename,
+  children,
+  ...props
 }) => {
   return (
-    <a
-      className="Screenshot"
-      href={`data:image/png;base64,${base64Img}`}
-      download={filename}
-    >
+    <>
       {captionTop && <figcaption>{figCaptionText}</figcaption>}
-      <img
-        src={`data:image/jpeg;base64,${base64Img}`}
-        alt={alt}
-        loading="lazy"
-        decoding="true"
-        async
-      />
+      <div {...props}>{children}</div>
       {captionBottom && <figcaption>{figCaptionText}</figcaption>}
-    </a>
+    </>
+  );
+};
+
+const Screenshot = ({ ...props }) => {
+  const { base64Img, filename, alt, ...rest } = props;
+  return (
+    <ScreenshotContainer {...rest}>
+      <a href={`data:image/png;base64,${base64Img}`} download={filename}>
+        <img
+          src={`data:image/jpeg;base64,${base64Img}`}
+          alt={alt}
+          loading="lazy"
+          decoding="true"
+          async
+        />
+      </a>
+    </ScreenshotContainer>
   );
 };
 
@@ -63,23 +69,17 @@ const getLocalStorageName = ({ screen, custom, hoverIndex }) => {
 };
 
 function withScreenshotHOC(Component) {
-  const ScreenshotHOC = ({
-    params = { type: '', screen: '', custom: '', hoverIndex: '' },
-    noSkip,
-    captionTop,
-    captionBottom,
-    captionText = '',
-    pickers = {},
-  }) => {
+  const ScreenshotHOC = props => {
+    const { params, captionText, noSkip, pickers, ...rest } = props;
     const localStorageName = getLocalStorageName(params);
-    let filename = captionText || localStorageName; // ! must be after useLocalStorage
-    filename = replaceAll(filename, '.', '_');
+    const filename = replaceAll(captionText || localStorageName, '.', '_');
 
     const [value, setValue] = useLocalStorage(null, localStorageName);
     const { data, isLoading, hasError, refetch, setSkip, updateParams } =
       useFetch(awsLambdaURL, params, {}, !!value && !noSkip);
 
     const base64Img = noSkip ? data?.body : value || data?.body;
+
     for (const pickerRef of Object.values(pickers)) {
       pickerRef.current && (pickerRef.current.disabled = isLoading);
       const labels = document.querySelectorAll('.select-container label');
@@ -103,39 +103,38 @@ function withScreenshotHOC(Component) {
 
     if (hasError && !isLoading && !base64Img) {
       return (
-        <>
-          {captionTop && <figcaption>{figCaptionText}</figcaption>}
-          <div className="Screenshot loader-container">
-            <h3>Something went wrong!</h3>
-            <button onClick={refetch}>Try again</button>
-          </div>
-          {captionBottom && <figcaption>{figCaptionText}</figcaption>}
-        </>
+        <ScreenshotContainer
+          className="Screenshot loader-container"
+          figCaptionText={figCaptionText}
+          {...rest}
+        >
+          <h3>Something went wrong!</h3>
+          <button onClick={refetch}>Try again</button>
+        </ScreenshotContainer>
       );
     }
 
     if (isLoading) {
       return (
-        <>
-          {captionTop && <figcaption>{figCaptionText}</figcaption>}
-          <div className="Screenshot loader-container">
-            <Loader />
-          </div>
-          {captionBottom && <figcaption>{figCaptionText}</figcaption>}
-        </>
+        <ScreenshotContainer
+          className="Screenshot loader-container"
+          figCaptionText={figCaptionText}
+          {...rest}
+        >
+          <Loader />
+        </ScreenshotContainer>
       );
     }
 
     const componentProps = {
-      captionTop,
-      captionBottom,
       filename,
       alt,
       base64Img,
       figCaptionText,
+      ...rest,
     };
 
-    return <Component {...componentProps} />;
+    return <Component className="Screenshot" {...componentProps} />;
   };
 
   ScreenshotHOC.propTypes = {
@@ -150,6 +149,12 @@ function withScreenshotHOC(Component) {
     captionBottom: PropTypes.bool,
     captionText: PropTypes.string,
     pickers: PropTypes.object,
+  };
+
+  ScreenshotHOC.defaultProps = {
+    params: { type: '', screen: '', custom: '', hoverIndex: '' },
+    captionText: 'caption text',
+    pickers: {},
   };
 
   return ScreenshotHOC;
