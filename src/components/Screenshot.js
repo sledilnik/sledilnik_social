@@ -89,7 +89,7 @@ function withScreenshotHOC(Component) {
     }, [href, params, noSkip, setValue, setSkip, updateParams]);
 
     const alt = `${params.type}-${filename}`;
-    const figCaptionText = captionText || `${params.type} ${params.filename}`;
+    const figCaptionText = captionText || `${params.type} ${filename}`;
 
     if (hasError && !isLoading && !href) {
       return (
