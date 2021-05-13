@@ -64,10 +64,14 @@ const Screenshot = ({
   return (
     <>
       {hasError && !isLoading && !href && (
-        <div className="Screenshot loader-container">
-          <h3>Something went wrong!</h3>
-          <button onClick={refetch}>Try again</button>
-        </div>
+        <>
+          {captionTop && <figcaption>{figCaptionText}</figcaption>}
+          <div className="Screenshot loader-container">
+            <h3>Something went wrong!</h3>
+            <button onClick={refetch}>Try again</button>
+          </div>
+          {captionBottom && <figcaption>{figCaptionText}</figcaption>}
+        </>
       )}
 
       {isLoading && (
