@@ -4,18 +4,6 @@ import useFetch from '../hooks/useFetch';
 import useLocalStorage from '../hooks/useLocalStorage';
 import Loader from './Loader';
 
-const replaceAll = (text, string, replaceValue) => {
-  const newText = text.replace(string, replaceValue);
-  const indexOf = newText.indexOf(string);
-  if (indexOf > -1) {
-    return replaceAll(newText, string, replaceValue);
-  }
-  return newText;
-};
-
-const awsLambdaURL =
-  'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot';
-
 const Screenshot = ({
   captionTop,
   captionBottom,
@@ -41,6 +29,18 @@ const Screenshot = ({
       {captionBottom && <figcaption>{figCaptionText}</figcaption>}
     </a>
   );
+};
+
+const awsLambdaURL =
+  'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot';
+
+const replaceAll = (text, string, replaceValue) => {
+  const newText = text.replace(string, replaceValue);
+  const indexOf = newText.indexOf(string);
+  if (indexOf > -1) {
+    return replaceAll(newText, string, replaceValue);
+  }
+  return newText;
 };
 
 const getLocalStorageName = ({ screen, custom, hoverIndex }) => {
