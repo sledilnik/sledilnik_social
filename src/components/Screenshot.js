@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import './Screenshot.css';
 import useFetch from '../hooks/useFetch';
 import useLocalStorage from '../hooks/useLocalStorage';
@@ -7,7 +8,7 @@ import Loader from './Loader';
 const Screenshot = ({
   captionTop,
   captionBottom,
-  href,
+  base64Img,
   alt,
   figCaptionText,
   filename,
@@ -15,12 +16,12 @@ const Screenshot = ({
   return (
     <a
       className="Screenshot"
-      href={`data:image/png;base64,${href}`}
+      href={`data:image/png;base64,${base64Img}`}
       download={filename}
     >
       {captionTop && <figcaption>{figCaptionText}</figcaption>}
       <img
-        src={`data:image/jpeg;base64,${href}`}
+        src={`data:image/jpeg;base64,${base64Img}`}
         alt={alt}
         loading="lazy"
         decoding="true"
@@ -29,6 +30,15 @@ const Screenshot = ({
       {captionBottom && <figcaption>{figCaptionText}</figcaption>}
     </a>
   );
+};
+
+Screenshot.propTypes = {
+  captionTop: PropTypes.bool,
+  captionBottom: PropTypes.bool,
+  base64Img: PropTypes.string,
+  alt: PropTypes.string,
+  figCaptionText: PropTypes.string,
+  filename: PropTypes.string,
 };
 
 const awsLambdaURL =
@@ -69,7 +79,7 @@ function withScreenshotHOC(Component) {
     const { data, isLoading, hasError, refetch, setSkip, updateParams } =
       useFetch(awsLambdaURL, params, {}, !!value && !noSkip);
 
-    const href = noSkip ? data?.body : value || data?.body;
+    const base64Img = noSkip ? data?.body : value || data?.body;
     for (const pickerRef of Object.values(pickers)) {
       pickerRef.current && (pickerRef.current.disabled = isLoading);
       const labels = document.querySelectorAll('.select-container label');
@@ -81,17 +91,17 @@ function withScreenshotHOC(Component) {
     }
 
     useEffect(() => {
-      if (href && !noSkip) {
-        setValue(href);
+      if (base64Img && !noSkip) {
+        setValue(base64Img);
         setSkip(true);
       }
       noSkip && updateParams(params);
-    }, [href, params, noSkip, setValue, setSkip, updateParams]);
+    }, [base64Img, params, noSkip, setValue, setSkip, updateParams]);
 
     const alt = `${params.type}-${filename}`;
     const figCaptionText = captionText || `${params.type} ${filename}`;
 
-    if (hasError && !isLoading && !href) {
+    if (hasError && !isLoading && !base64Img) {
       return (
         <>
           {captionTop && <figcaption>{figCaptionText}</figcaption>}
@@ -121,12 +131,27 @@ function withScreenshotHOC(Component) {
       captionBottom,
       filename,
       alt,
-      href,
+      base64Img,
       figCaptionText,
     };
 
     return <Component {...componentProps} />;
   };
+
+  ScreenshotHOC.propTypes = {
+    params: PropTypes.shape({
+      type: PropTypes.string,
+      screen: PropTypes.string,
+      custom: PropTypes.string,
+      hoverIndex: PropTypes.string,
+    }),
+    noSkip: PropTypes.bool,
+    captionTop: PropTypes.bool,
+    captionBottom: PropTypes.bool,
+    captionText: PropTypes.string,
+    pickers: PropTypes.object,
+  };
+
   return ScreenshotHOC;
 }
 export default withScreenshotHOC(Screenshot);
