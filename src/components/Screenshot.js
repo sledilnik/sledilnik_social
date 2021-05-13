@@ -19,52 +19,27 @@ const awsLambdaURL =
 const Screenshot = ({
   captionTop,
   captionBottom,
-  captionText = '',
-  ...props
+  href,
+  alt,
+  figCaptionText,
+  filename,
 }) => {
-  const alt = `${props.type}-${props.filename}`;
-  const figCaptionText = captionText || `${props.type} ${props.filename}`;
-
   return (
-    <>
-      {props.hasError && !props.isLoading && !props.href && (
-        <>
-          {captionTop && <figcaption>{figCaptionText}</figcaption>}
-          <div className="Screenshot loader-container">
-            <h3>Something went wrong!</h3>
-            <button onClick={props.refetch}>Try again</button>
-          </div>
-          {captionBottom && <figcaption>{figCaptionText}</figcaption>}
-        </>
-      )}
-
-      {props.isLoading && (
-        <>
-          {captionTop && <figcaption>{figCaptionText}</figcaption>}
-          <div className="Screenshot loader-container">
-            <Loader />
-          </div>
-          {captionBottom && <figcaption>{figCaptionText}</figcaption>}
-        </>
-      )}
-      {!props.isLoading && props.href && !props.hasError && (
-        <a
-          className="Screenshot"
-          href={`data:image/png;base64,${props.href}`}
-          download={props.filename}
-        >
-          {captionTop && <figcaption>{figCaptionText}</figcaption>}
-          <img
-            src={`data:image/jpeg;base64,${props.href}`}
-            alt={alt}
-            loading="lazy"
-            decoding="true"
-            async
-          />
-          {captionBottom && <figcaption>{figCaptionText}</figcaption>}
-        </a>
-      )}
-    </>
+    <a
+      className="Screenshot"
+      href={`data:image/png;base64,${href}`}
+      download={filename}
+    >
+      {captionTop && <figcaption>{figCaptionText}</figcaption>}
+      <img
+        src={`data:image/jpeg;base64,${href}`}
+        alt={alt}
+        loading="lazy"
+        decoding="true"
+        async
+      />
+      {captionBottom && <figcaption>{figCaptionText}</figcaption>}
+    </a>
   );
 };
 
@@ -85,14 +60,12 @@ function withScreenshotHOC(Component) {
     captionBottom,
     captionText = '',
     pickers = {},
-    ...props
   }) => {
     const localStorageName = getLocalStorageName(params);
-    let filename = captionText || props.localStorageName; // ! must be after useLocalStorage
+    let filename = captionText || localStorageName; // ! must be after useLocalStorage
     filename = replaceAll(filename, '.', '_');
-    console.log(localStorageName);
 
-    const [value, setValue] = useLocalStorage(null, props.localStorageName);
+    const [value, setValue] = useLocalStorage(null, localStorageName);
     const { data, isLoading, hasError, refetch, setSkip, updateParams } =
       useFetch(awsLambdaURL, params, {}, !!value && !noSkip);
 
@@ -115,19 +88,44 @@ function withScreenshotHOC(Component) {
       noSkip && updateParams(params);
     }, [href, params, noSkip, setValue, setSkip, updateParams]);
 
-    const newProps = {
+    const alt = `${params.type}-${filename}`;
+    const figCaptionText = captionText || `${params.type} ${params.filename}`;
+
+    if (hasError && !isLoading && !href) {
+      return (
+        <>
+          {captionTop && <figcaption>{figCaptionText}</figcaption>}
+          <div className="Screenshot loader-container">
+            <h3>Something went wrong!</h3>
+            <button onClick={refetch}>Try again</button>
+          </div>
+          {captionBottom && <figcaption>{figCaptionText}</figcaption>}
+        </>
+      );
+    }
+
+    if (isLoading) {
+      return (
+        <>
+          {captionTop && <figcaption>{figCaptionText}</figcaption>}
+          <div className="Screenshot loader-container">
+            <Loader />
+          </div>
+          {captionBottom && <figcaption>{figCaptionText}</figcaption>}
+        </>
+      );
+    }
+
+    const componentProps = {
       captionTop,
       captionBottom,
-      captionText,
       filename,
-      hasError,
-      isLoading,
+      alt,
       href,
-      refetch,
-      ...props,
+      figCaptionText,
     };
 
-    return <Component {...newProps} />;
+    return <Component {...componentProps} />;
   };
   return ScreenshotHOC;
 }
