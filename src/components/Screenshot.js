@@ -23,6 +23,7 @@ const Screenshot = ({
   captionBottom,
   captionText = '',
   pickers = {},
+  ...props
 }) => {
   const { type, screen, custom, hoverIndex } = params;
   let filename = custom ? screen + '_' + custom : screen;
@@ -31,8 +32,9 @@ const Screenshot = ({
       ? filename + '_' + hoverIndex
       : filename;
 
-  const [value, setValue] = useLocalStorage(null, filename);
-  filename = captionText || filename; // ! must be after useLocalStorage
+  const [value, setValue] = useLocalStorage(null, props.localStorageName);
+  filename = captionText || props.localStorageName; // ! must be after useLocalStorage
+  filename = replaceAll(filename, '.', '_');
 
   const { data, isLoading, hasError, refetch, setSkip, updateParams } =
     useFetch(awsLambdaURL, params, {}, !!value && !noSkip);
@@ -58,8 +60,6 @@ const Screenshot = ({
 
   const alt = `${type}-${filename}`;
   const figCaptionText = captionText || `${type} ${filename}`;
-
-  filename = replaceAll(filename, '.', '_');
 
   return (
     <>
@@ -104,4 +104,41 @@ const Screenshot = ({
   );
 };
 
-export default Screenshot;
+const getLocalStorageName = ({ screen, custom, hoverIndex }) => {
+  let localStorageName = custom ? screen + '_' + custom : screen;
+  localStorageName =
+    !isNaN(hoverIndex) && hoverIndex !== ''
+      ? localStorageName + '_' + hoverIndex
+      : localStorageName;
+  return localStorageName;
+};
+
+function withScreenshotHOC(Component) {
+  const ScreenshotHOC = ({
+    params = { type: '', screen: '', custom: '', hoverIndex: '' },
+    noSkip,
+    captionTop,
+    captionBottom,
+    captionText = '',
+    pickers = {},
+    ...props
+  }) => {
+    const localStorageName = getLocalStorageName(params);
+    console.log(localStorageName);
+
+    const newProps = {
+      params,
+      noSkip,
+      captionTop,
+      captionBottom,
+      captionText,
+      pickers,
+      localStorageName,
+      ...props,
+    };
+
+    return <Component {...newProps} />;
+  };
+  return ScreenshotHOC;
+}
+export default withScreenshotHOC(Screenshot);
