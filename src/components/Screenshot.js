@@ -25,17 +25,8 @@ const Screenshot = ({
   pickers = {},
   ...props
 }) => {
-  const { type, screen, custom, hoverIndex } = params;
-  let filename = custom ? screen + '_' + custom : screen;
-  filename =
-    !isNaN(hoverIndex) && hoverIndex !== ''
-      ? filename + '_' + hoverIndex
-      : filename;
-
+  const { type } = params;
   const [value, setValue] = useLocalStorage(null, props.localStorageName);
-  filename = captionText || props.localStorageName; // ! must be after useLocalStorage
-  filename = replaceAll(filename, '.', '_');
-
   const { data, isLoading, hasError, refetch, setSkip, updateParams } =
     useFetch(awsLambdaURL, params, {}, !!value && !noSkip);
 
@@ -58,8 +49,8 @@ const Screenshot = ({
     noSkip && updateParams(params);
   }, [href, params, noSkip, setValue, setSkip, updateParams]);
 
-  const alt = `${type}-${filename}`;
-  const figCaptionText = captionText || `${type} ${filename}`;
+  const alt = `${type}-${props.filename}`;
+  const figCaptionText = captionText || `${type} ${props.filename}`;
 
   return (
     <>
@@ -87,7 +78,7 @@ const Screenshot = ({
         <a
           className="Screenshot"
           href={`data:image/png;base64,${href}`}
-          download={filename}
+          download={props.filename}
         >
           {captionTop && <figcaption>{figCaptionText}</figcaption>}
           <img
@@ -124,6 +115,8 @@ function withScreenshotHOC(Component) {
     ...props
   }) => {
     const localStorageName = getLocalStorageName(params);
+    let filename = captionText || props.localStorageName; // ! must be after useLocalStorage
+    filename = replaceAll(filename, '.', '_');
     console.log(localStorageName);
 
     const newProps = {
@@ -134,6 +127,7 @@ function withScreenshotHOC(Component) {
       captionText,
       pickers,
       localStorageName,
+      filename,
       ...props,
     };
 
