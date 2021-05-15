@@ -132,7 +132,6 @@ const HOS = ({ noTWCount, noClose }) => {
       <Post forwardedRef={ref} id="post-hos" postNumber={2}>
         <Patients title="Hospitalized" />
         <Patients title="OnRespiratory" />
-        <Patients title="Care" />
         <Patients title="Deceased" />
       </Post>
     </Card>
@@ -145,9 +144,8 @@ const EPI = ({ noTWCount, noClose }) => {
   const [showIcons, setShowIcons] = useState(true);
   const [what, setWhat] = useState('weeklyGrowth');
   const [showSettings, setShowSettings] = useState(false);
-  const { stats, labTests, cases, patients, munActive } = useContext(
-    TimestampsContext
-  );
+  const { stats, labTests, cases, patients, munActive } =
+    useContext(TimestampsContext);
   const { data: statsTimestamp } = stats;
   const { data: labTestsTimestamp } = labTests;
   const { data: casesTimestamp } = cases;
@@ -261,7 +259,6 @@ const EPI = ({ noTWCount, noClose }) => {
         <PerAge />
         <Patients title="Hospitalized" />
         <Patients title="OnRespiratory" />
-        <Patients title="Care" />
         <Patients title="Deceased" />
         <InHospitals />
         <Municipalities icons="FB" showIcons={showIcons} what={what} />
