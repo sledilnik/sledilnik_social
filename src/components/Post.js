@@ -95,7 +95,7 @@ const SparkDict = {
   },
   TW: {
     LAB: true,
-    HOS: false,
+    HOS: true,
     EPI: true,
   },
 };
