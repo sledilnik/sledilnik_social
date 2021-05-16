@@ -93,7 +93,7 @@ const Hospitalized = {
     onlyValue: {},
   },
   TW: {
-    default: { text2: '', text4: '' },
+    default: {},
     onValue: {},
   },
 };
@@ -111,13 +111,7 @@ const OnRespiratory = {
     onlyValue: {},
   },
   TW: {
-    default: {
-      text1: 'Respirator: ',
-      text2: ' intubirani ',
-      text3: '',
-      text4: ' neinvazivno ',
-      text5: '',
-    },
+    default: {},
     onValue: {},
   },
 };
@@ -132,9 +126,7 @@ const Care = {
     onlyValue: {},
   },
   TW: {
-    default: {
-      text1: 'Negovalne b.: ',
-    },
+    default: {},
     onValue: {},
   },
 };

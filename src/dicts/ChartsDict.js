@@ -326,7 +326,7 @@ export default {
         shortText: 'Posavska ("Zadnji")',
       },
       primorskoNotranjskaSortByLast: {
-        name: 'posavskaSortByLast',
+        name: 'primorskoNotranjskaSortByLast',
         text: 'Primorsko-notranjska - razvrsti po "Zadnji',
         shortText: 'Primorsko-notranjska ("Zadnji")',
       },
