@@ -54,8 +54,6 @@ function ScreenshotsByType({ title, type, ...props }) {
     const text = getTranslatedScreenshotName(name, type, typesDict);
     const hideLegend = getHideLegendInScreenshot(name, type, typesDict);
 
-    console.log({ hideLegend });
-
     return (
       <div key={`${type}-${name}`} className="screenshot-container">
         <Screenshot
