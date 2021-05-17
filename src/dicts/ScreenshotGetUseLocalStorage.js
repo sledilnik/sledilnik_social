@@ -29,7 +29,7 @@ export const ScreenshotNames = {
     'IcuPatients',
     'Regions100k_casesConfirmed7DayAvg',
     'Regions100k_vaccinated7DayAvg',
-    'Municipalities', // TODO hide legend
+    'Municipalities',
     'Map_absolute1Day',
     'Map_distribution1Day',
     'Map_weeklyGrowth',
