@@ -134,8 +134,8 @@ function EmbeddedChart() {
       const daysToAddToSeries = chartEndDate.getDay();
       const seriesLength = SeriesLength[tsName](days(), daysToAddToSeries);
 
-      const newArray = [...Array(seriesLength).keys()];
-      return newArray.map(item => {
+      const hoverSeries = [...Array(seriesLength).keys()];
+      return hoverSeries.map(item => {
         const text = formatToLocaleDateString(
           addDays(chartEndDate, -seriesLength + item + 1)
         );
