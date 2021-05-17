@@ -310,6 +310,7 @@ export default {
   Municipalities: {
     name: 'Municipalities',
     text: 'Primeri po občinah',
+    hideLegendInScreenshots: true,
     customCharts: {
       gorenjskaSortByLast: {
         name: 'gorenjskaSortByLast',

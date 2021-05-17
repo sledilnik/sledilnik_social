@@ -26,6 +26,14 @@ const getTranslatedScreenshotName = (name, type, typesDict) => {
   return !custom ? types[screen].text : types[screen].customCharts[custom].text;
 };
 
+const getHideLegendInScreenshot = (name, type, typesDict) => {
+  const [screen, custom] = name.split('_');
+  const types = typesDict[type.toUpperCase()];
+  return !custom
+    ? types[screen].hideLegendInScreenshots
+    : types[screen].customCharts[custom].hideLegendInScreenshots;
+};
+
 const translatedNames = Object.entries(ScreenshotNames).reduce(
   (acc, [type, names]) => {
     const translated = names.reduce((nestedAcc, name) => {
@@ -44,6 +52,9 @@ function ScreenshotsByType({ title, type, ...props }) {
   const screenshots = names.map(name => {
     const [screen, custom] = name.split('_');
     const text = getTranslatedScreenshotName(name, type, typesDict);
+    const hideLegend = getHideLegendInScreenshot(name, type, typesDict);
+
+    console.log({ hideLegend });
 
     return (
       <div key={`${type}-${name}`} className="screenshot-container">
@@ -52,6 +63,7 @@ function ScreenshotsByType({ title, type, ...props }) {
             type: type,
             screen: screen,
             custom: custom || '',
+            hideLegend: hideLegend ? String(hideLegend) : '',
           }}
           captionTop
           captionText={text}
