@@ -11,6 +11,7 @@ import ScreenshotGetUseLocalStorage from '../dicts/ScreenshotGetUseLocalStorage'
 import CHART from '../dicts/ChartsDict';
 import CARD from '../dicts/CardsDict';
 import MULTICARD from '../dicts/MulticardDict';
+import EpiZipDict from '../dicts/EPI_ZipDict';
 import { TimestampsContext } from '../context/TimestampsContext';
 import useLocalStorage from '../hooks/useLocalStorage';
 
@@ -122,6 +123,12 @@ function Screenshots() {
           filenames={ScreenshotNames}
           translated={translatedNames}
           zipName={'All_screeenshots'}
+        />
+        <ZipLink
+          text="EPI"
+          filenames={EpiZipDict}
+          translated={translatedNames}
+          zipName={'EPI_screeenshots'}
         />
         <ZipLink
           text="Multi kartice"
