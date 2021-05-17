@@ -49,7 +49,7 @@ export default {
     name: 'MetricsComparison',
     text: 'Stanje COVID-19 v Sloveniji',
     customCharts: {
-      casesConfirmedFourMonths: {
+      casesConfirmed7DaysAvgFourMonths: {
         name: 'casesConfirmed7DaysAvgFourMonths',
         text: 'Potrjeni - 7dni povprečje - 4m',
         shortText: 'Potrjeni - 7dAVG - 4m',
