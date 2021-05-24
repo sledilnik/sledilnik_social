@@ -134,8 +134,8 @@ function EmbeddedChart() {
       const daysToAddToSeries = chartEndDate.getDay();
       const seriesLength = SeriesLength[tsName](days(), daysToAddToSeries);
 
-      const newArray = [...Array(seriesLength).keys()];
-      return newArray.map(item => {
+      const hoverSeries = [...Array(seriesLength).keys()];
+      return hoverSeries.map(item => {
         const text = formatToLocaleDateString(
           addDays(chartEndDate, -seriesLength + item + 1)
         );
@@ -171,6 +171,7 @@ function EmbeddedChart() {
     : null;
 
   const changeChartHandler = event => {
+    event.target.disabled = true;
     setCustom('');
     setHoverIndex('');
     setScreen(event.target.value);
@@ -178,6 +179,7 @@ function EmbeddedChart() {
     setSrc(getChartUrl(event.target.value));
     setShow(false);
     setShowChartOptions(false);
+    setTimeout(() => (event.target.disabled = false), 3000);
   };
 
   const changeCustomChartHandler = event => {
@@ -230,6 +232,7 @@ function EmbeddedChart() {
       );
       if (iframe != null) {
         iframe.style.height = event.data.height + 'px';
+        chartPickerRef.current && (chartPickerRef.current.disabled = false);
       }
     }
   };
@@ -253,6 +256,7 @@ function EmbeddedChart() {
           </label>
 
           <select
+            disabled
             ref={chartPickerRef}
             name="chart-picker"
             id="chart-picker"

@@ -11,6 +11,7 @@ import ScreenshotGetUseLocalStorage from '../dicts/ScreenshotGetUseLocalStorage'
 import CHART from '../dicts/ChartsDict';
 import CARD from '../dicts/CardsDict';
 import MULTICARD from '../dicts/MulticardDict';
+import EpiZipDict from '../dicts/EPI_ZipDict';
 import { TimestampsContext } from '../context/TimestampsContext';
 import useLocalStorage from '../hooks/useLocalStorage';
 
@@ -24,6 +25,14 @@ const getTranslatedScreenshotName = (name, type, typesDict) => {
   const [screen, custom] = name.split('_');
   const types = typesDict[type.toUpperCase()];
   return !custom ? types[screen].text : types[screen].customCharts[custom].text;
+};
+
+const getHideLegendInScreenshot = (name, type, typesDict) => {
+  const [screen, custom] = name.split('_');
+  const types = typesDict[type.toUpperCase()];
+  return !custom
+    ? types[screen].hideLegendInScreenshots
+    : types[screen].customCharts[custom].hideLegendInScreenshots;
 };
 
 const translatedNames = Object.entries(ScreenshotNames).reduce(
@@ -44,6 +53,7 @@ function ScreenshotsByType({ title, type, ...props }) {
   const screenshots = names.map(name => {
     const [screen, custom] = name.split('_');
     const text = getTranslatedScreenshotName(name, type, typesDict);
+    const hideLegend = getHideLegendInScreenshot(name, type, typesDict);
 
     return (
       <div key={`${type}-${name}`} className="screenshot-container">
@@ -52,6 +62,7 @@ function ScreenshotsByType({ title, type, ...props }) {
             type: type,
             screen: screen,
             custom: custom || '',
+            hideLegend: hideLegend ? String(hideLegend) : '',
           }}
           captionTop
           captionText={text}
@@ -112,6 +123,12 @@ function Screenshots() {
           filenames={ScreenshotNames}
           translated={translatedNames}
           zipName={'All_screeenshots'}
+        />
+        <ZipLink
+          text="EPI"
+          filenames={EpiZipDict}
+          translated={translatedNames}
+          zipName={'EPI_screeenshots'}
         />
         <ZipLink
           text="Multi kartice"

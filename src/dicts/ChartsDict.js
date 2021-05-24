@@ -48,59 +48,90 @@ export default {
   MetricsComparison: {
     name: 'MetricsComparison',
     text: 'Stanje COVID-19 v Sloveniji',
+    customCharts: {
+      casesConfirmed7DaysAvgFourMonths: {
+        name: 'casesConfirmed7DaysAvgFourMonths',
+        text: 'Potrjeni - 7dni povprečje - 4m',
+        shortText: 'Potrjeni - 7dAVG - 4m',
+      },
+    },
   },
   DailyComparison: {
     name: 'DailyComparison',
     text: 'Primerjava po dnevih v tednu',
     customCharts: {
+      casesConfirmed: {
+        name: 'casesConfirmed',
+        text: 'Potrjeni',
+      },
       casesConfirmedTooltip: {
         name: 'casesConfirmedTooltip',
-        text: 'Potrjeni',
+        text: 'Potrjeni - datum',
         ...CUSTOM_CHART_OPTIONS.labTests35,
+      },
+      casesActive: {
+        name: 'casesActive',
+        text: 'Aktivni',
       },
       casesActiveTooltip: {
         name: 'casesActiveTooltip',
-        text: 'Aktivni',
+        text: 'Aktivni - datum',
         ...CUSTOM_CHART_OPTIONS.labTests35,
+      },
+      performedPCR: {
+        name: 'performedPCR',
+        text: 'Testi: PCR',
       },
       performedPCRTooltip: {
         name: 'performedPCRTooltip',
-        text: 'Testi: PCR',
+        text: 'Testi: PCR - datum',
         ...CUSTOM_CHART_OPTIONS.labTests35,
+      },
+      sharePCR: {
+        name: 'sharePCR',
+        text: 'Delež pozitivnih: PCR',
       },
       sharePCRTooltip: {
         name: 'sharePCRTooltip',
-        text: 'Delež pozitivnih: PCR',
+        text: 'Delež pozitivnih: PCR - datum',
         ...CUSTOM_CHART_OPTIONS.labTests35,
+      },
+      testsHAT: {
+        name: 'testsHAT',
+        text: 'Testi: HAT',
       },
       testsHATTooltip: {
         name: 'testsHATTooltip',
-        text: 'Testi: HAT',
+        text: 'Testi: HAT - datum',
         ...CUSTOM_CHART_OPTIONS.labTests35,
+      },
+      vaccinesUsed: {
+        name: 'vaccinesUsed',
+        text: 'Uporabljeni odmerki cepiva',
       },
       vaccinesUsedTooltip: {
         name: 'vaccinesUsedTooltip',
-        text: 'Uporabljeni odmerki cepiva',
+        text: 'Uporabljeni odmerki cepiva - datum',
         ...CUSTOM_CHART_OPTIONS.labTests35,
       },
       admittedHospitalsTooltip: {
         name: 'admittedHospitalsTooltip',
-        text: 'Sprejeti v bonišnico',
+        text: 'Sprejeti v bonišnico - datum',
         ...CUSTOM_CHART_OPTIONS.labTests35,
       },
       dischargedHospitalsTooltip: {
         name: 'dischargedHospitalsTooltip',
-        text: 'Odpuščeni iz bolnišnice',
+        text: 'Odpuščeni iz bolnišnice - datum',
         ...CUSTOM_CHART_OPTIONS.labTests35,
       },
       admittedICUTooltip: {
         name: 'admittedICUTooltip',
-        text: 'Sprejeti v intenzivno',
+        text: 'Sprejeti v intenzivno - datum',
         ...CUSTOM_CHART_OPTIONS.labTests35,
       },
       deceasedTooltip: {
         name: 'deceasedTooltip',
-        text: 'Umrli',
+        text: 'Umrli - datum',
         ...CUSTOM_CHART_OPTIONS.labTests35,
       },
     },
@@ -279,6 +310,7 @@ export default {
   Municipalities: {
     name: 'Municipalities',
     text: 'Primeri po občinah',
+    hideLegendInScreenshots: true,
     customCharts: {
       gorenjskaSortByLast: {
         name: 'gorenjskaSortByLast',
@@ -349,6 +381,13 @@ export default {
   Schools: {
     name: 'Schools',
     text: 'Primeri v šolah in vrtcih',
+    customCharts: {
+      activeAbsolutePupilsFourMonths: {
+        name: 'activeAbsolutePupilsFourMonths',
+        text: 'Aktivni - učenci - absolutno - 4m',
+        shortText: 'Aktivni - učenci - abs - 4m',
+      },
+    },
   },
   SchoolStatus: {
     name: 'SchoolStatus',
@@ -385,9 +424,17 @@ export default {
     text: 'Potrjeni primeri po starostnih skupinah',
     shortText: 'Potrjeni po starostnih sk.',
     customCharts: {
+      newCasesFourMonths: {
+        name: 'newCasesFourMonths',
+        text: 'Novi primeri - 4m',
+      },
+      newCasesRelativeFourMonths: {
+        name: 'newCasesRelativeFourMonths',
+        text: 'Novi primeri(relativno) - 4m',
+      },
       twoMonthsNewCasesTooltip: {
         name: 'twoMonthsNewCasesTooltip',
-        text: 'Novi primeri - 2m',
+        text: 'Novi primeri - 2m - datum',
         ...CUSTOM_CHART_OPTIONS.twoMonthsNewCasesTooltip,
       },
     },

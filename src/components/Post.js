@@ -25,9 +25,8 @@ const Intro = ({ postNumber, introTodayDate }) => {
   );
 };
 
-const Outro = ({ spark = true }) => {
-  const emojis =
-    '💨🏠,😷,🙎↔️↔️🙎‍♂️ + 👐🧼🚿 + #ObvestiSvojeStike + #OstaniZdrav 📲 & 🤞';
+const Outro = ({ spark = false }) => {
+  const emojis = `💪💉+🌬️🏠+😷+🙎↔↔🙎‍♂️=⛔🦠!`;
 
   const EmojisRow = () => <Emoji emoji={emojis} ariaLabel="emojis"></Emoji>;
 
@@ -53,7 +52,6 @@ const Outro = ({ spark = true }) => {
       <Spark />
     </>
   );
-
   return (
     <div>
       <EmojisRow />
@@ -89,14 +87,14 @@ function Post({
 
 const SparkDict = {
   FB: {
-    LAB: true,
-    HOS: true,
-    EPI: true,
+    LAB: false,
+    HOS: false,
+    EPI: false,
   },
   TW: {
-    LAB: true,
-    HOS: true,
-    EPI: true,
+    LAB: false,
+    HOS: false,
+    EPI: false,
   },
 };
 

@@ -16,11 +16,18 @@ function ZipLink({ onClickHandler, text }) {
 const zipNoFolders = (filenames = [], translated = {}) => {
   if (isArray(filenames)) {
     const zip = new JSZip();
-    for (let filename of filenames) {
+    for (let index in filenames) {
+      const filename = filenames[index];
       const myFilename = translated[filename] || filename;
       const safeFilename = myFilename.split(':').join('_');
       const image = window.localStorage.getItem(filename);
-      zip.file(safeFilename + '.png', image, { base64: true });
+      const formattedIndex = (+index).toLocaleString('en-US', {
+        minimumIntegerDigits: 2,
+      });
+
+      zip.file(formattedIndex + '-' + safeFilename + '.png', image, {
+        base64: true,
+      });
     }
 
     return zip;
