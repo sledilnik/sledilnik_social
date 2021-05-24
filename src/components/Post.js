@@ -26,8 +26,7 @@ const Intro = ({ postNumber, introTodayDate }) => {
 };
 
 const Outro = ({ spark = true }) => {
-  const emojis =
-    '💨🏠,😷,🙎↔️↔️🙎‍♂️ + 👐🧼🚿 + #ObvestiSvojeStike + #OstaniZdrav 📲 & 🤞';
+  const emojis = `💪💉+🌬️🏠+😷+🙎↔↔🙎‍♂️=⛔🦠!`;
 
   const EmojisRow = () => <Emoji emoji={emojis} ariaLabel="emojis"></Emoji>;
 
