@@ -15,7 +15,7 @@ export default {
   },
   Vaccination: {
     field: 'vaccinationSummary',
-    types: { default: 'onlyIn', fallback: null },
+    types: { default: 'vaccinationSummary', fallback: null },
   },
   ConfirmedToDate: {
     field: 'casesToDateSummary',

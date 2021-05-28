@@ -16,6 +16,8 @@ import SomethingWentWrong from './SomethingWentWrong';
 
 import SummaryData from '../dicts/SummaryDataDict';
 
+const POPULATION = 2_100_126;
+
 function Summary({ hook, title, outputProps, ...props }) {
   return (
     <FetchBoundary hook={hook} title={title} {...props}>
@@ -83,6 +85,15 @@ const getFormattedValues = (
       value1: formatNumber(value),
     };
   }
+
+  if (type === 'vaccinationSummary') {
+    return {
+      value1: formatNumber(value),
+      value2: `(${formatPercentage(percent / 100)})`,
+      value3: `${formatNumber(_in)}(${formatPercentage(_in / POPULATION)})`,
+    };
+  }
+
   throw new Error('Type does not exist!');
 };
 
