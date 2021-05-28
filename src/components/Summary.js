@@ -83,6 +83,15 @@ const getFormattedValues = (
       value1: formatNumber(value),
     };
   }
+
+  if (type === 'valuePercentIn') {
+    return {
+      value1: formatNumber(value),
+      value2: `(${formatPercentage(percent / 100)})`,
+      value3: formatNumber(_in),
+    };
+  }
+
   throw new Error('Type does not exist!');
 };
 
@@ -102,11 +111,9 @@ const getOutputProps = (data, title) => {
   const { types, mandatoryProperties } = SummaryData[title];
 
   // temporary solution to add vaccinations percentages
-  let dose1Percent;
   let dose2Percent;
   if (title === 'Vaccination') {
     const POPULATION = 2_100_126;
-    dose1Percent = formatPercentage(data.value / POPULATION);
     dose2Percent = formatPercentage(data.subValues.in / POPULATION);
   }
 
@@ -117,8 +124,7 @@ const getOutputProps = (data, title) => {
   const textsType = type === types.default ? 'default' : 'onlyValue';
 
   if (title === 'Vaccination') {
-    formattedValues.value1 += ` (${dose1Percent})`;
-    formattedValues.value2 += ` (${dose2Percent})`;
+    formattedValues.value3 += ` (${dose2Percent})`;
   }
 
   return {
