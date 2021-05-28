@@ -16,6 +16,8 @@ import SomethingWentWrong from './SomethingWentWrong';
 
 import SummaryData from '../dicts/SummaryDataDict';
 
+const POPULATION = 2_100_126;
+
 function Summary({ hook, title, outputProps, ...props }) {
   return (
     <FetchBoundary hook={hook} title={title} {...props}>
@@ -84,11 +86,11 @@ const getFormattedValues = (
     };
   }
 
-  if (type === 'valuePercentIn') {
+  if (type === 'vaccinationSummary') {
     return {
       value1: formatNumber(value),
       value2: `(${formatPercentage(percent / 100)})`,
-      value3: formatNumber(_in),
+      value3: `${formatNumber(_in)}(${formatPercentage(_in / POPULATION)})`,
     };
   }
 
@@ -110,22 +112,11 @@ const getOutputProps = (data, title) => {
   const values = getValues(data);
   const { types, mandatoryProperties } = SummaryData[title];
 
-  // temporary solution to add vaccinations percentages
-  let dose2Percent;
-  if (title === 'Vaccination') {
-    const POPULATION = 2_100_126;
-    dose2Percent = formatPercentage(data.subValues.in / POPULATION);
-  }
-
   const type = getValuesType(types, mandatoryProperties, values);
   const formattedValues = getFormattedValues(type, values);
   const DAYS_DIFFERENCE = 1;
 
   const textsType = type === types.default ? 'default' : 'onlyValue';
-
-  if (title === 'Vaccination') {
-    formattedValues.value3 += ` (${dose2Percent})`;
-  }
 
   return {
     kindOfData: textsType,
