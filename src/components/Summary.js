@@ -101,11 +101,27 @@ const getOutputProps = (data, title) => {
   const values = getValues(data);
   const { types, mandatoryProperties } = SummaryData[title];
 
+  // temporary solution to add vaccinations percentages
+  let dose1Percent;
+  let dose2Percent;
+  if (title === 'Vaccination') {
+    const POPULATION = 2_100_126;
+    dose1Percent = formatPercentage(data.value / POPULATION);
+    dose2Percent = formatPercentage(data.subValues.in / POPULATION);
+    console.log({ dose1Percent, dose2Percent });
+  }
+
   const type = getValuesType(types, mandatoryProperties, values);
   const formattedValues = getFormattedValues(type, values);
   const DAYS_DIFFERENCE = 1;
 
   const textsType = type === types.default ? 'default' : 'onlyValue';
+
+  if (title === 'Vaccination') {
+    console.log({ formattedValues });
+    formattedValues.value1 += ` (${dose1Percent})`;
+    formattedValues.value2 += ` (${dose2Percent})`;
+  }
 
   return {
     kindOfData: textsType,
