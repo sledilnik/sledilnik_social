@@ -28,9 +28,11 @@ export const TIMESTAMP_URL = {
   MUN: `${BASE_TIMESTAMP_URL}/municipality-confirmed.csv.timestamp`,
 };
 
-export default {
+const URL_Dict = {
   BASE_API_URL,
   API_URL,
   API_PARAMS,
   TIMESTAMP_URL,
 };
+
+export default URL_Dict;

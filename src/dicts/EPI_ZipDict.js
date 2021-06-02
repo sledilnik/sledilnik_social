@@ -1,4 +1,4 @@
-export default [
+const EPI_ZipDict = [
   'MetricsComparison_casesConfirmed7DaysAvgFourMonths',
   'DailyComparison_casesConfirmed',
   'DailyComparison_casesActive',
@@ -19,3 +19,5 @@ export default [
   'Map_weeklyGrowth',
   'ALL',
 ];
+
+export default EPI_ZipDict;

@@ -1,4 +1,4 @@
-export default {
+const MultiCardDict = {
   LAB: {
     name: 'LAB',
     text: 'LAB',
@@ -12,3 +12,5 @@ export default {
     text: 'Vse kartice',
   },
 };
+
+export default MultiCardDict;

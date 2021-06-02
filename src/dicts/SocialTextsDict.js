@@ -216,7 +216,9 @@ const FB = { ...SummaryDict.FB, ...PatientsDict.FB };
 const TW = { ...SummaryDict.TW, ...PatientsDict.TW };
 
 export const DefaultTextsDict = FB;
-export default {
+const SocialTextDict = {
   FB,
   TW,
 };
+
+export default SocialTextDict;

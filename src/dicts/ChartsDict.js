@@ -44,7 +44,7 @@ const CUSTOM_CHART_OPTIONS = {
   },
 };
 
-export default {
+const ChartsDict = {
   MetricsComparison: {
     name: 'MetricsComparison',
     text: 'Stanje COVID-19 v Sloveniji',
@@ -514,3 +514,5 @@ export default {
     noShow: true,
   },
 };
+
+export default ChartsDict;
