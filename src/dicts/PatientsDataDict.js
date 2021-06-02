@@ -1,4 +1,4 @@
-export default {
+const PatientsDataDict = {
   Hospitalized: {
     field: 'hospitalized',
     types: { default: 'twoBracketsLastSingle', fallback: null },
@@ -16,3 +16,5 @@ export default {
     types: { default: 'twoFirstWithSign', fallback: null },
   },
 };
+
+export default PatientsDataDict;

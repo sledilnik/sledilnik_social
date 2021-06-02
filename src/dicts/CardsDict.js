@@ -1,4 +1,4 @@
-export default {
+const CardsDict = {
   testsToday: {
     name: 'testsToday',
     text: 'Testi na dan: PCR',
@@ -32,3 +32,5 @@ export default {
     text: 'Cepljenih oseb',
   },
 };
+
+export default CardsDict;

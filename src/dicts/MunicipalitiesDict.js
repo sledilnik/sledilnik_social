@@ -1,4 +1,4 @@
-export default [
+const MunicipalitiesDict = [
   { name: 'slovenija', translation: 'SLOVENIJA' },
   { name: 'ajdovščina', translation: 'Ajdovščina' },
   { name: 'ankaran', translation: 'Ankaran' },
@@ -225,3 +225,5 @@ export default [
   { name: 'žirovnica', translation: 'Žirovnica' },
   { name: 'žužemberk', translation: 'Žužemberk' },
 ];
+
+export default MunicipalitiesDict;

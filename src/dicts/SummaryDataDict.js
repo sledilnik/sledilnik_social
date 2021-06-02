@@ -1,4 +1,4 @@
-export default {
+const SocialDataDict = {
   PCR: {
     field: 'testsToday',
     types: { default: 'percentage', fallback: 'onlyValue' },
@@ -22,3 +22,5 @@ export default {
     types: { default: 'onlyValue', fallback: null },
   },
 };
+
+export default SocialDataDict;
