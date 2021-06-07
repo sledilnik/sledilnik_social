@@ -90,7 +90,7 @@ const getFormattedValues = (
     return {
       value1: formatNumber(value),
       value2: `(${formatPercentage(percent / 100)})`,
-      value3: `${formatNumber(_in)}(${formatPercentage(_in / POPULATION)})`,
+      value3: `${formatNumber(_in)} (${formatPercentage(_in / POPULATION)})`,
     };
   }
 
