@@ -6,6 +6,7 @@ const DEFAULT_PCR = {
     text4: '.',
   },
   onlyValue: {
+    text1: '',
     text2: ' testiranih (*ni podatka o pozitivnih).',
     text3: '',
     text4: '',
@@ -20,6 +21,7 @@ const DEFAULT_HAT = {
     text4: '.',
   },
   onlyValue: {
+    text1: '',
     text2: ' testiranih (*ni podatka o pozitivnih).',
     text3: '',
     text4: '',
