@@ -253,7 +253,6 @@ const PatientsDict = getDict(patientsDict);
 const FB = { ...SummaryDict.FB, ...PatientsDict.FB };
 const TW = { ...SummaryDict.TW, ...PatientsDict.TW };
 
-export const DefaultTextsDict = FB;
 const SocialTextDict = {
   FB,
   TW,
