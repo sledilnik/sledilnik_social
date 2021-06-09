@@ -7,6 +7,10 @@ const SocialChanger = () => {
   const rightSpan = useRef(null);
   const context = useContext(SocialContext);
 
+  const checked = context.social === 'FB';
+  const leftChecked = checked ? 'checked' : '';
+  const rightChecked = !checked ? 'checked' : '';
+
   const socialHandler = event => {
     const { checked } = event.target;
     checked ? context.setSocial('FB') : context.setSocial('TW');
@@ -21,12 +25,12 @@ const SocialChanger = () => {
           id="social-changer"
           type="checkbox"
           onChange={socialHandler}
-          defaultChecked={true}
+          defaultChecked={checked}
         />
-        <span ref={leftSpan} className="switch-left checked">
+        <span ref={leftSpan} className={`switch-left ${leftChecked}`}>
           <i className="fab fa-facebook-f"></i>
         </span>
-        <span ref={rightSpan} className="switch-right">
+        <span ref={rightSpan} className={`switch-right ${rightChecked}`}>
           <i className="fab fa-twitter"></i>
         </span>
       </label>

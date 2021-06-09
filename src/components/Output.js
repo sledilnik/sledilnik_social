@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { SocialContext } from '../context/SocialContext';
 import DataRow from './DataRow';
-import TextsDict, { DefaultTextsDict } from '../dicts/SocialTextsDict';
+import TextsDict from '../dicts/SocialTextsDict';
 
 function Output({ output, noArrow, markFail, ...props }) {
   return (
@@ -20,11 +20,7 @@ function withOutputHOC(Component) {
     const { social } = useContext(SocialContext);
     const { keyTitle, kindOfData, ...rest1 } = props;
 
-    const texts = {
-      ...DefaultTextsDict[keyTitle].default,
-      ...DefaultTextsDict[keyTitle][kindOfData],
-      ...TextsDict[social][keyTitle][kindOfData],
-    };
+    const texts = { ...TextsDict[social][keyTitle][kindOfData] };
 
     const { isWrongDate, data, ...rest2 } = rest1;
     const color = isWrongDate ? 'var(--red)' : 'initial';

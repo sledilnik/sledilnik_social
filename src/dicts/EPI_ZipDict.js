@@ -1,5 +1,6 @@
 const EPI_ZipDict = [
   'MetricsComparison_casesConfirmed7DaysAvgFourMonths',
+  'ALL',
   'DailyComparison_casesConfirmed',
   'DailyComparison_casesActive',
   'DailyComparison_performedPCR',
@@ -17,7 +18,6 @@ const EPI_ZipDict = [
   'Map_absolute1Day',
   'Map_distribution1Day',
   'Map_weeklyGrowth',
-  'ALL',
 ];
 
 export default EPI_ZipDict;
