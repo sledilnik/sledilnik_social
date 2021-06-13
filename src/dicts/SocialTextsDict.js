@@ -17,7 +17,7 @@ const DEFAULT_HAT = {
   },
   onlyValue: {
     text1: 'HAT: ',
-    text2: ' testiranih (*ni podatka o pozitivnih).',
+    text2: ' testiranih.',
     text3: '',
     text4: '',
   },
@@ -51,7 +51,7 @@ const DEFAULT_Vaccination2 = {
 const DEFAULT_CasesActive100k = {
   default: {
     text1: '14d pojavnost: ',
-    text2: ' na 100k prebivalcev.',
+    text2: ' na 100.000 prebivalcev.',
   },
   onlyValue: {},
 };
