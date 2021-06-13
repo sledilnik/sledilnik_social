@@ -32,12 +32,18 @@ const DEFAULT_ActiveCases = {
   onlyValue: {},
 };
 
-const DEFAULT_Vaccination = {
+const DEFAULT_Vaccination1 = {
   default: {
     text1: 'Cepljeni: ',
-    text2: ', polno cepljeni: ',
-    text3: ' ',
-    text4: '.',
+    text2: '.',
+  },
+  onlyValue: {},
+};
+
+const DEFAULT_Vaccination2 = {
+  default: {
+    text1: 'Polno cepljeni: ',
+    text2: '.',
   },
   onlyValue: {},
 };
@@ -148,14 +154,24 @@ const ActiveCases = {
   },
 };
 
-const Vaccination = {
+const Vaccination1 = {
   FB: {
-    default: { ...DEFAULT_Vaccination.default },
-    onlyValue: { ...DEFAULT_Vaccination.onlyValue },
+    default: { ...DEFAULT_Vaccination1.default },
+    onlyValue: { ...DEFAULT_Vaccination1.onlyValue },
   },
   TW: {
-    default: { ...DEFAULT_Vaccination.default },
-    onlyValue: { ...DEFAULT_Vaccination.onlyValue },
+    default: { ...DEFAULT_Vaccination1.default },
+    onlyValue: { ...DEFAULT_Vaccination1.onlyValue },
+  },
+};
+const Vaccination2 = {
+  FB: {
+    default: { ...DEFAULT_Vaccination2.default },
+    onlyValue: { ...DEFAULT_Vaccination2.onlyValue },
+  },
+  TW: {
+    default: { ...DEFAULT_Vaccination2.default },
+    onlyValue: { ...DEFAULT_Vaccination2.onlyValue },
   },
 };
 
@@ -240,7 +256,8 @@ const summaryDict = {
   PCR,
   HAT,
   ActiveCases,
-  Vaccination,
+  Vaccination1,
+  Vaccination2,
   CasesActive100k,
   ConfirmedToDate,
 };
