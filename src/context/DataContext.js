@@ -1,16 +1,20 @@
 import React, { createContext } from 'react';
-import { API_URL, API_PARAMS } from '../dicts/URL_Dict';
+import { API_URL, API_STAGE_URL, API_PARAMS } from '../dicts/URL_Dict';
 import useFetch from '../hooks/useFetch';
 
 export const DataContext = createContext();
 
+const isDev = process.env.NODE_ENV === 'development';
+
+const api_url = isDev ? API_STAGE_URL : API_URL;
+
 export const DataProvider = ({ children }) => {
-  const summary = useFetch(API_URL.SUMMARY);
-  const patients = useFetch(API_URL.PATIENTS, API_PARAMS.PATIENTS);
-  const stats = useFetch(API_URL.STATS, API_PARAMS.STATS);
-  const hospitalsList = useFetch(API_URL.HOSPITALS_LIST);
-  const municipalities = useFetch(API_URL.MUN, API_PARAMS.MUN);
-  const municipalitiesList = useFetch(API_URL.MUN_LIST);
+  const summary = useFetch(api_url.SUMMARY);
+  const patients = useFetch(api_url.PATIENTS, API_PARAMS.PATIENTS);
+  const stats = useFetch(api_url.STATS, API_PARAMS.STATS);
+  const hospitalsList = useFetch(api_url.HOSPITALS_LIST);
+  const municipalities = useFetch(api_url.MUN, API_PARAMS.MUN);
+  const municipalitiesList = useFetch(api_url.MUN_LIST);
 
   const value = {
     summary,
