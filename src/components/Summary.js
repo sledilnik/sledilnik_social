@@ -95,6 +95,20 @@ const getFormattedValues = (
     };
   }
 
+  if (type === 'vaccinationSummary2') {
+    return {
+      value1: `${formatNumber(_in)} (${formatPercentage(_in / POPULATION)})`,
+      value2: formatNumber(value),
+      value3: `(${formatPercentage(percent / 100)})`,
+    };
+  }
+
+  if (type === 'casesActive100k') {
+    return {
+      value1: formatNumber(value),
+    };
+  }
+
   throw new Error('Type does not exist!');
 };
 
