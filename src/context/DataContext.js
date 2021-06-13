@@ -1,10 +1,10 @@
 import React, { createContext } from 'react';
-import { API_STAGE_URL, API_PARAMS } from '../dicts/URL_Dict';
+import { API_URL, API_PARAMS } from '../dicts/URL_Dict';
 import useFetch from '../hooks/useFetch';
 
 export const DataContext = createContext();
 
-const api_url = API_STAGE_URL;
+const api_url = API_URL;
 
 export const DataProvider = ({ children }) => {
   const summary = useFetch(api_url.SUMMARY);
