@@ -17,7 +17,7 @@ const DEFAULT_HAT = {
   },
   onlyValue: {
     text1: 'HAT: ',
-    text2: ' testiranih (*ni podatka o pozitivnih).',
+    text2: ' testiranih.',
     text3: '',
     text4: '',
   },
@@ -32,12 +32,26 @@ const DEFAULT_ActiveCases = {
   onlyValue: {},
 };
 
-const DEFAULT_Vaccination = {
+const DEFAULT_Vaccination1 = {
   default: {
-    text1: 'Cepljenih oseb: 💉',
-    text2: ' ',
-    text3: ', 💉💉',
-    text4: '.',
+    text1: 'Cepljeni: ',
+    text2: '.',
+  },
+  onlyValue: {},
+};
+
+const DEFAULT_Vaccination2 = {
+  default: {
+    text1: 'Polno cepljeni: ',
+    text2: '.',
+  },
+  onlyValue: {},
+};
+
+const DEFAULT_CasesActive100k = {
+  default: {
+    text1: '14d pojavnost: ',
+    text2: ' na 100.000 prebivalcev.',
   },
   onlyValue: {},
 };
@@ -140,14 +154,35 @@ const ActiveCases = {
   },
 };
 
-const Vaccination = {
+const Vaccination1 = {
   FB: {
-    default: { ...DEFAULT_Vaccination.default },
-    onlyValue: { ...DEFAULT_Vaccination.onlyValue },
+    default: { ...DEFAULT_Vaccination1.default },
+    onlyValue: { ...DEFAULT_Vaccination1.onlyValue },
   },
   TW: {
-    default: { ...DEFAULT_Vaccination.default },
-    onlyValue: { ...DEFAULT_Vaccination.onlyValue },
+    default: { ...DEFAULT_Vaccination1.default },
+    onlyValue: { ...DEFAULT_Vaccination1.onlyValue },
+  },
+};
+const Vaccination2 = {
+  FB: {
+    default: { ...DEFAULT_Vaccination2.default },
+    onlyValue: { ...DEFAULT_Vaccination2.onlyValue },
+  },
+  TW: {
+    default: { ...DEFAULT_Vaccination2.default },
+    onlyValue: { ...DEFAULT_Vaccination2.onlyValue },
+  },
+};
+
+const CasesActive100k = {
+  FB: {
+    default: { ...DEFAULT_CasesActive100k.default },
+    onlyValue: { ...DEFAULT_CasesActive100k.onlyValue },
+  },
+  TW: {
+    default: { ...DEFAULT_CasesActive100k.default },
+    onlyValue: { ...DEFAULT_CasesActive100k.onlyValue },
   },
 };
 
@@ -221,7 +256,9 @@ const summaryDict = {
   PCR,
   HAT,
   ActiveCases,
-  Vaccination,
+  Vaccination1,
+  Vaccination2,
+  CasesActive100k,
   ConfirmedToDate,
 };
 

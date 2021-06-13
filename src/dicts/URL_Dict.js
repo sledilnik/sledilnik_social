@@ -2,19 +2,24 @@ import { addDays } from 'date-fns';
 const getISODateFrom = num => addDays(new Date(), num).toISOString();
 
 export const BASE_API_URL = 'https://api.sledilnik.org';
+export const BASE_API_STAGE_URL = 'https://api-stage.sledilnik.org';
 
 const BASE_TIMESTAMP_URL =
   'https://raw.githubusercontent.com/sledilnik/data/master/csv';
 
-export const API_URL = {
-  SUMMARY: `${BASE_API_URL}/api/summary`,
-  PATIENTS: `${BASE_API_URL}/api/patients`,
-  STATS: `${BASE_API_URL}/api/stats`,
-  HOSPITALS_LIST: `${BASE_API_URL}/api/hospitals-list`,
-  MUN: `${BASE_API_URL}/api/municipalities`,
-  MUN_LIST: `${BASE_API_URL}/api/municipalities-list`,
+const getAPI_URL = (base_url = BASE_API_URL) => {
+  return {
+    SUMMARY: `${base_url}/api/summary`,
+    PATIENTS: `${base_url}/api/patients`,
+    STATS: `${base_url}/api/stats`,
+    HOSPITALS_LIST: `${base_url}/api/hospitals-list`,
+    MUN: `${base_url}/api/municipalities`,
+    MUN_LIST: `${base_url}/api/municipalities-list`,
+  };
 };
 
+export const API_URL = getAPI_URL();
+export const API_STAGE_URL = getAPI_URL(BASE_API_STAGE_URL);
 export const API_PARAMS = {
   PATIENTS: { from: getISODateFrom(-3) },
   STATS: { from: getISODateFrom(-4) },

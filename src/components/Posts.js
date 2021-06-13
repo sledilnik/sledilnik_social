@@ -71,6 +71,7 @@ const LAB = ({ noTWCount, noClose }) => {
         <Summary title="PCR" />
         <Summary title="HAT" />
         <Summary title="ActiveCases" />
+        <Summary title="CasesActive100k" />
       </Post>
     </Card>
   );
@@ -254,7 +255,9 @@ const EPI = ({ noTWCount, noClose }) => {
         <Summary title="PCR" />
         <Summary title="HAT" />
         <Summary title="ActiveCases" />
-        <Summary title="Vaccination" />
+        <Summary title="CasesActive100k" />
+        <Summary title="Vaccination2" />
+        <Summary title="Vaccination1" />
         <Summary title="ConfirmedToDate" />
         <PerAge />
         <Patients title="Hospitalized" />

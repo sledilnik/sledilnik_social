@@ -31,6 +31,10 @@ const CardsDict = {
     name: 'vaccinationSummary',
     text: 'Cepljenih oseb',
   },
+  casesActive100k: {
+    name: 'vaccinationSummary',
+    text: '14d pojavnost na 100k',
+  },
 };
 
 export default CardsDict;

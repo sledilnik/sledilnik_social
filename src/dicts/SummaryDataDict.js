@@ -13,13 +13,21 @@ const SocialDataDict = {
     field: 'casesActive',
     types: { default: 'bracketsInOut', fallback: null },
   },
-  Vaccination: {
+  Vaccination1: {
     field: 'vaccinationSummary',
-    types: { default: 'vaccinationSummary', fallback: null },
+    types: { default: 'vaccinationSummary1', fallback: null },
+  },
+  Vaccination2: {
+    field: 'vaccinationSummary',
+    types: { default: 'vaccinationSummary2', fallback: null },
   },
   ConfirmedToDate: {
     field: 'casesToDateSummary',
     types: { default: 'onlyValue', fallback: null },
+  },
+  CasesActive100k: {
+    field: 'casesActive100k',
+    types: { default: 'casesActive100k', fallback: null },
   },
 };
 
