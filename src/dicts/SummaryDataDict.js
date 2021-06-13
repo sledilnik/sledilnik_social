@@ -21,6 +21,10 @@ const SocialDataDict = {
     field: 'casesToDateSummary',
     types: { default: 'onlyValue', fallback: null },
   },
+  CasesActive100k: {
+    field: 'casesActive100k',
+    types: { default: 'casesActive100k', fallback: null },
+  },
 };
 
 export default SocialDataDict;
