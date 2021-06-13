@@ -34,10 +34,18 @@ const DEFAULT_ActiveCases = {
 
 const DEFAULT_Vaccination = {
   default: {
-    text1: 'Cepljenih oseb: 💉',
-    text2: ' ',
-    text3: ', 💉💉',
+    text1: 'Cepljeni: ',
+    text2: ', polno cepljeni: ',
+    text3: ' ',
     text4: '.',
+  },
+  onlyValue: {},
+};
+
+const DEFAULT_CasesActive100k = {
+  default: {
+    text1: '14d pojavnost: ',
+    text2: ' na 100k prebivalcev.',
   },
   onlyValue: {},
 };
@@ -151,6 +159,17 @@ const Vaccination = {
   },
 };
 
+const CasesActive100k = {
+  FB: {
+    default: { ...DEFAULT_CasesActive100k.default },
+    onlyValue: { ...DEFAULT_CasesActive100k.onlyValue },
+  },
+  TW: {
+    default: { ...DEFAULT_CasesActive100k.default },
+    onlyValue: { ...DEFAULT_CasesActive100k.onlyValue },
+  },
+};
+
 const ConfirmedToDate = {
   FB: {
     default: { ...DEFAULT_ConfirmedToDate.default },
@@ -222,6 +241,7 @@ const summaryDict = {
   HAT,
   ActiveCases,
   Vaccination,
+  CasesActive100k,
   ConfirmedToDate,
 };
 
