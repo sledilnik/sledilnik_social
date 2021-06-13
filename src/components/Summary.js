@@ -105,7 +105,7 @@ const getFormattedValues = (
 
   if (type === 'casesActive100k') {
     return {
-      value1: formatNumber(value),
+      value1: formatNumber(value.toFixed(1)),
     };
   }
 
