@@ -42,6 +42,7 @@ const checkData = data => {
 };
 
 const getValues = data => {
+  data.subValues = data.subValues || {};
   checkData(data);
   const { value, subValues } = data;
   return { value, ...subValues };
