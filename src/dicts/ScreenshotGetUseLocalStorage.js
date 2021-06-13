@@ -7,7 +7,6 @@ export const ScreenshotNames = {
   CARD: [
     'testsToday',
     'testsTodayHAT',
-    'casesActive',
     'hospitalizedCurrent',
     'icuCurrent',
     'deceasedToDate',

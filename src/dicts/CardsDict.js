@@ -7,10 +7,6 @@ const CardsDict = {
     name: 'testsToday',
     text: 'Testi na dan: HAT',
   },
-  casesActive: {
-    name: 'casesActive',
-    text: 'Aktivni primeri',
-  },
   hospitalizedCurrent: {
     name: 'hospitalizedCurrent',
     text: 'Hospitalizirani',
