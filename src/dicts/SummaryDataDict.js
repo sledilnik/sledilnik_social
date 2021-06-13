@@ -15,7 +15,7 @@ const SocialDataDict = {
   },
   Vaccination: {
     field: 'vaccinationSummary',
-    types: { default: 'vaccinationSummary', fallback: null },
+    types: { default: 'vaccinationSummary2', fallback: null },
   },
   ConfirmedToDate: {
     field: 'casesToDateSummary',
