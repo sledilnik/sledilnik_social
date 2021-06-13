@@ -42,6 +42,7 @@ const checkData = data => {
 };
 
 const getValues = data => {
+  data.subValues = data.subValues || {};
   checkData(data);
   const { value, subValues } = data;
   return { value, ...subValues };
@@ -86,11 +87,21 @@ const getFormattedValues = (
     };
   }
 
-  if (type === 'vaccinationSummary') {
+  if (type === 'vaccinationSummary1') {
     return {
-      value1: formatNumber(value),
-      value2: `(${formatPercentage(percent / 100)})`,
-      value3: `${formatNumber(_in)} (${formatPercentage(_in / POPULATION)})`,
+      value1: `${formatNumber(_in)} (${formatPercentage(_in / POPULATION)})`,
+    };
+  }
+
+  if (type === 'vaccinationSummary2') {
+    return {
+      value1: `${formatNumber(value)} (${formatPercentage(percent / 100)})`,
+    };
+  }
+
+  if (type === 'casesActive100k') {
+    return {
+      value1: formatNumber(value.toFixed(1)),
     };
   }
 

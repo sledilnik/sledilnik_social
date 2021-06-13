@@ -13,6 +13,7 @@ export const ScreenshotNames = {
     'deceasedToDate',
     'casesAvg7Days',
     'vaccinationSummary',
+    'casesActive100k',
   ],
   CHART: [
     'MetricsComparison_casesConfirmed7DaysAvgFourMonths',
