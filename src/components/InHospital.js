@@ -10,8 +10,6 @@ function InHospital(props) {
   );
 }
 
-const Brackets = ({ children }) => <>({children})</>;
-
 function withInHospital_HOC(Component) {
   const InHospital = ({ hospShort, hospitalName, hosp, icu, ...props }) => {
     const { social } = useContext(SocialContext);
@@ -20,17 +18,9 @@ function withInHospital_HOC(Component) {
     const newData = {
       value1: hospitalName,
       value2: hosp.number,
-      value4: (
-        <Brackets>
-          {hosp.in}, {hosp.out}
-        </Brackets>
-      ),
+      value4: `(${hosp.in}, ${hosp.out})`,
       value6: icu.number,
-      value8: (
-        <Brackets>
-          {icu.in}, {icu.out}
-        </Brackets>
-      ),
+      value8: `(${icu.in}, ${icu.out})`,
     };
 
     const newProps = {
