@@ -13,7 +13,7 @@ function InHospital(props) {
 function withInHospital_HOC(Component) {
   const InHospital = ({ hospShort, hospitalName, hosp, icu, ...props }) => {
     const { social } = useContext(SocialContext);
-    const kindOfData = 'default';
+    const kindOfData = 'default'; // set which text to use from SocialTextDict
 
     const newData = {
       value1: hospitalName,
