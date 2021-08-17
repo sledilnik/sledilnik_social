@@ -27,11 +27,11 @@ const FB_ICONS = {
 };
 
 const TW_ICONS = {
-  down: '📉 ',
-  up: '📈 ',
+  down: '📉',
+  up: '📈',
   no: '',
-  between: '➖ ',
-  dots: '... ',
+  between: '➖',
+  dots: '...',
 };
 
 const ICONS = {
