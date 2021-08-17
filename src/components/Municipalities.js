@@ -208,7 +208,8 @@ const getWeeklyGrowth = (town, calculatedPerDayRegions) => {
 
   const incidenceThisWeek = casesNow - cases7dAgo;
   const incidenceLastWeek = cases7dAgo - cases14dAgo;
-  const weeklyGrowth = incidenceThisWeek / incidenceLastWeek - 1;
+  const weeklyGrowth =
+    incidenceLastWeek !== 0 ? incidenceThisWeek / incidenceLastWeek - 1 : 'no';
 
   return [town, weeklyGrowth];
 };
@@ -325,18 +326,21 @@ function withMunicipalitiesHOC(Component) {
                 : Math.round((town.trend + Number.EPSILON) * 100000) / 100000;
             const formatedCount = formatNumberWithSign(count);
 
+            const noTooltipText = icon
+              ? `${town.name} ${showTrend && formatedTrend} ${icon}`
+              : town.name;
+            const withTooltipText = icon
+              ? `${town.name} ${showTrend ? formatedTrend : ''} ${icon}`
+              : town.name;
+
             return (
               <span key={town.key}>
                 {noTooltip ? (
-                  <span>
-                    {town.name} {showTrend && formatedTrend} {icon}
-                  </span>
+                  <span>{noTooltipText}</span>
                 ) : (
                   <TextWithTooltip
                     className="up"
-                    text={`${town.name} ${
-                      showTrend ? formatedTrend : ''
-                    } ${icon}`}
+                    text={withTooltipText}
                     tooltipText={formatedTrend}
                   />
                 )}
