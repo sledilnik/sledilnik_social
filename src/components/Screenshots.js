@@ -54,6 +54,7 @@ function ScreenshotsByType({ title, type, ...props }) {
     const [screen, custom] = name.split('_');
     const text = getTranslatedScreenshotName(name, type, typesDict);
     const hideLegend = getHideLegendInScreenshot(name, type, typesDict);
+    const immediateDownload = false;
 
     return (
       <div key={`${type}-${name}`} className="screenshot-container">
@@ -63,6 +64,7 @@ function ScreenshotsByType({ title, type, ...props }) {
             screen: screen,
             custom: custom || '',
             hideLegend: hideLegend ? String(hideLegend) : '',
+            immediateDownload,
           }}
           captionTop
           captionText={text}

@@ -407,6 +407,7 @@ const ChartsDict = {
   IcuPatients: {
     name: 'IcuPatients',
     text: 'Intenzivna terapija',
+    hideLegendInScreenshots: 'true',
     customCharts: {
       twoMonthsTooltip: {
         name: 'twoMonthsTooltip',
