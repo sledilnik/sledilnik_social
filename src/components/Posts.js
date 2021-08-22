@@ -81,6 +81,7 @@ const HOS = ({ noTWCount, noClose }) => {
   const ref = useRef();
   const download1Ref = useRef();
   const download2Ref = useRef();
+  const download3Ref = useRef();
   const { patients } = useContext(TimestampsContext);
   const { data: patientsTimestamp } = patients;
   const dates = { patients: patientsTimestamp };
@@ -96,6 +97,11 @@ const HOS = ({ noTWCount, noClose }) => {
     download2Ref.current.onclick = async () => {
       downloadScreenshot(
         'https://iy0qntj1j8.execute-api.eu-west-1.amazonaws.com/SledilnikScreenshot?screen=IcuPatients'
+      );
+    };
+    download3Ref.current.onclick = async () => {
+      downloadScreenshot(
+        'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot?type=chart&screen=IcuPatients&custom=&hideLegend=true&immediateDownload=true'
       );
     };
   }, []);
@@ -128,6 +134,7 @@ const HOS = ({ noTWCount, noClose }) => {
       download={[
         [download1Ref, 'last5Cards'],
         [download2Ref, 'IcuPatients'],
+        [download3Ref, 'IcuPatients-Chart'],
       ]}
     >
       <Post forwardedRef={ref} id="post-hos" postNumber={2}>
