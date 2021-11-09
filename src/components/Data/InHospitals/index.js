@@ -1,14 +1,17 @@
 import React, { useContext } from 'react';
 import { differenceInDays } from 'date-fns';
 
-import { DataContext } from '../context/DataContext';
+import { DataContext } from '../../../context/DataContext';
 
-import { formatNumber, formatNumberWithSign } from '../utils/formatNumber';
-import { getDate } from '../utils/dates';
+import {
+  formatNumber,
+  formatNumberWithSign,
+} from '../../../utils/formatNumber';
+import { getDate } from '../../../utils/dates';
 
-import DataRow from './DataRow';
+import DataRow from '../../DataRow';
 import InHospital from './InHospital';
-import FetchBoundary from './FetchBoundary';
+import FetchBoundary from '../../FetchBoundary';
 
 const dictionary = {
   oseba: ['oseba', 'osebi', 'osebe', 'osebe', 'oseb'],
@@ -79,9 +82,8 @@ function InHospitals({ hook, perHospitalChanges, isWrongDate }) {
 
 const withInHospitalsHOC = function withInHospitalsHOC(Component) {
   const WithInHospitals = ({ props }) => {
-    const { patients: hookPatients, hospitalsList: hookHospitals } = useContext(
-      DataContext
-    );
+    const { patients: hookPatients, hospitalsList: hookHospitals } =
+      useContext(DataContext);
 
     const isLoading = hookPatients.isLoading || hookHospitals.isLoading;
     const hasError = hookPatients.hasError || hookHospitals.hasError;

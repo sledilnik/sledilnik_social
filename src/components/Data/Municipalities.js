@@ -1,21 +1,21 @@
 import React, { useContext, useState, useCallback, useRef } from 'react';
 import _ from 'lodash';
-import municipalitiesDict from '../dicts/MunicipalitiesDict';
+import municipalitiesDict from '../../dicts/MunicipalitiesDict';
 
 import {
   formatNumberWithSign,
   formatPercentage,
-} from './../utils/formatNumber';
+} from '../../utils/formatNumber';
 
-import { DataContext } from '../context/DataContext';
-import { SocialContext } from '../context/SocialContext';
+import { DataContext } from '../../context/DataContext';
+import { SocialContext } from '../../context/SocialContext';
 
-import DataRow from './DataRow';
+import DataRow from '../DataRow';
 import { differenceInDays } from 'date-fns/esm';
-import { getDate } from '../utils/dates';
-import FetchBoundary from './FetchBoundary';
-import TextWithTooltip from './TextWithTooltip';
-import MunPopOut from './MunPopOut';
+import { getDate } from '../../utils/dates';
+import FetchBoundary from '../FetchBoundary';
+import TextWithTooltip from '../TextWithTooltip';
+import MunPopOut from '../MunPopOut';
 
 // platform friendly icons
 const FB_ICONS = {

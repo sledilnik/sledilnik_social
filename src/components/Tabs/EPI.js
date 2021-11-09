@@ -4,11 +4,7 @@ import { DataContext } from './../../context/DataContext';
 import CancelButton from '../CancelButton';
 import Card from '../Card';
 import Post from '../Post';
-import Summary from '../Summary';
-import Patients from '../Patients';
-import PerAge from '../PerAge';
-import InHospitals from '../InHospitals';
-import Municipalities from '../Municipalities';
+import * as Data from '../Data';
 
 const EPI = ({ noTWCount, noClose }) => {
   const ref = useRef();
@@ -115,19 +111,19 @@ const EPI = ({ noTWCount, noClose }) => {
         </div>
       )}
       <Post forwardedRef={ref} id="post-epi" postNumber={3}>
-        <Summary title="PCR" />
-        <Summary title="HAT" />
-        <Summary title="ActiveCases" />
-        <Summary title="CasesActive100k" />
-        <Summary title="Vaccination2" />
-        <Summary title="Vaccination1" />
-        <Summary title="ConfirmedToDate" />
-        <PerAge />
-        <Patients title="Hospitalized" />
-        <Patients title="OnRespiratory" />
-        <Patients title="Deceased" />
-        <InHospitals />
-        <Municipalities icons="FB" showIcons={showIcons} what={what} />
+        <Data.Summary title="PCR" />
+        <Data.Summary title="HAT" />
+        <Data.Summary title="ActiveCases" />
+        <Data.Summary title="CasesActive100k" />
+        <Data.Summary title="Vaccination2" />
+        <Data.Summary title="Vaccination1" />
+        <Data.Summary title="ConfirmedToDate" />
+        <Data.PerAge />
+        <Data.Patients title="Hospitalized" />
+        <Data.Patients title="OnRespiratory" />
+        <Data.Patients title="Deceased" />
+        <Data.InHospitals />
+        <Data.Municipalities icons="FB" showIcons={showIcons} what={what} />
       </Post>
     </Card>
   );

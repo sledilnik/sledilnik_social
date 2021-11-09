@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 import { differenceInDays } from 'date-fns/';
-import { getDate } from '../utils/dates';
+import { getDate } from '../../utils/dates';
 
-import { DataContext } from '../context/DataContext';
+import { DataContext } from '../../context/DataContext';
 
-import { formatNumber, formatNumberWithSign } from '../utils/formatNumber';
+import { formatNumber, formatNumberWithSign } from '../../utils/formatNumber';
 
-import Output from './Output';
-import FetchBoundary from './FetchBoundary';
-import SomethingWentWrong from './SomethingWentWrong';
+import Output from '../Output';
+import FetchBoundary from '../FetchBoundary';
+import SomethingWentWrong from '../SomethingWentWrong';
 
-import PatientsData from '../dicts/PatientsDataDict';
+import PatientsData from '../../dicts/PatientsDataDict';
 
 function Patients({ hook, title, outputProps, ...props }) {
   return (

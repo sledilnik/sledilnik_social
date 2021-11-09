@@ -5,7 +5,7 @@ import useDownloadLinkClick from './../../hooks/useDownloadLinkClick';
 import { AWS_LAMBDA_OLD_URL, AWS_LAMBDA_NEW_URL } from './../../dicts/URL_Dict';
 import Card from '../Card';
 import Post from '../Post';
-import Patients from '../Patients';
+import Patients from '../Data/Patients';
 
 const HOS = ({ noTWCount, noClose }) => {
   const ref = useRef();

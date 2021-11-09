@@ -5,7 +5,7 @@ import { AWS_LAMBDA_NEW_URL, AWS_LAMBDA_OLD_URL } from '../../dicts/URL_Dict';
 import useDownloadLinkClick from '../../hooks/useDownloadLinkClick';
 import Card from '../Card';
 import Post from '../Post';
-import Summary from '../Summary';
+import Summary from '../Data/Summary';
 
 const LAB = ({ noTWCount, noClose }) => {
   const ref = useRef();

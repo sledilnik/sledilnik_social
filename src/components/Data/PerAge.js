@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { differenceInDays } from 'date-fns';
 
-import { DataContext } from '../context/DataContext';
+import { DataContext } from '../../context/DataContext';
 
-import { formatNumber } from './../utils/formatNumber';
-import { getDate } from '../utils/dates';
+import { formatNumber } from '../../utils/formatNumber';
+import { getDate } from '../../utils/dates';
 
-import DataRow from './DataRow';
-import FetchBoundary from './FetchBoundary';
+import DataRow from './../DataRow';
+import FetchBoundary from './../FetchBoundary';
 
 // path patients
 function PerAge({ hook, deltas, isWrongDate }) {
