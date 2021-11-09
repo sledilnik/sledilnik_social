@@ -6,17 +6,17 @@ import * as Tabs from './Tabs';
 import SocialChanger from './SocialChanger';
 
 const cards = {
-  LAB: <Tabs.Lab noClose />,
-  HOS: <Tabs.Hos noClose />,
-  EPI: <Tabs.Epi noClose />,
-  SCREENSHOTS: <Tabs.Screenshots />,
-  CHARTS: <Tabs.Charts />,
+  LAB: { component: <Tabs.Lab noClose />, label: 'LAB' },
+  HOS: { component: <Tabs.Hos noClose />, label: 'HOS' },
+  EPI: { component: <Tabs.Epi noClose />, label: 'EPI' },
+  SCREENSHOTS: { component: <Tabs.Screenshots />, label: 'Posnetki' },
+  CHARTS: { component: <Tabs.Charts />, label: 'Grafi' },
 };
 
 function Posts() {
   const tabButtonsRef = useRef();
   const [card, setCard] = useState('LAB');
-  let post = cards[card];
+  let post = cards[card].component;
 
   const changeCard = (event, card) => {
     const { childNodes } = tabButtonsRef.current;
@@ -28,40 +28,24 @@ function Posts() {
     setCard(card);
   };
 
+  const tabButtons = Object.entries(cards).map(([key, { label }], index) => {
+    const className = index === 0 ? 'tablinks active' : 'tablinks';
+    return (
+      <button
+        key={`tab-${label}`}
+        className={className}
+        onClick={event => changeCard(event, key)}
+      >
+        {label}
+      </button>
+    );
+  });
+
   return (
     <section className="Posts">
       <div className="posts-buttons-container">
         <div ref={tabButtonsRef} className="tab">
-          <button
-            className="tablinks active"
-            onClick={event => changeCard(event, 'LAB')}
-          >
-            LAB
-          </button>
-          <button
-            className="tablinks"
-            onClick={event => changeCard(event, 'HOS')}
-          >
-            HOS
-          </button>
-          <button
-            className="tablinks"
-            onClick={event => changeCard(event, 'EPI')}
-          >
-            EPI
-          </button>
-          <button
-            className="tablinks"
-            onClick={event => changeCard(event, 'SCREENSHOTS')}
-          >
-            Posnetki
-          </button>
-          <button
-            className="tablinks"
-            onClick={event => changeCard(event, 'CHARTS')}
-          >
-            Grafi
-          </button>
+          {tabButtons}
         </div>
         <SocialChanger />
       </div>
