@@ -41,7 +41,7 @@ Screenshot.propTypes = {
   captionBottom: PropTypes.bool,
   base64Img: PropTypes.string,
   alt: PropTypes.string,
-  figCaptionText: PropTypes.string,
+  figCaptionText: PropTypes.node,
   filename: PropTypes.string,
 };
 
@@ -97,7 +97,16 @@ function withScreenshotHOC(Component) {
     }, [base64Img, params, noSkip, setValue, setSkip, updateParams]);
 
     const alt = `${params.type}-${filename}`;
-    const figCaptionText = captionText || `${params.type} ${filename}`;
+    const figCaptionText = (
+      <>
+        {captionText || `${params.type} ${filename}`}
+        {!isLoading && (
+          <span className="icon" onClick={refetch}>
+            <i className="fas fa-sync"></i>
+          </span>
+        )}
+      </>
+    );
 
     if (hasError && !isLoading && !base64Img) {
       return (
