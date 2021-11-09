@@ -147,7 +147,7 @@ const calc_regions = regions => {
 const createCalculatedRegions = perDayRegions => {
   let index = 1;
   const obj = perDayRegions.reduce((acc, regions) => {
-    acc['d' + index] = calc_regions(regions);
+    acc[`d${index}`] = calc_regions(regions);
     index++;
     return acc;
   }, {});
@@ -323,7 +323,7 @@ function withMunicipalitiesHOC(Component) {
                 ? formatPercentage(town.trend)
                 : isNaN(town.trend)
                 ? '-'
-                : Math.round((town.trend + Number.EPSILON) * 100000) / 100000;
+                : Math.round((town.trend + Number.EPSILON) * 100_000) / 100_000;
             const formatedCount = formatNumberWithSign(count);
 
             const noTooltipText = icon

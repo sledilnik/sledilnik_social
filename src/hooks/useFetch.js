@@ -19,7 +19,7 @@ const useFetch = (
   const [refetchIndex, setRefetchIndex] = useState(0);
 
   const queryString = Object.keys(params)
-    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
     .join('&');
 
   const refetch = () => {

@@ -47,12 +47,12 @@ const LAB = ({ noTWCount, noClose }) => {
     summary.refetch();
   };
 
-  const timestampsLoading = [labTests, cases].some(({ isLoading }) => {
-    return isLoading;
-  });
-  const loadingOrError = [summary].some(({ hasError, isLoading }) => {
-    return hasError || isLoading;
-  });
+  const timestampsLoading = [labTests, cases].some(
+    ({ isLoading }) => isLoading
+  );
+  const loadingOrError = [summary].some(
+    ({ hasError, isLoading }) => hasError || isLoading
+  );
 
   const noCount = noTWCount || loadingOrError || timestampsLoading;
 
@@ -110,14 +110,10 @@ const HOS = ({ noTWCount, noClose }) => {
     patients.refetch();
     patientsDataHook.refetch();
   };
-  const timestampsLoading = [patients].some(({ isLoading }) => {
-    return isLoading;
-  });
+  const timestampsLoading = [patients].some(({ isLoading }) => isLoading);
 
   const loadingOrError = [patients, patientsDataHook].some(
-    ({ hasError, isLoading }) => {
-      return hasError || isLoading;
-    }
+    ({ hasError, isLoading }) => hasError || isLoading
   );
 
   const noCount = noTWCount || loadingOrError || timestampsLoading;
@@ -187,15 +183,11 @@ const EPI = ({ noTWCount, noClose }) => {
   };
 
   const timestampsLoading = [stats, labTests, cases, patients, munActive].some(
-    ({ isLoading }) => {
-      return isLoading;
-    }
+    ({ isLoading }) => isLoading
   );
 
   const loadingOrError = [...Object.values(dataHooks)].some(
-    ({ hasError, isLoading }) => {
-      return hasError || isLoading;
-    }
+    ({ hasError, isLoading }) => hasError || isLoading
   );
 
   const noCount = noTWCount || loadingOrError || timestampsLoading;
@@ -207,7 +199,7 @@ const EPI = ({ noTWCount, noClose }) => {
   const whatTranslate =
     what === 'weeklyGrowth' ? 'tedenski prirast' : '15d trend';
 
-  const settingsOutput = ['po krajih: ' + whatTranslate];
+  const settingsOutput = [`po krajih: ${whatTranslate}`];
 
   return (
     <Card
@@ -298,13 +290,11 @@ const ScreenshotsCard = () => {
   );
 };
 
-const EmbeddedChartCard = () => {
-  return (
-    <Card title="Grafi" open noClose noRefresh noToClipboard noCount>
-      <EmbeddedChart />
-    </Card>
-  );
-};
+const EmbeddedChartCard = () => (
+  <Card title="Grafi" open noClose noRefresh noToClipboard noCount>
+    <EmbeddedChart />
+  </Card>
+);
 
 const cards = {
   LAB: <LAB noClose />,

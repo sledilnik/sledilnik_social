@@ -63,9 +63,7 @@ function EmbeddedChart() {
   }, [chartData]);
 
   const chartPickerOptions = Object.entries(CHARTS)
-    .filter(item => {
-      return !item[1].noShow;
-    })
+    .filter(item => !item[1].noShow)
     .map(([key, item]) => {
       const { name, text, shortText } = item;
       const displayName = shortText || text || name || key;
@@ -82,9 +80,7 @@ function EmbeddedChart() {
     });
 
   const chartPickerOptionsArchived = Object.entries(CHARTS)
-    .filter(item => {
-      return item[1].noShow;
-    })
+    .filter(item => item[1].noShow)
     .map(([key, item]) => {
       const { name, text, shortText } = item;
       const displayName = shortText || text || name || key;
@@ -102,9 +98,7 @@ function EmbeddedChart() {
 
   const customChartPickerOptions = chartData?.customCharts
     ? Object.entries(chartData.customCharts)
-        .filter(item => {
-          return !item[1].noShow;
-        })
+        .filter(item => !item[1].noShow)
         .map(([key, item]) => {
           const { name, text, shortText } = item;
           const displayName = shortText || text || name || key;
@@ -191,9 +185,7 @@ function EmbeddedChart() {
       chartData?.customCharts[event.target.value]?.defaultValuesKey;
 
     let hoverValue = hasHoverIndex && DefaultHoverValues[defaultValuesKey];
-    hasHoverIndex && hasHoverIndex
-      ? setHoverIndex(hoverValue)
-      : setHoverIndex('');
+    hasHoverIndex ? setHoverIndex(hoverValue) : setHoverIndex('');
     setShow(false);
   };
 
@@ -218,8 +210,8 @@ function EmbeddedChart() {
 
     hoverName = hoverName && hoverName.split('.').join('_');
 
-    let captionText = customName ? chartName + '_' + customName : chartName;
-    captionText = hoverName ? captionText + '_' + hoverName : captionText;
+    let captionText = customName ? `${chartName}_${customName}` : chartName;
+    captionText = hoverName ? `${captionText}_${hoverName}` : captionText;
 
     return captionText;
   };
@@ -228,10 +220,10 @@ function EmbeddedChart() {
     if (event.data.type === 'embed-size') {
       console.log('resize event received', event.data);
       const iframe = document.querySelector(
-        "iframe[name='" + event.data.name + "']"
+        `iframe[name='${event.data.name}']`
       );
       if (iframe != null) {
-        iframe.style.height = event.data.height + 'px';
+        iframe.style.height = `${event.data.height}px`;
         chartPickerRef.current && (chartPickerRef.current.disabled = false);
       }
     }
@@ -318,9 +310,9 @@ function EmbeddedChart() {
             <Screenshot
               params={{
                 type: 'chart',
-                screen: screen,
-                custom: custom,
-                hoverIndex: hoverIndex,
+                screen,
+                custom,
+                hoverIndex,
                 hideLegend: hideLegendCheckboxRef?.current.checked,
                 immediateDownload: false,
               }}

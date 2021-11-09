@@ -41,8 +41,7 @@ const translatedNames = Object.entries(ScreenshotNames).reduce(
       nestedAcc[name] = getTranslatedScreenshotName(name, type, typesDict);
       return nestedAcc;
     }, {});
-    acc = { ...acc, ...translated };
-    return acc;
+    return { ...acc, ...translated };
   },
   {}
 );
@@ -60,8 +59,8 @@ function ScreenshotsByType({ title, type, ...props }) {
       <div key={`${type}-${name}`} className="screenshot-container">
         <Screenshot
           params={{
-            type: type,
-            screen: screen,
+            type,
+            screen,
             custom: custom || '',
             hideLegend: hideLegend ? String(hideLegend) : '',
             immediateDownload,

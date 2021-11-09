@@ -11,15 +11,13 @@ const ScreenshotContainer = ({
   figCaptionText,
   children,
   ...props
-}) => {
-  return (
-    <>
-      {captionTop && <figcaption>{figCaptionText}</figcaption>}
-      <div {...props}>{children}</div>
-      {captionBottom && <figcaption>{figCaptionText}</figcaption>}
-    </>
-  );
-};
+}) => (
+  <>
+    {captionTop && <figcaption>{figCaptionText}</figcaption>}
+    <div {...props}>{children}</div>
+    {captionBottom && <figcaption>{figCaptionText}</figcaption>}
+  </>
+);
 
 const Screenshot = ({ ...props }) => {
   const { base64Img, filename, alt, ...rest } = props;
@@ -60,10 +58,10 @@ const replaceAll = (text, string, replaceValue) => {
 };
 
 const getLocalStorageName = ({ screen, custom, hoverIndex }) => {
-  let localStorageName = custom ? screen + '_' + custom : screen;
+  let localStorageName = custom ? `${screen}_${custom}` : screen;
   localStorageName =
     !isNaN(hoverIndex) && hoverIndex !== ''
-      ? localStorageName + '_' + hoverIndex
+      ? `${localStorageName}_${hoverIndex}`
       : localStorageName;
   return localStorageName;
 };
