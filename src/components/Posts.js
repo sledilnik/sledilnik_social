@@ -16,6 +16,7 @@ import SocialChanger from './SocialChanger';
 import CancelButton from './CancelButton';
 import Screenshots from './Screenshots';
 import EmbeddedChart from './EmbeddedChart';
+import { AWS_LAMBDA_NEW_URL, AWS_LAMBDA_OLD_URL } from '../dicts/URL_Dict';
 
 const downloadScreenshot = href => {
   const link = document.createElement('a');
@@ -26,6 +27,7 @@ const downloadScreenshot = href => {
 const LAB = ({ noTWCount, noClose }) => {
   const ref = useRef();
   const download1Ref = useRef();
+  const download2Ref = useRef();
   const { labTests, cases } = useContext(TimestampsContext);
   const { data: labTestsTimestamp } = labTests;
   const { data: casesTimestamp } = cases;
@@ -35,8 +37,11 @@ const LAB = ({ noTWCount, noClose }) => {
 
   useEffect(() => {
     download1Ref.current.onclick = async () => {
+      downloadScreenshot(`${AWS_LAMBDA_OLD_URL}?screen=homeTop4Cards`);
+    };
+    download2Ref.current.onclick = async () => {
       downloadScreenshot(
-        'https://iy0qntj1j8.execute-api.eu-west-1.amazonaws.com/SledilnikScreenshot?screen=homeTop4Cards'
+        `${AWS_LAMBDA_NEW_URL}?type=multicard&screen=LAB&immediateDownload=true`
       );
     };
   }, []);
@@ -65,7 +70,10 @@ const LAB = ({ noTWCount, noClose }) => {
       noCount={noCount}
       noClose={noClose}
       refreshHandler={refreshHandler}
-      download={[[download1Ref, 'top4Cards']]}
+      download={[
+        [download1Ref, 'top4Cards'],
+        [download2Ref, 'LAB'],
+      ]}
     >
       <Post forwardedRef={ref} id="post-lab" postNumber={1}>
         <Summary title="PCR" />
@@ -82,6 +90,8 @@ const HOS = ({ noTWCount, noClose }) => {
   const download1Ref = useRef();
   const download2Ref = useRef();
   const download3Ref = useRef();
+  const download4Ref = useRef();
+
   const { patients } = useContext(TimestampsContext);
   const { data: patientsTimestamp } = patients;
   const dates = { patients: patientsTimestamp };
@@ -90,18 +100,19 @@ const HOS = ({ noTWCount, noClose }) => {
 
   useEffect(() => {
     download1Ref.current.onclick = async () => {
-      downloadScreenshot(
-        'https://iy0qntj1j8.execute-api.eu-west-1.amazonaws.com/SledilnikScreenshot?screen=homeLast5Cards'
-      );
+      downloadScreenshot(`${AWS_LAMBDA_OLD_URL}?screen=homeLast5Cards`);
     };
     download2Ref.current.onclick = async () => {
-      downloadScreenshot(
-        'https://iy0qntj1j8.execute-api.eu-west-1.amazonaws.com/SledilnikScreenshot?screen=IcuPatients'
-      );
+      downloadScreenshot(`${AWS_LAMBDA_OLD_URL}?screen=IcuPatients`);
     };
     download3Ref.current.onclick = async () => {
       downloadScreenshot(
-        'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot?type=chart&screen=IcuPatients&custom=&hideLegend=true&immediateDownload=true'
+        `${AWS_LAMBDA_NEW_URL}?type=chart&screen=Patients&custom=&hideLegend=true&immediateDownload=true`
+      );
+    };
+    download4Ref.current.onclick = async () => {
+      downloadScreenshot(
+        `${AWS_LAMBDA_NEW_URL}?type=multicard&screen=HOS&immediateDownload=true`
       );
     };
   }, []);
@@ -130,7 +141,8 @@ const HOS = ({ noTWCount, noClose }) => {
       download={[
         [download1Ref, 'last5Cards'],
         [download2Ref, 'IcuPatients'],
-        [download3Ref, 'IcuPatients-Chart'],
+        [download3Ref, 'Patients-Chart'],
+        [download4Ref, 'HOS'],
       ]}
     >
       <Post forwardedRef={ref} id="post-hos" postNumber={2}>

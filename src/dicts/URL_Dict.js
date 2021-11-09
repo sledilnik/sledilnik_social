@@ -33,6 +33,12 @@ export const TIMESTAMP_URL = {
   MUN: `${BASE_TIMESTAMP_URL}/municipality-confirmed.csv.timestamp`,
 };
 
+export const AWS_LAMBDA_OLD_URL =
+  'https://iy0qntj1j8.execute-api.eu-west-1.amazonaws.com/SledilnikScreenshot';
+
+export const AWS_LAMBDA_NEW_URL =
+  'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot';
+
 const URL_Dict = {
   BASE_API_URL,
   API_URL,
