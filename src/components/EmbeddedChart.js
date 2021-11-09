@@ -322,6 +322,7 @@ function EmbeddedChart() {
                 custom: custom,
                 hoverIndex: hoverIndex,
                 hideLegend: hideLegendCheckboxRef?.current.checked,
+                immediateDownload: false,
               }}
               noSkip
               captionTop
