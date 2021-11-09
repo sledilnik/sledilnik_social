@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { TimestampsContext } from './../../context/TimestampsContext';
+import { TimestampsContext } from '../../context/TimestampsContext';
 import Card from '../Card';
 
-import Screenshots from './../Screenshots';
+import Screenshots from '../Screenshots';
 
 const ScreenshotsCard = () => {
   const { stats } = useContext(TimestampsContext);

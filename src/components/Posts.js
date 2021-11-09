@@ -2,19 +2,15 @@ import React, { useRef, useState } from 'react';
 
 import './Posts.css';
 
-import LAB from './Tabs/LAB';
-import HOS from './Tabs/HOS';
-import EPI from './Tabs/EPI';
-import ScreenshotsCard from './Tabs/ScreenshotsCard';
-import EmbeddedChartCard from './Tabs/EmbeddedChartCard';
+import * as Tabs from './Tabs';
 import SocialChanger from './SocialChanger';
 
 const cards = {
-  LAB: <LAB noClose />,
-  HOS: <HOS noClose />,
-  EPI: <EPI noClose />,
-  SCREENSHOTS: <ScreenshotsCard />,
-  CHARTS: <EmbeddedChartCard />,
+  LAB: <Tabs.Lab noClose />,
+  HOS: <Tabs.Hos noClose />,
+  EPI: <Tabs.Epi noClose />,
+  SCREENSHOTS: <Tabs.Screenshots />,
+  CHARTS: <Tabs.Charts />,
 };
 
 function Posts() {
