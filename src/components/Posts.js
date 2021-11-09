@@ -17,12 +17,7 @@ import CancelButton from './CancelButton';
 import Screenshots from './Screenshots';
 import EmbeddedChart from './EmbeddedChart';
 import { AWS_LAMBDA_NEW_URL, AWS_LAMBDA_OLD_URL } from '../dicts/URL_Dict';
-
-const downloadScreenshot = href => {
-  const link = document.createElement('a');
-  link.href = href;
-  link.click();
-};
+import useDownloadLinkClick from './../hooks/useDownloadLinkClick';
 
 const LAB = ({ noTWCount, noClose }) => {
   const ref = useRef();
@@ -33,16 +28,13 @@ const LAB = ({ noTWCount, noClose }) => {
 
   const { summary } = useContext(DataContext);
 
-  useEffect(() => {
-    download1Ref.current.onclick = async () => {
-      downloadScreenshot(`${AWS_LAMBDA_OLD_URL}?screen=homeTop4Cards`);
-    };
-    download2Ref.current.onclick = async () => {
-      downloadScreenshot(
-        `${AWS_LAMBDA_NEW_URL}?type=multicard&screen=LAB&immediateDownload=true`
-      );
-    };
-  }, []);
+  useDownloadLinkClick(
+    [download1Ref, download2Ref],
+    [
+      `${AWS_LAMBDA_OLD_URL}?screen=homeTop4Cards`,
+      `${AWS_LAMBDA_NEW_URL}?type=multicard&screen=LAB&immediateDownload=true`,
+    ]
+  );
 
   const refreshHandler = () => {
     labTests.refetch();
@@ -95,24 +87,15 @@ const HOS = ({ noTWCount, noClose }) => {
 
   const { patients: patientsDataHook } = useContext(DataContext);
 
-  useEffect(() => {
-    download1Ref.current.onclick = async () => {
-      downloadScreenshot(`${AWS_LAMBDA_OLD_URL}?screen=homeLast5Cards`);
-    };
-    download2Ref.current.onclick = async () => {
-      downloadScreenshot(`${AWS_LAMBDA_OLD_URL}?screen=IcuPatients`);
-    };
-    download3Ref.current.onclick = async () => {
-      downloadScreenshot(
-        `${AWS_LAMBDA_NEW_URL}?type=chart&screen=Patients&custom=&hideLegend=true&immediateDownload=true`
-      );
-    };
-    download4Ref.current.onclick = async () => {
-      downloadScreenshot(
-        `${AWS_LAMBDA_NEW_URL}?type=multicard&screen=HOS&immediateDownload=true`
-      );
-    };
-  }, []);
+  useDownloadLinkClick(
+    [download1Ref, download2Ref, download3Ref, download4Ref],
+    [
+      `${AWS_LAMBDA_OLD_URL}?screen=homeLast5Cards`,
+      `${AWS_LAMBDA_OLD_URL}?screen=IcuPatients`,
+      `${AWS_LAMBDA_NEW_URL}?type=chart&screen=Patients&custom=&hideLegend=true&immediateDownload=true`,
+      `${AWS_LAMBDA_NEW_URL}?type=multicard&screen=HOS&immediateDownload=true`,
+    ]
+  );
 
   const refreshHandler = () => {
     patients.refetch();
