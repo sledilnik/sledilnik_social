@@ -29,9 +29,7 @@ const LAB = ({ noTWCount, noClose }) => {
   const download1Ref = useRef();
   const download2Ref = useRef();
   const { labTests, cases } = useContext(TimestampsContext);
-  const { data: labTestsTimestamp } = labTests;
-  const { data: casesTimestamp } = cases;
-  const dates = { 'lab-tests': labTestsTimestamp, cases: casesTimestamp };
+  const dates = { 'lab-tests': labTests.data, cases: cases.data };
 
   const { summary } = useContext(DataContext);
 
@@ -93,8 +91,7 @@ const HOS = ({ noTWCount, noClose }) => {
   const download4Ref = useRef();
 
   const { patients } = useContext(TimestampsContext);
-  const { data: patientsTimestamp } = patients;
-  const dates = { patients: patientsTimestamp };
+  const dates = { patients: patients.data };
 
   const { patients: patientsDataHook } = useContext(DataContext);
 
@@ -162,17 +159,13 @@ const EPI = ({ noTWCount, noClose }) => {
   const [showSettings, setShowSettings] = useState(false);
   const { stats, labTests, cases, patients, munActive } =
     useContext(TimestampsContext);
-  const { data: statsTimestamp } = stats;
-  const { data: labTestsTimestamp } = labTests;
-  const { data: casesTimestamp } = cases;
-  const { data: patientsTimestamp } = patients;
-  const { data: munActiveTimestamp } = munActive;
+
   const dates = {
-    stats: statsTimestamp,
-    'lab-tests': labTestsTimestamp,
-    cases: casesTimestamp,
-    patients: patientsTimestamp,
-    'municipalities-active': munActiveTimestamp,
+    stats: stats.data,
+    'lab-tests': labTests.data,
+    cases: cases.data,
+    patients: patients.data,
+    'municipalities-active': munActive.data,
   };
 
   const dataHooks = useContext(DataContext);
