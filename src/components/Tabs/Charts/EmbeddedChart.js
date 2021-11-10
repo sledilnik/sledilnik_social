@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { addDays } from 'date-fns';
 import './EmbeddedChart.css';
 
-import CHARTS, { getChartUrl } from '../../../dicts/ChartsDict';
-import Screenshot from '../../Screenshot';
-import { formatToLocaleDateString } from '../../../utils/dates';
-import { TimestampsContext } from '../../../context/TimestampsContext';
-import { DataContext } from '../../../context/DataContext';
+import CHARTS, { getChartUrl } from 'dicts/ChartsDict';
+import Screenshot from 'components/Screenshot';
+import { formatToLocaleDateString } from 'utils/dates';
+import { TimestampsContext } from 'context/TimestampsContext';
+import { DataContext } from 'context/DataContext';
 
 const AddDays = {
   patients: 0,
