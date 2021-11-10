@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import './Posts.css';
 
 import * as Tabs from './Tabs';
-import SocialChanger from './SocialChanger';
+import SocialChanger from './Shared/SocialChanger';
 
 const cards = {
   LAB: { component: <Tabs.Lab noClose />, label: 'LAB' },

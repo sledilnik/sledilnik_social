@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react';
 import './SocialChanger.css';
-import { SocialContext } from '../context/SocialContext';
+import { SocialContext } from 'context/SocialContext';
 
 const SocialChanger = () => {
   const leftSpan = useRef(null);

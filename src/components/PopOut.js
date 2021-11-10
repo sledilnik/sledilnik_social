@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './PopOut.css';
 
 import Modal from './Modal';
-import Backdrop from './Backdrop';
+import Backdrop from 'components/Shared/Backdrop';
 import CancelButton from './CancelButton';
 
 function PopOut({
