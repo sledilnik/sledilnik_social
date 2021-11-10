@@ -3,9 +3,9 @@ import { TimestampsContext } from './../../context/TimestampsContext';
 import { DataContext } from './../../context/DataContext';
 import useDownloadLinkClick from './../../hooks/useDownloadLinkClick';
 import { AWS_LAMBDA_OLD_URL, AWS_LAMBDA_NEW_URL } from './../../dicts/URL_Dict';
-import Card from '../Card';
-import Post from '../Post';
-import Patients from '../Data/Patients';
+import Card from 'components/Shared/Card';
+import Patients from 'components/Data/Patients';
+import Post from './Shared/Post';
 
 const HOS = ({ noTWCount, noClose }) => {
   const ref = useRef();

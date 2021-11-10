@@ -25,7 +25,7 @@ const zipNoFolders = (filenames = [], translated = {}) => {
         minimumIntegerDigits: 2,
       });
 
-      zip.file(formattedIndex + '-' + safeFilename + '.png', image, {
+      zip.file(`${formattedIndex}-${safeFilename}.png`, image, {
         base64: true,
       });
     }

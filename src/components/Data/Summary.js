@@ -1,20 +1,20 @@
 import React, { useContext } from 'react';
 import { differenceInDays } from 'date-fns/';
-import { getDate } from '../../utils/dates';
 
-import { DataContext } from '../../context/DataContext';
+import { DataContext } from 'context/DataContext';
 
+import { getDate } from 'utils/dates';
 import {
   formatNumberWithSign,
   formatNumber,
   formatPercentage,
-} from '../../utils/formatNumber';
+} from 'utils/formatNumber';
 
-import Output from '../Output';
-import FetchBoundary from '../FetchBoundary';
-import SomethingWentWrong from '../SomethingWentWrong';
+import Output from 'components/Shared/Output';
+import SomethingWentWrong from 'components/Shared/SomethingWentWrong';
+import FetchBoundary from './Shared/FetchBoundary';
 
-import SummaryData from '../../dicts/SummaryDataDict';
+import SummaryData from 'dicts/SummaryDataDict';
 
 const POPULATION = 2_100_126;
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import SkeletonRow from './SkeletonRow';
-import DataRow from './DataRow';
-import SomethingWentWrong from './SomethingWentWrong';
+import SkeletonRow from 'components/Shared/SkeletonRow';
+import DataRow from 'components/Shared/DataRow';
+import SomethingWentWrong from 'components/Shared/SomethingWentWrong';
 
 function FetchBoundary(props) {
   return <>{props.children}</>;

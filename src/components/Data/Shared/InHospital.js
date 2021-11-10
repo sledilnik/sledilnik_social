@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Output from '../../Output';
+import Output from '../../Shared/Output';
 import { SocialContext } from '../../../context/SocialContext';
 
 function InHospital(props) {

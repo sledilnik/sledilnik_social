@@ -1,11 +1,4 @@
-import React, { useContext } from 'react';
-
-import './Post.css';
-
 import { format } from 'date-fns';
-import { SocialContext } from './../context/SocialContext';
-
-const mainComponentsNames = ['LAB', 'HOS', 'EPI'];
 
 const Emoji = ({ emoji, ariaLabel }) => (
   <span role="img" aria-label={ariaLabel}>
@@ -13,8 +6,7 @@ const Emoji = ({ emoji, ariaLabel }) => (
   </span>
 );
 
-const Intro = ({ postNumber, introTodayDate }) => {
-  const postsCount = mainComponentsNames.length;
+const Intro = ({ postNumber, introTodayDate, postsCount }) => {
   return (
     <h3>
       <span>
@@ -60,12 +52,14 @@ const Outro = ({ spark = false }) => {
   );
 };
 
-function Post({
+export default function Post({
   id,
   postNumber,
   hasHeader = true,
   children,
   hasFooter = true,
+  spark,
+  postsCount,
   ...props
 }) {
   const { forwardedRef } = props;
@@ -73,42 +67,15 @@ function Post({
     <Intro
       postNumber={postNumber}
       introTodayDate={format(new Date(), 'd.M.yyyy')}
+      postsCount={postsCount}
     />
   );
-  const footer = hasFooter && <Outro spark={props.spark} />;
+  const footer = hasFooter && <Outro spark={spark} />;
   return (
-    <article ref={forwardedRef} id={id} className="Post">
+    <article ref={forwardedRef} id={id} {...props}>
       {header}
       {children}
       {footer}
     </article>
   );
 }
-
-const SparkDict = {
-  FB: {
-    LAB: false,
-    HOS: false,
-    EPI: false,
-  },
-  TW: {
-    LAB: false,
-    HOS: false,
-    EPI: false,
-  },
-};
-
-function withPostHOC(Component) {
-  const WithPost = React.forwardRef((props, ref) => {
-    const post = props.id.replace('post-', '').toUpperCase();
-    const { social } = useContext(SocialContext);
-    const spark = SparkDict[social][post];
-    const newProps = { ...props, spark };
-
-    return <Component forwardedRef={ref} {...newProps} />;
-  });
-
-  return WithPost;
-}
-
-export default withPostHOC(Post);

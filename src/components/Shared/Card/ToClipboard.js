@@ -1,8 +1,8 @@
 import React, { useRef, useContext } from 'react';
 import './ToClipboard.css';
 
-import PopOut from './PopOut';
-import { SocialContext } from './../context/SocialContext';
+import PopOut from 'components/Shared/PopOut';
+import { SocialContext } from 'context/SocialContext';
 
 function ToClipboard({
   open,
@@ -14,11 +14,7 @@ function ToClipboard({
   const textareaRef = useRef();
 
   const buttons = (
-    <>
-      <button onClick={() => onConfirm(textareaRef.current)}>
-        V odložišče
-      </button>
-    </>
+    <button onClick={() => onConfirm(textareaRef.current)}>V odložišče</button>
   );
 
   return (

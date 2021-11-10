@@ -3,9 +3,9 @@ import { TimestampsContext } from 'context/TimestampsContext';
 import { DataContext } from 'context/DataContext';
 import CancelButton from 'components/Shared/CancelButton';
 
-import Card from '../Card';
-import Post from '../Post';
-import * as Data from '../Data';
+import Card from 'components/Shared/Card';
+import * as Data from 'components/Data';
+import Post from './Shared/Post';
 
 const EPI = ({ noTWCount, noClose }) => {
   const ref = useRef();

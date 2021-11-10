@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Screenshot.css';
-import useFetch from '../hooks/useFetch';
-import useLocalStorage from '../hooks/useLocalStorage';
-import Loader from './Loader';
+import useFetch from 'hooks/useFetch';
+import useLocalStorage from 'hooks/useLocalStorage';
+import Loader from 'components/Shared/Loader';
 
 const ScreenshotContainer = ({
   captionTop,

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 
-import { SocialContext } from '../context/SocialContext';
-import DataRow from './DataRow';
-import TextsDict from '../dicts/SocialTextsDict';
+import { SocialContext } from '../../context/SocialContext';
+import DataRow from 'components/Shared/DataRow';
+import TextsDict from '../../dicts/SocialTextsDict';
 
 function Output({ output, noArrow, markFail, ...props }) {
   return (

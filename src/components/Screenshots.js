@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ScreenshotNames } from '../dicts/ScreenshotGetUseLocalStorage';
 import Screenshot from './Screenshot';
 import './Screenshots.css';
-import ZipLink from './ZipLink';
+import ZipLink from './Shared/ZipLink';
 import ScreenshotGetUseLocalStorage from '../dicts/ScreenshotGetUseLocalStorage';
 
 import CHART from '../dicts/ChartsDict';

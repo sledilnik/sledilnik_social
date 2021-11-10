@@ -1,5 +1,5 @@
 import React from 'react';
-import DataRow from './DataRow';
+import DataRow from 'components/Shared/DataRow';
 
 function SomethingWentWrong({ title = '' }) {
   const text = title && typeof title === 'string' && `${title}: `;

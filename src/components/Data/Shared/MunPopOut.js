@@ -1,6 +1,6 @@
 import React from 'react';
 import './MunPopOut.css';
-import PopOut from './PopOut';
+import PopOut from '../../Shared/PopOut';
 
 function MunPopOut({ open, output, onCancel = () => {} }) {
   return (
@@ -10,10 +10,4 @@ function MunPopOut({ open, output, onCancel = () => {} }) {
   );
 }
 
-function withMunPopOutHOC(Component) {
-  const WithMunPopOut = ({ ...props }) => {
-    return <Component {...props} />;
-  };
-  return WithMunPopOut;
-}
-export default withMunPopOutHOC(MunPopOut);
+export default MunPopOut;

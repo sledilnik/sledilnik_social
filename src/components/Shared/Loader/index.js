@@ -1,7 +1,7 @@
 import React from 'react';
 import './Loader.css';
-import part1SVG from '../assets/svg/covid-animation-1.svg';
-import part2SVG from '../assets/svg/covid-animation-2.svg';
+import part1SVG from 'assets/svg/covid-animation-1.svg';
+import part2SVG from 'assets/svg/covid-animation-2.svg';
 
 function Loader() {
   return (

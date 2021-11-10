@@ -6,8 +6,8 @@ import { DataContext } from '../../context/DataContext';
 import { formatNumber } from '../../utils/formatNumber';
 import { getDate } from '../../utils/dates';
 
-import DataRow from './../DataRow';
-import FetchBoundary from './../FetchBoundary';
+import DataRow from '../Shared/DataRow';
+import FetchBoundary from './Shared/FetchBoundary';
 
 // path patients
 function PerAge({ hook, deltas, isWrongDate }) {

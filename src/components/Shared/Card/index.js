@@ -5,13 +5,13 @@ import './Card.css';
 import { formatRelative } from 'date-fns';
 import { sl } from 'date-fns/locale';
 
-import sledilnikLogo from '../assets/svg/sledilnik-logo.svg';
+import sledilnikLogo from 'assets/svg/sledilnik-logo.svg';
 
-import ToClipboard from './ToClipboard';
+import TextWithTooltip from 'components/Shared/TextWithTooltip';
 import TweetCount from './TweetCount';
-import TextWithTooltip from './TextWithTooltip';
+import ToClipboard from './ToClipboard';
 
-import { SocialContext } from './../context/SocialContext';
+import { SocialContext } from 'context/SocialContext';
 
 const removeConsecutiveNewLines = text => {
   const step1 = text.replace(/(\r\n|\r|\n){2,}/g, '\n');
@@ -90,16 +90,16 @@ function withCardHOC(Component) {
     }
 
     const isOpen = detailsRef?.current?.open;
-    useEffect(() => setShowCharCount(social === 'TW' && isOpen && !noCount), [
-      social,
-      isOpen,
-      noCount,
-    ]);
+    useEffect(
+      () => setShowCharCount(social === 'TW' && isOpen && !noCount),
+      [social, isOpen, noCount]
+    );
 
     const text = postRef?.current?.innerText;
-    useEffect(() => text && setClipboard(removeConsecutiveNewLines(text)), [
-      text,
-    ]);
+    useEffect(
+      () => text && setClipboard(removeConsecutiveNewLines(text)),
+      [text]
+    );
 
     const openPopOutHandler = () => {
       const article = postRef.current;

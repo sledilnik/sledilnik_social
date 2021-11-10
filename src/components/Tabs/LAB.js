@@ -3,9 +3,9 @@ import { DataContext } from '../../context/DataContext';
 import { TimestampsContext } from '../../context/TimestampsContext';
 import { AWS_LAMBDA_NEW_URL, AWS_LAMBDA_OLD_URL } from '../../dicts/URL_Dict';
 import useDownloadLinkClick from '../../hooks/useDownloadLinkClick';
-import Card from '../Card';
-import Post from '../Post';
-import Summary from '../Data/Summary';
+import Card from 'components/Shared/Card';
+import Summary from 'components/Data/Summary';
+import Post from './Shared/Post';
 
 const LAB = ({ noTWCount, noClose }) => {
   const ref = useRef();

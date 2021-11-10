@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { TimestampsContext } from '../../context/TimestampsContext';
-import Card from '../Card';
+import Card from '../Shared/Card/index.js';
 
 import Screenshots from '../Screenshots';
 

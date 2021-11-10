@@ -1,17 +1,14 @@
 import React, { useContext } from 'react';
 import { differenceInDays } from 'date-fns';
 
-import { DataContext } from '../../../context/DataContext';
+import { DataContext } from 'context/DataContext';
 
-import {
-  formatNumber,
-  formatNumberWithSign,
-} from '../../../utils/formatNumber';
-import { getDate } from '../../../utils/dates';
+import { formatNumber, formatNumberWithSign } from 'utils/formatNumber';
+import { getDate } from 'utils/dates';
 
-import DataRow from '../../DataRow';
-import InHospital from './InHospital';
-import FetchBoundary from '../../FetchBoundary';
+import DataRow from 'components/Shared/DataRow';
+import InHospital from './Shared/InHospital';
+import FetchBoundary from './Shared/FetchBoundary';
 
 const dictionary = {
   oseba: ['oseba', 'osebi', 'osebe', 'osebe', 'oseb'],
