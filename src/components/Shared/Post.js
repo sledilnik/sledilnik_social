@@ -60,9 +60,9 @@ export default function Post({
   hasFooter = true,
   spark,
   postsCount,
+  forwardedRef,
   ...props
 }) {
-  const { forwardedRef } = props;
   const header = hasHeader && (
     <Intro
       postNumber={postNumber}
