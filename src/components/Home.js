@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-import './Posts.css';
+import './Home.css';
 
 import * as Tabs from './Tabs';
 import SocialChanger from './Shared/SocialChanger';
