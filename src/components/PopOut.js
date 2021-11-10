@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import './PopOut.css';
 
-import Modal from './Modal';
+import Modal from 'components/Shared/Modal';
 import Backdrop from 'components/Shared/Backdrop';
-import CancelButton from './CancelButton';
+import CancelButton from 'components/Shared/CancelButton';
 
 function PopOut({
   children,

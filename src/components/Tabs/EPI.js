@@ -1,7 +1,8 @@
 import { useRef, useState, useContext, useEffect } from 'react';
-import { TimestampsContext } from './../../context/TimestampsContext';
-import { DataContext } from './../../context/DataContext';
-import CancelButton from '../CancelButton';
+import { TimestampsContext } from 'context/TimestampsContext';
+import { DataContext } from 'context/DataContext';
+import CancelButton from 'components/Shared/CancelButton';
+
 import Card from '../Card';
 import Post from '../Post';
 import * as Data from '../Data';
