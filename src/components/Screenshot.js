@@ -4,6 +4,7 @@ import './Screenshot.css';
 import useFetch from 'hooks/useFetch';
 import useLocalStorage from 'hooks/useLocalStorage';
 import Loader from 'components/Shared/Loader';
+import { AWS_LAMBDA_NEW_URL } from 'dicts/URL_Dict';
 
 const ScreenshotContainer = ({
   captionTop,
@@ -45,9 +46,6 @@ Screenshot.propTypes = {
   filename: PropTypes.string,
 };
 
-const awsLambdaURL =
-  'https://325sfff4r2.execute-api.eu-central-1.amazonaws.com/sledilnikScreenshot';
-
 const replaceAll = (text, string, replaceValue) => {
   const newText = text.replace(string, replaceValue);
   const indexOf = newText.indexOf(string);
@@ -74,7 +72,7 @@ function withScreenshotHOC(Component) {
 
     const [value, setValue] = useLocalStorage(null, localStorageName);
     const { data, isLoading, hasError, refetch, setSkip, updateParams } =
-      useFetch(awsLambdaURL, params, {}, !!value && !noSkip);
+      useFetch(AWS_LAMBDA_NEW_URL, params, {}, !!value && !noSkip);
 
     const base64Img = noSkip ? data?.body : value || data?.body;
 

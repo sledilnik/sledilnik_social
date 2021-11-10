@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { TimestampsContext } from '../../context/TimestampsContext';
-import Card from '../Shared/Card/index.js';
+import { TimestampsContext } from 'context/TimestampsContext';
+import Card from 'components/Shared/Card';
 
-import Screenshots from '../Screenshots';
+import ScreenshotsContainer from './Shared/ScreenshotsContainer';
 
 const ScreenshotsCard = () => {
   const { stats } = useContext(TimestampsContext);
@@ -20,7 +20,7 @@ const ScreenshotsCard = () => {
       noToClipboard
       noCount
     >
-      <Screenshots />
+      <ScreenshotsContainer />
     </Card>
   );
 };
