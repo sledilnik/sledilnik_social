@@ -3,7 +3,7 @@ import { addDays } from 'date-fns';
 import './EmbeddedChart.css';
 
 import CHARTS, { getChartUrl } from 'dicts/ChartsDict';
-import Screenshot from 'components/Screenshot';
+import Screenshot from 'components/Tabs/Shared/Screenshot';
 import { formatToLocaleDateString } from 'utils/dates';
 import { TimestampsContext } from 'context/TimestampsContext';
 import { DataContext } from 'context/DataContext';

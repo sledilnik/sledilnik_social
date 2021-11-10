@@ -3,48 +3,9 @@ import PropTypes from 'prop-types';
 import './Screenshot.css';
 import useFetch from 'hooks/useFetch';
 import useLocalStorage from 'hooks/useLocalStorage';
-import Loader from 'components/Shared/Loader';
 import { AWS_LAMBDA_NEW_URL } from 'dicts/URL_Dict';
 
-const ScreenshotContainer = ({
-  captionTop,
-  captionBottom,
-  figCaptionText,
-  children,
-  ...props
-}) => (
-  <>
-    {captionTop && <figcaption>{figCaptionText}</figcaption>}
-    <div {...props}>{children}</div>
-    {captionBottom && <figcaption>{figCaptionText}</figcaption>}
-  </>
-);
-
-const Screenshot = ({ ...props }) => {
-  const { base64Img, filename, alt, ...rest } = props;
-  return (
-    <ScreenshotContainer {...rest}>
-      <a href={`data:image/png;base64,${base64Img}`} download={filename}>
-        <img
-          src={`data:image/jpeg;base64,${base64Img}`}
-          alt={alt}
-          loading="lazy"
-          decoding="true"
-          async
-        />
-      </a>
-    </ScreenshotContainer>
-  );
-};
-
-Screenshot.propTypes = {
-  captionTop: PropTypes.bool,
-  captionBottom: PropTypes.bool,
-  base64Img: PropTypes.string,
-  alt: PropTypes.string,
-  figCaptionText: PropTypes.node,
-  filename: PropTypes.string,
-};
+import * as ScreenshotContainers from 'components/Tabs/Shared/ScreenshotContainers';
 
 const replaceAll = (text, string, replaceValue) => {
   const newText = text.replace(string, replaceValue);
@@ -106,31 +67,6 @@ function withScreenshotHOC(Component) {
       </>
     );
 
-    if (hasError && !isLoading && !base64Img) {
-      return (
-        <ScreenshotContainer
-          className="Screenshot loader-container"
-          figCaptionText={figCaptionText}
-          {...rest}
-        >
-          <h3>Something went wrong!</h3>
-          <button onClick={refetch}>Try again</button>
-        </ScreenshotContainer>
-      );
-    }
-
-    if (isLoading) {
-      return (
-        <ScreenshotContainer
-          className="Screenshot loader-container"
-          figCaptionText={figCaptionText}
-          {...rest}
-        >
-          <Loader />
-        </ScreenshotContainer>
-      );
-    }
-
     const componentProps = {
       filename,
       alt,
@@ -138,6 +74,24 @@ function withScreenshotHOC(Component) {
       figCaptionText,
       ...rest,
     };
+
+    if (hasError && !isLoading && !base64Img) {
+      return (
+        <ScreenshotContainers.Error
+          className="Screenshot loader-container"
+          {...componentProps}
+        />
+      );
+    }
+
+    if (isLoading) {
+      return (
+        <ScreenshotContainers.Loading
+          className="Screenshot loader-container"
+          {...componentProps}
+        />
+      );
+    }
 
     return <Component className="Screenshot" {...componentProps} />;
   };
@@ -164,4 +118,4 @@ function withScreenshotHOC(Component) {
 
   return ScreenshotHOC;
 }
-export default withScreenshotHOC(Screenshot);
+export default withScreenshotHOC(ScreenshotContainers.LinkImage);

@@ -1,4 +1,4 @@
-import Screenshot from 'components/Screenshot';
+import Screenshot from 'components/Tabs/Shared/Screenshot';
 import { CHART, CARD, MULTICARD, ScreenshotNames } from 'dicts';
 
 const typesDict = {
