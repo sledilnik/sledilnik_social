@@ -6,15 +6,7 @@ import useLocalStorage from 'hooks/useLocalStorage';
 import { AWS_LAMBDA_NEW_URL } from 'dicts/URL_Dict';
 
 import * as ScreenshotContainers from 'components/Tabs/Shared/ScreenshotContainers';
-
-const replaceAll = (text, string, replaceValue) => {
-  const newText = text.replace(string, replaceValue);
-  const indexOf = newText.indexOf(string);
-  if (indexOf > -1) {
-    return replaceAll(newText, string, replaceValue);
-  }
-  return newText;
-};
+import { replaceAll } from 'utils';
 
 const getLocalStorageName = ({ screen, custom, hoverIndex }) => {
   let localStorageName = custom ? `${screen}_${custom}` : screen;

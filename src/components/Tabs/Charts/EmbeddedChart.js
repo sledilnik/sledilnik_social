@@ -7,6 +7,7 @@ import Screenshot from 'components/Tabs/Shared/Screenshot';
 import { formatToLocaleDateString } from 'utils/dates';
 import { TimestampsContext } from 'context/TimestampsContext';
 import { DataContext } from 'context/DataContext';
+import { replaceAll } from 'utils';
 
 const AddDays = {
   patients: 0,
@@ -23,15 +24,6 @@ const SeriesLength = {
 const DefaultHoverValues = {
   days: '0',
   municipalities: 'ajdovščina',
-};
-
-const replaceAll = (text, string, replaceValue) => {
-  const newText = text.replace(string, replaceValue);
-  const indexOf = newText.indexOf(string);
-  if (indexOf > -1) {
-    return replaceAll(newText, string, replaceValue);
-  }
-  return newText;
 };
 
 function EmbeddedChart() {
