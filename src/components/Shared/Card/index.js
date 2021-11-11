@@ -19,22 +19,20 @@ const removeConsecutiveNewLines = text => {
 };
 
 const Card = React.forwardRef(
-  ({ id, open, summary, footer, popout, ...props }, ref) => {
-    return (
-      <details
-        ref={ref}
-        id={id}
-        className="Card"
-        open={open}
-        onClick={props.onClick}
-      >
-        {summary}
-        {props.children}
-        {footer}
-        {popout}
-      </details>
-    );
-  }
+  ({ id, open, summary, footer, popout, ...props }, ref) => (
+    <details
+      ref={ref}
+      id={id}
+      className="Card"
+      open={open}
+      onClick={props.onClick}
+    >
+      {summary}
+      {props.children}
+      {footer}
+      {popout}
+    </details>
+  )
 );
 
 const getTimestamp = dates => {
@@ -54,13 +52,11 @@ const getTimestamp = dates => {
   return { relativeDate, path: timestampPath };
 };
 
-const IconButton = React.forwardRef((props, ref) => {
-  return (
-    <span ref={ref} className="icon">
-      <i className={props.fontAwesome}></i>
-    </span>
-  );
-});
+const IconButton = React.forwardRef((props, ref) => (
+  <span ref={ref} className="icon">
+    <i className={props.fontAwesome}></i>
+  </span>
+));
 
 function withCardHOC(Component) {
   const WithCard = ({
@@ -194,7 +190,7 @@ function withCardHOC(Component) {
       />
     );
 
-    const summaryId = 'summary-' + cardId;
+    const summaryId = `summary-${cardId}`;
     const summary = (
       <summary ref={summaryRef} id={summaryId}>
         <div className="summary-row">

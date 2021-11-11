@@ -48,9 +48,9 @@ function withToClipboardHOC(Component) {
     const { close, clear, ...rest } = props;
     const { social } = useContext(SocialContext);
 
-    const displaySettings = settingsOutput.map((item, index) => {
-      return <span key={`${props.title}-${item}-${index}`}>{item}</span>;
-    });
+    const displaySettings = settingsOutput.map((item, index) => (
+      <span key={`${props.title}-${item}-${index}`}>{item}</span>
+    ));
 
     const socialStyle = {
       display: 'flex',
