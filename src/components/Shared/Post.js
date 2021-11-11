@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { format } from 'date-fns';
 
 const Emoji = ({ emoji, ariaLabel }) => (
@@ -52,7 +53,7 @@ const Outro = ({ spark = false }) => {
   );
 };
 
-export default function Post({
+function Post({
   id,
   postNumber,
   hasHeader = true,
@@ -79,3 +80,9 @@ export default function Post({
     </article>
   );
 }
+
+function areEqual(prevProps, nextProps) {
+  return prevProps.forwardedRef === nextProps.forwardedRef;
+}
+
+export default memo(Post, areEqual);
