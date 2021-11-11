@@ -68,19 +68,21 @@ function withScreenshotHOC(Component) {
     };
 
     if (hasError && !isLoading && !base64Img) {
+      const errorProps = { alt: 'error', figCaptionText, ...rest };
       return (
         <ScreenshotContainers.Error
           className="Screenshot loader-container"
-          {...componentProps}
+          {...errorProps}
         />
       );
     }
 
     if (isLoading) {
+      const loadingProps = { alt: 'loading', figCaptionText, ...rest };
       return (
         <ScreenshotContainers.Loading
           className="Screenshot loader-container"
-          {...componentProps}
+          {...loadingProps}
         />
       );
     }

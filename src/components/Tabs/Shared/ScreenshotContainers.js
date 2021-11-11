@@ -41,13 +41,9 @@ LinkImage.propTypes = {
   filename: PropTypes.string,
 };
 
-export const Error = ({ figCaptionText, btnHandler, ...rest }) => {
+export const Error = ({ btnHandler, ...props }) => {
   return (
-    <ScreenshotContainer
-      className="Screenshot loader-container"
-      figCaptionText={figCaptionText}
-      {...rest}
-    >
+    <ScreenshotContainer {...props}>
       <h3>Something went wrong!</h3>
       <button onClick={btnHandler}>Try again</button>
     </ScreenshotContainer>
@@ -61,14 +57,9 @@ Error.propTypes = {
   btnHandler: PropTypes.func,
 };
 
-export const Loading = ({ ...props }) => {
-  const { figCaptionText, ...rest } = props;
+export const Loading = props => {
   return (
-    <ScreenshotContainer
-      className="Screenshot loader-container"
-      figCaptionText={figCaptionText}
-      {...rest}
-    >
+    <ScreenshotContainer {...props}>
       <Loader />
     </ScreenshotContainer>
   );
