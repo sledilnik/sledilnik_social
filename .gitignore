@@ -26,3 +26,6 @@ yarn-error.log*
 /temp
 
 .env
+
+# vscode p42 extension config file
+p42.toml
