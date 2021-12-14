@@ -1,0 +1,27 @@
+.Screenshot {
+  font-size: 0.8em;
+}
+
+div > figcaption {
+  font-size: 0.8em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div > figcaption > .icon {
+  font-size: 0.75em;
+  cursor: pointer;
+}
+
+.Screenshot.loader-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  min-width: 295px;
+  min-height: 165px;
+  background-color: var(--white);
+  border-radius: 6px;
+  margin: 4px 0;
+}

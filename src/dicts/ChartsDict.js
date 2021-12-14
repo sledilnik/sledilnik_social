@@ -402,6 +402,10 @@ const ChartsDict = {
         text: 'Vse bolnišnice - 2m',
         ...CUSTOM_CHART_OPTIONS.patients2Months,
       },
+      byHospital: {
+        name: 'byHospital',
+        text: 'Po bolnišnicah - 2m',
+      },
     },
   },
   IcuPatients: {
