@@ -1,5 +1,6 @@
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 import { format } from 'date-fns';
+import { SocialContext } from 'context/SocialContext';
 
 const Emoji = ({ emoji, ariaLabel }) => (
   <span role="img" aria-label={ariaLabel}>
@@ -8,11 +9,17 @@ const Emoji = ({ emoji, ariaLabel }) => (
 );
 
 const Intro = ({ postNumber, introTodayDate, postsCount }) => {
+  const { social } = useContext(SocialContext);
+
+  const isFB = social === 'FB';
+
+  const postThread = isFB ? '' : `${postNumber}/${postsCount}`;
+
   return (
     <h3>
       <span>
-        Status #COVID19 <Emoji emoji={'🇸🇮'} ariaLabel={'flag'} /> {postNumber}/
-        {postsCount} {introTodayDate}
+        Status #COVID19 <Emoji emoji={'🇸🇮'} ariaLabel={'flag'} /> {postThread}{' '}
+        {introTodayDate}
       </span>
     </h3>
   );
