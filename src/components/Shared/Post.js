@@ -26,19 +26,17 @@ const Intro = ({ postNumber, introTodayDate, postsCount }) => {
 };
 
 const Outro = ({ spark = false }) => {
-  const emojis = `💪💉+🌬️🏠+😷+🙎↔↔🙎‍♂️=⛔🦠!`;
+  const emojis = `💪💉💉💉+🌬️🏠+FFP2😷+🙎↔↔🙎‍♂️=⛔🦠!`;
 
-  const EmojisRow = () => <Emoji emoji={emojis} ariaLabel="emojis"></Emoji>;
+  const EmojisRow = () => <Emoji emoji={emojis} ariaLabel="emojis" />;
 
   const Spark = () => <Emoji emoji={'✨'} ariaLabel="spark" />;
 
-  const Link = ({ text = '', href = '', target = '', rel = '' }) => {
-    return (
-      <a href={href} target={target} rel={rel}>
-        {text ? text : href}
-      </a>
-    );
-  };
+  const Link = ({ text = '', href = '', target = '', rel = '' }) => (
+    <a href={href} target={target} rel={rel}>
+      {text ? text : href}
+    </a>
+  );
 
   const SparkRow = () => (
     <>
