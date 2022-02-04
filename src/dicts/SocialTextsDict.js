@@ -2,8 +2,8 @@ const DEFAULT_PCR = {
   default: {
     text1: 'PCR: ',
     text2: ', testiranih: ',
-    text3: ', delež pozitivnih: ',
-    text4: '.',
+    text3: ', ',
+    text4: ' pozitivnih.',
   },
   onlyValue: {},
 };
@@ -12,8 +12,8 @@ const DEFAULT_HAT = {
   default: {
     text1: 'HAT: ',
     text2: ', testiranih: ',
-    text3: ', delež pozitivnih: ',
-    text4: '.',
+    text3: ', ',
+    text4: ' pozitivnih.',
   },
   onlyValue: {
     text1: 'HAT: ',
@@ -51,7 +51,7 @@ const DEFAULT_Vaccination2 = {
 const DEFAULT_CasesActive100k = {
   default: {
     text1: '14d pojavnost: ',
-    text2: ' na 100.000 prebivalcev.',
+    text2: ' na 100k prebivalcev.',
   },
   onlyValue: {},
 };
@@ -127,7 +127,7 @@ const PCR = {
     onlyValue: { ...DEFAULT_PCR.onlyValue },
   },
   TW: {
-    default: { ...DEFAULT_PCR.default, text4: '' },
+    default: { ...DEFAULT_PCR.default },
     onlyValue: { ...DEFAULT_PCR.onlyValue },
   },
 };
@@ -138,7 +138,7 @@ const HAT = {
     onlyValue: { ...DEFAULT_HAT.onlyValue },
   },
   TW: {
-    default: { ...DEFAULT_HAT.default, text4: '' },
+    default: { ...DEFAULT_HAT.default },
     onlyValue: { ...DEFAULT_HAT.onlyValue },
   },
 };
