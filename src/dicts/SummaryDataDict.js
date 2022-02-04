@@ -9,6 +9,10 @@ const SocialDataDict = {
     types: { default: 'percentage', fallback: 'onlyValue' },
     mandatoryProperties: ['value', 'positive', 'percent'],
   },
+  NewCases: {
+    field: 'casesActive',
+    types: { default: 'noValueOnlyIn', fallback: null },
+  },
   ActiveCases: {
     field: 'casesActive',
     types: { default: 'bracketsInOut', fallback: null },

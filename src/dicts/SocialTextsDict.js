@@ -2,18 +2,18 @@ const DEFAULT_PCR = {
   default: {
     text1: 'PCR: ',
     text2: ', testiranih: ',
-    text3: ', ',
-    text4: ' pozitivnih.',
+    text3: ', pozitivnih: ',
+    text4: '',
   },
-  onlyValue: {},
+  onlyValue: { text1: 'PCR: ', text2: ' testiranih.', text3: '', text4: '' },
 };
 
 const DEFAULT_HAT = {
   default: {
     text1: 'HAT: ',
     text2: ', testiranih: ',
-    text3: ', ',
-    text4: ' pozitivnih.',
+    text3: ', pozitivnih: ',
+    text4: '',
   },
   onlyValue: {
     text1: 'HAT: ',
@@ -28,6 +28,14 @@ const DEFAULT_ActiveCases = {
     text1: 'Aktivni primeri: ',
     text2: ' ',
     text3: '.',
+  },
+  onlyValue: {},
+};
+
+const DEFAULT_NewCases = {
+  default: {
+    text1: 'Novi primeri: ',
+    text2: '.',
   },
   onlyValue: {},
 };
@@ -140,6 +148,16 @@ const HAT = {
   TW: {
     default: { ...DEFAULT_HAT.default },
     onlyValue: { ...DEFAULT_HAT.onlyValue },
+  },
+};
+const NewCases = {
+  FB: {
+    default: { ...DEFAULT_NewCases.default },
+    onlyValue: { ...DEFAULT_NewCases.onlyValue },
+  },
+  TW: {
+    default: { ...DEFAULT_NewCases.default },
+    onlyValue: { ...DEFAULT_NewCases.onlyValue },
   },
 };
 
@@ -255,6 +273,7 @@ const InHospital = {
 const summaryDict = {
   PCR,
   HAT,
+  NewCases,
   ActiveCases,
   Vaccination1,
   Vaccination2,

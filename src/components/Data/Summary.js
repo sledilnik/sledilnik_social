@@ -81,6 +81,12 @@ const getFormattedValues = (
     };
   }
 
+  if (type === 'noValueOnlyIn') {
+    return {
+      value1: formatNumber(_in),
+    };
+  }
+
   if (type === 'onlyValue') {
     return {
       value1: formatNumber(value),
