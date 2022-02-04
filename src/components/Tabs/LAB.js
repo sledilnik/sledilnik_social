@@ -39,8 +39,6 @@ const LAB = ({ noTWCount, noClose }) => {
 
   const noCount = noTWCount || loadingOrError || timestampsLoading;
 
-  console.log(summary?.data?.testsToday);
-
   return (
     <Card
       postRef={ref}
