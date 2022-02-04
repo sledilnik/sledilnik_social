@@ -89,8 +89,8 @@ const DEFAULT_Hospitalized_RZ_C19 = {
     text2: ' ',
     text3: ', EIT: ',
     text4: ' ',
-    text5: ', 🔴: ',
-    text6: ', c19:  ',
+    text5: ', c19:  ',
+    text6: ', 🔴 cona: ',
     text7: '.',
   },
   onlyValue: {},
@@ -142,12 +142,12 @@ const DEFAULT_InHospital = {
 };
 
 const DEFAULT_RedZone = {
-  default: { text1: 'Rdeča cona 🔴: ', text2: '.' },
+  default: { text1: 'Rdeča cona: ', text2: '.' },
   onlyValue: {},
 };
 
 const DEFAULT_ReasonCovid = {
-  default: { text1: 'Zaradi c19: ', text2: '.' },
+  default: { text1: 'Vodilna diagnoza c19: ', text2: '.' },
   onlyValue: {},
 };
 

@@ -63,8 +63,8 @@ const getValues = (data, field) => {
       [inHospital.in, inHospital.out],
       icu.today,
       icu.today - beforeIcu.today,
-      redZone.today,
       inHospital.reasonCovid,
+      redZone.today,
     ];
   }
 
