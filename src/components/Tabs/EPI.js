@@ -122,6 +122,8 @@ const EPI = ({ noTWCount, noClose }) => {
         <Data.PerAge />
         <Data.Patients title="Hospitalized" />
         <Data.Patients title="OnRespiratory" />
+        <Data.Patients title="ReasonCovid" />
+        <Data.Patients title="RedZone" />
         <Data.Patients title="Deceased" />
         <Data.InHospitals />
         <Data.Municipalities icons="FB" showIcons={showIcons} what={what} />

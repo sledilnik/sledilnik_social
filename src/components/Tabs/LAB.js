@@ -54,10 +54,10 @@ const LAB = ({ noTWCount, noClose }) => {
       ]}
     >
       <Post forwardedRef={ref} id="post-lab" postNumber={1}>
-        <Summary title="PCR" />
-        <Summary title="HAT" />
         <Summary title="ActiveCases" />
         <Summary title="CasesActive100k" />
+        <Summary title="PCR" />
+        <Summary title="HAT" />
       </Post>
     </Card>
   );
