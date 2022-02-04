@@ -83,6 +83,18 @@ const DEFAULT_Hospitalized = {
   },
   onlyValue: {},
 };
+const DEFAULT_Hospitalized_RZ_C19 = {
+  default: {
+    text1: 'Hospitalizirani: ',
+    text2: ' ',
+    text3: ', EIT: ',
+    text4: ' ',
+    text5: ', 🔴: ',
+    text6: ', c19:  ',
+    text7: '.',
+  },
+  onlyValue: {},
+};
 
 const DEFAULT_OnRespiratory = {
   default: {
@@ -126,6 +138,16 @@ const DEFAULT_InHospital = {
     text8: '',
     text9: '.',
   },
+  onlyValue: {},
+};
+
+const DEFAULT_RedZone = {
+  default: { text1: 'Rdeča cona 🔴: ', text2: '.' },
+  onlyValue: {},
+};
+
+const DEFAULT_ReasonCovid = {
+  default: { text1: 'Zaradi c19: ', text2: '.' },
   onlyValue: {},
 };
 
@@ -225,6 +247,16 @@ const Hospitalized = {
     onlyValue: { ...DEFAULT_Hospitalized.onlyValue },
   },
 };
+const Hospitalized_RZ_C19 = {
+  FB: {
+    default: { ...DEFAULT_Hospitalized_RZ_C19.default },
+    onlyValue: { ...DEFAULT_Hospitalized_RZ_C19.onlyValue },
+  },
+  TW: {
+    default: { ...DEFAULT_Hospitalized_RZ_C19.default },
+    onlyValue: { ...DEFAULT_Hospitalized_RZ_C19.onlyValue },
+  },
+};
 
 const OnRespiratory = {
   FB: {
@@ -270,6 +302,27 @@ const InHospital = {
   },
 };
 
+const ReasonCovid = {
+  FB: {
+    default: { ...DEFAULT_ReasonCovid.default },
+    onlyValue: { ...DEFAULT_ReasonCovid.onlyValue },
+  },
+  TW: {
+    default: { ...DEFAULT_ReasonCovid.default },
+    onlyValue: { ...DEFAULT_ReasonCovid.onlyValue },
+  },
+};
+const RedZone = {
+  FB: {
+    default: { ...DEFAULT_RedZone.default },
+    onlyValue: { ...DEFAULT_RedZone.onlyValue },
+  },
+  TW: {
+    default: { ...DEFAULT_RedZone.default },
+    onlyValue: { ...DEFAULT_RedZone.onlyValue },
+  },
+};
+
 const summaryDict = {
   PCR,
   HAT,
@@ -283,10 +336,13 @@ const summaryDict = {
 
 const patientsDict = {
   Hospitalized,
+  Hospitalized_RZ_C19,
   OnRespiratory,
   Care,
   Deceased,
   InHospital,
+  RedZone,
+  ReasonCovid,
 };
 
 const getDict = dict => {

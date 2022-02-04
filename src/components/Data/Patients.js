@@ -53,6 +53,30 @@ const getValues = (data, field) => {
     const { deceased } = data[0].total;
     return [deceased.today, deceased.toDate];
   }
+
+  if (field === 'hospitalized_rz_c19') {
+    const { inHospital, icu, redZone } = data[0].total;
+    const { icu: beforeIcu } = data[1].total;
+
+    return [
+      inHospital.today,
+      [inHospital.in, inHospital.out],
+      icu.today,
+      icu.today - beforeIcu.today,
+      redZone.today,
+      inHospital.reasonCovid,
+    ];
+  }
+
+  if (field === 'redZone') {
+    const { redZone } = data[0].total;
+    return [redZone.today];
+  }
+
+  if (field === 'reasonCovid') {
+    const { inHospital } = data[0].total;
+    return [inHospital.reasonCovid];
+  }
 };
 
 const getFormattedValues = (type, values) => {
@@ -89,6 +113,23 @@ const getFormattedValues = (type, values) => {
     return {
       value1: formatNumberWithSign(values[0]),
       value2: formatNumber(values[1]),
+    };
+  }
+
+  if (type === 'single') {
+    return { value1: formatNumber(values[0]) };
+  }
+
+  if (type === 'hospRedZoneAndReasonCovid') {
+    return {
+      value1: formatNumber(values[0]),
+      value2: `(${formatNumberWithSign(values[1][0])}, ${formatNumberWithSign(
+        -values[1][1]
+      )})`,
+      value3: formatNumber(values[2]),
+      value4: `(${formatNumberWithSign(values[3])})`,
+      value5: formatNumber(values[4]),
+      value6: formatNumber(values[5]),
     };
   }
 };

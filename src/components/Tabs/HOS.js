@@ -58,7 +58,7 @@ const HOS = ({ noTWCount, noClose }) => {
       ]}
     >
       <Post forwardedRef={ref} id="post-hos" postNumber={2}>
-        <Patients title="Hospitalized" />
+        <Patients title="Hospitalized_RZ_C19" />
         <Patients title="OnRespiratory" />
         <Patients title="Deceased" />
       </Post>
