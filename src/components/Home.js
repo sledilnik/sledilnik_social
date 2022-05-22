@@ -9,6 +9,8 @@ const cards = {
   LAB: { component: <Tabs.Lab noClose />, label: 'LAB' },
   HOS: { component: <Tabs.Hos noClose />, label: 'HOS' },
   EPI: { component: <Tabs.Epi noClose />, label: 'EPI' },
+  LAB_W: { component: <Tabs.LabW noClose />, label: 'LAB_W' },
+  EPI_W: { component: <Tabs.EpiW noClose />, label: 'EPI_W' },
   SCREENSHOTS: { component: <Tabs.Screenshots />, label: 'Posnetki' },
   CHARTS: { component: <Tabs.Charts />, label: 'Grafi' },
 };
