@@ -42,7 +42,7 @@ const LAB = ({ noTWCount, noClose }) => {
   return (
     <Card
       postRef={ref}
-      title="LAB"
+      title="LAB_W"
       dates={dates}
       open
       noCount={noCount}
@@ -53,7 +53,7 @@ const LAB = ({ noTWCount, noClose }) => {
         [download2Ref, 'LAB'],
       ]}
     >
-      <Post forwardedRef={ref} id="post-lab" postNumber={1} postsCount={2}>
+      <Post forwardedRef={ref} id="post-lab_w" postNumber={1} postsCount={2}>
         <Summary title="ActiveCases" />
         <Summary title="CasesActive100k" />
         <Summary title="PCR" />

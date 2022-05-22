@@ -65,7 +65,7 @@ const EPI = ({ noTWCount, noClose }) => {
   return (
     <Card
       postRef={ref}
-      title="EPI"
+      title="EPI_W"
       dates={dates}
       open
       noCount={noCount}
@@ -111,7 +111,7 @@ const EPI = ({ noTWCount, noClose }) => {
           </div>
         </div>
       )}
-      <Post forwardedRef={ref} id="post-epi" postsCount={2} postNumber={2}>
+      <Post forwardedRef={ref} id="post-epi_w" postsCount={2} postNumber={2}>
         <Data.Summary title="PCR" />
         <Data.Summary title="HAT" />
         <Data.Summary title="ActiveCases" />

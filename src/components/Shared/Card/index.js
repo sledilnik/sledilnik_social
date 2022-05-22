@@ -130,7 +130,10 @@ function withCardHOC(Component) {
       setShowCharCount(social === 'TW' && details.open && !noCount);
     };
 
-    const cardTitle = <h2 className="card-title">{title}</h2>;
+    const titleTruncIndex = title.indexOf('_');
+    const titleTrunc =
+      titleTruncIndex === -1 ? title : title.slice(0, titleTruncIndex);
+    const cardTitle = <h2 className="card-title">{titleTrunc}</h2>;
 
     const cardId = `card-${title?.toLowerCase()}`;
     const counter = showCharCount && (
