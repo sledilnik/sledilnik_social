@@ -120,7 +120,6 @@ const EPI = ({ noTWCount, noClose }) => {
         <Data.Summary title="Vaccination1" />
         <Data.Summary title="ConfirmedToDate" />
         <Data.PerAge />
-        <Data.InHospitals />
         <Data.Municipalities icons="FB" showIcons={showIcons} what={what} />
       </Post>
     </Card>
