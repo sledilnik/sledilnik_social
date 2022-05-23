@@ -23,7 +23,7 @@ function withPostHOC(Component) {
 
   const WithPost = React.forwardRef((props, ref) => {
     const post = props.id.replace('post-', '').toUpperCase();
-    const postsCount = mainComponentsNames.length;
+    const postsCount = props.postsCount ?? mainComponentsNames.length;
     const { social } = useContext(SocialContext);
     const spark = SparkDict[social][post];
     const newProps = { ...props, spark, postsCount, className: 'Post' };
