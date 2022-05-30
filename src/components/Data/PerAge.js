@@ -23,9 +23,16 @@ function PerAge({ hook, deltas, isWrongDate }) {
 const getPerAgeData = data => {
   const sortedData = [...data].sort((a, b) => b.dayFromStart - a.dayFromStart);
 
-  const todayPerAge = sortedData[1].statePerAgeToDate;
-  const yesterdayPerAge =
-    sortedData[2]?.statePerAgeToDate ?? sortedData[1].statePerAgeToDate;
+  const todayPerAge = sortedData[1]?.statePerAgeToDate;
+  const yesterdayPerAge = sortedData[2]?.statePerAgeToDate;
+
+  if (!todayPerAge || !yesterdayPerAge) {
+    return {
+      deltas: [],
+      isWrongDate: true,
+      error: new Error('"statePerAgeToDate" not available!'),
+    };
+  }
 
   const _deltas = todayPerAge.map(
     (item, i) => item.allToDate - yesterdayPerAge[i].allToDate
@@ -51,15 +58,47 @@ const getPerAgeData = data => {
   return {
     deltas,
     isWrongDate,
+    error: null,
   };
 };
 
 function withPerAgeHOC(Component) {
   const WithPerAge = ({ ...props }) => {
     const { stats: hook } = useContext(DataContext);
-    const data = hook.data && getPerAgeData(hook.data);
 
-    return <Component hook={hook} {...data} {...props} />;
+    if (hook.data?.length < 3) {
+      const receivedDataLengthError = new Error(
+        `Missing line from /api/stats. Got ${hook.data?.length} lines instead of 3.`
+      );
+      console.error(receivedDataLengthError);
+      return (
+        <DataRow markFail={true}>
+          Potrjeni primeri po starosti: Error: {receivedDataLengthError.message}
+          !
+        </DataRow>
+      );
+    }
+
+    const { deltas, isWrongDate, error } =
+      hook.data && getPerAgeData(hook.data);
+
+    if (error) {
+      console.error(error);
+      return (
+        <DataRow markFail={true}>
+          Potrjeni primeri po starosti: Error: {error.message}.
+        </DataRow>
+      );
+    }
+
+    return (
+      <Component
+        hook={hook}
+        deltas={deltas}
+        isWrongDate={isWrongDate}
+        {...props}
+      />
+    );
   };
   return WithPerAge;
 }
