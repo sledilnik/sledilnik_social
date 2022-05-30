@@ -24,7 +24,8 @@ const getPerAgeData = data => {
   const sortedData = [...data].sort((a, b) => b.dayFromStart - a.dayFromStart);
 
   const todayPerAge = sortedData[1].statePerAgeToDate;
-  const yesterdayPerAge = sortedData[2].statePerAgeToDate;
+  const yesterdayPerAge =
+    sortedData[2]?.statePerAgeToDate ?? sortedData[1].statePerAgeToDate;
 
   const _deltas = todayPerAge.map(
     (item, i) => item.allToDate - yesterdayPerAge[i].allToDate
