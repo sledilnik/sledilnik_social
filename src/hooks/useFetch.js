@@ -29,11 +29,15 @@ const useFetch = (
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const controller = new AbortController();
+    const fetchData = async controller => {
       if (skipFetch) return;
       setIsLoading(true);
       try {
-        const response = await fetch(`${url}?${queryString}`, options);
+        const response = await fetch(`${url}?${queryString}`, {
+          ...options,
+          signal: controller.signal,
+        });
         const result = await response.json();
         if (response.ok) {
           setData(result);
@@ -49,8 +53,8 @@ const useFetch = (
       }
     };
 
-    fetchData();
-    // setTimeout(() => fetchData(), 3000);
+    fetchData(controller);
+    return () => controller.abort();
   }, [url, params, refetchIndex, queryString, options, skipFetch]);
 
   return {
