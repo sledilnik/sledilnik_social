@@ -23,8 +23,13 @@ function PerAge({ hook, deltas, isWrongDate }) {
 const getPerAgeData = data => {
   const sortedData = [...data].sort((a, b) => b.dayFromStart - a.dayFromStart);
 
-  const todayPerAge = sortedData[1]?.statePerAgeToDate;
-  const yesterdayPerAge = sortedData[2]?.statePerAgeToDate;
+  const dataLength = sortedData.length;
+
+  const todayIndex = dataLength === 3 ? 1 : 0;
+  const yesterdayIndex = dataLength === 3 ? 2 : 1;
+
+  const todayPerAge = sortedData[todayIndex]?.statePerAgeToDate;
+  const yesterdayPerAge = sortedData[yesterdayIndex]?.statePerAgeToDate;
 
   if (!todayPerAge || !yesterdayPerAge) {
     return {
@@ -53,8 +58,11 @@ const getPerAgeData = data => {
 
   const allIsNaN = _deltas.every(item => isNaN(item));
 
+  const dayDiffToCompare = dataLength === 3 ? 0 : 1;
+
   const isWrongDate =
-    differenceInDays(new Date(), getDate(sortedData[0])) > 0 || allIsNaN;
+    differenceInDays(new Date(), getDate(sortedData[0])) > dayDiffToCompare ||
+    allIsNaN;
   return {
     deltas,
     isWrongDate,
@@ -65,19 +73,6 @@ const getPerAgeData = data => {
 function withPerAgeHOC(Component) {
   const WithPerAge = ({ ...props }) => {
     const { stats: hook } = useContext(DataContext);
-
-    if (hook.data?.length < 3) {
-      const receivedDataLengthError = new Error(
-        `Missing line from /api/stats. Got ${hook.data?.length} lines instead of 3.`
-      );
-      console.error(receivedDataLengthError);
-      return (
-        <DataRow markFail={true}>
-          Potrjeni primeri po starosti: Error: {receivedDataLengthError.message}
-          !
-        </DataRow>
-      );
-    }
 
     const { deltas, isWrongDate, error } =
       hook.data && getPerAgeData(hook.data);

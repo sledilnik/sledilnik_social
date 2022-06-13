@@ -21,6 +21,12 @@ function Patients({ hook, title, outputProps, ...props }) {
 }
 
 const getValues = (data, field) => {
+  console.log({ data, field });
+
+  if (data.length === 0) {
+    throw new Error('No data for ' + field + '!');
+  }
+
   if (field === 'hospitalized') {
     const { inHospital, icu } = data[0].total;
     const { icu: beforeIcu } = data[1].total;
@@ -179,6 +185,7 @@ function withPatientsHOC(Component) {
     try {
       outputProps = sortedData && getOutputProps(sortedData, title);
     } catch (error) {
+      console.error(error);
       return <SomethingWentWrong title={title} />;
     }
 

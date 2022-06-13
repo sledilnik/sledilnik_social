@@ -154,6 +154,7 @@ function withSummary_HOC(Component) {
         hook.data[field] &&
         getOutputProps(hook.data[field], title);
     } catch (error) {
+      console.error(error);
       return <SomethingWentWrong title={title} />;
     }
 
