@@ -50,7 +50,14 @@ function InHospitals({ hook, perHospitalChanges, isWrongDate }) {
       text: getTranslate(icu.today, 'oseba'),
     };
 
-    const noHospitalData = hosp[1].inHospital.today === undefined;
+    // also if today === 0; we don't want to show hospitall with 0 patients
+    const noHospitalData =
+      hosp[1].inHospital.today === undefined ||
+      (isNaN(inHospital.in) && isNaN(inHospital.in));
+
+    const showIcu =
+      (icu.today > 0 && icu.in === 0 && icu.out) === 0 ||
+      (icu.today === 0 && (icu.in > 0 || icu.out > 0));
 
     return noHospitalData ? (
       ''
@@ -62,6 +69,7 @@ function InHospitals({ hook, perHospitalChanges, isWrongDate }) {
         hosp={{ ...formattedInHospital }}
         icu={{ ...foramttedIcu }}
         isWrongDate={isWrongDate}
+        showIcu={showIcu}
       />
     );
   };

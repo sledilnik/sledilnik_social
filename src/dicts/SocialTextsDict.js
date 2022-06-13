@@ -139,6 +139,7 @@ const DEFAULT_InHospital = {
     text9: '.',
   },
   onlyValue: {},
+  noIcu: { text1: '', text2: ': ', text3: '', text4: '', text5: '.' },
 };
 
 const DEFAULT_RedZone = {
@@ -295,10 +296,12 @@ const InHospital = {
   FB: {
     default: { ...DEFAULT_InHospital.default },
     onlyValue: { ...DEFAULT_InHospital.onlyValue },
+    noIcu: { ...DEFAULT_InHospital.noIcu },
   },
   TW: {
     default: { ...DEFAULT_InHospital.default },
     onlyValue: { ...DEFAULT_InHospital.onlyValue },
+    noIcu: { ...DEFAULT_InHospital.noIcu },
   },
 };
 
