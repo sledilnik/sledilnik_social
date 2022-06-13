@@ -56,8 +56,7 @@ function InHospitals({ hook, perHospitalChanges, isWrongDate }) {
       (isNaN(inHospital.in) && isNaN(inHospital.in));
 
     const showIcu =
-      (icu.today > 0 && icu.in === 0 && icu.out) === 0 ||
-      (icu.today === 0 && (icu.in > 0 || icu.out > 0));
+      icu.today > 0 || (icu.today === 0 && (icu.in > 0 || icu.out > 0));
 
     return noHospitalData ? (
       ''
