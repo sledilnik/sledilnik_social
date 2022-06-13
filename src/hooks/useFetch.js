@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const useFetch = (
   initialUrl,
   initialParams = {},
@@ -46,8 +48,15 @@ const useFetch = (
           setErrorMessage(result);
         }
       } catch (err) {
-        setHasError(true);
-        setErrorMessage(err.message);
+        if (
+          err instanceof DOMException &&
+          err.name === 'AbortError' &&
+          !isDev
+        ) {
+          console.log(err);
+          setHasError(true);
+          setErrorMessage(err.message);
+        }
       } finally {
         setIsLoading(false);
       }
