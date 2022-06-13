@@ -9,6 +9,7 @@ import { getDate } from 'utils/dates';
 import DataRow from 'components/Shared/DataRow';
 import InHospital from './Shared/InHospital';
 import FetchBoundary from './Shared/FetchBoundary';
+import { SomethingWentWrong } from 'components/Shared';
 
 const dictionary = {
   oseba: ['oseba', 'osebi', 'osebe', 'osebe', 'oseb'],
@@ -22,6 +23,10 @@ const getTranslate = (num, text) => {
 
 // patients
 function InHospitals({ hook, perHospitalChanges, isWrongDate }) {
+  if (perHospitalChanges instanceof Error) {
+    return <SomethingWentWrong title="Stanje po bolnišnicah:" />;
+  }
+
   const sortDescByPatients = (a, b) =>
     (b[1].inHospital.today || 0) - (a[1].inHospital.today || 0);
 
@@ -133,12 +138,19 @@ function prepareHospitalsDict(hospitalsList) {
 // -> [["ukclj", {care: {...}, critical: {..}, deceased: {...},deceasedCare: {...}, icu: {...}, inHospital: {...}, niv: {...} }],...]
 // properties of interest icu & inHospital
 function getPerHospitalChanges(patients) {
-  const patientsDataIsNotUndefined = !isUndefined(patients);
-  return patientsDataIsNotUndefined && Object.entries(patients.facilities);
+  if (isUndefined(patients)) {
+    return new Error('Patients are undefined');
+  }
+  return Object.entries(patients.facilities);
 }
 
 // -> [["ukclj", {...}, "UKC Ljubljana"],... ]
 function findAndPushLongHospitalName(perHospitalChanges, hospitalsDict) {
+  if (perHospitalChanges instanceof Error) {
+    console.error(perHospitalChanges);
+    return perHospitalChanges;
+  }
+
   return perHospitalChanges.map(hospital => {
     const hospitalLongName = hospitalsDict.filter(
       item => hospital[0] === item[0]
