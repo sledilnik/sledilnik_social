@@ -21,8 +21,6 @@ function Patients({ hook, title, outputProps, ...props }) {
 }
 
 const getValues = (data, field) => {
-  console.log({ data, field });
-
   if (data.length === 0) {
     throw new Error('No data for ' + field + '!');
   }
