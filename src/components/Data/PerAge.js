@@ -23,8 +23,6 @@ function PerAge({ hook, deltas, isWrongDate }) {
 const getPerAgeData = data => {
   const sortedData = [...data].sort((a, b) => b.dayFromStart - a.dayFromStart);
 
-  console.log(sortedData);
-
   const dataLength = sortedData.length;
 
   const todayIndex = dataLength >= 3 ? 1 : 0;
