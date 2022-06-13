@@ -24,7 +24,7 @@ const getTranslate = (num, text) => {
 // patients
 function InHospitals({ hook, perHospitalChanges, isWrongDate }) {
   if (perHospitalChanges instanceof Error) {
-    return <SomethingWentWrong title="Stanje po bolnišnicah:" />;
+    return <SomethingWentWrong title="Stanje po bolnišnicah" />;
   }
 
   const sortDescByPatients = (a, b) =>
