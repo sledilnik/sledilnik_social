@@ -11,9 +11,16 @@ function InHospital(props) {
 }
 
 function withInHospital_HOC(Component) {
-  const InHospital = ({ hospShort, hospitalName, hosp, icu, ...props }) => {
+  const InHospital = ({
+    hospShort,
+    hospitalName,
+    hosp,
+    icu,
+    showIcu,
+    ...props
+  }) => {
     const { social } = useContext(SocialContext);
-    const kindOfData = 'default'; // set which text to use from SocialTextDict
+    const kindOfData = showIcu ? 'default' : 'noIcu'; // set which text to use from SocialTextDict
 
     const data = {
       value1: hospitalName,
@@ -22,6 +29,10 @@ function withInHospital_HOC(Component) {
       value6: icu.number,
       value8: `(${icu.in}, ${icu.out})`,
     };
+
+    if (!showIcu) {
+      ['value6', 'value8'].forEach(key => delete data[key]);
+    }
 
     const newProps = {
       ...props,
