@@ -51,9 +51,10 @@ function InHospitals({ hook, perHospitalChanges, isWrongDate }) {
     };
 
     // also if today === 0; we don't want to show hospitall with 0 patients
-    const noHospitalData =
-      hosp[1].inHospital.today === undefined ||
-      (isNaN(inHospital.in) && isNaN(inHospital.in));
+    const inHospToday = hosp[1].inHospital.today;
+    const inHospIn = hosp[1].inHospital.in;
+    const inHospOut = hosp[1].inHospital.out;
+    const noHospitalData = !inHospToday && !inHospIn && !inHospOut;
 
     const showIcu =
       icu.today > 0 || (icu.today === 0 && (icu.in > 0 || icu.out > 0));
