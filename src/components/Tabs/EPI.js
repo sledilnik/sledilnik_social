@@ -116,8 +116,8 @@ const EPI = ({ noTWCount, noClose }) => {
         <Data.Summary title="HAT" />
         <Data.Summary title="ActiveCases" />
         <Data.Summary title="CasesActive100k" />
-        <Data.Summary title="Vaccination2" />
-        <Data.Summary title="Vaccination1" />
+        {/* <Data.Summary title="Vaccination2" />
+        <Data.Summary title="Vaccination1" /> */}
         <Data.Summary title="ConfirmedToDate" />
         <Data.PerAge />
         <Data.Patients title="Hospitalized" />
